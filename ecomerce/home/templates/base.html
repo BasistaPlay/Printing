@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    {% block css %}
+      {% endblock %}
+</head>
+
+<body>
+
+    <header class='header'>
+        <a href='#' class='Logo'>Logo</a>
+
+        <nav class='navbar'>
+            <a href='#'>Shop</a>
+            <a href='#'>Creative corner</a>
+            <a href='#'>Contact us</a>
+            <a href='#' class='Signup'>Sign up</a>
+        </nav>
+
+        <div class="ri-menu-line" id='menu-icon'></div>
+
+        <div class='dropdown_menu'>
+            <li><a href='#'>Shop</a></li>
+            <li><a href='#'>Creative corner</a></li>
+            <li><a href='#'>Contact us</a></li>
+            <li><a href='#' class='Signup'>Sign up</a></li>
+        </div>
+    </header>
+
+    {% block body %}{% endblock %}
+</body>
+
+    {% block js %}{% endblock %}
+</html>
