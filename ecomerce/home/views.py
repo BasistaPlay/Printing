@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .models import Product
 
 def homepage(request):
-    return render(request, 'home_page.html')
+    products = Product.objects.all()
+    return render(request, 'home_page.html', {'products': products})

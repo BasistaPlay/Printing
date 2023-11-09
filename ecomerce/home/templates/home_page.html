@@ -10,19 +10,21 @@
 
 
 <main>
-    <div class="container">
-        <section class="content">
-            <div class="content-text">
-                <h1>Design Your Tee Your Way!<h1>
-                <h2>Style it your style!</h2>
-                <p>Atbloķējiet savu radošo potenciālu ar mūsu augstākās kvalitātes T-krekliem. Izveidojiet unikālu, personalizētu dizainu, lai izceltu savu stilu un izceltos.</p>
-                <a href="#">Izveidojiet dizainu savam T-kreklam</a>
-            </div>
-            <div class='content-img'>
-                <img src="{% static 'img/t-short.png' %}" alt="Your Image">
-            </div>
-        </section>
-    </div>
+    {% for product in products %}
+        <div class="container" style="background: linear-gradient(45deg,{{ product.background_color }}, {{ product.background_color_2 }});">
+            <section class="content">
+                <div class="content-text">
+                    <h1>{{ product.title }}<h1>
+                    <h2>{{ product.moto }}</h2>
+                    <p>{{ product.description }}</p>
+                    <a href="{{ product.link }}" style="background: {{ product.button_color }};">{{ product.button_title }}</a>
+                </div>
+                <div class='content-img'>
+                    <img src="{{ product.image.url }}" alt="Image">
+                </div>
+            </section>
+        </div>
+    {% endfor %}
 </main>
 
 {% endblock %}
