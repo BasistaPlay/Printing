@@ -17,36 +17,43 @@
 <body>
 
     <header class='header'>
-        <a href='#' class='Logo'>Logo</a>
+        <a href='{% url 'homepage' %}' class='Logo'>Logo</a>
 
         <nav class='navbar'>
+            <form id="languageForm" action="{% url 'set_language' %}" method="post" formtarget="_self" class="pseudo-form">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <input name="language" id="languageInput" type="hidden" value="">
+            </form>
+
             <a href='#'>{% trans 'veikals' %}</a>
             <a href='#'>{% trans 'Radošais stūrītis' %}</a>
             <a href='#'>{% trans 'Sazinies ar mums' %}</a>
-            <a href='#' class='Signup'>{% trans 'Pierakstīties' %}</a>
-            {% get_current_language as CURRENT_LANGUAGE %}
-            {% get_available_languages as AVAILABLE_LANGUAGES %}
-            {% get_language_info_list for AVAILABLE_LANGUAGES as languages %}
-                {% for language in languages %}
-                    <a href="/{{ language.code }}/"
-                      {% if language.code == CURRENT_LANGUAGE %} class="active"{% endif %}>
-                      {{ language.name_local }}
-                    </a>
-                {% endfor %}
-        </nav>
+            <a href='{% url 'login' %}' class='Signup'>{% trans 'Pierakstīties' %}</a>
 
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <a href="#" onclick="submitLanguage('{{ language.code }}')">
+                    {{ language.code }}
+                </a>
+            {% endfor %}
+        </nav>
         <div class="ri-menu-line" id='menu-icon'></div>
 
         <div class='dropdown_menu'>
             <li><a href='#'>{% trans 'veikals' %}</a></li>
             <li><a href='#'>{% trans 'Radošais stūrītis' %}</a></li>
             <li><a href='#'>{% trans 'Sazinies ar mums' %}</a></li>
-            <li><a href='#' class='Signup'>{% trans 'Pierakstīties' %}</a></li>
+            <li><a href='{% url 'login' %}' class='Signup'>{% trans 'Pierakstīties' %}</a></li>
+
         </div>
     </header>
 
     {% block body %}{% endblock %}
 </body>
 
-    {% block js %}{% endblock %}
+<script src="{% static 'js/base.js' %}"></script>
+{% block js %}{% endblock %}
 </html>

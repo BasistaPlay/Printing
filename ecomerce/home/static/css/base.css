@@ -85,7 +85,7 @@ li a{
 }
 
 .dropdown_menu.open{
-    height: 200px;
+    height: 300px;
 }
 
 .dropdown_menu li{
@@ -96,7 +96,7 @@ li a{
     color: #000000;
 }
 
-@media (max-width:1150px){
+@media (max-width:1550px){
     #menu-icon{
         display: block;
     }

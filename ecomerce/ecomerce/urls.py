@@ -20,17 +20,21 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.conf.urls.static import static
 
-from home.views import *
+
+from home.views import homepage, login_view, register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('i18n/', include('django.conf.urls.i18n')),
-    path('', homepage, name='homepagae'),
+    path('', homepage, name='homepage'),
+    path('login/', login_view, name='login'),
+    path('register/', register, name='register'),
 ]
 
 urlpatterns += i18n_patterns(
-    path('', homepage, name='homepagae'),
-
+    path('', homepage, name='homepage'),
+    path('login/', login_view, name='login'),
+    path('register/', register, name='register'),
 )
 
 if settings.DEBUG:

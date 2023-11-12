@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-09 23:32+0200\n"
+"POT-Creation-Date: 2023-11-11 22:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,64 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\templates\base.html:23 .\templates\base.html:32
+#: .\home\templates\base.html:23 .\home\templates\base.html:41
 msgid "veikals"
 msgstr "shop"
 
-#: .\templates\base.html:24 .\templates\base.html:33
+#: .\home\templates\base.html:24 .\home\templates\base.html:42
 msgid "Radošais stūrītis"
 msgstr "Creative corner"
 
-#: .\templates\base.html:25 .\templates\base.html:34
+#: .\home\templates\base.html:25 .\home\templates\base.html:43
 msgid "Sazinies ar mums"
 msgstr "Contact us"
 
-#: .\templates\base.html:26 .\templates\base.html:35
+#: .\home\templates\base.html:26 .\home\templates\base.html:44
 msgid "Pierakstīties"
 msgstr "Sign up"
+
+#: .\home\templates\login.html:15 .\home\templates\login.html:20
+#: .\home\templates\register.html:40
+msgid "Pieslēgties"
+msgstr "Sign up"
+
+#: .\home\templates\login.html:17 .\home\templates\register.html:20
+msgid "e-pasts"
+msgstr "e-mail"
+
+#: .\home\templates\login.html:18 .\home\templates\register.html:34
+msgid "Parole"
+msgstr "Password"
+
+#: .\home\templates\login.html:23
+msgid "Vai jums nav konta? "
+msgstr "Don`t have an account? "
+
+#: .\home\templates\login.html:23 .\home\templates\register.html:16
+#: .\home\templates\register.html:37
+msgid "Reģistrēties"
+msgstr "Register"
+
+#: .\home\templates\register.html:18
+msgid "Vārds"
+msgstr "First name"
+
+#: .\home\templates\register.html:19
+msgid "Uzvārds"
+msgstr "Last name"
+
+#: .\home\templates\register.html:26
+msgid "Telefona numurs"
+msgstr "Phone Number"
+
+#: .\home\templates\register.html:29
+msgid "Meklēt pēc valsts nosaukuma"
+msgstr "Search by country name"
+
+#: .\home\templates\register.html:35
+msgid "Apstipriniet paroli"
+msgstr "Confirm Password"
+
+#: .\home\templates\register.html:40
+msgid "Vai jums jau ir konts? "
+msgstr "Do you already have an account?"

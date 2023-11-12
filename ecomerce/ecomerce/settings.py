@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,6 +27,8 @@ SECRET_KEY = 'django-insecure-v1fiaup#2ni$7o)+u(uzkc9n$((#nrayt9__52wtm#651%-tpj
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = ["https://96e5-212-142-81-248.ngrok-free.app"]
 
 
 # Application definition
@@ -139,10 +141,13 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+JAZZMIN_SETTINGS = {
+    "language_chooser": True
+}

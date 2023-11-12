@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load static i18n %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/phone.css' %}" />
+{% endblock %}
+
+{% block body %}
+
+    <div class='login-form register'>
+        <div class='container'>
+            <div class='main'>
+                <div class='content'>
+                    <h2>{% trans 'Reģistrēties' %}</h2>
+                    <form action='' method='post'>
+                        {% csrf_token %}
+                        <input type='text' name='first_name' placeholder="{% trans 'Vārds' %}" required>
+                        <input type='text' name='last_name' placeholder="{% trans 'Uzvārds' %}" required>
+                        <input type='email' name='email' placeholder="{% trans 'e-pasts' %}" required>
+                        <div class="select-box">
+                            <div class="selected-option">
+                                <div>
+                                    <strong>+371</strong>
+                                </div>
+                                <input type="tel" name="phone_number" placeholder="{% trans 'Telefona numurs' %}" required>
+                            </div>
+                            <div class="options">
+                                <input type="text" class="search-box" placeholder="{% trans 'Meklēt pēc valsts nosaukuma' %}">
+                                <ol>
+                                </ol>
+                            </div>
+                        </div>
+                        <input type='password' name='pass1' placeholder="{% trans 'Parole' %}" required>
+                        <input type='password' name='pass2' placeholder="{% trans 'Apstipriniet paroli' %}" required>
+                        <button class='btn' type='submit'>
+                            {% trans 'Reģistrēties' %}
+                        </button>
+                    </form>
+                    <p class='account'>{% trans 'Vai jums jau ir konts? ' %} <a href='{% url 'login' %}'>{% trans 'Pieslēgties' %}</a></p>
+                </div>
+                <div class='form-img'>
+                    <img src="{% static '/img/login.png' %}" alt=''>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script src="{% static 'js/phone.js' %}"></script>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product, CustomUser
 from modeltranslation.admin import TranslationAdmin
 
 @admin.register(Product)
@@ -15,6 +15,3 @@ class ProdructAdmin(TranslationAdmin):
         css = {
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
-
-
-# Register your models here.

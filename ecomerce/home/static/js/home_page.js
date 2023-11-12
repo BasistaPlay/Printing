@@ -1,11 +1,3 @@
-const toggleBtn = document.querySelector('#menu-icon')
-const DropDownMenu = document.querySelector('.dropdown_menu')
-
-toggleBtn.onclick = () => {
-    toggleBtn.classList.toggle('bx-x')
-    DropDownMenu.classList.toggle('open')
-}
-
 const sr = ScrollReveal({
     distance: '65px',
     duration: 2600,
