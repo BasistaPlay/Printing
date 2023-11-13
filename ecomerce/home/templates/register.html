@@ -2,6 +2,10 @@
 {% load static %}
 {% load static i18n %}
 
+{% block title %}
+    {% trans 'Reģistrēties' %}
+{% endblock %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}" />
     <link rel="stylesheet" href="{% static 'css/phone.css' %}" />
@@ -41,7 +45,15 @@
                     <p class='account'>{% trans 'Vai jums jau ir konts? ' %} <a href='{% url 'login' %}'>{% trans 'Pieslēgties' %}</a></p>
                 </div>
                 <div class='form-img'>
-                    <img src="{% static '/img/login.png' %}" alt=''>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="error-message">
+                                <p class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    <img src="{% static '/img/register.png' %}" alt=''>
+                    {% endif %}
                 </div>
             </div>
         </div>

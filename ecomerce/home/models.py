@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
 from colorfield.fields import ColorField
+from django.utils.translation import gettext as _
 
 class CustomUser(AbstractUser):
     phone_number = models.CharField(max_length=15, blank=True, null=True, unique=True)
@@ -17,15 +18,15 @@ class CustomUser(AbstractUser):
         return self.username
 
 class Product(models.Model):
-    title = models.CharField(max_length=100, unique=True, blank=False, help_text="Ievadiet produkta nosaukumu.")
-    moto = models.CharField(max_length=200, blank=False, help_text="Ievadiet produktam saistīto moto vai saukli.")
-    description = models.TextField(blank=False, help_text="Ievadiet detalizētu aprakstu par produktu.")
-    image = models.ImageField(upload_to='products/', blank=False, help_text="Ievadiet detalizētu aprakstu par produktu.")
-    button_title = models.CharField(max_length=100, blank=False, help_text="Ievadiet pogas nosaukumu.")
-    link = models.URLField(blank=True, help_text="Ievadiet saiti, uz kuru vedīs poga (ja nepieciešams).")
-    background_color = ColorField(verbose_name='Color', blank=False, help_text="Izvēlieties fona krāsu.")
-    background_color_2 = ColorField(verbose_name='Color', blank=False, help_text="Izvēlieties otrā fona krāsu.")
-    button_color = ColorField(verbose_name='Color', blank=True, help_text="Izvēlieties pogas fona krāsu.")
+    title = models.CharField(max_length=100, unique=True, blank=False, help_text=_("Ievadiet produkta nosaukumu."))
+    moto = models.CharField(max_length=200, blank=False, help_text=_("Ievadiet produktam saistīto moto vai saukli."))
+    description = models.TextField(blank=False, help_text=_("Ievadiet detalizētu aprakstu par produktu."))
+    image = models.ImageField(upload_to='products/', blank=False, help_text=_("Ievadiet detalizētu aprakstu par produktu."))
+    button_title = models.CharField(max_length=100, blank=False, help_text=_("Ievadiet pogas nosaukumu."))
+    link = models.URLField(blank=True, help_text=_("Ievadiet saiti, uz kuru vedīs poga (ja nepieciešams)."))
+    background_color = ColorField(verbose_name='Color', blank=False, help_text=_("Izvēlieties fona krāsu."))
+    background_color_2 = ColorField(verbose_name='Color', blank=False, help_text=_("Izvēlieties otrā fona krāsu."))
+    button_color = ColorField(verbose_name='Color', blank=True, help_text=_("Izvēlieties pogas fona krāsu."))
 
     def __str__(self):
         return self.title

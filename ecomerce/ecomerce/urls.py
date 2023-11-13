@@ -19,9 +19,10 @@ from django.utils.translation import gettext_lazy as _
 from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 
-from home.views import homepage, login_view, register
+from home.views import homepage, login_view, register, logout_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,12 +30,21 @@ urlpatterns = [
     path('', homepage, name='homepage'),
     path('login/', login_view, name='login'),
     path('register/', register, name='register'),
+    path('logout/', logout_view, name='logout'),
+    path('reset_password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 ]
 
 urlpatterns += i18n_patterns(
     path('', homepage, name='homepage'),
     path('login/', login_view, name='login'),
     path('register/', register, name='register'),
+    path('reset_password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 )
 
 if settings.DEBUG:

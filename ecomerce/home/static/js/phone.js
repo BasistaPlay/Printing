@@ -281,7 +281,7 @@ function selectOption() {
         phone_code = this.querySelector('strong').cloneNode(true);
 
     selected_option.innerHTML = '';
-    selected_option.append(icon, phone_code);
+    selected_option.append(phone_code);
 
     input_box.value = phone_code.innerText;
 
