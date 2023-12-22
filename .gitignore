@@ -1,1 +1,4 @@
 env/
+ecomerce/db.sqlite3
+ecomerce/local_settings.py
+ecomerce/media/

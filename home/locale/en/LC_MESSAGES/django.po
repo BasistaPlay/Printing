@@ -1,0 +1,182 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-22 17:03+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\home\models.py:21
+msgid "Ievadiet produkta nosaukumu."
+msgstr "Enter the name of the product."
+
+#: .\home\models.py:22
+msgid "Ievadiet produktam saistīto moto vai saukli."
+msgstr "Enter the associated motto or slogan for the product."
+
+#: .\home\models.py:23 .\home\models.py:24
+msgid "Ievadiet detalizētu aprakstu par produktu."
+msgstr "Enter a detailed description of the product."
+
+#: .\home\models.py:25
+msgid "Ievadiet pogas nosaukumu."
+msgstr "Enter a name for the button."
+
+#: .\home\models.py:26
+msgid "Ievadiet saiti, uz kuru vedīs poga (ja nepieciešams)."
+msgstr "Enter the link to which the button will lead (if necessary)."
+
+#: .\home\models.py:27
+msgid "Izvēlieties fona krāsu."
+msgstr "Choose a background color."
+
+#: .\home\models.py:28
+msgid "Izvēlieties otrā fona krāsu."
+msgstr "Select the color of the second background."
+
+#: .\home\models.py:29
+msgid "Izvēlieties pogas fona krāsu."
+msgstr "Select the background color of the button."
+
+#: .\home\templates\base.html:29 .\home\templates\base.html:50
+msgid "veikals"
+msgstr "shop"
+
+#: .\home\templates\base.html:30 .\home\templates\base.html:51
+msgid "Radošais stūrītis"
+msgstr "Creative corner"
+
+#: .\home\templates\base.html:31 .\home\templates\base.html:52
+#: .\home\templates\contact.html:7
+msgid "Sazinies ar mums"
+msgstr "Contact us"
+
+#: .\home\templates\base.html:33 .\home\templates\base.html:54
+msgid "Izlogoties"
+msgstr "Logout"
+
+#: .\home\templates\base.html:35 .\home\templates\base.html:56
+msgid "Pierakstīties"
+msgstr "Sign up"
+
+#: .\home\templates\contact.html:32
+msgid "Kontaktinformācija"
+msgstr "contact details"
+
+#: .\home\templates\contact.html:60
+msgid "Nosūtīt ziņu"
+msgstr "Send message"
+
+#: .\home\templates\contact.html:66 .\home\templates\register.html:23
+msgid "Vārds"
+msgstr "First name"
+
+#: .\home\templates\contact.html:70 .\home\templates\register.html:24
+msgid "Uzvārds"
+msgstr "Last name"
+
+#: .\home\templates\contact.html:74
+msgid "E-pasts"
+msgstr "e-mail"
+
+#: .\home\templates\contact.html:78 .\home\templates\register.html:31
+msgid "Telefona numurs"
+msgstr "Phone Number"
+
+#: .\home\templates\contact.html:82
+msgid "Raksti savu ziņu šeit..."
+msgstr "Write your post here..."
+
+#: .\home\templates\contact.html:85
+msgid "Sūtīt"
+msgstr "Send"
+
+#: .\home\templates\contact.html:99
+msgid "Panākumi"
+msgstr "Success"
+
+#: .\home\templates\login.html:6 .\home\templates\login.html:19
+#: .\home\templates\login.html:25 .\home\templates\register.html:45
+msgid "Pieslēgties"
+msgstr "Sign up"
+
+#: .\home\templates\login.html:22 .\home\templates\register.html:25
+msgid "e-pasts"
+msgstr "e-mail"
+
+#: .\home\templates\login.html:23 .\home\templates\register.html:39
+msgid "Parole"
+msgstr "Password"
+
+#: .\home\templates\login.html:28
+msgid "Vai jums nav konta? "
+msgstr "Don`t have an account? "
+
+#: .\home\templates\login.html:28 .\home\templates\register.html:6
+#: .\home\templates\register.html:20 .\home\templates\register.html:42
+msgid "Reģistrēties"
+msgstr "Register"
+
+#: .\home\templates\login.html:29
+msgid "Aizmirsāt paroli?"
+msgstr "Forgot your password?"
+
+#: .\home\templates\login.html:29
+msgid "Atjaunot to šeit"
+msgstr "Restore it here"
+
+#: .\home\templates\register.html:34
+msgid "Meklēt pēc valsts nosaukuma"
+msgstr "Search by country name"
+
+#: .\home\templates\register.html:40
+msgid "Apstipriniet paroli"
+msgstr "Confirm Password"
+
+#: .\home\templates\register.html:45
+msgid "Vai jums jau ir konts? "
+msgstr "Do you already have an account?"
+
+#: .\home\templates\ressret_password\password_reset_form.html:18
+msgid "Vai esat aizmirsis paroli?"
+msgstr "Forgot your password?"
+
+#: .\home\views.py:27
+msgid "Nepareizs e-pasts vai parole."
+msgstr "Incorrect email or password."
+
+#: .\home\views.py:43
+msgid "Lūdzu ievadiet abas paroles."
+msgstr "Please enter both passwords."
+
+#: .\home\views.py:46
+msgid "Paroles nesakrīt."
+msgstr "Passwords do not match."
+
+#: .\home\views.py:49
+msgid "Lūdzu, ievadiet gan vārdu, gan uzvārdu."
+msgstr "Please enter both first and last names."
+
+#: .\home\views.py:52
+msgid "Lūdzu ievadiet telefona numuru."
+msgstr "Please enter a telephone number."
+
+#: .\home\views.py:55
+msgid "Šī e-pasta adrese jau tiek izmantota."
+msgstr "This email address is already in use."
+
+#: .\home\views.py:68
+msgid "Jūsu profils ir veiksmīgi reģistrēts."
+msgstr "Your profile was successfully registered."

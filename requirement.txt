@@ -3,7 +3,7 @@ Django==4.2.7
 django-colorfield==0.10.1
 django-jazzmin==2.6.0
 django-modeltranslation==0.18.11
-mysqlclient==2.2.0
+mysqlclient
 Pillow==10.1.0
 sqlparse==0.4.4
 typing_extensions==4.8.0
