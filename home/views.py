@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Product, ContactMessage
-from django.contrib.auth.models import User
+from .models import Product, ContactMessage, CustomDesign, Contact
+from home.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -12,7 +12,8 @@ from django.conf import settings
 
 def homepage(request):
     products = Product.objects.all()
-    return render(request, 'home_page.html', {'products': products})
+    custom_designs = CustomDesign.objects.first()
+    return render(request, 'home_page.html', {'products': products, 'custom_designs': custom_designs})
 
 def login_view(request):
     if request.method == 'POST':
@@ -77,6 +78,7 @@ def logout_view(request):
     return redirect('login')
 
 def contact_us(request):
+    contacts = Contact.objects.first()
     if request.method == 'POST':
         # Saņemiet datus no POST pieprasījuma
         first_name = request.POST.get('first_name', '')
@@ -106,7 +108,18 @@ def contact_us(request):
         messages.success(request, 'Ziņojums ir veiksmīgi nosūtīts!')
 
         # Neaizmirstiet importēt messages no django.contrib
-        return render(request, 'contact.html')
+        return render(request, 'contact.html', {'Contact': contacts})
     else:
         # Jūsu esošais skats kodam šeit
-        return render(request, 'contact.html')
+        return render(request, 'contact.html', {'Contact': contacts})
+    
+
+def test(request):
+    return render(request, 'test.html')
+
+
+def creativecorner(request):
+    return render(request, 'creativecorner.html')
+
+def detail(request):
+    return render(request, 'detail.html')

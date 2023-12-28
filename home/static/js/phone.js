@@ -268,7 +268,7 @@ for (country of countries) {
             <span class="iconify" data-icon="flag:${country.code.toLowerCase()}-4x3"></span>
             <span class="country-name">${country.name}</span>
         </div>
-        <strong>+${country.phone}</strong>
+        <strong class='nr-code'>+${country.phone}</strong>
     </li> `;
 
     select_box.querySelector('ol').insertAdjacentHTML('beforeend', option);

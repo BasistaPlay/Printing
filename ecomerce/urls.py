@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 
-from home.views import homepage, login_view, register, logout_view, contact_us
+from home.views import homepage, login_view, register, logout_view, contact_us, test, creativecorner, detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +36,9 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('contact-us/', contact_us, name='contact_us'),
+    path('creative-corner/', creativecorner, name='creativecorner'),
+    path('test/', test, name='test'),
+    path('detail/', detail, name='detail')
 ]
 
 urlpatterns += i18n_patterns(
@@ -46,6 +49,7 @@ urlpatterns += i18n_patterns(
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('test/', test, name='test'),
     path('contact-us/', contact_us, name='contact_us'),
 )
 

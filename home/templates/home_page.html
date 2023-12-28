@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load static i18n %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/home_page.css' %}" />
@@ -8,28 +9,75 @@
 
 {% block body %}
 
-
-<main>
-    {% for product in products %}
-        <div class="container" style="background: linear-gradient(45deg,{{ product.background_color }}, {{ product.background_color_2 }});">
-            <section class="content">
-                <div class="content-text">
-                    <h1>{{ product.title }}<h1>
-                    <h2>{{ product.moto }}</h2>
-                    <p>{{ product.description }}</p>
-                    <a href="{{ product.link }}" style="background: {{ product.button_color }};">{{ product.button_title }}</a>
-                </div>
-                <div class='content-img'>
+<section class="hero">
+    <div class="hero-text">
+        <h1>{{custom_designs.title}}</h1>
+        <h4>{{custom_designs.description}}</h4>
+        <p>{{custom_designs.additional_notes}}</p>
+        <div class="hero-in">
+            {% for product in products %}
+                <div class="box">
+                    <h3>{{ product.title }}<h1>
+                    <h5>{{ product.moto }}</h2>
                     <img src="{{ product.image.url }}" alt="Image">
                 </div>
-            </section>
+            {% endfor %}
         </div>
-    {% endfor %}
-</main>
+    </div>
+    <div class="hero-img">
+        <img src="{{ custom_designs.image.url }}" alt="Image">
+    </div>
+    <div class="down-arrow">
+        <i class="bx bx-down-arrow-alt"></i>
+    </div>
+</section>
+
+<section class="top-products">
+    <div class="top-products-header">
+        <h1>{% trans 'Top 3 pirktākie Krekli' %}</h2>
+    </div>
+    <div class="product-container">
+        <div class="product" id="product1">
+            <img src="{% static '/img/image_1.png' %}" alt="Product 1">
+            <h3>Product 1</h3>
+            <div class="star-wrapper">
+                <a href="#" class="fas fa-star s1 active"></a>
+                <a href="#" class="fas fa-star s2 active"></a>
+                <a href="#" class="fas fa-star s3 active"></a>
+                <a href="#" class="fas fa-star s4 active"></a>
+                <a href="#" class="fas fa-star s5 active"></a>
+            </div>
+        </div>
+        <div class="product" id="product2">
+            <img src="{% static '/img/image_1.png' %}" alt="Product 2">
+            <h3>Product 2</h3>
+            <div class="star-wrapper">
+                <a href="#" class="fas fa-star s1 active"></a>
+                <a href="#" class="fas fa-star s2 active"></a>
+                <a href="#" class="fas fa-star s3 active"></a>
+                <a href="#" class="fas fa-star s4 active"></a>
+                <a href="#" class="fas fa-star s5 active"></a>
+            </div>
+        </div>
+        <div class="product" id="product3">
+            <img src="{% static '/img/image_1.png' %}" alt="Product 3">
+            <h3>Product 3</h3>
+            <div class="star-wrapper">
+                <a href="#" class="fas fa-star s1 active"></a>
+                <a href="#" class="fas fa-star s2 active"></a>
+                <a href="#" class="fas fa-star s3 active"></a>
+                <a href="#" class="fas fa-star s4 active"></a>
+                <a href="#" class="fas fa-star s5 active"></a>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
 
 {% block js %}
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="{% static 'js/home_page.js' %}"></script>
+    <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+<div class="wraper">
 {% endblock %}

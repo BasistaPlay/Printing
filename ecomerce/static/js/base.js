@@ -1,15 +1,26 @@
-const toggleBtn = document.querySelector('#menu-icon')
-const DropDownMenu = document.querySelector('.dropdown_menu')
 
-toggleBtn.onclick = () => {
-    toggleBtn.classList.toggle('bx-x')
-    DropDownMenu.classList.toggle('open')
+let darkmode = document.querySelector('#darkmode');
+let body = document.body;
+
+// Pārbaudīt, vai ir saglabāts iepriekšējais dark mode stāvoklis
+let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+// Ja ir saglabāts, tad uzstādīt dark mode
+if (isDarkMode) {
+    darkmode.classList.replace('bx-moon', 'bx-sun');
+    body.classList.add('color');
 }
 
-function submitLanguage(languageCode) {
-    // Aizpildīt pseudo-formas lauku ar valodas kodu
-    document.getElementById('languageInput').value = languageCode;
-
-    // Iesniegt pseudo-formu
-    document.getElementById('languageForm').submit();
+darkmode.onclick = () => {
+    if (darkmode.classList.contains('bx-moon')) {
+        darkmode.classList.replace('bx-moon', 'bx-sun');
+        body.classList.add('color');
+        // Saglabāt dark mode stāvokli
+        localStorage.setItem('darkMode', 'true');
+    } else {
+        darkmode.classList.replace('bx-sun', 'bx-moon');
+        body.classList.remove('color');
+        // Saglabāt light mode stāvokli
+        localStorage.setItem('darkMode', 'false');
+    }
 }

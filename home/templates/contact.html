@@ -33,26 +33,25 @@
                         <ul class="info">
                             <li>
                                 <span><i class="fas fa-map-marker-alt"></i></span>
-                                <span>Maskavas iela 269a<br>
-                                    LV-1063<br></span>
+                                <span>{{Contact.address}}<br>
+                                    {{Contact.postal_code}}<br></span>
                                 </span>
                             </li>
                             <li>
                                 <span><i class="far fa-envelope"></i></span>
-                                <!-- <span>nassosanagn@gmail.com</span> -->
-                                <span><a href = "mailto: nassosanagn@gmail.com">Edvards_torsters@inbox.lv</a></span>
+                                <span><a href = "mailto: nassosanagn@gmail.com">{{Contact.email}}</a></span>
                             </li>
                             <li>
                                 <span><i class="fas fa-phone-alt"></i></span>
-                                <span>+37126943774</span>
+                                <span>{{Contact.phone_number}}</span>
                             </li>
 
                         </ul>
                     </div>
                     <ul class="sci">
-                        <li><a href="https://www.facebook.com/"><i class="fab fa-facebook" style="color: #fafafa;"></i></a></li>
-                        <li><a href="https://www.instagram.com/"><i class="fab fa-instagram" style="color: #fafafa;"></i></i></a></li>
-                        <li><a href="https://twitter.com/"><i class="fab fa-twitter" style="color: #fafafa;"></i></a></li>
+                        <li><a href="{{Contact.facebook_link}}"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="{{Contact.instagram_link}}"><i class="fab fa-instagram"></i></i></a></li>
+                        <li><a href="{{Contact.twitter_link}}"><i class="fab fa-twitter"></i></a></li>
                         
                     </ul>
                 </div>

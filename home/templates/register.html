@@ -20,24 +20,44 @@
                     <h2>{% trans 'Reģistrēties' %}</h2>
                     <form action='' method='post'>
                         {% csrf_token %}
-                        <input type='text' name='first_name' placeholder="{% trans 'Vārds' %}" required>
-                        <input type='text' name='last_name' placeholder="{% trans 'Uzvārds' %}" required>
-                        <input type='email' name='email' placeholder="{% trans 'e-pasts' %}" required>
-                        <div class="select-box">
-                            <div class="selected-option">
-                                <div>
-                                    <strong>+371</strong>
-                                </div>
-                                <input type="tel" name="phone_number" placeholder="{% trans 'Telefona numurs' %}" required>
+                        <div class="formBox">
+                            <div class="inputBox w50">
+                                <input type="text" name="first_name" required>
+                                <span>{% trans 'Vārds' %}</span>
                             </div>
-                            <div class="options">
-                                <input type="text" class="search-box" placeholder="{% trans 'Meklēt pēc valsts nosaukuma' %}">
-                                <ol>
-                                </ol>
+                            <div class="inputBox w50">
+                                <input type='text' name='last_name' required>
+                                <span>{% trans 'Uzvārds' %}</span>
+                            </div>
+                            <div class="inputBox w50">
+                                <input type='email' name='email' required>
+                                <span>{% trans 'e-pasts' %}</span>
+                            </div>
+                            <div class="select-box">
+                                <div class="selected-option">
+                                    <div>
+                                        <strong class="nr-code">+000</strong>
+                                    </div>
+                                    <div class="inputBox w50">
+                                        <input type="tel" name="phone_number" required>
+                                        <span>{% trans 'Telefona numurs' %}</span>
+                                    </div>
+                                </div>
+                                <div class="options">
+                                    <input type="text" class="search-box" placeholder="{% trans 'Meklēt pēc valsts nosaukuma' %}">
+                                    <ol>
+                                    </ol>
+                                </div>
+                            </div>
+                            <div class="inputBox w50">
+                                <input type='password' name='pass1' required>
+                                <span>{% trans 'Parole' %}</span>
+                            </div>
+                            <div class="inputBox w50">
+                                <input type='password' name='pass2' required>
+                                <span>{% trans 'Apstipriniet paroli' %}</span>
                             </div>
                         </div>
-                        <input type='password' name='pass1' placeholder="{% trans 'Parole' %}" required>
-                        <input type='password' name='pass2' placeholder="{% trans 'Apstipriniet paroli' %}" required>
                         <button class='btn' type='submit'>
                             {% trans 'Reģistrēties' %}
                         </button>

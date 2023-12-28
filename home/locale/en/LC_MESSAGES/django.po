@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-22 17:03+0200\n"
+"POT-Creation-Date: 2023-12-27 15:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,134 +17,172 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\home\models.py:21
+#: .\home\models.py:13 .\home\models.py:20
+msgid "Virsraksts"
+msgstr "title"
+
+#: .\home\models.py:13
 msgid "Ievadiet produkta nosaukumu."
 msgstr "Enter the name of the product."
 
-#: .\home\models.py:22
-msgid "Ievadiet produktam saistīto moto vai saukli."
-msgstr "Enter the associated motto or slogan for the product."
+#: .\home\models.py:14 .\home\models.py:23
+msgid "Bilde"
+msgstr "Image"
 
-#: .\home\models.py:23 .\home\models.py:24
-msgid "Ievadiet detalizētu aprakstu par produktu."
-msgstr "Enter a detailed description of the product."
-
-#: .\home\models.py:25
-msgid "Ievadiet pogas nosaukumu."
-msgstr "Enter a name for the button."
-
-#: .\home\models.py:26
+#: .\home\models.py:15
 msgid "Ievadiet saiti, uz kuru vedīs poga (ja nepieciešams)."
 msgstr "Enter the link to which the button will lead (if necessary)."
 
-#: .\home\models.py:27
-msgid "Izvēlieties fona krāsu."
-msgstr "Choose a background color."
+#: .\home\models.py:21
+msgid "Apraksts"
+msgstr "Description"
 
-#: .\home\models.py:28
-msgid "Izvēlieties otrā fona krāsu."
-msgstr "Select the color of the second background."
+#: .\home\models.py:22
+msgid "papildu piezīmes"
+msgstr "Additional notes"
 
-#: .\home\models.py:29
-msgid "Izvēlieties pogas fona krāsu."
-msgstr "Select the background color of the button."
-
-#: .\home\templates\base.html:29 .\home\templates\base.html:50
-msgid "veikals"
-msgstr "shop"
-
-#: .\home\templates\base.html:30 .\home\templates\base.html:51
-msgid "Radošais stūrītis"
-msgstr "Creative corner"
-
-#: .\home\templates\base.html:31 .\home\templates\base.html:52
-#: .\home\templates\contact.html:7
-msgid "Sazinies ar mums"
-msgstr "Contact us"
-
-#: .\home\templates\base.html:33 .\home\templates\base.html:54
-msgid "Izlogoties"
-msgstr "Logout"
-
-#: .\home\templates\base.html:35 .\home\templates\base.html:56
-msgid "Pierakstīties"
-msgstr "Sign up"
-
-#: .\home\templates\contact.html:32
-msgid "Kontaktinformācija"
-msgstr "contact details"
-
-#: .\home\templates\contact.html:60
-msgid "Nosūtīt ziņu"
-msgstr "Send message"
-
-#: .\home\templates\contact.html:66 .\home\templates\register.html:23
+#: .\home\models.py:28 .\home\templates\contact.html:65
+#: .\home\templates\register.html:26
 msgid "Vārds"
 msgstr "First name"
 
-#: .\home\templates\contact.html:70 .\home\templates\register.html:24
+#: .\home\models.py:29 .\home\templates\contact.html:69
+#: .\home\templates\register.html:30
 msgid "Uzvārds"
 msgstr "Last name"
 
-#: .\home\templates\contact.html:74
+#: .\home\models.py:30 .\home\models.py:44 .\home\templates\contact.html:73
 msgid "E-pasts"
 msgstr "e-mail"
 
-#: .\home\templates\contact.html:78 .\home\templates\register.html:31
+#: .\home\models.py:31 .\home\models.py:43 .\home\templates\contact.html:77
+#: .\home\templates\register.html:43
 msgid "Telefona numurs"
 msgstr "Phone Number"
 
-#: .\home\templates\contact.html:82
+#: .\home\models.py:33
+msgid "Atbildēts"
+msgstr "Answered"
+
+#: .\home\models.py:34
+msgid "Administrātora virsraksts"
+msgstr "Administrator Header"
+
+#: .\home\models.py:35
+msgid "Administrātora vēstule"
+msgstr "Administrator letter"
+
+#: .\home\models.py:41
+msgid "Adrese"
+msgstr ""
+
+#: .\home\models.py:42
+msgid "Pasta indekss"
+msgstr ""
+
+#: .\home\models.py:45
+msgid "Twitter saite"
+msgstr ""
+
+#: .\home\models.py:46
+msgid "Facebook saite"
+msgstr ""
+
+#: .\home\models.py:47
+msgid "Instagram saite"
+msgstr ""
+
+#: .\home\models.py:53 .\home\models.py:54 .\home\templates\contact.html:32
+msgid "Kontaktinformācija"
+msgstr "Contact details"
+
+#: .\home\templates\base.html:28
+msgid "Sākumlapa"
+msgstr "Home"
+
+#: .\home\templates\base.html:29
+msgid "Radošais stūrītis"
+msgstr "Creative corner"
+
+#: .\home\templates\base.html:30 .\home\templates\contact.html:7
+msgid "Sazinies ar mums"
+msgstr "Contact us"
+
+#: .\home\templates\base.html:31
+msgid "Par mums"
+msgstr "About us"
+
+#: .\home\templates\base.html:33
+msgid "Admin"
+msgstr ""
+
+#: .\home\templates\base.html:38
+msgid "Izlogoties"
+msgstr "Logout"
+
+#: .\home\templates\base.html:40
+msgid "Pierakstīties"
+msgstr "Sign up"
+
+#: .\home\templates\contact.html:59
+msgid "Nosūtīt ziņu"
+msgstr "Send message"
+
+#: .\home\templates\contact.html:81
 msgid "Raksti savu ziņu šeit..."
 msgstr "Write your post here..."
 
-#: .\home\templates\contact.html:85
+#: .\home\templates\contact.html:84
 msgid "Sūtīt"
 msgstr "Send"
 
-#: .\home\templates\contact.html:99
+#: .\home\templates\contact.html:98
 msgid "Panākumi"
 msgstr "Success"
 
+#: .\home\templates\home_page.html:37
+msgid "Top 3 pirktākie Krekli"
+msgstr "Top 3 most purchased shirts"
+
 #: .\home\templates\login.html:6 .\home\templates\login.html:19
-#: .\home\templates\login.html:25 .\home\templates\register.html:45
+#: .\home\templates\login.html:33 .\home\templates\register.html:65
 msgid "Pieslēgties"
 msgstr "Sign up"
 
-#: .\home\templates\login.html:22 .\home\templates\register.html:25
+#: .\home\templates\login.html:25 .\home\templates\register.html:34
 msgid "e-pasts"
 msgstr "e-mail"
 
-#: .\home\templates\login.html:23 .\home\templates\register.html:39
+#: .\home\templates\login.html:29 .\home\templates\register.html:54
 msgid "Parole"
 msgstr "Password"
 
-#: .\home\templates\login.html:28
+#: .\home\templates\login.html:36
 msgid "Vai jums nav konta? "
 msgstr "Don`t have an account? "
 
-#: .\home\templates\login.html:28 .\home\templates\register.html:6
-#: .\home\templates\register.html:20 .\home\templates\register.html:42
+#: .\home\templates\login.html:36 .\home\templates\register.html:6
+#: .\home\templates\register.html:20 .\home\templates\register.html:62
 msgid "Reģistrēties"
 msgstr "Register"
 
-#: .\home\templates\login.html:29
+#: .\home\templates\login.html:37
 msgid "Aizmirsāt paroli?"
 msgstr "Forgot your password?"
 
-#: .\home\templates\login.html:29
+#: .\home\templates\login.html:37
 msgid "Atjaunot to šeit"
 msgstr "Restore it here"
 
-#: .\home\templates\register.html:34
+#: .\home\templates\register.html:47
 msgid "Meklēt pēc valsts nosaukuma"
 msgstr "Search by country name"
 
-#: .\home\templates\register.html:40
+#: .\home\templates\register.html:58
 msgid "Apstipriniet paroli"
 msgstr "Confirm Password"
 
-#: .\home\templates\register.html:45
+#: .\home\templates\register.html:65
 msgid "Vai jums jau ir konts? "
 msgstr "Do you already have an account?"
 
@@ -153,30 +190,51 @@ msgstr "Do you already have an account?"
 msgid "Vai esat aizmirsis paroli?"
 msgstr "Forgot your password?"
 
-#: .\home\views.py:27
+#: .\home\views.py:28
 msgid "Nepareizs e-pasts vai parole."
 msgstr "Incorrect email or password."
 
-#: .\home\views.py:43
+#: .\home\views.py:44
 msgid "Lūdzu ievadiet abas paroles."
 msgstr "Please enter both passwords."
 
-#: .\home\views.py:46
+#: .\home\views.py:47
 msgid "Paroles nesakrīt."
 msgstr "Passwords do not match."
 
-#: .\home\views.py:49
+#: .\home\views.py:50
 msgid "Lūdzu, ievadiet gan vārdu, gan uzvārdu."
 msgstr "Please enter both first and last names."
 
-#: .\home\views.py:52
+#: .\home\views.py:53
 msgid "Lūdzu ievadiet telefona numuru."
 msgstr "Please enter a telephone number."
 
-#: .\home\views.py:55
+#: .\home\views.py:56
 msgid "Šī e-pasta adrese jau tiek izmantota."
 msgstr "This email address is already in use."
 
-#: .\home\views.py:68
+#: .\home\views.py:69
 msgid "Jūsu profils ir veiksmīgi reģistrēts."
 msgstr "Your profile was successfully registered."
+
+#~ msgid "Ievadiet produktam saistīto moto vai saukli."
+#~ msgstr "Enter the associated motto or slogan for the product."
+
+#~ msgid "Ievadiet detalizētu aprakstu par produktu."
+#~ msgstr "Enter a detailed description of the product."
+
+#~ msgid "Ievadiet pogas nosaukumu."
+#~ msgstr "Enter a name for the button."
+
+#~ msgid "Izvēlieties fona krāsu."
+#~ msgstr "Choose a background color."
+
+#~ msgid "Izvēlieties otrā fona krāsu."
+#~ msgstr "Select the color of the second background."
+
+#~ msgid "Izvēlieties pogas fona krāsu."
+#~ msgstr "Select the background color of the button."
+
+#~ msgid "veikals"
+#~ msgstr "shop"

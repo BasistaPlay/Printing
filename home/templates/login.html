@@ -19,8 +19,16 @@
                     <h2>{% trans 'Pieslēgties' %}</h2>
                     <form action='' method='post'>
                         {% csrf_token %}
-                        <input type='email' name='email' placeholder="{% trans 'e-pasts' %}" required>
-                        <input type='password' name='password' placeholder="{% trans 'Parole' %}" required>
+                        <div class="formBox">
+                            <div class="inputBox w50">
+                                <input type='email' name='email' required>
+                                <span>{% trans 'e-pasts' %}</span>
+                            </div>
+                            <div class="inputBox w50">
+                                <input type='password' name='password' required>
+                                <span>{% trans 'Parole' %}</span>
+                            </div>
+                        </div>
                         <button class='btn' type='submit'>
                             {% trans 'Pieslēgties' %}
                         </button>

@@ -2,35 +2,20 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'poppins', sans-serif;
 }
 
 body {
-    background-color: #4e34b6;
+    background-color: var(--bg-color);
     justify-content: center;
     align-items: center;
 }
 
-.navbar a {
-    color: #fff;
-}
-
-.navbar a::before {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #ffffff;
-    transition: .3s;
-}
 
 .login-form {
     position: relative;
     min-height: 100vh;
     z-index: 0;
-    background: #4e34b6;
+    background: var(--bg-color);
     padding: 30px;
     justify-content: center;
     display: grid;
@@ -52,7 +37,7 @@ body {
     margin-bottom: 5px;
     font-size: 30px;
     font-weight: 500;
-    color: #272346;
+    color: var(--text-color);
     text-align: center;
     font-family: 'poppins', sans-serif;
 }
@@ -66,7 +51,7 @@ body {
 .content {
     flex-basis: 50%;
     padding: 3em 3em;
-    background-color: #fff;
+    background-color: var(--second-color);
     box-shadow: 2px 9px 49px -17px rgba(0, 0, 0, 0.1);
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -74,7 +59,7 @@ body {
 
 .form-img {
     flex-basis: 50%;
-    background: #dfe5ea;
+    background: #b0b0b0;;
     background-size: cover;
     padding: 40px;
     border-top-right-radius: 8px;
@@ -90,17 +75,11 @@ body {
 }
 
 p {
-    color: #666;
+    color: var(--text-color);
     font-size: 16px;
     line-height: 25px;
     opacity: 0.6;
     text-align: center;
-}
-
-.btn,
-button,
-input {
-    border-radius: 35px
 }
 
 .btn:hover,
@@ -117,30 +96,29 @@ a {
 }
 
 .login-form input {
-    outline: none;
-    margin-bottom: 15px;
-    font-stretch: 16px;
-    color: #999;
-    text-align: left;
-    padding: 14px 20px;
     width: 100%;
-    display: inline-block;
-    box-sizing: border-box;
+    resize: none;
+    padding: 5px 0;
+    font-size: 18px;
+    font-weight: 300;
     border: none;
-    background: #f7fafc;
-    transition: 0.3s ease;
+    outline: none;
+    border-bottom: 1px solid #777;
+    background: var(--second-color);
+    margin-bottom: 20px;
+    color: var(--text-color);
 }
 
-.login-form input:focus {
-    background: transparent;
-    border: 1px solid #4e34b6;
+.login-form input::placeholder {
+    color: var(--text-color) /* Pelēkā krāsa */
 }
+
 
 .login-form button {
     font-size: 18px;
-    color: #fff;
+    color: var(--text-color);
     width: 100%;
-    background-color: #4e34b6;
+    background-color: var(--main-color);
     border: none;
     padding: 14px 15px;
     font-weight: 600;
@@ -149,17 +127,17 @@ a {
 }
 
 .login-form button:hover {
-    background-color: #6347d0;
+    background-color: var(--main-color);;
     transform: scale(1.05);
 }
 
 .login-form button:active {
-    background-color: #3c2980;
+    background-color: var(--main-color);
     transform: scale(0.95);
 }
 
 p.account a {
-    color: #4e34b6;
+    color: var(--main-color);
 }
 
 p.account a:hover {
@@ -207,4 +185,73 @@ p.account a:hover {
     font-weight: bold;
     line-height: 20px;
     text-shadow: 1px 1px rgba(250, 250, 250, .3);
+}
+
+.country-name{
+    color: #000;
+}
+
+.selected-option{
+    color: var(--other-color);
+}
+
+.formBox .inputBox input:focus ~ span,
+.formBox .inputBox input:valid ~ span,
+.formBox .inputBox textarea:focus ~ span, 
+.formBox .inputBox textarea:valid ~ span
+{
+    transform: translateY(-20px);
+    font-size:  12px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--text-color);
+    font-weight: 500;
+} 
+
+.formBox .inputBox span 
+{
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    pointer-events: none;
+    font-size: 18px;
+    font-weight: 300;
+    transition: 0.3s;
+}
+
+.formBox .inputBox input
+{
+    width: 100%;
+    resize: none;
+    padding: 5px 0;
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text-color);
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #777;
+    background: var(--second-color);
+}
+
+.formBox
+{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.formBox .inputBox
+{
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.formBox .inputBox.w50
+{
+    width: 100%;
+}
+
+span{
+    color: var(--text-color);
 }

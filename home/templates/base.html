@@ -10,57 +10,88 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,700&display=swap" rel="stylesheet">
+
+
     {% block css %}
     {% endblock %}
 </head>
 
 <body>
-
-    <header class='header'>
-        <a href='{% url 'homepage' %}' class='Logo'>Logo</a>
-
-        <nav class='navbar'>
-            <form id="languageForm" action="{% url 'set_language' %}" method="post" formtarget="_self" class="pseudo-form">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="{{ redirect_to }}">
-                <input name="language" id="languageInput" type="hidden" value="">
-            </form>
-
-            <a href='#'>{% trans 'veikals' %}</a>
-            <a href='#'>{% trans 'Radošais stūrītis' %}</a>
-            <a href="{% url 'contact_us' %}">{% trans 'Sazinies ar mums' %}</a>
-            {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}">{% trans 'Izlogoties' %}</a>
-            {% else %}
-                <a href="{% url 'login' %}" class='Signup'>{% trans 'Pierakstīties' %}</a>
+    <header>
+        <a href='{% url 'homepage' %}' class="logo"><i class="ri-home-heart-fill"></i><span>Logo</span></a>
+        <ul class="navlist">
+            <li><a href='{% url 'homepage' %}' class="Home">{% trans 'Sākumlapa' %}</a></li>
+            <li><a href='{% url 'creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
+            <li><a href="{% url 'contact_us' %}" class="contact_us">{% trans 'Sazinies ar mums' %}</a></li>
+            <li><a href="#" class="abaut_us">{% trans 'Par mums' %}</a></li>
+            {% if user.is_staff %}
+                <li><a href="{% url 'admin:index' %}" class="Admin">{% trans 'Admin' %}</a></li>
             {% endif %}
-
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
-            {% get_language_info_list for LANGUAGES as languages %}
-            {% for language in languages %}
-                <a href="#" onclick="submitLanguage('{{ language.code }}')">
-                    {{ language.code }}
-                </a>
-            {% endfor %}
-        </nav>
-        <div class="ri-menu-line" id='menu-icon'></div>
-
-        <div class='dropdown_menu'>
-            <li><a href='#'>{% trans 'veikals' %}</a></li>
-            <li><a href='#'>{% trans 'Radošais stūrītis' %}</a></li>
-            <li><a href="{% url 'contact_us' %}">{% trans 'Sazinies ar mums' %}</a></li>
+        </ul>
+        <div class="h-main">
             {% if user.is_authenticated %}
-                <li><a href="{% url 'logout' %}">{% trans 'Izlogoties' %}</a></li>
+                <a href="{% url 'logout' %}" class="h-btn">{% trans 'Izlogoties' %}</a>
             {% else %}
-                <li><a href='{% url 'login' %}' class='Signup'>{% trans 'Pierakstīties' %}</a></li>
+                <a href='{% url 'login' %}' class='h-btn'>{% trans 'Pierakstīties' %}</a>
             {% endif %}
+            <div class="bx bx-menu" id="menu-icon"></div>
+            <div class="bx bx-moon" id="darkmode"></div>
         </div>
     </header>
-
+        
     {% block body %}{% endblock %}
+
+    <!-- <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col">
+                    <h4>company</h4>
+                    <ul>
+                        <li><a href="#">about us</a></li>
+                        <li><a href="#">our services</a></li>
+                        <li><a href="#">privacy policy</a></li>
+                        <li><a href="#">affiliate program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>get help</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">shipping</a></li>
+                        <li><a href="#">returns</a></li>
+                        <li><a href="#">order status</a></li>
+                        <li><a href="#">payment options</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>online shop</h4>
+                    <ul>
+                        <li><a href="#">watch</a></li>
+                        <li><a href="#">bag</a></li>
+                        <li><a href="#">shoes</a></li>
+                        <li><a href="#">dress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>follow us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </footer> -->
 </body>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'js/base.js' %}"></script>
 {% block js %}{% endblock %}
 </html>
