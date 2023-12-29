@@ -16,8 +16,14 @@ class Product(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet produkta nosaukumu."))
     image = models.ImageField(_('Bilde'), upload_to='products/', blank=False)
     link = models.URLField(blank=True, help_text=_("Ievadiet saiti, uz kuru vedīs poga (ja nepieciešams)."))
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    options = models.TextField(blank=True, help_text="Ievadiet opcijas kā sarakstu ar komatiem")
+
     def __str__(self):
         return self.title
+     
+    def get_options_list(self):
+        return [option.strip() for option in self.options.split(',')]
 
 class CustomDesign(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100)
@@ -58,18 +64,6 @@ class Contact(models.Model):
         verbose_name_plural = _('Kontaktinformācija')
 
 
-class Price(models.Model):
-    title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='products/')
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    link = models.URLField(blank=True)
-    options = models.TextField(blank=True, help_text="Ievadiet opcijas kā sarakstu ar komatiem")
-
-    def get_options_list(self):
-        return [option.strip() for option in self.options.split(',')]
-
-    def __str__(self):
-        return self.title
     
 class Product_list(models.Model):
     title = models.CharField(max_length=255)
@@ -77,7 +71,6 @@ class Product_list(models.Model):
     front_image = models.ImageField(upload_to='product_images/front/')
     back_image = models.ImageField(upload_to='product_images/back/')
     author = models.ForeignKey(user, on_delete=models.CASCADE)
-    price = models.ForeignKey(Price, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     average_rating = models.FloatField(default=0)
 

@@ -99,3 +99,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var starWrapper = document.querySelector('.star-wrapper');
+    var stars = starWrapper.querySelectorAll('a');
+
+    starWrapper.addEventListener('mouseover', function (e) {
+        var targetStar = e.target;
+        var ratingValue = targetStar.getAttribute('data-rating-value');
+
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].classList.remove('active');
+        }
+
+        for (var i = 0; i < ratingValue; i++) {
+            stars[i].classList.add('active');
+        }
+    });
+
+    starWrapper.addEventListener('mouseout', function () {
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].classList.remove('active');
+        }
+    });
+});

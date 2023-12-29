@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Product, ContactMessage, CustomDesign, Contact, Price, Product_list, Rating, user
+from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, user
 from modeltranslation.admin import TranslationAdmin
 from django.core.mail import send_mail
 from django.conf import settings
@@ -13,6 +13,15 @@ from django.utils.html import format_html
 @admin.register(Product)
 class ProdructAdmin(TranslationAdmin):
     list_display = ('title',)
+
+    fieldsets = (
+        ('Product', {
+            'fields': ('title', 'image', 'link')
+        }),
+        ('Price', {
+            'fields': ('price', 'options'),
+        }),
+    )
 
     class Media:
         js = (
@@ -149,12 +158,6 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_active')
     list_filter = ('is_active', 'is_staff', 'is_superuser', 'groups')
 
-
-
-class PriceAdmin(TranslationAdmin):
-    list_display = ('title', 'price', 'link')
-    search_fields = ('title', 'price')
-
     class Media:
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
@@ -165,14 +168,13 @@ class PriceAdmin(TranslationAdmin):
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
 
-admin.site.register(Price, PriceAdmin)
 
 class RatingInline(admin.TabularInline):
     model = Rating
     extra = 1
 
 class ProductListAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'author', 'price', 'product', 'display_front_image')
+    list_display = ('title', 'description', 'author', 'product', 'display_front_image')
     search_fields = ['title', 'author__username']
     inlines = [RatingInline]
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, ContactMessage, CustomDesign, Contact, Price, Product_list, Rating
+from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating
 from home.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
@@ -15,8 +15,7 @@ from django.http import JsonResponse
 def homepage(request):
     products = Product.objects.all()
     custom_designs = CustomDesign.objects.first()
-    price = Price.objects.all()
-    return render(request, 'home_page.html', {'products' : products, 'custom_designs' : custom_designs, 'price' : price})
+    return render(request, 'home_page.html', {'products' : products, 'custom_designs' : custom_designs})
 
 def login_view(request):
     if request.method == 'POST':

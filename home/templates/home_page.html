@@ -38,19 +38,19 @@
     <!-- <div class="pricing-title">
         <h1>Cenrādis</h1>
     </div> -->
-    {% for prices in price %}
+    {% for product in products %}
         <div class="card-wrapper">
             <div class="card-header">
-                <img src="{{ prices.image.url }}" alt="">
-                <h2>{{ prices.title }}</h2>
+                <img src="{{ product.image.url }}" alt="">
+                <h2>{{ product.title }}</h2>
             </div>
             <div class="card-detail">
-                {% for option in prices.get_options_list %}
+                {% for option in product.get_options_list %}
                     <p><span class="fas fa-check check"> <b class="text">{{ option }}</b></span></p>
                 {% endfor %}
             </div>
             <div class="card-price">
-                <p>{{ prices.price }}<sup> €</sup></p>
+                <p>{{ product.price }}<sup> €</sup></p>
             </div>
             <button class="card-button">Izveido dizaunu</button>
         </div>
