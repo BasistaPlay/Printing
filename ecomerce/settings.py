@@ -202,12 +202,15 @@ JAZZMIN_SETTINGS = {
     'topmenu_links': [],
     'usermenu_links': [],
     'theme': 'home',
-    'icons': {
-        'app.Model': 'fas fa-icon',
-        'auth.User': 'fas fa-user',
-        'home.Product': 'fas fa-shopping-bag',
-        'home.CustomDesign': 'fas fa-cogs',
-        'home.ContactMessage': 'fas fa-envelope',
-        'home.Contact': 'fas fa-address-book',
-    },
+'icons': {
+    'app.Model': 'fas fa-icon',
+    'auth.User': 'fas fa-user',
+    'home.Product': 'fas fa-shopping-bag',
+    'home.CustomDesign': 'fas fa-cogs',
+    'home.ContactMessage': 'fas fa-envelope',
+    'home.Contact': 'fas fa-address-book',
+    'home.user': 'fas fa-user',  
+    'home.Price': 'fas fa-dollar-sign', 
+    'home.Product_list': 'fas fa-list',  
+},
 }

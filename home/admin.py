@@ -39,9 +39,9 @@ class CustomDesignAdmin(TranslationAdmin):
         }
         
     def save_model(self, request, obj, form, change):
-        existing_records = Product.objects.exclude(pk=obj.pk).count()
+        existing_records = CustomDesign.objects.exclude(pk=obj.pk).count()
         if existing_records >= 1:
-            error_message = "Varat pievienot tikai divus ierakstus."
+            error_message = "Varat pievienot tikai vienu ierakstus."
             self.message_user(request, error_message, level=messages.ERROR)
         else:
             super().save_model(request, obj, form, change)
@@ -129,7 +129,7 @@ class ContactAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         existing_records = Contact.objects.exclude(pk=obj.pk).count()
         if existing_records >= 1:
-            error_message = "Varat pievienot tikai divus ierakstus."
+            error_message = "Varat pievienot tikai vienu ierakstus."
             self.message_user(request, error_message, level=messages.ERROR)
         else:
             super().save_model(request, obj, form, change)
