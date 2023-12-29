@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 
-from home.views import homepage, login_view, register, logout_view, contact_us, test, creativecorner, detail
+from home.views import homepage, login_view, register, logout_view, contact_us, test, creativecorner, detail, save_rating
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,7 +38,8 @@ urlpatterns = [
     path('contact-us/', contact_us, name='contact_us'),
     path('creative-corner/', creativecorner, name='creativecorner'),
     path('test/', test, name='test'),
-    path('detail/', detail, name='detail')
+    path('creative-corner/<str:user>/<int:product_list_id>/', detail, name='detail'),
+    path('save-rating/', save_rating, name='save_rating'),
 ]
 
 urlpatterns += i18n_patterns(

@@ -15,81 +15,56 @@
 {% endblock %}
 
 {% block body %}
-<main class="main__container">
-    <div class="cart">
-      <header class="cart-header">
-        <p class="cart-header--title">Cart</p>
-      </header>
-
-      <section class="cart-content empty">
-        <div class="cart__btn--container">
-          <a href="#" class="cart__btn" type="button" aria-label="proceed to checkout section">Checkout</a>
-        </div>
-        <p class="cart__empty--text">Your cart is empty.</p>
-      </section>
-    </div>
+<section class="main__container">
 
     <section class="slider">
       <button class="slider-btn--container previous" type="button" aria-label="button to previous image on focus section">
-        <img class="slider-btn previous" src="./images/icon-previous.svg" alt="">
+        <
       </button>
 
       <div class="slider__img--container">
-        <img class="slider__img" src="\static\img\krekls.png" alt="">
+        <img class="slider__img" src="{{ product.front_image.url }}" alt="">
       </div>
 
       <button class="slider-btn--container next" type="button" aria-label="button to next image on focus section">
-        <img class="slider-btn next" src="./images/icon-next.svg" alt="">
+        >
       </button>
 
       <div class="slider__selector--container">
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="1" src="\static\img\image_1.png" alt=""></button>
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="2" src="\static\img\krekls.png" alt=""></button>
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="3" src="\static\img\image_1.png" alt=""></button>
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="4" src="\static\img\krekls.png" alt=""></button>  
+        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="1" src="{{ product.front_image.url }}" alt=""></button>
+        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="2" src="{{ product.back_image.url }}" alt=""></button>
       </div>
     </section>
 
     <section class="slider-focus">
-      <button class="close-icon" type="button" aria-label="close focus section">
-        <svg width="14" height="15" xmlns="http://www.w3.org/2000/svg"><path d="m11.596.782 2.122 2.122L9.12 7.499l4.597 4.597-2.122 2.122L7 9.62l-4.595 4.597-2.122-2.122L4.878 7.5.282 2.904 2.404.782l4.595 4.596L11.596.782Z" fill-rule="evenodd"/></svg>
-      </button>
-
-      <button class="slider-btn--container previous focus-previous" type="button" aria-label="button to previous image on focus section">
-        <svg class="slider-btn focus-previous--img" width="13" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M11 1 3 9l8 8" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>
-      </button>
-
       <div class="slider__img--container slider__focus--img">
-        <img src="\static\img\krekls.png" alt="">
+          <img id="focus-image" src="{{ product.front_image.url }}" alt="">
       </div>
-
-      <button class="slider-btn--container focus-next" type="button" aria-label="button to next image on focus section">
-        <svg class="slider-btn focus-next--img" width="13" height="18" xmlns="http://www.w3.org/2000/svg"><path d="m2 1 8 8-8 8" stroke-width="3" fill="none" fill-rule="evenodd"/></svg>
-      </button>
-
+  
       <div class="slider__selector--container">
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="1" src="\static\img\image_1.png" alt=""></button>
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="2" src="\static\img\krekls.png" alt=""></button>
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="3" src="\static\img\image_1.png" alt=""></button>
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="4" src="\static\img\krekls.png" alt=""></button>  
+          <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section" onclick="changeFocusImage('{{ product.front_image.url }}', 1)"><img focus-value="1" src="{{ product.front_image.url }}" alt=""></button>
+          <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section" onclick="changeFocusImage('{{ product.back_image.url }}', 2)"><img focus-value="2" src="{{ product.back_image.url }}" alt=""></button>
       </div>
-    </section>
+  </section>
 
     <section class="product-content">
       <article class="product-content--info">
         <div class="product__info--text">
-          <p class="product__info--brand">Sneaker Company</p>
-          <h2 class="product__info--title">Fall Limited Edition Sneakers</h2>
+          <p class="product__info--brand">{% trans 'Autors: ' %}{{product.author.username}}</p>
+          <h2 class="product__info--title">{{product.title}}</h2>
           <p class="product__info--description">
-            These low-profile sneakers are your perfect casual wear companion. Featuring a 
-            durable rubber outer sole, they’ll withstand everything the weather can offer.
+            {{product.description}}
           </p>
         </div>
-
+        <div class="star-wrapper" data-product-id="{{ product.id }}" data-rating="{{ product.average_rating }}">
+          <a class="fas fa-star s1" data-rating-value="5"></a>
+          <a class="fas fa-star s2" data-rating-value="4"></a>
+          <a class="fas fa-star s3" data-rating-value="3"></a>
+          <a class="fas fa-star s4" data-rating-value="2"></a>
+          <a class="fas fa-star s5" data-rating-value="1"></a>
+      </div>
         <div class="info__pricing">
-          <span class="info__pricing--price">$125.00</span>
-          <span class="info__pricing--discount">50%</span>
-          <span class="info__pricing--before"><s>$250.00</s></span>
+          <span class="info__pricing--price">{{product.price.price}} €</span>
         </div>
       </article>
 
@@ -100,14 +75,55 @@
           <button class="order__quantity--btn plus" type="button" aria-label="button for add quantity product">+</button>
         </div>
 
-        <button class="order__cart" type="button"><i class="fas fa-shopping-cart"></i></i> Add to cart</button>
+        <button class="order__cart" type="button"><i class="fas fa-shopping-cart"></i></i> {% trans 'Pievienot grozā' %}</button>
       </div>
     </section>
-  </main>
+</section>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const starWrapper = document.querySelector('.star-wrapper');
+        const stars = starWrapper.querySelectorAll('.fas');
+    
+        stars.forEach(function (star) {
+            star.addEventListener('click', function () {
+                const ratingValue = parseInt(star.getAttribute('data-rating-value'));
+                const productId = starWrapper.getAttribute('data-product-id');
+    
+                // Nosūtīt reitingu uz serveri
+                saveRating(productId, ratingValue);
+            });
+        });
+    
+        function saveRating(productId, ratingValue) {
+            // Izveidojiet AJAX pieprasījumu, lai saglabātu reitingu datu bāzē
+            // Izmantojiet productId un ratingValue, lai nosūtītu nepieciešamos datus
+    
+            $.ajax({
+                type: 'POST',
+                url: '/save-rating/',  // Ievietojiet pareizo URL, kur saglabāt reitingu
+                data: {
+                    'product_id': productId,
+                    'rating': ratingValue,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}', // Ievietojiet CSRF žetonu
+                },
+                success: function (response) {
+                    console.log('Reitings saglabāts datubāzē!', response);
+                    // Atjaunojiet lapu vai veiciet citas nepieciešamās darbības
+                },
+                error: function (xhr, status, error) {
+                    console.error('Kļūda saglabājot reitingu:', xhr.responseText);
+                },
+            });
+        }
+    });
+    </script>
+
 {% endblock %}
 
 {% block js %}
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="{% static 'js/detail.js' %}"></script>
     <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 {% endblock %}

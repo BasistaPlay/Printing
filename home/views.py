@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .models import Product, ContactMessage, CustomDesign, Contact
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Product, ContactMessage, CustomDesign, Contact, Price, Product_list, Rating
 from home.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
@@ -7,13 +7,16 @@ from django.utils.translation import gettext as _
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.conf import settings
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 
 
 
 def homepage(request):
     products = Product.objects.all()
     custom_designs = CustomDesign.objects.first()
-    return render(request, 'home_page.html', {'products': products, 'custom_designs': custom_designs})
+    price = Price.objects.all()
+    return render(request, 'home_page.html', {'products' : products, 'custom_designs' : custom_designs, 'price' : price})
 
 def login_view(request):
     if request.method == 'POST':
@@ -119,7 +122,25 @@ def test(request):
 
 
 def creativecorner(request):
-    return render(request, 'creativecorner.html')
+    product_list = Product_list.objects.all()
+    return render(request, 'creativecorner.html', {'Product_list': product_list})
 
-def detail(request):
-    return render(request, 'detail.html')
+def detail(request, user, product_list_id):
+    product = get_object_or_404(Product_list, id=product_list_id)
+    return render(request, 'detail.html', {'product': product, 'user': user})
+
+
+@require_POST
+def save_rating(request):
+    product_id = request.POST.get('product_id')
+    rating_value = request.POST.get('rating')
+
+    # Iegūstiet vai izveidojiet produktu, uz kuru attiecas reitings
+    product = get_object_or_404(Product_list, id=product_id)
+
+    # Saglabājiet reitingu datu bāzē
+    rating, created = Rating.objects.get_or_create(user=request.user, product=product)
+    rating.stars = rating_value
+    rating.save()
+
+    return JsonResponse({'message': 'Reitings saglabāts datubāzē!'})

@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Product, ContactMessage, CustomDesign, Contact, User
+from .models import Product, ContactMessage, CustomDesign, Contact, Price, Product_list, Rating, user
 from modeltranslation.admin import TranslationAdmin
 from django.core.mail import send_mail
 from django.conf import settings
@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from ckeditor.widgets import CKEditorWidget
 from django.utils.html import strip_tags
 from django.contrib.auth.admin import UserAdmin
+from django.utils.html import format_html
 
 @admin.register(Product)
 class ProdructAdmin(TranslationAdmin):
@@ -134,7 +135,7 @@ class ContactAdmin(admin.ModelAdmin):
             super().save_model(request, obj, form, change)
 
 
-@admin.register(User)
+@admin.register(user)
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
@@ -150,3 +151,33 @@ class CustomUserAdmin(UserAdmin):
 
 
 
+class PriceAdmin(TranslationAdmin):
+    list_display = ('title', 'price', 'link')
+    search_fields = ('title', 'price')
+
+    class Media:
+        js = (
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
+            'modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+admin.site.register(Price, PriceAdmin)
+
+class RatingInline(admin.TabularInline):
+    model = Rating
+    extra = 1
+
+class ProductListAdmin(admin.ModelAdmin):
+    list_display = ('title', 'description', 'author', 'price', 'product', 'display_front_image')
+    search_fields = ['title', 'author__username']
+    inlines = [RatingInline]
+
+    def display_front_image(self, obj):
+        return format_html('<img src="{}" style="width:50px;height:50px;"/>', obj.front_image.url)
+    display_front_image.short_description = 'Front Image'
+
+admin.site.register(Product_list, ProductListAdmin)

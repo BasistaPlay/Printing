@@ -27,10 +27,41 @@
     <div class="hero-img">
         <img src="{{ custom_designs.image.url }}" alt="Image">
     </div>
-    <div class="down-arrow">
+    <div class="down-arrow first">
         <i class="bx bx-down-arrow-alt"></i>
     </div>
 </section>
+
+
+
+<section class="pricing">
+    <!-- <div class="pricing-title">
+        <h1>Cenrādis</h1>
+    </div> -->
+    {% for prices in price %}
+        <div class="card-wrapper">
+            <div class="card-header">
+                <img src="{{ prices.image.url }}" alt="">
+                <h2>{{ prices.title }}</h2>
+            </div>
+            <div class="card-detail">
+                {% for option in prices.get_options_list %}
+                    <p><span class="fas fa-check check"> <b class="text">{{ option }}</b></span></p>
+                {% endfor %}
+            </div>
+            <div class="card-price">
+                <p>{{ prices.price }}<sup> €</sup></p>
+            </div>
+            <button class="card-button">Izveido dizaunu</button>
+        </div>
+    {% endfor %}
+    <div class="down-arrow second">
+        <i class="bx bx-down-arrow-alt"></i>
+    </div>
+</section>
+
+
+
 
 <section class="top-products">
     <div class="top-products-header">
@@ -70,6 +101,9 @@
                 <a href="#" class="fas fa-star s5 active"></a>
             </div>
         </div>
+    </div>
+    <div class="down-arrow third">
+        <i class="bx bx-up-arrow-alt"></i>
     </div>
 </section>
 

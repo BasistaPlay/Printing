@@ -113,7 +113,7 @@ PROJECT_ROOT = abspath(os.path.dirname(__file__))
 MEDIA_ROOT = abspath(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
-# AUTH_USER_MODEL = 'home.User'
+AUTH_USER_MODEL = 'home.user'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -211,5 +211,3 @@ JAZZMIN_SETTINGS = {
         'home.Contact': 'fas fa-address-book',
     },
 }
-
-AUTH_USER_MODEL = 'home.User'

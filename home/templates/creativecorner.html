@@ -12,10 +12,33 @@
 {% endblock %}
 
 {% block body %}
-    <section class="shop" id="shop">
+
+    <section class="shop t-short" id="shop">
+        <div class="container">
+            {% for product_list in Product_list %}
+                <div class="box">
+                    <a href="{% url 'detail' user=user product_list_id=product_list.id %}">
+                        <img src="{{ product_list.front_image.url }}" alt="">
+                        <div class="star-wrapper" data-rating="{{ product_list.average_rating }}">
+                            <a class="fas fa-star s1"></a>
+                            <a class="fas fa-star s2"></a>
+                            <a class="fas fa-star s3"></a>
+                            <a class="fas fa-star s4"></a>
+                            <a class="fas fa-star s5"></a>
+                        </div>
+                    </a>
+                    <div class="cart">
+                        <a href="#"><i class="bx bx-cart"></i></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+<!-- 
+    <section class="shop cup" id="shop">
         <div class="container">
             <div class="box">
-                <img src="\static\img\krekls.png" alt="">
+                <img src="\static\img\cup.png" alt="">
                 <h4>Krekls</h4>
                 <div class="star-wrapper">
                     <a href="#" class="fas fa-star s1 active"></a>
@@ -29,7 +52,7 @@
                 </div>
             </div>
             <div class="box">
-                <img src="\static\img\krekls.png" alt="">
+                <img src="\static\img\cup.png" alt="">
                 <h4>Krekls</h4>
                 <div class="star-wrapper">
                     <a href="#" class="fas fa-star s1 active"></a>
@@ -43,7 +66,7 @@
                 </div>
             </div>
             <div class="box">
-                <img src="\static\img\krekls.png" alt="">
+                <img src="\static\img\cup.png" alt="">
                 <h4>Krekls</h4>
                 <div class="star-wrapper">
                     <a href="#" class="fas fa-star s1 active"></a>
@@ -57,7 +80,7 @@
                 </div>
             </div>
             <div class="box">
-                <img src="\static\img\krekls.png" alt="">
+                <img src="\static\img\cup.png" alt="">
                 <h4>Krekls</h4>
                 <div class="star-wrapper">
                     <a href="#" class="fas fa-star s1 active"></a>
@@ -71,7 +94,7 @@
                 </div>
             </div>
             <div class="box">
-                <img src="\static\img\krekls.png" alt="">
+                <img src="\static\img\cup.png" alt="">
                 <h4>Krekls</h4>
                 <div class="star-wrapper">
                     <a href="#" class="fas fa-star s1 active"></a>
@@ -86,7 +109,7 @@
             </div>
         </div>
 
-    </section>
+    </section> -->
 {% endblock %}
 
 {% block js %}

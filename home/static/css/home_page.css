@@ -94,11 +94,24 @@ section{
     transform: translateY(-5px) scale(1.1);
 }
 
-.down-arrow{
+.first{
     position: absolute;
     bottom: 3.5rem;
     right: 9%;
 }
+
+.second{
+    position: relative;
+    top: 30rem;
+    left: 17%;
+}
+
+.third{
+    position: relative;
+    bottom: 1.5rem;
+    left: 47%;
+}
+
 
 .down-arrow i{
     padding: 14px;
@@ -323,3 +336,97 @@ section{
     color: gold;
   }
   
+
+  .pricing h1 {
+    margin-bottom: 1rem;
+}
+
+.pricing{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 2rem;
+}
+
+.card-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: auto;
+    background: var(--second-color);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 1rem;
+    transition: all 0.1s ease-in;
+}
+
+.card-wrapper:hover{
+    transform: scale(1.05);
+}
+
+.card-wrapper:hover .card-header h2{
+    transform: scale(1.1);
+    color: var(--main-color);
+    letter-spacing: 2;
+
+}
+
+.card-header{
+    margin: 1rem;
+    text-align: center;
+
+}
+
+.card-header img{
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+}
+
+.card-detail{
+    width:100%;
+}
+
+.card-detail p {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--text-color);
+}
+
+.check{
+    color: var(--main-color);
+}
+
+
+.card-price p{
+     font-size: 3rem;
+     font-weight: 800;
+}
+
+.card-price p sup{
+    font-size: 1rem;
+}
+
+.card-button{
+    padding: 0.6rem 3rem;
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+    color: var(--text-color);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 50ms ease-in;
+}
+
+.card-button:hover{
+    border: 2px solid var(--main-color);
+    background: transparent;
+    color: var(--main-color);
+    font-weight: 800;
+}
+
+.text{
+    color: var(--text-color);
+}
