@@ -4,10 +4,10 @@ from colorfield.fields import ColorField
 from django.utils.translation import gettext as _
 from phonenumber_field.modelfields import PhoneNumberField
 
-class User(AbstractUser):
-    phone_number = PhoneNumberField(blank=True, null=True)
-    def __str__(self):
-        return self.username
+# class User(AbstractUser):
+#    phone_number = PhoneNumberField(blank=True, null=True)
+#    def __str__(self):
+#        return self.username
 
 class Product(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet produkta nosaukumu."))
@@ -52,3 +52,9 @@ class Contact(models.Model):
     class Meta:
         verbose_name = _('Kontaktinformācija')
         verbose_name_plural = _('Kontaktinformācija')
+        
+        
+class user(AbstractUser):
+    phone_number = PhoneNumberField(blank=True, null=True)
+    def __str__(self):
+        return self.username

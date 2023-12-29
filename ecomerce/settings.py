@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent
 SECRET_KEY = 'django-insecure-v1fiaup#2ni$7o)+u(uzkc9n$((#nrayt9__52wtm#651%-tpj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.mafia.lat', '104.248.195.146', 'mafia.lat']
 
 # Application definition
 
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'home',
 ]
+CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['https://www.mafia.lat']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,22 +79,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecomerce.wsgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'ecomerce',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#     }
-# }
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'urban_prod',
+        'USER': 'u_urban',
+        'PASSWORD': '123',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -109,10 +106,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+abspath = lambda *p: os.path.abspath(os.path.join(*p))
 
-AUTH_USER_MODEL = 'home.User'
+PROJECT_ROOT = abspath(os.path.dirname(__file__))
+
+MEDIA_ROOT = abspath(PROJECT_ROOT, 'media')
+MEDIA_URL = '/media/'
+
+# AUTH_USER_MODEL = 'home.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -144,7 +145,7 @@ LOCALE_PATHS = [
 STATIC_URL = '/static/'
 #STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
 # Default primary key field type
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = '/home/urban/Printing/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -210,3 +211,5 @@ JAZZMIN_SETTINGS = {
         'home.Contact': 'fas fa-address-book',
     },
 }
+
+AUTH_USER_MODEL = 'home.User'
