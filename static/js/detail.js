@@ -1,93 +1,4 @@
 
-const sliderImgSelector = document.querySelectorAll(".slider__selector--img img");
-const sliderImg = document.querySelector(".slider__img");
-
-sliderImgSelector.forEach(el => {
-    el.addEventListener("click", () => {
-        sliderImg.src = `/images/image-product-${el.getAttribute("value")}.jpg`;
-    });
-});
-
-
-// Arrow Image Slider
-const sliderArrowPrevious = document.querySelector(".previous");
-const sliderArrowNext = document.querySelector(".next");
-
-let counter = 1;
-
-const previousImg = (img) => {
-    if (counter > 1) {
-        counter--;
-        img.src = `/images/image-product-${counter}.jpg`;
-    } else {
-        counter = 4;
-        img.src = `/images/image-product-${counter}.jpg`;
-    }
-}
-
-const nextImg = (img) => {
-    if (counter < 4) {
-        counter++;
-        img.src = `/images/image-product-${counter}.jpg`;
-    } else {
-        counter = 1;
-        img.src = `/images/image-product-${counter}.jpg`;
-    }
-}
-
-sliderArrowPrevious.onclick = () => previousImg(sliderImg);
-sliderArrowNext.onclick = () => nextImg(sliderImg);
-
-
-// Slider Image Focus
-const sliderImgFocus = document.querySelector(".slider__focus--img img");
-const sliderFocus = document.querySelector(".slider-focus");
-const closeIcon = document.querySelector(".close-icon");
-
-const sliderArrowFocusPrevious = document.querySelector(".focus-previous");
-const sliderArrowFocusNext = document.querySelector(".focus-next");
-
-sliderImg.onclick = () => {
-    if (window.innerWidth >= 850) {
-        darkBackground.classList.add("active");
-        sliderFocus.classList.add("active");
-    }
-}
-
-closeIcon.onclick = () => {
-    darkBackground.classList.remove("active");
-    sliderFocus.classList.remove("active");
-}
-
-const sliderFocusImgSelector = document.querySelectorAll(".slider__selector--focus-img img");
-
-sliderFocusImgSelector.forEach(el => {
-    el.addEventListener("click", () => {
-        sliderImgFocus.src = `/images/image-product-${el.getAttribute("focus-value")}.jpg`;
-        counter = el.id;
-
-        sliderFocusImgSelector.forEach(el => el.classList.remove("selected"));
-        el.classList.add("selected");
-    });
-});
-
-sliderArrowFocusPrevious.onclick = () => {
-    previousImg(sliderImgFocus);
-    sliderFocusImgSelector.forEach(el => el.classList.remove("selected"));
-
-    let selectedImg = document.querySelector(`[focus-value="${counter}"]`);
-    selectedImg.classList.add("selected");
-};
-
-sliderArrowFocusNext.onclick = () => {
-    nextImg(sliderImgFocus);
-    sliderFocusImgSelector.forEach(el => el.classList.remove("selected"));
-    
-    let selectedImg = document.querySelector(`[focus-value="${counter}"]`);
-    selectedImg.classList.add("selected");
-};
-
-
 // input
 const input = document.querySelector(".order__quantity--input");
 const minusBtn = document.querySelector(".minus");
@@ -106,11 +17,9 @@ const cartContainer = document.querySelector(".cart-content");
 const productElement = document.createElement("div");
 const removeFromCartBtn = document.createElement("button");
 
-cartBtn.onclick = () => cart.classList.toggle("active");
 
 productElement.classList.add("cart__product");
 removeFromCartBtn.classList.add(".cart__product--delete");
-removeFromCartBtn.innerHTML = `<img src="./images/icon-delete.svg" alt="">`;
 
 let product = {
     name: "Fall Limited Edition Sneakers",
@@ -168,6 +77,50 @@ const removeFromCart = () => {
 addToCartBtn.onclick = () => addToCart();
 removeFromCartBtn.onclick = () => removeFromCart();
 
-if (sessionStorage.getItem("quantity") >= 1) {
-    updateCart();
+function changeFocusImage(newImageUrl, focusValue) {
+    document.getElementById('focus-image').src = newImageUrl;
+    // Jūs varat veikt papildu darbības, pamatojoties uz focusValue, ja tas ir nepieciešams
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const starWrapper = document.querySelector('.star-wrapper');
+    const rating = parseFloat(starWrapper.getAttribute('data-rating'));
+    const stars = starWrapper.querySelectorAll('.fas');
+
+    stars.forEach(function (star, index) {
+        const starValue = index + 1;
+        const reversedStarValue = stars.length - starValue + 1;
+
+        if (reversedStarValue <= rating) {
+            star.classList.add('active');
+        } else if (reversedStarValue - 0.5 === rating) {
+            star.classList.add('active-half');
+        }
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var starWrapper = document.querySelector('.star-wrapper');
+    var stars = starWrapper.querySelectorAll('a');
+
+    starWrapper.addEventListener('mouseover', function (e) {
+        var targetStar = e.target;
+        var ratingValue = targetStar.getAttribute('data-rating-value');
+
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].classList.remove('active');
+        }
+
+        for (var i = 0; i < ratingValue; i++) {
+            stars[i].classList.add('active');
+        }
+    });
+
+    starWrapper.addEventListener('mouseout', function () {
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].classList.remove('active');
+        }
+    });
+});

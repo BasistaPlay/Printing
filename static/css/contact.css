@@ -76,6 +76,7 @@ section{
 {
     max-width: 100%;
     filter: invert(1);
+    color: #fff;
 }
 
 .container .contactInfo ul.info li span:nth-child(2)
@@ -289,6 +290,7 @@ section{
        display: flex;
        justify-content: center;
        align-items: center;
+       color:  #fff;
     }
 }
 
@@ -523,6 +525,6 @@ section{
     color: var(--main-color);
 }
 
-.sci li a{
+ i{
     color:  #fff;
 }

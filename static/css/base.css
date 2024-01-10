@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Encode Sans Condensed', sans-serif;
     text-decoration: none;
     list-style: none;
 
@@ -111,7 +111,7 @@ header {
     margin-left: 10px;
 }
 
-body.color{
+body.dark{
     --text-color: #fff;
     --bg-color: #061b09;
     --second-color: #0b1e38;

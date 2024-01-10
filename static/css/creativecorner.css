@@ -62,13 +62,9 @@ section{
   }
 .star-wrapper a {
     font-size: 1.1em;
-    color: #fff;
+    color: #b4b3b3;
     text-decoration: none;
     transition: all 0.5s;
-  }
-.star-wrapper a:hover {
-    color: gold;
-    transform: scale(1.3);
   }
 .s1.active{
     color: gold;
@@ -86,6 +82,7 @@ section{
     color: gold;
   }
 
-  .star-wrapper.active{
+  .star-wrapper.active,
+  .star-wrapper.active-half{
     color: gold;
   }
