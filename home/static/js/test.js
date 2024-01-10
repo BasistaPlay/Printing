@@ -1,23 +1,23 @@
-// Get elements from the DOM
-const color = document.querySelector(".color");
-const colorInput = document.querySelector(".color-input");
-const imgElement = document.getElementById('img-1');
-const imageContainer = document.querySelector('.image-container');
+document.addEventListener('DOMContentLoaded', function() {
+  var colorElements = document.querySelectorAll('.color-select');
+  var colorContainer = document.querySelector('.color'); // Assuming .color is the element you want to change
 
-// Add input event listener for color change
-colorInput.addEventListener("input", () => {
-    color.style.backgroundColor = colorInput.value;
+  colorElements.forEach(function(colorElement, index) {
+    colorElement.addEventListener('click', function() {
+      // Pārliecināsimies, ka ieklikšķinātā krāsa ir pareizi atlasīta
+      var selectedColor = colorElement.style.backgroundColor;
+
+      // Nomainīsim krāsu elementam ar klasi "color"
+      colorContainer.style.backgroundColor = selectedColor;
+
+      // Norādīsim, kura krāsa ir izvēlēta, pieliekot klasi "active-color"
+      colorElements.forEach(function(element) {
+        element.classList.remove('active-color');
+      });
+      colorElement.classList.add('active-color');
+    });
+  });
 });
-
-
-
-// Additional color change functionality (optional)
-document.querySelector('.color-input').addEventListener('input', function (e) {
-    const color = e.target.value;
-    document.querySelector('.color').style.backgroundColor = color;
-});
-
-
 
     $(document).ready(function(){
       $('.upload-area').click(function(){
@@ -61,17 +61,11 @@ document.querySelector('.color-input').addEventListener('input', function (e) {
             reader.readAsDataURL(files[i]);
           }
       
-          updateUploadedFilesCount(); // Jaunais izsaukums, lai atjauninātu failu skaitu
-      
           $('.upload-img').css('padding', '20px');
         }
       }
       
-      // funkcija, kas atjaunina augšupielādēto failu skaitu teksta laukā
-      function updateUploadedFilesCount() {
-        let uploadedFilesCount = $('.uploaded-img').length;
-        $('.upload-info-value').text(uploadedFilesCount + 1 );
-      }
+
 
       $(window).click(function(event) {
         if($(event.target).hasClass('remove-btn')){
@@ -150,41 +144,48 @@ document.querySelector('.color-input').addEventListener('input', function (e) {
 
 
 // Text settings
-document.getElementById('font-select').addEventListener('change', updateFontPreview);
-
-    function updateFontPreview() {
-        const selectedFont = document.getElementById('font-select').value;
-        const fontPreview = document.getElementById('output-text');
-        fontPreview.style.fontFamily = selectedFont;
-    }
+let editingIndex = -1; // Uzglabā rediģējamā teksta indeksu
 
     function addText() {
         const textInput = document.getElementById('text-input');
-        const fontPreview = document.getElementById('output-text');
         const textList = document.getElementById('text-list');
+        const fontSize = document.getElementById('font-size').value + 'px';
+        // const fontStyle = document.querySelector('input[name="font-style"]:checked').value;
 
-        const text = textInput.value;
+        const text = textInput.value.trim(); // Izņemam tukšumus no sākuma un beigām
 
-        const listItem = document.createElement('li');
-        listItem.className = 'text-list-item';
+        if (text !== '') {
+            if (editingIndex === -1) {
+                // Ja netiek rediģēts teksts, pievieno jaunu
+                const listItem = document.createElement('li');
+                listItem.className = 'text-list-item';
 
-        listItem.innerHTML = `
-            <span style="font-family: ${fontPreview.style.fontFamily}; font-size: ${document.getElementById('font-size').value}px; color: ${document.getElementById('font-color').value};">${text}</span>
-            <button onclick="editTextInList(this)">Edit</button>
-            <button onclick="deleteText(this)">Delete</button>
-        `;
+                listItem.innerHTML = `
+                    <span style="font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value};">${text}</span>
+                    <button class="edit-button" onclick="editTextInList(this)"><i class="fas fa-edit"></i></button>
+                    <button class="delete-button" onclick="deleteText(this)"><i class="fas fa-trash-alt"></i></button>
+                `;
 
-        textList.appendChild(listItem);
-        textInput.value = '';
-        updateFontPreview(); // Lai atjaunotu ar noklusējuma stilu
-    }
+                textList.appendChild(listItem);
+            } else {
+                // Ja tiek rediģēts teksts, atjauno esošo
+                const editedItem = textList.children[editingIndex];
+                const textSpan = editedItem.querySelector('span');
 
-    function editText() {
-        const textInput = document.getElementById('text-input');
-        const fontPreview = document.getElementById('output-text');
+                textSpan.innerHTML = text;
+                textSpan.style.fontSize = fontSize;
+                textSpan.style.color = document.getElementById('font-color').value;
+                textSpan.style.fontFamily = document.getElementById('font-select').value;
+                // textSpan.style.fontStyle = fontStyle;
 
-        textInput.value = fontPreview.textContent;
-        updateFontPreview();
+                editingIndex = -1; // Atiestata rediģēšanas indeksu
+            }
+
+            textInput.value = '';
+            updateFontPreview();
+        } else {
+            alert('Please enter text before adding to the list.');
+        }
     }
 
     function editTextInList(button) {
@@ -193,12 +194,46 @@ document.getElementById('font-select').addEventListener('change', updateFontPrev
         const textInput = document.getElementById('text-input');
 
         textInput.value = textSpan.textContent;
-        updateFontPreview();
+        document.getElementById('font-select').value = textSpan.style.fontFamily; // Iestata fontu izvēlnē
+        document.getElementById('font-size').value = parseInt(textSpan.style.fontSize);
+        document.getElementById('font-color').value = textSpan.style.color;
 
-        listItem.remove();
+        // const fontStyle = textSpan.style.fontStyle;
+        // document.querySelector(`input[name="font-style"][value="${fontStyle}"]`).checked = true;
+
+        // Iegūst rediģējamā teksta indeksu
+        editingIndex = Array.from(listItem.parentNode.children).indexOf(listItem);
+
+        updateFontPreview();
     }
 
     function deleteText(button) {
         const listItem = button.parentNode;
         listItem.remove();
+        editingIndex = -1; // Atiestata rediģēšanas indeksu
+    }
+
+    function updateFontPreview() {
+        const selectedFont = document.getElementById('font-select').value;
+        const fontPreview = document.getElementById('output-text');
+        fontPreview.style.fontFamily = selectedFont;
+    }
+
+    function editText() {
+        const textInput = document.getElementById('text-input');
+        const fontPreview = document.getElementById('output-text');
+
+        const textList = document.getElementById('text-list');
+        const editedItem = textList.children[editingIndex];
+        const textSpan = editedItem.querySelector('span');
+
+        textSpan.innerHTML = textInput.value.trim();
+        textSpan.style.fontSize = document.getElementById('font-size').value + 'px';
+        textSpan.style.color = document.getElementById('font-color').value;
+        textSpan.style.fontFamily = document.getElementById('font-select').value;
+        // textSpan.style.fontStyle = document.querySelector('input[name="font-style"]:checked').value;
+
+        editingIndex = -1; // Atiestata rediģēšanas indeksu
+        textInput.value = '';
+        updateFontPreview();
     }
