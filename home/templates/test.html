@@ -8,115 +8,92 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/test.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-  />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
 {% endblock %}
 
 {% block body %}
-<div class="product">
-  <div class="image-container" id="front" style="display: block;">
-    <img src="{% static '/img/krekls.png' %}" class="img-1" id="img-1"/>
-    <img src="{% static '/img/krekls_2.png' %}" class="img-2" />
-  </div>
-  <div class="image-container" id="back" style="display: none;">
-    <img src="{% static '/img/krekls_back.png' %}" class="img-1" id="img-1"/>
-    <img src="{% static '/img/krekls_back_2.png' %}" class="img-2" />
-  </div>
+  <div class="product">
+    <div class="image-container" id="front" style="display: block;">
+        <img src="{% static '/img/krekls.png' %}" class="img-1" id="img-1"/>
+        <img src="{% static '/img/krekls_2.png' %}" class="img-2" />
+    </div>
+    <div class="image-container" id="back" style="display: none;">
+        <img src="{% static '/img/krekls_back.png' %}" class="img-1" id="img-1"/>
+        <img src="{% static '/img/krekls_back_2.png' %}" class="img-2" />
+    </div>
     <div class="color"></div>
   </div>
 
-
   <div class="content-wrapper">
-
     <div id="general" class="content">
         <h1>Izveido savu kreklu</h1>
-        <p></p>
-        <b>Customize shirt color: </b>
-        <input type="color" class="color-input" value="#ff0000" />
-        <br><br>
+        <div class="color-content">
+            <b>{% trans 'Customize shirt color:' %}</b>
+            <div class="color-groups">
+                <div class="color-select active-color" style="background-color: #fff;"></div>
+                <div class="color-select" style="background-color: #ff0000;"></div>
+                <div class="color-select" style="background-color: #383838;"></div>
+                <div class="color-select" style="background-color: #00ff15;"></div>
+                <div class="color-select" style="background-color: #a947e7;"></div>
+            </div>
+        </div>
+        <button class="general-button" role="button">{% trans 'Buy Now' %}</button>
     </div>
 
     <div id="upload" class="content" style="display: none;">
         <div class="upload-wrapper">
-          <div class="upload-area">
-              <div class="upload-area-img">
-                  <img src="{% static '/img/upload.png' %}" alt="">
-              </div>
-              <p class="upload-area-text">Drop Images or <span>browse</span></p>
-          </div>
-          <input type="file" class="visually-hidden" name="" id="upload-input" multiple>
-          <div class="upload-img">
-              <!-- image -->
-          </div>
-          <div class="upload-info">
-              <p><span class="upload-info-value">0</span> file(s) uploaded.</p>
-          </div>
+            <div class="upload-area">
+                <div class="upload-area-img">
+                    <img src="{% static '/img/upload.png' %}" alt="">
+                </div>
+                <p class="upload-area-text">Drop Images or <span>browse</span></p>
+            </div>
+            <input type="file" class="visually-hidden" name="" id="upload-input" multiple>
+            <div class="upload-img">
+                <!-- image -->
+            </div>
         </div>
     </div>
 
     <div id="Text" class="content" style="display: none;">
-      <h1>Text Styler</h1>
-      <div class="input-container">
-          <label for="text-input">Enter Text:</label>
-          <input type="text" id="text-input" placeholder="Type your text here">
-      </div>
-  
-      <div class="input-container">
-          <label for="font-select">Select Font:</label>
-          <select id="font-select">
-              <option value="Arial" style="font-family: Arial;">Arial</option>
-              <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
-              <option value="Verdana" style="font-family: Verdana;">Verdana</option>
-              <!-- Add more font options as needed -->
-          </select>
-      </div>
-  
-      <div class="input-container">
-          <div class="input-label">
-              <label for="font-size">Font Size:</label>
-              <label for="font-color">Font Color:</label>
-          </div>
-          <div class="input-field">
-              <input type="number" id="font-size" value="16">
-              <input type="color" id="font-color" value="#000000">
-              <button onclick="addText()">Add Text</button>
-          </div>
-      </div>
-  
-      <div id="output-text-container">
-          <div id="output-text"></div>
-          <button onclick="editText()" style="display: none;">Edit Text</button>
-      </div>
-  
-      <ul id="text-list"></ul>
-  </div>
+        <h1>Text Styler</h1>
+        <div class="input-container">
+            <label for="text-input">Enter Text:</label>
+            <input type="text" id="text-input" placeholder="Type your text here">
+        </div>
+        <div class="input-container">
+            <label for="font-select">Select Font:</label>
+            <select id="font-select">
+                <option value="Arial" style="font-family: Arial;">Arial</option>
+                <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
+                <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+            </select>
+        </div>
+        <div class="input-container">
+            <div class="input-label">
+                <label for="font-size">Font Size:</label>
+                <label for="font-color">Font Color:</label>
+            </div>
+            <div class="input-field">
+                <input type="number" id="font-size" value="16">
+                <input type="color" id="font-color" value="#000000">
+                <button class="button" onclick="addText()"><i class="fas fa-plus"></i> Add Text</button>
+            </div>
+        </div>
+        <div id="output-text-container">
+            <div id="output-text"></div>
+            <button onclick="editText()" style="display: none;">Edit Text</button>
+        </div>
+        <ul id="text-list"></ul>
+    </div>
 
     <div id="Ai-generator" class="content" style="display: none;">
-      <h1>AI Image Generator</h1>
-      <form action="#" class="generate-form">
-        <input class="prompt-input" type="text" placeholder="Describe what you want to see" required>
-        <div class="controls">
-          <select class="img-quantity">
-            <option value="1">1 Image</option>
-            <option value="2">2 Images</option>
-            <option value="3">3 Images</option>
-            <option value="4" selected>4 Images</option>
-          </select>
-          <button type="submit" class="generate-btn">Generate</button>
-        </div>
-      </form>
-      <div class="image-gallery">
-        <div class="img-card"><img src="" alt="image"></div>
-        <div class="img-card"><img src="" alt="image"></div>
-        <div class="img-card"><img src="" alt="image"></div>
-        <div class="img-card"><img src="" alt="image"></div>
-        </div>
+        <h1>AI Image Generator</h1>
+        <h2>{% trans 'Coming soon' %}</h2>
     </div>
-  
-
   </div>
 
-<div class="navbar-wrapper">
+  <div class="navbar-wrapper">
     <div class="nav-item" id="generalIcon">
         <i class="fas fa-cogs"></i>
     </div>
@@ -127,12 +104,12 @@
         <i class="fas fa-font"></i>
     </div>
     <div class="nav-item" id="Ai-generatoricon">
-      <i class="fas fa-robot"></i>
-  </div>
+        <i class="fas fa-robot"></i>
+    </div>
     <div class="nav-item" id="roatateicon">
-      <i class="fa-solid fa-arrow-rotate-left"></i>
+        <i class="fa-solid fa-arrow-rotate-left"></i>
+    </div>
   </div>
-</div>
 {% endblock %}
 
 
