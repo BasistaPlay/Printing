@@ -2,5 +2,5 @@ env/
 ecomerce/db.sqlite3
 ecomerce/local_settings.py
 ecomerce/media/
-ecomerce\__pycache__
-home\__pycache__
+ecomerce/__pycache__/
+home/__pycache__/

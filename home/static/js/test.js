@@ -1,16 +1,15 @@
+// -----------Color-----------
+
 document.addEventListener('DOMContentLoaded', function() {
   var colorElements = document.querySelectorAll('.color-select');
-  var colorContainer = document.querySelector('.color'); // Assuming .color is the element you want to change
+  var colorContainer = document.querySelector('.color');
 
   colorElements.forEach(function(colorElement, index) {
     colorElement.addEventListener('click', function() {
-      // Pārliecināsimies, ka ieklikšķinātā krāsa ir pareizi atlasīta
       var selectedColor = colorElement.style.backgroundColor;
 
-      // Nomainīsim krāsu elementam ar klasi "color"
       colorContainer.style.backgroundColor = selectedColor;
 
-      // Norādīsim, kura krāsa ir izvēlēta, pieliekot klasi "active-color"
       colorElements.forEach(function(element) {
         element.classList.remove('active-color');
       });
@@ -19,144 +18,169 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-    $(document).ready(function(){
-      $('.upload-area').click(function(){
-        $('#upload-input').trigger('click');
-      });
-      
-      $('#upload-input').change(event => {
-        if(event.target.files){
-          handleFiles(event.target.files);
-        }
-      });
+// -----------Image-----------
 
-      $('.upload-area').on('drop', function(event) {
-        event.preventDefault();
-        let files = event.originalEvent.dataTransfer.files;
-        handleFiles(files);
-      });
+$(document).ready(function () {
+  let currentSide = localStorage.getItem('currentSide') || 'front'; // Get the current side from localStorage or default to 'front'
 
-      $('.upload-area').on('dragover', function(event) {
-        event.preventDefault();
-      });
-
-      // funkcija, kas apstrādā augšupielādētos failus
-      function handleFiles(files) {
-        if (files) {
-          let filesAmount = files.length;
-      
-          for (let i = 0; i < filesAmount; i++) {
-            let reader = new FileReader();
-            reader.onload = function(event) {
-              let html = `
-                <div class='uploaded-img'>
-                  <img src='${event.target.result}'>
-                  <button type='button' class='remove-btn'>
-                    <i class='fas fa-times'></i>
-                  </button>
-                </div>
-              `;
-              $('.upload-img').append(html);
-            };
-            reader.readAsDataURL(files[i]);
-          }
-      
-          $('.upload-img').css('padding', '20px');
-        }
-      }
-      
-
-
-      $(window).click(function(event) {
-        if($(event.target).hasClass('remove-btn')){
-          $(event.target).parent().remove();
-        } else if($(event.target).parent().hasClass('remove-btn')){
-          $(event.target).parent().parent().remove();
-        }
-      });
-    });
-
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const generalContent = document.getElementById('general');
-      const uploadContent = document.getElementById('upload');
-      const AiContent = document.getElementById('Ai-generator');
-      const Text = document.getElementById('Text');
-      const Back = document.getElementById('back');
-      const Front = document.getElementById('front');
-      
-      const generalIcon = document.getElementById('generalIcon');
-      const imageIcon = document.getElementById('imageIcon');
-      const textIcon = document.getElementById('textIcon');
-      const ai = document.getElementById('Ai-generatoricon')
-      const rotate = document.getElementById('roatateicon')
-
-  
-      generalIcon.addEventListener('click', function () {
-          showContent(generalContent);
-          hideContent(uploadContent);
-          hideContent(AiContent);
-          hideContent(Text);
-      });
-
-      textIcon.addEventListener('click', function () {
-        showContent(Text);
-        hideContent(uploadContent);
-        hideContent(AiContent);
-        hideContent(generalContent);
-    });
-  
-      imageIcon.addEventListener('click', function () {
-          showContent(uploadContent);
-          hideContent(generalContent);
-          hideContent(AiContent);
-          hideContent(Text);
-      });
-  
-      
-      ai.addEventListener('click', function () {
-        showContent(AiContent);
-        hideContent(generalContent);
-        hideContent(uploadContent);
-        hideContent(Text);
-    });
-
-    rotate.addEventListener('click', function () {
-      if (Front.style.display === 'block') {
-        showContent(Back);
-        hideContent(Front);
-      } else {
-        showContent(Front);
-        hideContent(Back);
-      }
-    });
-
-      function hideContent(element) {
-          element.style.display = 'none';
-      }
-  
-      function showContent(element) {
-          element.style.display = 'block';
-      }
+  $('.upload-area').click(function () {
+    $('#upload-input').trigger('click');
   });
 
+  $('#upload-input').change(event => {
+    if (event.target.files) {
+      handleFiles(event.target.files);
+    }
+  });
+
+  $('.upload-area').on('drop', function (event) {
+    event.preventDefault();
+    let files = event.originalEvent.dataTransfer.files;
+    handleFiles(files);
+  });
+
+  $('.upload-area').on('dragover', function (event) {
+    event.preventDefault();
+  });
+
+  function handleFiles(files) {
+    if (files) {
+      let filesAmount = files.length;
+
+      for (let i = 0; i < filesAmount; i++) {
+        let reader = new FileReader();
+        reader.onload = function (event) {
+          let imageId = Date.now();
+
+          let htmlList = `
+            <div class='uploaded-img ${currentSide}' data-image-id='${imageId}'>
+              <img src='${event.target.result}' class='editable-image' draggable='true'>
+              <button type='button' class='remove-btn'>
+                <i class='fas fa-times'></i>
+              </button>
+            </div>
+          `;
+          $('.upload-img').append(htmlList);
+
+          let htmlKrekls = `
+            <div class='uploaded-img element-image ${currentSide}' data-image-id='${imageId}'>
+              <img src='${event.target.result}' class='editable-image' draggable='true'>
+            </div>
+          `;
+          let selectedContainer;
+          if (currentSide === 'front') {
+            selectedContainer = $('#front');
+          } else {
+            selectedContainer = $('#back');
+          }
+          selectedContainer.append(htmlKrekls);
+
+          let editableImage = selectedContainer.find('.editable-image');
+
+          editableImage.on('click', function () {
+            rotateImage($(this));
+          });
+
+          $('.remove-btn').click(function () {
+            let imageIdToRemove = $(this).parent().data('image-id');
+            $('[data-image-id="' + imageIdToRemove + '"]').remove();
+          });
+
+          // Make the image draggable using jQuery UI
+          $('.editable-image').draggable();
+        };
+        reader.readAsDataURL(files[i]);
+      }
+
+      $('.upload-img').css('padding', '20px');
+    }
+  }
+
+  $('.remove-btn').click(function () {
+    let imageIdToRemove = $(this).parent().data('image-id');
+    $('[data-image-id="' + imageIdToRemove + '"]').remove();
+  });
+
+  const generalContent = document.getElementById('general');
+  const uploadContent = document.getElementById('upload');
+  const AiContent = document.getElementById('Ai-generator');
+  const Text = document.getElementById('Text');
+  const Back = document.getElementById('back');
+  const Front = document.getElementById('front');
+
+  const generalIcon = document.getElementById('generalIcon');
+  const imageIcon = document.getElementById('imageIcon');
+  const textIcon = document.getElementById('textIcon');
+  const ai = document.getElementById('Ai-generatoricon');
+  const rotate = document.getElementById('roatateicon');
+
+  generalIcon.addEventListener('click', function () {
+    showContent(generalContent);
+    hideContent(uploadContent);
+    hideContent(AiContent);
+    hideContent(Text);
+  });
+
+  textIcon.addEventListener('click', function () {
+    showContent(Text);
+    hideContent(uploadContent);
+    hideContent(AiContent);
+    hideContent(generalContent);
+  });
+
+  imageIcon.addEventListener('click', function () {
+    showContent(uploadContent);
+    hideContent(generalContent);
+    hideContent(AiContent);
+    hideContent(Text);
+  });
+
+  ai.addEventListener('click', function () {
+    showContent(AiContent);
+    hideContent(generalContent);
+    hideContent(uploadContent);
+    hideContent(Text);
+  });
+
+  rotate.addEventListener('click', function () {
+    if (currentSide === 'front') {
+      showContent(Back);
+      hideContent(Front);
+      currentSide = 'back';
+    } else {
+      showContent(Front);
+      hideContent(Back);
+      currentSide = 'front';
+    }
+
+    // Save the current side to localStorage
+    localStorage.setItem('currentSide', currentSide);
+  });
+
+  function hideContent(element) {
+    element.style.display = 'none';
+  }
+
+  function showContent(element) {
+    element.style.display = 'block';
+  }
+});
 
 
-// Text settings
-let editingIndex = -1; // Uzglabā rediģējamā teksta indeksu
+
+  // -----------Text-----------
+
+let editingIndex = -1;
 
     function addText() {
         const textInput = document.getElementById('text-input');
         const textList = document.getElementById('text-list');
         const fontSize = document.getElementById('font-size').value + 'px';
-        // const fontStyle = document.querySelector('input[name="font-style"]:checked').value;
 
-        const text = textInput.value.trim(); // Izņemam tukšumus no sākuma un beigām
+        const text = textInput.value.trim();
 
         if (text !== '') {
             if (editingIndex === -1) {
-                // Ja netiek rediģēts teksts, pievieno jaunu
                 const listItem = document.createElement('li');
                 listItem.className = 'text-list-item';
 
@@ -168,7 +192,7 @@ let editingIndex = -1; // Uzglabā rediģējamā teksta indeksu
 
                 textList.appendChild(listItem);
             } else {
-                // Ja tiek rediģēts teksts, atjauno esošo
+
                 const editedItem = textList.children[editingIndex];
                 const textSpan = editedItem.querySelector('span');
 
@@ -176,9 +200,8 @@ let editingIndex = -1; // Uzglabā rediģējamā teksta indeksu
                 textSpan.style.fontSize = fontSize;
                 textSpan.style.color = document.getElementById('font-color').value;
                 textSpan.style.fontFamily = document.getElementById('font-select').value;
-                // textSpan.style.fontStyle = fontStyle;
 
-                editingIndex = -1; // Atiestata rediģēšanas indeksu
+                editingIndex = -1;
             }
 
             textInput.value = '';
@@ -194,14 +217,9 @@ let editingIndex = -1; // Uzglabā rediģējamā teksta indeksu
         const textInput = document.getElementById('text-input');
 
         textInput.value = textSpan.textContent;
-        document.getElementById('font-select').value = textSpan.style.fontFamily; // Iestata fontu izvēlnē
+        document.getElementById('font-select').value = textSpan.style.fontFamily;
         document.getElementById('font-size').value = parseInt(textSpan.style.fontSize);
         document.getElementById('font-color').value = textSpan.style.color;
-
-        // const fontStyle = textSpan.style.fontStyle;
-        // document.querySelector(`input[name="font-style"][value="${fontStyle}"]`).checked = true;
-
-        // Iegūst rediģējamā teksta indeksu
         editingIndex = Array.from(listItem.parentNode.children).indexOf(listItem);
 
         updateFontPreview();
@@ -210,7 +228,7 @@ let editingIndex = -1; // Uzglabā rediģējamā teksta indeksu
     function deleteText(button) {
         const listItem = button.parentNode;
         listItem.remove();
-        editingIndex = -1; // Atiestata rediģēšanas indeksu
+        editingIndex = -1;
     }
 
     function updateFontPreview() {
@@ -231,9 +249,8 @@ let editingIndex = -1; // Uzglabā rediģējamā teksta indeksu
         textSpan.style.fontSize = document.getElementById('font-size').value + 'px';
         textSpan.style.color = document.getElementById('font-color').value;
         textSpan.style.fontFamily = document.getElementById('font-select').value;
-        // textSpan.style.fontStyle = document.querySelector('input[name="font-style"]:checked').value;
 
-        editingIndex = -1; // Atiestata rediģēšanas indeksu
+        editingIndex = -1;
         textInput.value = '';
         updateFontPreview();
     }
