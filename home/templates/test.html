@@ -7,19 +7,20 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/test.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+  <link rel="stylesheet" href="{% static 'css/test.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock %}
 
 {% block body %}
   <div class="product">
     <div class="image-container" id="front" style="display: block;">
-        <img src="{% static '/img/krekls.png' %}" class="img-1" id="img-1"/>
-        <img src="{% static '/img/krekls_2.png' %}" class="img-2" />
+        <img src="{% static '/img/krekls.png' %}" class="img-1 front-image" id="img-1"/>
+        <img src="{% static '/img/krekls_2.png' %}" class="img-2 front-image" />
     </div>
     <div class="image-container" id="back" style="display: none;">
-        <img src="{% static '/img/krekls_back.png' %}" class="img-1" id="img-1"/>
-        <img src="{% static '/img/krekls_back_2.png' %}" class="img-2" />
+        <img src="{% static '/img/krekls_back.png' %}" class="img-1 back-image" id="img-1"/>
+        <img src="{% static '/img/krekls_back_2.png' %}" class="img-2 back-image" />
     </div>
     <div class="color"></div>
   </div>
@@ -37,7 +38,9 @@
                 <div class="color-select" style="background-color: #a947e7;"></div>
             </div>
         </div>
-        <button class="general-button" role="button">{% trans 'Buy Now' %}</button>
+        <div class="buy-button">
+          <button class="general-button">{% trans 'Buy Now' %}</button>
+        </div>
     </div>
 
     <div id="upload" class="content" style="display: none;">
@@ -54,6 +57,8 @@
             </div>
         </div>
     </div>
+
+    
 
     <div id="Text" class="content" style="display: none;">
         <h1>Text Styler</h1>
@@ -77,8 +82,8 @@
             <div class="input-field">
                 <input type="number" id="font-size" value="16">
                 <input type="color" id="font-color" value="#000000">
-                <button class="button" onclick="addText()"><i class="fas fa-plus"></i> Add Text</button>
             </div>
+            <button class="button" onclick="addText()"><i class="fas fa-plus"></i> Add Text</button>
         </div>
         <div id="output-text-container">
             <div id="output-text"></div>
@@ -93,7 +98,7 @@
     </div>
   </div>
 
-  <div class="navbar-wrapper">
+  <div class="navbar-wrapper pc">
     <div class="nav-item" id="generalIcon">
         <i class="fas fa-cogs"></i>
     </div>
@@ -110,9 +115,14 @@
         <i class="fa-solid fa-arrow-rotate-left"></i>
     </div>
   </div>
+  
 {% endblock %}
 
 
 {% block js %}
-    <script src="{% static 'js/test.js' %}"></script>
+  <script src="{% static 'js/test.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
 {% endblock %}

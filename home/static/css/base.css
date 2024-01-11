@@ -23,6 +23,7 @@ body {
     --big-font: 3.5rem;
     --p-font:1rem;
     --hover-color: #00000039;
+    --input-color: #ffffffa4; 
 }
 
 header {
@@ -116,6 +117,7 @@ body.dark{
     --bg-color: #061b09;
     --second-color: #0b1e38;
     --hover-color: #ffffff39;
+    --input-color: #838383a4;
 }
 
 @media (max-width: 1600px){
