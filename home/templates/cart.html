@@ -35,12 +35,10 @@
               <span>{% trans 'Kredītkarte' %}</span>
 
               <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
-              <ion-icon class="mastercard" name="checkmark-circle"></ion-icon>
             </button>
 
             <button class="method">
               <ion-icon name="logo-paypal"></ion-icon>
-              <ion-icon name="Mastercard"></ion-icon>
 
               <span>PayPal</span>
 
@@ -58,7 +56,7 @@
 
             <div class="card-number">
               <label for="card-number" class="label-default">{% trans 'Kartes numurs' %}</label>
-              <input type="text" name="card-number" id="card-number" class="input-default" oninput="formatCardNumber(this)" maxlength="19">>
+              <input type="text" name="card-number" id="card-number" class="input-default" oninput="formatCardNumber(this)" maxlength="19">
               <div id="card-type" class="card-image"></div>
             </div>
 
