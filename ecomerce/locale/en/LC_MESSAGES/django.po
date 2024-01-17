@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-27 15:32+0200\n"
+"POT-Creation-Date: 2024-01-17 14:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,189 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\ecomerce\settings.py:130
+#: .\ecomerce\settings.py:131
 msgid "Latvian"
 msgstr ""
 
-#: .\ecomerce\settings.py:131
+#: .\ecomerce\settings.py:132
 msgid "English"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3\templates\adminlte\lib\_main_header.html:142
+msgid "Member since"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3\templates\adminlte\lib\_main_header.html:150
+msgid "Change password"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3\templates\adminlte\lib\_main_header.html:151
+msgid "Sign out"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3\templates\adminlte\login.html:19
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_form.html:70
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_list.html:54
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\login.html:7
+msgid "Please correct the error below."
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3\templates\adminlte\login.html:20
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_form.html:70
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_list.html:55
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\login.html:8
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3\templates\adminlte\login.html:40
+msgid "Username"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3\templates\adminlte\login.html:44
+msgid "Password"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3\templates\adminlte\login.html:53
+msgid "Login"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\app_index.html:14
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\base.html:32
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_form.html:26
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_list.html:39
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:21
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\object_history.html:13
+msgid "Home"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\base_login.html:23
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\base_site.html:6
+msgid "Django administration"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\base_site.html:3
+msgid "Django site admin"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_form.html:35
+#, python-format
+msgid ""
+"Add\n"
+"                %(name)s"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_form.html:52
+msgid "History"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_form.html:54
+msgid "View on site"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_list.html:71
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_list.html:97
+msgid "Filter"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\change_list.html:82
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:41
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:137
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:69
+msgid "Add"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:74
+#: .\env\Lib\site-packages\django\forms\widgets.py:465
+msgid "Change"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:124
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:134
+msgid "Recent actions"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:135
+msgid "My actions"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:152
+msgid "None available"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\index.html:176
+msgid "Unknown content"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\lib\_main_header.html:39
+msgid "Change Password"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\lib\_main_header.html:40
+msgid "Sign Out"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\login.html:37
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\login.html:44
+msgid "Log In"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\login.html:53
+#, python-format
+msgid ""
+"You are authenticated as %(username)s, but are not authorized to access this "
+"page. Would you like to login to a different account?"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\object_history.html:33
+msgid "Date/time"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\object_history.html:34
+msgid "User"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\object_history.html:35
+msgid "Action"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\object_history.html:49
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\search_form.html:16
+#, python-format
+msgid ""
+"%(counter)s\n"
+"        result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\search_form.html:18
+#, python-format
+msgid ""
+"%(full_result_count)s\n"
+"            total"
+msgstr ""
+
+#: .\env\Lib\site-packages\adminlte3_theme\templates\admin\search_form.html:19
+msgid "Show all"
 msgstr ""
 
 #: .\env\Lib\site-packages\ckeditor_uploader\forms.py:6
@@ -703,10 +880,6 @@ msgstr ""
 
 #: .\env\Lib\site-packages\django\forms\widgets.py:464
 msgid "Currently"
-msgstr ""
-
-#: .\env\Lib\site-packages\django\forms\widgets.py:465
-msgid "Change"
 msgstr ""
 
 #: .\env\Lib\site-packages\django\forms\widgets.py:794

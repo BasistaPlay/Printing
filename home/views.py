@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.http import Http404
 
 
 
@@ -143,3 +144,23 @@ def save_rating(request):
     rating.save()
 
     return JsonResponse({'message': 'Reitings saglabāts datubāzē!'})
+
+
+def handler404(request, exception):
+    error_description = "The Page can't be found"
+    context = {
+        'error_code': 404,
+        'error_description': error_description,
+    }
+    return render(request, 'error/404.html', context, status=404)
+
+def handler500(request):
+    error_description = "An internal server error occurred. Please try again later."
+    context = {
+        'error_code': 500,
+        'error_description': error_description,
+    }
+    return render(request, 'error/404.html', context, status=500)
+
+def cart(request):
+    return render(request, 'cart.html')
