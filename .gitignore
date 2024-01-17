@@ -4,3 +4,4 @@ ecomerce/local_settings.py
 ecomerce/media/
 ecomerce/__pycache__/
 home/__pycache__/
+static/img/
