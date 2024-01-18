@@ -27,7 +27,6 @@ SECRET_KEY = 'django-insecure-v1fiaup#2ni$7o)+u(uzkc9n$((#nrayt9__52wtm#651%-tpj
 DEBUG = True
 
 ALLOWED_HOSTS = ['www.mafia.lat', '104.248.195.146', 'mafia.lat']
-CSRF_TRUSTED_ORIGINS = ["https://www.mafia.lat/"]
 
 # Application definition
 
@@ -46,7 +45,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'home',
 ]
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = ['https://www.mafia.lat']
 
 MIDDLEWARE = [

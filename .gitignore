@@ -5,3 +5,4 @@ ecomerce/media/
 ecomerce/__pycache__/
 home/__pycache__/
 static/img/
+ecomerce/static/
