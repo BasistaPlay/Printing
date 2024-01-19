@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating
-from home.models import User
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -10,6 +9,7 @@ from django.conf import settings
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.http import Http404
+from home.models import user as MyUser
 
 
 
@@ -20,8 +20,13 @@ def homepage(request):
 
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        if not email or not password:
+            messages.error(request, _('Lūdzu, ievadiet e-pastu un paroli.'))
+            return render(request, 'login.html')
+
         user = authenticate(request, username=email, password=password)
 
         if user is not None:
@@ -50,12 +55,12 @@ def register(request):
             errors.append(_('Paroles nesakrīt.'))
             
         if not first_name or not last_name:
-                    errors.append(_('Lūdzu, ievadiet gan vārdu, gan uzvārdu.'))
+            errors.append(_('Lūdzu, ievadiet gan vārdu, gan uzvārdu.'))
 
         if not phone_number:
             errors.append(_('Lūdzu ievadiet telefona numuru.'))
         
-        if User.objects.filter(email=email).exists():
+        if MyUser.objects.filter(email=email).exists():
             errors.append(_('Šī e-pasta adrese jau tiek izmantota.'))
 
         if errors:
@@ -64,7 +69,7 @@ def register(request):
             return render(request, 'register.html')
 
         try:
-            user = User.objects.create_user(username=email, email=email, password=pass1)
+            user = MyUser.objects.create_user(username=email, email=email, password=pass1)
             user.first_name = first_name
             user.last_name = last_name
             user.phone_number = phone_number
@@ -75,6 +80,7 @@ def register(request):
             messages.error(request, e.message)
 
     return render(request, 'register.html')
+
 
 def logout_view(request):
     logout(request)

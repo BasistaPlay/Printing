@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-18 13:02+0200\n"
+"POT-Creation-Date: 2024-01-18 20:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,31 +96,31 @@ msgstr "Instagram link"
 msgid "Kontaktinformācija"
 msgstr "Contact details"
 
-#: .\home\templates\base.html:28
+#: .\home\templates\base.html:29 .\home\templates\home_page.html:6
 msgid "Sākumlapa"
-msgstr "Home"
+msgstr "Homepage"
 
-#: .\home\templates\base.html:29 .\home\templates\creativecorner.html:7
+#: .\home\templates\base.html:30 .\home\templates\creativecorner.html:7
 msgid "Radošais stūrītis"
 msgstr "Creative corner"
 
-#: .\home\templates\base.html:30 .\home\templates\contact.html:7
+#: .\home\templates\base.html:31 .\home\templates\contact.html:7
 msgid "Sazinies ar mums"
 msgstr "Contact us"
 
-#: .\home\templates\base.html:31
+#: .\home\templates\base.html:32
 msgid "Par mums"
 msgstr "About us"
 
-#: .\home\templates\base.html:33
+#: .\home\templates\base.html:34
 msgid "Admin"
 msgstr ""
 
-#: .\home\templates\base.html:38
+#: .\home\templates\base.html:39
 msgid "Izlogoties"
 msgstr "Logout"
 
-#: .\home\templates\base.html:40
+#: .\home\templates\base.html:41
 msgid "Pierakstīties"
 msgstr "Sign up"
 
@@ -204,11 +204,19 @@ msgstr ""
 msgid "Autors: "
 msgstr "The author:"
 
-#: .\home\templates\detail.html:78
+#: .\home\templates\detail.html:78 .\home\templates\detail.html:179
 msgid "Pievienot grozā"
 msgstr "Add to cart"
 
-#: .\home\templates\home_page.html:68
+#: .\home\templates\detail.html:146
+msgid "Izmērs"
+msgstr "Sizes"
+
+#: .\home\templates\detail.html:167
+msgid "Skaits"
+msgstr "Qty."
+
+#: .\home\templates\home_page.html:72
 msgid "Top 3 pirktākie Krekli"
 msgstr "Top 3 most purchased shirts"
 
@@ -271,31 +279,37 @@ msgstr "Pirkt"
 msgid "Coming soon"
 msgstr ""
 
-#: .\home\views.py:31
+#: .\home\views.py:27
+#, fuzzy
+#| msgid "Lūdzu ievadiet abas paroles."
+msgid "Lūdzu, ievadiet e-pastu un paroli."
+msgstr "Please enter both passwords."
+
+#: .\home\views.py:36
 msgid "Nepareizs e-pasts vai parole."
 msgstr "Incorrect email or password."
 
-#: .\home\views.py:47
+#: .\home\views.py:52
 msgid "Lūdzu ievadiet abas paroles."
 msgstr "Please enter both passwords."
 
-#: .\home\views.py:50
+#: .\home\views.py:55
 msgid "Paroles nesakrīt."
 msgstr "Passwords do not match."
 
-#: .\home\views.py:53
+#: .\home\views.py:58
 msgid "Lūdzu, ievadiet gan vārdu, gan uzvārdu."
 msgstr "Please enter both first and last names."
 
-#: .\home\views.py:56
+#: .\home\views.py:61
 msgid "Lūdzu ievadiet telefona numuru."
 msgstr "Please enter a telephone number."
 
-#: .\home\views.py:59
+#: .\home\views.py:64
 msgid "Šī e-pasta adrese jau tiek izmantota."
 msgstr "This email address is already in use."
 
-#: .\home\views.py:72
+#: .\home\views.py:77
 msgid "Jūsu profils ir veiksmīgi reģistrēts."
 msgstr "Your profile was successfully registered."
 
