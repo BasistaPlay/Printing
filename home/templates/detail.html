@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block body %}
-<section class="main__container">
+<!-- <section class="main__container">
 
     <section class="slider">
       <button class="slider-btn--container previous" type="button" aria-label="button to previous image on focus section">
@@ -117,7 +117,69 @@
             });
         }
     });
-    </script>
+    </script> -->
+
+    <div class="home">
+      <div class="sneaker">
+          <div class="sneaker__figure">
+          </div>
+
+          <div>
+              <img src="{{ product.front_image.url }}" alt="" class="sneaker__img shows" color="#A29596">
+              <img src="{{ product.back_image.url }}" alt="" class="sneaker__img" color="#111111">
+          </div>
+
+          <div class="sneaker__colors">
+            <span class="sneaker__color sneaker__colors-one active" primary="#A29596" color="#A29596"></span>
+            <span class="sneaker__color sneaker__colors-two " primary="#111111" color="#111111"></span>
+          </div>
+      </div>
+
+      <div class="info">
+          <div class="data">
+              <span class="data__subtitle">{% trans 'Autors: ' %}  {{product.author.username}}</span>
+              <h1 class="data__title">{{product.title}}</h1>
+              <p class="data__description">{{product.description}}</p>
+          </div>
+          <div class="actions">
+              <div class="size">
+                  <h3 class="size__title">{% trans 'Izmērs' %}</h3>
+                  <div class="size__content">
+                      <span class="size__tallas active">
+                          XS
+                      </span>
+                      <span class="size__tallas">
+                          S
+                      </span>
+                      <span class="size__tallas">
+                          M
+                      </span>
+                      <span class="size__tallas">
+                          L
+                      </span>
+                      <span class="size__tallas">
+                          XL
+                    </span>
+                  </div>
+              </div>
+
+              <div class="quantity">
+                  <h3 class="quantity__title">{% trans 'Skaits' %}</h3>
+                  <div class="quantity__content"> 
+                      <span>-</span>
+                      <span>1</span>
+                      <span>+</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="price">
+              <span class="price__title">{{product.product.price}} €</span>
+              <a href="#" class="price__button">
+                <i class="fa-solid fa-cart-shopping"></i>{% trans 'Pievienot grozā' %}</a>
+          </div>
+      </div>
+  </div>
 
 {% endblock %}
 

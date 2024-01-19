@@ -2,6 +2,10 @@
 {% load static %}
 {% load static i18n %}
 
+{% block title %}
+    {% trans 'Sākumlapa' %}
+{% endblock %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/home_page.css' %}" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -35,9 +39,9 @@
 
 
 <section class="pricing">
-    <!-- <div class="pricing-title">
-        <h1>Cenrādis</h1>
-    </div> -->
+        <!-- <div class="pricing-title">
+            <h1>Cenrādis</h1>
+        </div> -->
     {% for product in products %}
         <div class="card-wrapper">
             <div class="card-header">
@@ -101,9 +105,9 @@
                 <a href="#" class="fas fa-star s5 active"></a>
             </div>
         </div>
-    </div>
-    <div class="down-arrow third">
-        <i class="bx bx-up-arrow-alt"></i>
+        <div class="down-arrow third">
+            <i class="bx bx-up-arrow-alt"></i>
+        </div>
     </div>
 </section>
 

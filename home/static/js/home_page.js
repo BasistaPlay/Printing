@@ -15,7 +15,7 @@ sr.reveal('#product3', {delay:500, origin: 'bottom'});
 $(document).ready(function() {
     $(".down-arrow").click(function() {
         $('html, body').animate({
-            scrollTop: 740 // Norādiet šeit vēlamo vertikālo koordinātu
+            scrollTop: 740
         }, 1000);
     });
 });
@@ -23,7 +23,17 @@ $(document).ready(function() {
 $(document).ready(function() {
     $(".second").click(function() {
         $('html, body').animate({
-            scrollTop: 1430 // Norādiet šeit vēlamo vertikālo koordinātu
+            scrollTop: 1400 
         }, 1000);
     });
 });
+
+
+$(document).ready(function() {
+    $(".third").click(function() {
+        $('html, body').animate({
+            scrollTop: 0 
+        }, 1000);
+    });
+});
+
