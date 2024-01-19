@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-17 15:00+0200\n"
+"POT-Creation-Date: 2024-01-18 13:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,8 +100,7 @@ msgstr "Contact details"
 msgid "Sākumlapa"
 msgstr "Home"
 
-#: .\home\templates\base.html:29 .\home\templates\cart.html:7
-#: .\home\templates\creativecorner.html:7
+#: .\home\templates\base.html:29 .\home\templates\creativecorner.html:7
 msgid "Radošais stūrītis"
 msgstr "Creative corner"
 
@@ -125,55 +124,59 @@ msgstr "Logout"
 msgid "Pierakstīties"
 msgstr "Sign up"
 
-#: .\home\templates\cart.html:28
+#: .\home\templates\cart.html:7
+msgid "Grozs"
+msgstr "Cart"
+
+#: .\home\templates\cart.html:26
 msgid "Maksājumu informācija"
 msgstr "Payment Details"
 
-#: .\home\templates\cart.html:37
+#: .\home\templates\cart.html:35
 msgid "Kredītkarte"
 msgstr "Credit Card"
 
-#: .\home\templates\cart.html:55
+#: .\home\templates\cart.html:53
 msgid "Kartes īpašnieka vārds"
 msgstr "Cardholder name"
 
-#: .\home\templates\cart.html:60
+#: .\home\templates\cart.html:58
 msgid "Kartes numurs"
 msgstr "Card number"
 
-#: .\home\templates\cart.html:67
+#: .\home\templates\cart.html:66
 msgid "Derīguma termiņš"
 msgstr "Expiration date"
 
-#: .\home\templates\cart.html:92
+#: .\home\templates\cart.html:91
 msgid "Pirkt"
 msgstr "Pay"
 
-#: .\home\templates\cart.html:105
+#: .\home\templates\cart.html:104
 msgid "Pasūtījuma kopsavilkums"
 msgstr "Order Summery"
 
-#: .\home\templates\cart.html:200
+#: .\home\templates\cart.html:199
 msgid "Dāvanu karte/Atlaides kods"
 msgstr "Gift card/Discount code"
 
-#: .\home\templates\cart.html:206
+#: .\home\templates\cart.html:205
 msgid "Apstiprināt"
 msgstr "Apply"
 
-#: .\home\templates\cart.html:215
+#: .\home\templates\cart.html:214
 msgid "Starpsumma"
 msgstr "Subtotal"
 
-#: .\home\templates\cart.html:219
+#: .\home\templates\cart.html:218
 msgid "Nodoklis"
 msgstr "Tax"
 
-#: .\home\templates\cart.html:223
+#: .\home\templates\cart.html:222
 msgid "Piegāde"
 msgstr "Shipping"
 
-#: .\home\templates\cart.html:227
+#: .\home\templates\cart.html:226
 msgid "Kopā"
 msgstr "Total"
 

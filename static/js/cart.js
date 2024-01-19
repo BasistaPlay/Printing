@@ -103,26 +103,41 @@ function formatCardNumber(input) {
 }
 
 
-function checkCardType(input) {
+function checkCardType(cardNumber) {
     const cardTypeElement = document.getElementById('card-type');
+    const cardImageElement = document.getElementById('card-image');
 
     // Definē kredītkartes tipus un to numuru diapazonus
     const cardTypes = [
         { type: 'Visa', pattern: /^4/ },
         { type: 'MasterCard', pattern: /^5[1-5]/ },
-        { type: 'American Express', pattern: /^3[47]/ },
+        { type: 'amex', pattern: /^3[47]/ },
         // Papildiniet ar citiem kredītkartes tipiem un to numuru diapazoniem
     ];
 
-    let cardNumber = input.value.replace(/\D/g, '');
-    
     // Atrod atbilstošo kredītkartes tipu
     const matchingCardType = cardTypes.find(card => card.pattern.test(cardNumber));
 
     // Parāda rezultātu lietotājam
     if (matchingCardType) {
-        cardTypeElement.className = `card-image ${matchingCardType.type.toLowerCase()}`;
+        cardTypeElement.innerHTML = `<i class="fa-brands fa-cc-${matchingCardType.type.toLowerCase()}"></i>`;
+        showCardImage(matchingCardType.type);
     } else {
-        cardTypeElement.className = 'card-image';
+        cardTypeElement.textContent = '';
+        hideCardImage();
     }
+}
+
+function showCardImage(cardType) {
+    const cardImageElement = document.getElementById('card-image');
+
+    // Pievieno Font Awesome ikonu attēlojumu kartes tipam
+    cardImageElement.innerHTML = `<i class="fa-brands fa-cc-${cardType.toLowerCase()}"></i>`;
+}
+
+function hideCardImage() {
+    const cardImageElement = document.getElementById('card-image');
+    
+    // Paslēpj ikonu, ja kartes tips nav atpazīts
+    cardImageElement.innerHTML = '';
 }

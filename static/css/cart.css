@@ -430,3 +430,18 @@
 .americanexpress::before {
     content: "\f1f3"; /* Font Awesome American Express ikonas kods */
 }
+
+.card-number {
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+}
+
+.card-image {
+  position: absolute;
+  top: 66%;
+  transform: translateY(-50%);
+  right: 10px; /* Pielāgojiet atbilstoši vajadzībām */
+}

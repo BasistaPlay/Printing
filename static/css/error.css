@@ -71,7 +71,11 @@
     transition: 0.2s all;
   }
   
+<<<<<<< HEAD
 .notfound a:hover {
+=======
+  .notfound a:hover {
+>>>>>>> 7d7123e192751df22d8c52896d7c07effda6e9f1
     color: var(--main-color);
     background: var(--text-color);
   }

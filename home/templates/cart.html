@@ -4,7 +4,7 @@
 {% load static i18n %}
 
 {% block title %}
-    <!-- {% trans 'Radošais stūrītis' %} -->
+    {% trans 'Grozs' %}
 {% endblock %}
 
 {% block css %}
@@ -55,9 +55,9 @@
             </div>
 
             <div class="card-number">
-              <label for="card-number" class="label-default">{% trans 'Kartes numurs' %}</label>
-              <input type="text" name="card-number" id="card-number" class="input-default" oninput="formatCardNumber(this)" maxlength="19">
-              <div id="card-type" class="card-image"></div>
+                <label for="card-number" class="label-default">{% trans 'Kartes numurs' %}</label>
+                <input type="text" name="card-number" id="card-number" class="input-default" oninput="formatCardNumber(this)" maxlength="19">
+                <div id="card-type" class="card-image"></div>
             </div>
 
             <div class="input-flex">
@@ -243,4 +243,5 @@
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="{% static 'js/cart.js' %}"></script>
+<script src="https://kit.fontawesome.com/77c18eb9f0.js" crossorigin="anonymous"></script>
 {% endblock %}

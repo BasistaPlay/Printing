@@ -24,10 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent
 SECRET_KEY = 'django-insecure-v1fiaup#2ni$7o)+u(uzkc9n$((#nrayt9__52wtm#651%-tpj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['www.mafia.lat', '104.248.195.146', 'mafia.lat']
-CSRF_TRUSTED_ORIGINS = ["https://mafia.lat"]
+ALLOWED_HOSTS = ['www.mafia.lat', '104.248.195.146', 'mafia.lat', 'https://mafia.lat']
+
+CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['https://www.mafia.lat', 'https://mafia.lat']
 
 # Application definition
 
@@ -46,8 +48,6 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'home',
 ]
-CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ['https://www.mafia.lat']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
