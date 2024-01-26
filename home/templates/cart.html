@@ -2,6 +2,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load static i18n %}
+{% load cart_tag %}
 
 {% block title %}
     {% trans 'Grozs' %}
@@ -88,15 +89,11 @@
         </div>
 
         <button class="btn btn-primary">
-          <b>{% trans 'Pirkt' %}</b><span id="payAmount">2.15</span> €
+          <b>{% trans 'Pirkt' %}</b><span id="payAmount">0.00</span> €
         </button>
 
       </section>
 
-
-      <!--
-        - cart section
-      -->
       <section class="cart">
 
         <div class="cart-item-box">
@@ -106,126 +103,88 @@
           
           <div class="product-card">
 
-            <div class="card">
+            {% for key,value in request.session.cart.items %}
 
-              <div class="img-box">
-                <img src="{% static '/img/krekls.png' %}" alt="Green tomatoes" width="80px" class="product-img">
-              </div>
-
-              <div class="detail">
-
-                <h4 class="product-name">Cup</h4>
-
-                <div class="wrapper">
-
-                  <div class="product-qty">
-                    <button id="decrement">
-                      <ion-icon name="remove-outline"></ion-icon>
-                    </button>
-
-                    <span id="quantity">1</span>
-
-                    <button id="increment">
-                      <ion-icon name="add-outline"></ion-icon>
-                    </button>
-                  </div>
-
-                  <div class="price">
-                    <span id="price">1.25</span> €
-                  </div>
-
+            <div class="product-card">
+  
+              <div class="card">
+  
+                <div class="img-box">
+                  <img src="{{value.image}}" alt="Cabbage" width="80px" class="product-img">
                 </div>
-
-              </div>
-
-              <button class="product-close-btn">
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-
-            </div>
-
-          </div>
-
-          <div class="product-card">
-
-            <div class="card">
-
-              <div class="img-box">
-                <img src="{% static '/img/image_1.png' %}" alt="Cabbage" width="80px" class="product-img">
-              </div>
-
-              <div class="detail">
-
-                <h4 class="product-name">T-shirt</h4>
-
-                <div class="wrapper">
-
-                  <div class="product-qty">
-                    <button id="decrement">
-                      <ion-icon name="remove-outline"></ion-icon>
-                    </button>
-
-                    <span id="quantity">1</span>
-
-                    <button id="increment">
-                      <ion-icon name="add-outline"></ion-icon>
-                    </button>
+  
+                <div class="detail">
+  
+                  <h4 class="product-name">{{value.title}}</h4>
+  
+                  <div class="wrapper">
+  
+                    <div  class="product-qty">
+                      <a href="{% url 'item_decrement' value.product_id %}" class="action-link" data-action="decrement">
+                        <ion-icon name="remove-outline"></ion-icon>
+                      </a>
+                
+                      <span id="quantity" data-product-id="{{ value.product_id }}">{{ value.quantity }}</span>
+                
+                      <a href="{% url 'item_increment' value.product_id %}" class="action-link" data-action="increment">
+                        <ion-icon name="add-outline"></ion-icon>
+                      </a>
+                    </div>
+  
+                    <div class="price">
+                      <span id="price">{{value.price}}</span> €
+                    </div>
+  
                   </div>
-
-                  <div class="price">
-                    <span id="price">0.80</span> €
-                  </div>
-
+  
                 </div>
-
+  
+                <a href="{% url 'item_clear' key %}" class="product-close-btn">
+                  <ion-icon name="close-outline"></ion-icon>
+                </a>
               </div>
-
-              
-
-              <button class="product-close-btn">
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
-
             </div>
-
-          </div>
-
+            {% endfor %}
         </div>
 
         <div class="wrapper">
 
-          <div class="discount-token">
-
-            <label for="discount-token" class="label-default">{% trans 'Dāvanu karte/Atlaides kods' %}</label>
-
-            <div class="wrapper-flex">
-
-              <input type="text" name="discount-token" id="discount-token" class="input-default">
-
-              <button class="btn btn-outline">{% trans 'Apstiprināt' %}</button>
-
-            </div>
+            <div class="discount-token">
+              <label for="discount-token" class="label-default">{% trans 'Dāvanu karte/Atlaides kods' %}</label>
+              <div class="wrapper-flex">
+                  <input type="text" name="discount-token" id="discount-token" class="input-default">
+                  <button id="validate-button" class="btn btn-outline">{% trans 'Apstiprināt' %}</button>
+              </div>
+              <div id="validation-result"></div>
+          </div>
 
           </div>
 
           <div class="amount">
 
             <div class="subtotal">
-              <span>{% trans 'Starpsumma' %}</span> <span><span id="subtotal">2.05</span> €</span>
+              <span>{% trans 'Starpsumma' %}</span> <span><span id="subtotal">0.00</span> €</span>
             </div>
 
             <div class="tax">
-              <span>{% trans 'Nodoklis' %}</span> <span><span id="tax">0.10</span> €</span>
+              <span>{% trans 'Nodoklis' %}</span> <span><span id="tax">0.00</span> €</span>
             </div>
 
             <div class="shipping">
               <span>{% trans 'Piegāde' %}</span> <span><span id="shipping">0.00</span> €</span>
             </div>
 
-            <div class="total">
-              <span>{% trans 'Kopā' %}</span> <span><span id="total">2.15</span> €</span>
+            <div class="Cupon" style="display: none;">
+              <span>{% trans 'Atlaide' %}</span> <span><span id="shipping">0.00</span> €</span>
             </div>
 
+            <div class="total">
+              <span>{% trans 'Kopā' %}</span> <span><span id="total">0.00</span> €</span>
+            </div>
+
+            <div class="total-price" style="display: none;">
+              <span>{% trans 'Kopā' %}</span> <span><span id="total-price">{{cart_total_amount|floatformat:2}}</span> €</span>
+            </div>
           </div>
 
         </div>
@@ -244,4 +203,44 @@
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="{% static 'js/cart.js' %}"></script>
 <script src="https://kit.fontawesome.com/77c18eb9f0.js" crossorigin="anonymous"></script>
+<script>
+// document.addEventListener('DOMContentLoaded', function () {
+//     const validateButton = document.getElementById('validate-button');
+//     const discountTokenInput = document.getElementById('discount-token');
+//     const validationResult = document.getElementById('validation-result');
+
+//     validateButton.addEventListener('click', function () {
+//         const discountCode = discountTokenInput.value;
+
+//         // Veic pieprasījumu uz serveri, lai pārbaudītu atlaides kodu
+//         fetch('/check_discount_code/', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded',
+//                 'X-CSRFToken': getCookie('csrftoken') // Iegūt CSRF žetona vērtību
+//             },
+//             body: `discount-token=${encodeURIComponent(discountCode)}`
+//         })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.valid) {
+//                 const currencySymbol = data.type === 'percentage' ? '%' : '€';
+//                 validationResult.innerHTML = `Atlaides kods ir derīgs! Vērtība: ${data.value}${currencySymbol}`;
+//             } else {
+//                 validationResult.innerHTML = 'Ievadītais kods nav derīgs.';
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Kļūda veicot pieprasījumu:', error);
+//         });
+//     });
+
+//     // Palīgfunkcija CSRF žetona iegūšanai
+//     function getCookie(name) {
+//         const value = `; ${document.cookie}`;
+//         const parts = value.split(`; ${name}=`);
+//         if (parts.length === 2) return parts.pop().split(';').shift();
+//     }
+// });
+</script>
 {% endblock %}

@@ -17,10 +17,12 @@
     <div class="image-container" id="front" style="display: block;">
         <img src="{% static '/img/krekls.png' %}" class="img-1 front-image" id="img-1"/>
         <img src="{% static '/img/krekls_2.png' %}" class="img-2 front-image" />
+        <div id="text-container" data-side="front" style="position: absolute; top: 100px; left: 100px; width: 100%; height: 100%; cursor: pointer;"></div>
     </div>
     <div class="image-container" id="back" style="display: none;">
         <img src="{% static '/img/krekls_back.png' %}" class="img-1 back-image" id="img-1"/>
         <img src="{% static '/img/krekls_back_2.png' %}" class="img-2 back-image" />
+        <div id="text-container" data-side="back" style="position: absolute; top: 100px; left: 100px; width: 100%; height: 100%; pointer-events: none;"></div>
     </div>
     <div class="color"></div>
   </div>
@@ -83,7 +85,7 @@
                 <input type="number" id="font-size" value="16">
                 <input type="color" id="font-color" value="#000000">
             </div>
-            <button class="button" onclick="addText()"><i class="fas fa-plus"></i> Add Text</button>
+            <button id="button" class="button" onclick="addText()"><i class="fas fa-plus"></i> Add Text</button>
         </div>
         <div id="output-text-container">
             <div id="output-text"></div>

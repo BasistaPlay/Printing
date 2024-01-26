@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, user
+from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, user, GiftCode
 from modeltranslation.admin import TranslationAdmin
 from django.core.mail import send_mail
 from django.conf import settings
@@ -183,3 +183,6 @@ class ProductListAdmin(admin.ModelAdmin):
     display_front_image.short_description = 'Front Image'
 
 admin.site.register(Product_list, ProductListAdmin)
+
+
+admin.site.register(GiftCode)

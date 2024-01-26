@@ -26,6 +26,15 @@ urlpatterns = [
     path('creative-corner/<str:user>/<int:product_list_id>/', page.detail, name='detail'),
     path('save-rating/', page.save_rating, name='save_rating'),
     path('cart/', page.cart, name='cart'),
+    path('cart/add/<int:id>/', page.cart_add, name='cart_add'),
+    path('cart/item_clear/<int:id>/', page.item_clear, name='item_clear'),
+    path('cart/item_increment/<int:id>/',
+         page.item_increment, name='item_increment'),
+    path('cart/item_decrement/<int:id>/',
+         page.item_decrement, name='item_decrement'),
+    path('cart/cart_clear/', page.cart_clear, name='cart_clear'),
+    path('cart/cart-detail/',page.cart_detail,name='cart_detail'),
+    path('check_discount_code/',page.check_discount_code,name='check_discount_code'),
 ]
 
 urlpatterns += i18n_patterns(

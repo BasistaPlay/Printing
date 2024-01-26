@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating
+from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, GiftCode
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -10,6 +10,8 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.http import Http404
 from home.models import user as MyUser
+from django.contrib.auth.decorators import login_required
+from cart.cart import Cart
 
 
 
@@ -133,9 +135,9 @@ def creativecorner(request):
 
 def detail(request, user, product_list_id):
     product = get_object_or_404(Product_list, id=product_list_id)
-    return render(request, 'detail.html', {'product': product, 'user': user})
+    return render(request, 'detail.html', {'product': product})
 
-
+@login_required(login_url="/login")
 @require_POST
 def save_rating(request):
     product_id = request.POST.get('product_id')
@@ -168,5 +170,65 @@ def handler500(request):
     }
     return render(request, 'error/404.html', context, status=500)
 
+@login_required(login_url="/login")
 def cart(request):
     return render(request, 'cart.html')
+
+@login_required(login_url="/login")
+def cart_add(request, id):
+    cart = Cart(request)
+    product_list = Product_list.objects.get(id=id)
+    cart.add(product_list)
+    return redirect("homepage")
+
+
+@login_required(login_url="/login")
+def item_clear(request, id):
+    cart = Cart(request)
+    product_list = Product.objects.get(id=id)
+    cart.remove(product_list)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def item_increment(request, id):
+    cart = Cart(request)
+    product_list = Product.objects.get(id=id)
+    cart.add(product_list)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def item_decrement(request, id):
+    cart = Cart(request)
+    product_list = Product.objects.get(id=id)
+    cart.decrement(product_list)
+    return redirect("cart_detail")
+
+
+@login_required(login_url="/login")
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")
+
+@login_required(login_url="/login")
+def cart_detail(request):
+    return render(request, 'cart.html')
+
+
+def check_discount_code(request):
+    if request.method == 'POST':
+        discount_code = request.POST.get('discount-token', None)
+
+        if discount_code:
+            try:
+                gift_code = GiftCode.objects.get(code=discount_code, is_valid=True)
+                discount_type = gift_code.discount_type
+                discount_value = gift_code.discount_value
+
+                return JsonResponse({'valid': True, 'type': discount_type, 'value': discount_value})
+            except GiftCode.DoesNotExist:
+                pass
+
+    return JsonResponse({'valid': False})

@@ -36,6 +36,7 @@ CSRF_TRUSTED_ORIGINS = ['https://www.mafia.lat', 'https://mafia.lat']
 INSTALLED_APPS = [
     'modeltranslation',
     'jazzmin',
+    'cart',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,6 +70,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'cart.context_processor.cart_total_amount',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -213,5 +215,8 @@ JAZZMIN_SETTINGS = {
     'home.user': 'fas fa-user',  
     'home.Price': 'fas fa-dollar-sign', 
     'home.Product_list': 'fas fa-list',  
+    'home.GiftCode': 'fas fa-gift',  
 },
 }
+
+CART_SESSION_ID = 'cart'

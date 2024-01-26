@@ -172,85 +172,131 @@ $(document).ready(function () {
 
 let editingIndex = -1;
 
-    function addText() {
-        const textInput = document.getElementById('text-input');
-        const textList = document.getElementById('text-list');
-        const fontSize = document.getElementById('font-size').value + 'px';
+function addText() {
+  const textInput = document.getElementById('text-input');
+  const textList = document.getElementById('text-list');
+  const fontSize = document.getElementById('font-size').value + 'px';
+  const editButton = document.getElementById('button');
 
-        const text = textInput.value.trim();
+  editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
 
-        if (text !== '') {
-            if (editingIndex === -1) {
-                const listItem = document.createElement('li');
-                listItem.className = 'text-list-item';
+  const text = textInput.value.trim();
 
-                listItem.innerHTML = `
-                    <span style="font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value};">${text}</span>
-                    <button class="edit-button" onclick="editTextInList(this)"><i class="fas fa-edit"></i></button>
-                    <button class="delete-button" onclick="deleteText(this)"><i class="fas fa-trash-alt"></i></button>
-                `;
+  if (text !== '') {
+      if (editingIndex === -1) {
+          const textContainer = document.getElementById('text-container');
+          const textElement = document.createElement('div');
+          textElement.innerHTML = `<span style="font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value};">${text}</span>`;
+          const listItem = document.createElement('li');
+          listItem.className = 'text-list-item';
+          textContainer.appendChild(textElement);
+          listItem.innerHTML = `
+              <span style="font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value};">${text}</span>
+              <button class="edit-button" onclick="editTextInList(this)"><i class="fas fa-edit"></i></button>
+              <button class="delete-button" onclick="deleteText(this)"><i class="fas fa-trash-alt"></i></button>
+          `;
 
-                textList.appendChild(listItem);
-            } else {
+          textList.appendChild(listItem);
 
-                const editedItem = textList.children[editingIndex];
-                const textSpan = editedItem.querySelector('span');
+          // Pievienot notikumu klausītāju "drag" un "dragstart"
+          textElement.setAttribute('draggable', 'true');
+          textElement.setAttribute('ondragstart', 'drag(event)');
+      } else {
+          const editedItem = textList.children[editingIndex];
+          const textSpan = editedItem.querySelector('span');
 
-                textSpan.innerHTML = text;
-                textSpan.style.fontSize = fontSize;
-                textSpan.style.color = document.getElementById('font-color').value;
-                textSpan.style.fontFamily = document.getElementById('font-select').value;
+          textSpan.innerHTML = text;
+          textSpan.style.fontSize = fontSize;
+          textSpan.style.color = document.getElementById('font-color').value;
+          textSpan.style.fontFamily = document.getElementById('font-select').value;
 
-                editingIndex = -1;
-            }
+          // Update text on T-shirt image
+          const textContainer = document.getElementById('text-container');
+          const editedElement = textContainer.children[editingIndex];
+          editedElement.innerHTML = `<span style="font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value};">${text}</span>`;
 
-            textInput.value = '';
-            updateFontPreview();
-        } else {
-            alert('Please enter text before adding to the list.');
-        }
-    }
+          // Pievienot notikumu klausītāju "drag" un "dragstart" tikai uz attēla elementu
+          editedElement.firstChild.setAttribute('draggable', 'true');
+          editedElement.firstChild.setAttribute('ondragstart', 'drag(event)');
+
+          editingIndex = -1;
+      }
+
+      textInput.value = '';
+  } else {
+      alert('Please enter text before adding to the list.');
+  }
+}
 
     function editTextInList(button) {
-        const listItem = button.parentNode;
-        const textSpan = listItem.querySelector('span');
-        const textInput = document.getElementById('text-input');
+      const listItem = button.parentNode;
+      const textSpan = listItem.querySelector('span');
+      const textInput = document.getElementById('text-input');
+      const textContainer = document.getElementById('text-container');
+      const editButton = document.getElementById('button');
 
-        textInput.value = textSpan.textContent;
-        document.getElementById('font-select').value = textSpan.style.fontFamily;
-        document.getElementById('font-size').value = parseInt(textSpan.style.fontSize);
-        document.getElementById('font-color').value = textSpan.style.color;
-        editingIndex = Array.from(listItem.parentNode.children).indexOf(listItem);
-
-        updateFontPreview();
-    }
+      editButton.innerHTML = '<i class="fas fa-edit"></i> Edit text';
+  
+      textInput.value = textSpan.textContent;
+      document.getElementById('font-select').value = textSpan.style.fontFamily;
+      document.getElementById('font-size').value = parseInt(textSpan.style.fontSize);
+      document.getElementById('font-color').value = textSpan.style.color;
+      editingIndex = Array.from(listItem.parentNode.children).indexOf(listItem);
+  
+      // Update only the selected text in text-container
+      const editedElement = textContainer.children[editingIndex];
+      editedElement.innerHTML = `<span style="font-size: ${textSpan.style.fontSize}; color: ${textSpan.style.color}; font-family: ${textSpan.style.fontFamily};">${textSpan.textContent}</span>`;
+  }
 
     function deleteText(button) {
-        const listItem = button.parentNode;
-        listItem.remove();
-        editingIndex = -1;
+      const listItem = button.parentNode;
+      const textList = document.getElementById('text-list');
+      const textContainer = document.getElementById('text-container');
+  
+      listItem.remove();
+      textContainer.innerHTML = ""; // Notīra reklāmas attēlu
+  
+      // Pārvieto tekstu no saraksta uz reklāmas attēlu
+      for (let i = 0; i < textList.children.length; i++) {
+          const listItem = textList.children[i];
+          const textSpan = listItem.querySelector('span');
+  
+          const textElement = document.createElement('div');
+          textElement.innerHTML = `<span style="font-size: ${textSpan.style.fontSize}; color: ${textSpan.style.color}; font-family: ${textSpan.style.fontFamily};">${textSpan.textContent}</span>`;
+          textContainer.appendChild(textElement);
+      }
+  
+      editingIndex = -1;
+  }
+  function drag(event) {
+    event.dataTransfer.setData('text/plain', event.target.id);
+}
+
+// Notikumu klausītāji "dragover", "dragenter", "dragleave", un "drop"
+$('#front, #back').on('dragover dragenter', function (event) {
+    event.preventDefault();
+});
+
+$('#front, #back').on('dragleave', function (event) {
+    // Iztīrīt jebkuru klasi vai vizuālo efektu, ja pārvietojat pāri elementam un pēc tam aizietat
+});
+
+$('#front, #back').on('drop', function (event) {
+    event.preventDefault();
+    let data = event.dataTransfer.getData('text/plain');
+    let draggedElement = document.getElementById(data);
+
+    // Pārbaudīt, vai pārvietotais elements ir T-krekls
+    if (draggedElement.closest('#front, #back')) {
+        let currentSide = getCurrentSide();
+        let selectedContainer;
+
+        if (currentSide === 'front') {
+            selectedContainer = $('#front');
+        } else {
+            selectedContainer = $('#back');
+        }
+
+        selectedContainer.append(draggedElement);
     }
-
-    function updateFontPreview() {
-        const selectedFont = document.getElementById('font-select').value;
-        const fontPreview = document.getElementById('output-text');
-        fontPreview.style.fontFamily = selectedFont;
-    }
-
-    function editText() {
-        const textInput = document.getElementById('text-input');
-        const fontPreview = document.getElementById('output-text');
-
-        const textList = document.getElementById('text-list');
-        const editedItem = textList.children[editingIndex];
-        const textSpan = editedItem.querySelector('span');
-
-        textSpan.innerHTML = textInput.value.trim();
-        textSpan.style.fontSize = document.getElementById('font-size').value + 'px';
-        textSpan.style.color = document.getElementById('font-color').value;
-        textSpan.style.fontFamily = document.getElementById('font-select').value;
-
-        editingIndex = -1;
-        textInput.value = '';
-        updateFontPreview();
-    }
+});

@@ -406,3 +406,43 @@ a {
     padding-right: 10px;
 }
 
+.star-wrapper {
+  direction: ltr;
+  padding: 15px 0 15px 0;
+}
+.star-wrapper a {
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+.star-wrapper a:hover {
+  color: gold;
+  transform: scale(1.3);
+}
+.s1.active{
+  color: gold;
+}
+.s2.active {
+  color: gold;
+}
+.s3.active {
+  color: gold;
+}
+.s4.active {
+  color: gold;
+}
+.s5.active {
+  color: gold;
+}
+
+.star-wrapper.active{
+  color: gold;
+}
+
+.star-wrapper a:hover,
+.star-wrapper.active a {
+    color: gold;
+    transform: scale(1.3);
+}
