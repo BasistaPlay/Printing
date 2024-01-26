@@ -15,6 +15,7 @@ body {
 }
 
 :root{
+    --bg2-color: #c1c1c1 ;
     --text-color: #000;
     --bg-color: #e5e5e5;
     --main-color: #b6c816;
@@ -80,7 +81,7 @@ header {
 .h-btn{
     display: inline-block;
     padding: 10px 25px;
-    color: var(--bg-color);
+    color: #fff;
     background: var(--main-color);
     font-size: 14px;
     font-weight: 500;
@@ -105,6 +106,13 @@ header {
     display: none;
 }
 
+#cart{
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--text-color);
+    margin-left: 15px;
+}
+
 #darkmode{
     font-size: 30px;
     cursor: pointer;
@@ -115,6 +123,7 @@ header {
 body.dark{
     --text-color: #fff;
     --bg-color: #061b09;
+    --bg2-color: #252725;
     --second-color: #0b1e38;
     --hover-color: #ffffff39;
     --input-color: #838383a4;
@@ -184,6 +193,28 @@ body.dark{
         margin-right: 5px;
     }
 }
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: var(--main-color) #f2f2f2;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 9px;
+  }
+
+  /* *::-webkit-scrollbar-track {
+    background: #f2f2f2;
+  } */
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--main-color);
+    border-radius: 41px;
+    border: 58px solid var(--main-color);
+  }
 
 /* .container{
 	max-width: 1170px;
