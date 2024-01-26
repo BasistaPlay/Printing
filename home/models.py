@@ -6,6 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils import timezone
 
 class user(AbstractUser):
     phone_number = PhoneNumberField(blank=True, null=True)
@@ -94,3 +95,27 @@ class Rating(models.Model):
 def update_product_average_rating(sender, instance, **kwargs):
     product = instance.product
     product.update_average_rating()
+
+
+class GiftCode(models.Model):
+    code = models.CharField(max_length=50, unique=True)
+    is_valid = models.BooleanField(default=True)
+    discount_type = models.CharField(max_length=20, choices=[('percentage', 'Percentage'), ('fixed', 'Fixed')])
+    discount_value = models.DecimalField(max_digits=10, decimal_places=2)
+    min_order_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    quantity  = models.IntegerField(null=True, blank=True)
+    unlimited_usage = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.code
+
+    def is_active(self):
+        today = timezone.now().date()
+        return (
+            self.is_valid and
+            (not self.start_date or today >= self.start_date) and
+            (not self.end_date or today <= self.end_date) and
+            (self.unlimited_usage or self.quantity is None or self.quantity > 0)
+        )

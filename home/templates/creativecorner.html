@@ -28,7 +28,7 @@
                         </div>
                     </a>
                     <div class="cart">
-                        <a href="#"><i class="bx bx-cart"></i></a>
+                        <a href="{% url 'cart_add' product_list.id %}"><i class="bx bx-cart"></i></a>
                     </div>
                 </div>
             {% endfor %}

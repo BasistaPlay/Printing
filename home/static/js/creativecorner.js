@@ -1,10 +1,4 @@
-const sr = ScrollReveal({
-    distance: '100px',
-    duration: 2700,
-    reset: true,
-});
 
-sr.reveal('.container', {delay:500, origin: 'bottom'});
 
 function showSection(sectionId) {
     // Paslēpj visas sadaļas
@@ -40,20 +34,21 @@ tabButtons.forEach(function (button) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    const starWrapper = document.querySelector('.star-wrapper');
-    const rating = parseFloat(starWrapper.getAttribute('data-rating'));
-    const stars = starWrapper.querySelectorAll('.fas');
+    const starWrappers = document.querySelectorAll('.star-wrapper');
 
-    stars.forEach(function (star, index) {
-        const starValue = index + 1;
-        const reversedStarValue = stars.length - starValue + 1;
+    starWrappers.forEach(function (starWrapper) {
+        const rating = parseFloat(starWrapper.getAttribute('data-rating'));
+        const stars = starWrapper.querySelectorAll('.fas');
 
-        if (reversedStarValue <= rating) {
-            star.classList.add('active');
-        } else if (reversedStarValue - 0.5 === rating) {
-            star.classList.add('active-half');
-        }
+        stars.forEach(function (star, index) {
+            const starValue = index + 1;
+
+            if (starValue <= rating) {
+                star.classList.add('active');
+            } else if (starValue - 0.5 === rating) {
+                star.classList.add('active-half');
+            }
+        });
     });
 });
-
 

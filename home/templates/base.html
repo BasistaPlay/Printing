@@ -1,5 +1,6 @@
 {% load static %}
 {% load static i18n %}
+{% load cart_tag %}
 
 <!DOCTYPE html>
 <html lang="lv">
@@ -41,7 +42,12 @@
                 <a href='{% url 'login' %}' class='h-btn'>{% trans 'Pierakstīties' %}</a>
             {% endif %}
             <div class="bx bx-menu" id="menu-icon"></div>
-            <a class="bx bx-cart" href="{% url 'cart' %}" id="cart"></a>
+            <a class="bx bx-cart" href="{% url 'cart' %}" id="cart">
+                {% if request.session.cart|length >= 1 %}
+                    <span id="cart-count">{{request.session.cart|length}}</span>
+                {% else %}
+                {% endif %}
+              </a>
             <div class="bx bx-moon" id="darkmode"></div>
         </div>
     </header>

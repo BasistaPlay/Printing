@@ -15,109 +15,6 @@
 {% endblock %}
 
 {% block body %}
-<!-- <section class="main__container">
-
-    <section class="slider">
-      <button class="slider-btn--container previous" type="button" aria-label="button to previous image on focus section">
-        <
-      </button>
-
-      <div class="slider__img--container">
-        <img class="slider__img" src="{{ product.front_image.url }}" alt="">
-      </div>
-
-      <button class="slider-btn--container next" type="button" aria-label="button to next image on focus section">
-        >
-      </button>
-
-      <div class="slider__selector--container">
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="1" src="{{ product.front_image.url }}" alt=""></button>
-        <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section"><img focus-value="2" src="{{ product.back_image.url }}" alt=""></button>
-      </div>
-    </section>
-
-    <section class="slider-focus">
-      <div class="slider__img--container slider__focus--img">
-          <img id="focus-image" src="{{ product.front_image.url }}" alt="">
-      </div>
-  
-      <div class="slider__selector--container">
-          <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section" onclick="changeFocusImage('{{ product.front_image.url }}', 1)"><img focus-value="1" src="{{ product.front_image.url }}" alt=""></button>
-          <button class="slider__selector--focus-img" type="button" aria-label="button for select product image on focus section" onclick="changeFocusImage('{{ product.back_image.url }}', 2)"><img focus-value="2" src="{{ product.back_image.url }}" alt=""></button>
-      </div>
-  </section>
-
-    <section class="product-content">
-      <article class="product-content--info">
-        <div class="product__info--text">
-          <p class="product__info--brand">{% trans 'Autors: ' %}{{product.author.username}}</p>
-          <h2 class="product__info--title">{{product.title}}</h2>
-          <p class="product__info--description">
-            {{product.description}}
-          </p>
-        </div>
-        <div class="star-wrapper" data-product-id="{{ product.id }}" data-rating="{{ product.average_rating }}">
-          <a class="fas fa-star s1" data-rating-value="1"></a>
-          <a class="fas fa-star s2" data-rating-value="2"></a>
-          <a class="fas fa-star s3" data-rating-value="3"></a>
-          <a class="fas fa-star s4" data-rating-value="4"></a>
-          <a class="fas fa-star s5" data-rating-value="5"></a>
-      </div>
-        <div class="info__pricing">
-          <span class="info__pricing--price">{{product.product.price}} €</span>
-        </div>
-      </article>
-
-      <div class="product-content__order">
-        <div class="order__quantity">
-          <input class="order__quantity--input" type="number" value="0" name="quantity">
-          <button class="order__quantity--btn minus" type="button" aria-label="button for remove quantity product">-</button>
-          <button class="order__quantity--btn plus" type="button" aria-label="button for add quantity product">+</button>
-        </div>
-
-        <button class="order__cart" type="button"><i class="fas fa-shopping-cart"></i></i> {% trans 'Pievienot grozā' %}</button>
-      </div>
-    </section>
-</section>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const starWrapper = document.querySelector('.star-wrapper');
-        const stars = starWrapper.querySelectorAll('.fas');
-    
-        stars.forEach(function (star) {
-            star.addEventListener('click', function () {
-                const ratingValue = parseInt(star.getAttribute('data-rating-value'));
-                const productId = starWrapper.getAttribute('data-product-id');
-    
-                // Nosūtīt reitingu uz serveri
-                saveRating(productId, ratingValue);
-            });
-        });
-    
-        function saveRating(productId, ratingValue) {
-            // Izveidojiet AJAX pieprasījumu, lai saglabātu reitingu datu bāzē
-            // Izmantojiet productId un ratingValue, lai nosūtītu nepieciešamos datus
-    
-            $.ajax({
-                type: 'POST',
-                url: '/save-rating/',  // Ievietojiet pareizo URL, kur saglabāt reitingu
-                data: {
-                    'product_id': productId,
-                    'rating': ratingValue,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}', // Ievietojiet CSRF žetonu
-                },
-                success: function (response) {
-                    console.log('Reitings saglabāts datubāzē!', response);
-                    // Atjaunojiet lapu vai veiciet citas nepieciešamās darbības
-                },
-                error: function (xhr, status, error) {
-                    console.error('Kļūda saglabājot reitingu:', xhr.responseText);
-                },
-            });
-        }
-    });
-    </script> -->
 
     <div class="home">
       <div class="sneaker">
@@ -136,6 +33,13 @@
       </div>
 
       <div class="info">
+        <div class="star-wrapper" data-product-id="{{ product.id }}" data-rating="{{ product.average_rating }}">
+            <a class="fas fa-star s1" data-rating-value="1"></a>
+            <a class="fas fa-star s2" data-rating-value="2"></a>
+            <a class="fas fa-star s3" data-rating-value="3"></a>
+            <a class="fas fa-star s4" data-rating-value="4"></a>
+            <a class="fas fa-star s5" data-rating-value="5"></a>
+        </div>
           <div class="data">
               <span class="data__subtitle">{% trans 'Autors: ' %}  {{product.author.username}}</span>
               <h1 class="data__title">{{product.title}}</h1>
@@ -162,7 +66,7 @@
                     </span>
                   </div>
               </div>
-
+<!-- 
               <div class="quantity">
                   <h3 class="quantity__title">{% trans 'Skaits' %}</h3>
                   <div class="quantity__content"> 
@@ -170,12 +74,12 @@
                       <span>1</span>
                       <span>+</span>
                   </div>
-              </div>
+              </div> -->
           </div>
 
           <div class="price">
               <span class="price__title">{{product.product.price}} €</span>
-              <a href="#" class="price__button">
+              <a href="{% url 'cart_add' product.id %}" class="price__button">
                 <i class="fa-solid fa-cart-shopping"></i>{% trans 'Pievienot grozā' %}</a>
           </div>
       </div>
@@ -188,4 +92,37 @@
     <script src="{% static 'js/detail.js' %}"></script>
     <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const starWrapper = document.querySelector('.star-wrapper');
+            const stars = starWrapper.querySelectorAll('.fas');
+        
+            stars.forEach(function (star) {
+                star.addEventListener('click', function () {
+                    const ratingValue = parseInt(star.getAttribute('data-rating-value'));
+                    const productId = starWrapper.getAttribute('data-product-id');
+                    saveRating(productId, ratingValue);
+                });
+            });
+        
+            function saveRating(productId, ratingValue) {
+        
+                $.ajax({
+                    type: 'POST',
+                    url: '/save-rating/',
+                    data: {
+                        'product_id': productId,
+                        'rating': ratingValue,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+                    success: function (response) {
+                        console.log('Reitings saglabāts datubāzē!', response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Kļūda saglabājot reitingu:', xhr.responseText);
+                    },
+                });
+            }
+        });
+        </script>
 {% endblock %}

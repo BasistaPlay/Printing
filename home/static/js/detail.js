@@ -37,3 +37,43 @@ function changeColor(){
 
 sizes.forEach(size => size.addEventListener('click', changeSize));
 colors.forEach(c => c.addEventListener('click', changeColor));
+
+document.addEventListener('DOMContentLoaded', function () {
+    const starWrapper = document.querySelector('.star-wrapper');
+    const rating = parseFloat(starWrapper.getAttribute('data-rating'));
+    const stars = starWrapper.querySelectorAll('.fas');
+
+    stars.forEach(function (star, index) {
+        const starValue = index + 1;
+
+        if (starValue <= rating) {
+            star.classList.add('active');
+        } else if (starValue - 0.5 === rating) {
+            star.classList.add('active-half');
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var starWrapper = document.querySelector('.star-wrapper');
+    var stars = starWrapper.querySelectorAll('a');
+
+    starWrapper.addEventListener('mouseover', function (e) {
+        var targetStar = e.target;
+        var ratingValue = targetStar.getAttribute('data-rating-value');
+
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].classList.remove('active');
+        }
+
+        for (var i = 0; i < ratingValue; i++) {
+            stars[i].classList.add('active');
+        }
+    });
+
+    starWrapper.addEventListener('mouseout', function () {
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].classList.remove('active');
+        }
+    });
+});

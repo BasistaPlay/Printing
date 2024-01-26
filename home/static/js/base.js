@@ -32,7 +32,3 @@ menu.onclick = () => {
     menu.classList.toggle('bx-x');
     navlist.classList.toggle('open')
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    new SimpleBar(document.body);
-});
