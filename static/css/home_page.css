@@ -28,22 +28,24 @@ section{
 .hero-in{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px,auto)) ;
+    justify-content: center;
     align-items: center;
     text-align: center;
     gap: 30px;
+    margin-top: -50px;
+
 }
 
 .hero-text h1{
     font-size: var(--big-font);
     line-height: 1.3;
-    font-weight: 100;
-    width: 600px;
+    font-weight: 90;
 }
 .hero-text h4{
     margin: 5px 0 20px;
     color: var(--main-color);
     text-transform: uppercase;
-    letter-spacing: 10px;
+    letter-spacing: 5px;
     font-size: 22px;
     font-weight: 400;
 }
@@ -52,8 +54,7 @@ section{
     color: var(--other-color);
     font-size: var(--p-font);
     font-weight: 500;
-    line-height: 26px;
-    max-width: 550px;
+    line-height: 26px;    
     margin-bottom: 4rem;
 }
 
@@ -64,7 +65,7 @@ section{
     box-shadow: rgba(33,35,38, 0.1) 0px 10px 10px -10px;
     transition: all ease .55s;
     cursor: pointer;
-    height: 250px;
+    height: 230px;
     width: 200px;
 }
 
@@ -94,13 +95,26 @@ section{
     transform: translateY(-5px) scale(1.1);
 }
 
-.down-arrow{
+/* .first{
     position: absolute;
     bottom: 3.5rem;
     right: 9%;
 }
 
-.down-arrow i{
+.second{
+    position: relative;
+    top: 30rem;
+    left: 17%;
+}
+
+.third{
+    position: relative;
+    bottom: 1.5rem;
+    left: 47%;
+} */
+
+
+/* .down-arrow i{
     padding: 14px;
     color: var(--bg-color);
     background-color: var(--text-color);
@@ -113,6 +127,28 @@ section{
 .down-arrow i:hover{
     background: var(--main-color);
     transform: translateY(5px);
+} */
+
+.down-arrow {
+    position: absolute;
+
+    right: 10px; /* Adjust the right position as needed */
+    cursor: pointer;
+    z-index: 999; /* Ensure it's above other elements */
+    margin-top: 450px
+    
+    
+}
+
+/* Additional styling for the arrow icon if needed */
+.down-arrow i {
+    padding: 14px;
+    color: var(--bg-color);
+    background-color: var(--text-color);
+    font-size: 25px;
+    border-radius: 3rem;
+    cursor: pointer;
+    transition: all ease .55s;
 }
 
 .navlist a.Home{
@@ -165,16 +201,34 @@ section{
         height: auto;
         width: auto;
     }
-    .hero-img img{
+    /* .hero-img img{
         width: 100%;
         height: auto;
-        max-width: 650px;
-    }
+        max-width: 500px;
+        margin-right: 220px;
+    } */
     .down-arrow{
         display: none;
     }
     .product-container{
         flex-direction: column;
+    }
+    .hero-text h4{
+        text-align: center;
+    }
+
+    .hero-text p{
+        text-align: center;
+    }
+
+    .hero-text h1{
+        text-align: center;
+    }
+    .card-wrapper{
+        width: 250px;
+    }
+    .top-products-header h1{
+        font-size: 16px;
     }
 }
 @media(max-width:1070px){
@@ -208,8 +262,9 @@ section{
     }
     .top-products-header{
         font-size: 40px
-
     }
+
+    
 }
 
 @media(max-width:600px){
@@ -233,6 +288,27 @@ section{
     }
     #menu-icon{
         margin-right: 5px;
+    }
+
+    .hero-text h4{
+        max-width: 450px;
+    }
+
+    .hero-text p{
+        max-width: 450px;
+    }
+
+    .hero-text h1{
+        font-size: 36px;
+        width: 450px;
+    }
+
+    .box{
+        width: 180px;
+        height: 220px;
+    }
+    .top-products-header h1{
+        font-size: 32px;
     }
 
 }
@@ -322,4 +398,107 @@ section{
   .star-wrapper.active{
     color: gold;
   }
-  
+
+.pricing{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    padding: 2rem;
+}
+
+.pricing-title {
+    font-size: var(--big-font);
+    line-height: 1.3;
+    position: relative;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: all ease .55s;
+}
+
+.card-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: auto;
+    background: var(--second-color);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 1rem;
+    transition: all 0.1s ease-in;
+}
+
+.card-wrapper:hover{
+    transform: scale(1.05);
+}
+
+.card-wrapper:hover .card-header h2{
+    transform: scale(1.1);
+    color: var(--main-color);
+    letter-spacing: 2;
+
+}
+
+.card-header{
+    margin: 1rem;
+    text-align: center;
+
+}
+
+.card-header img{
+    height: 150px;
+    display: block;
+    margin: 0 auto;
+}
+
+.card-detail{
+    width:100%;
+}
+
+.card-detail p {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.8rem;
+    border-bottom: 1px solid var(--text-color);
+}
+
+.check{
+    color: var(--main-color);
+}
+
+
+.card-price p{
+     font-size: 3rem;
+     font-weight: 800;
+}
+
+.card-price p sup{
+    font-size: 1rem;
+}
+
+.card-button{
+    padding: 0.6rem 3rem;
+    border: 2px solid var(--main-color);
+    background-color: var(--main-color);
+    color: #fff;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 50ms ease-in;
+}
+
+.card-button:hover{
+    border: 2px solid var(--main-color);
+    background: transparent;
+    color: var(--main-color);
+    font-weight: 800;
+}
+
+.text{
+    color: var(--text-color);
+}
+
+img {
+    pointer-events: none;
+}

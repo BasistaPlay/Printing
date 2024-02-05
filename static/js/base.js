@@ -8,18 +8,18 @@ let isDarkMode = localStorage.getItem('darkMode') === 'true';
 // Ja ir saglabāts, tad uzstādīt dark mode
 if (isDarkMode) {
     darkmode.classList.replace('bx-moon', 'bx-sun');
-    body.classList.add('color');
+    body.classList.add('dark');
 }
 
 darkmode.onclick = () => {
     if (darkmode.classList.contains('bx-moon')) {
         darkmode.classList.replace('bx-moon', 'bx-sun');
-        body.classList.add('color');
+        body.classList.add('dark');
         // Saglabāt dark mode stāvokli
         localStorage.setItem('darkMode', 'true');
     } else {
         darkmode.classList.replace('bx-sun', 'bx-moon');
-        body.classList.remove('color');
+        body.classList.remove('dark');
         // Saglabāt light mode stāvokli
         localStorage.setItem('darkMode', 'false');
     }

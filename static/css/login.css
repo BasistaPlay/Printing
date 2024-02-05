@@ -59,7 +59,7 @@ body {
 
 .form-img {
     flex-basis: 50%;
-    background: #b0b0b0;;
+    background: var(--bg2-color);;
     background-size: cover;
     padding: 40px;
     border-top-right-radius: 8px;
@@ -174,7 +174,7 @@ p.account a:hover {
     background-color: #fce4e4;
     border: 1px solid #fcc2c3;
     float: left;
-    padding: 20px 30px;
+    padding: 20px 135px;
     align-items: none;
 }
 

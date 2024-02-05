@@ -12,7 +12,9 @@ from django.http import Http404
 from home.models import user as MyUser
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
-
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.contrib.auth.models import User
 
 
 def homepage(request):
@@ -232,3 +234,54 @@ def check_discount_code(request):
                 pass
 
     return JsonResponse({'valid': False})
+
+def account(request):
+    return render(request, 'account.html')
+
+# def save_user_data(request):
+#     if request.method == 'POST' and request.is_ajax():
+#         user = request.user
+#         user.first_name = request.POST.get('first_name')
+#         user.last_name = request.POST.get('last_name')
+#         user.phone_number = request.POST.get('phone')
+#         user.email = request.POST.get('email')
+
+#         try:
+#             user.save()
+#             return JsonResponse({'success': True})
+#         except Exception as e:
+#             return JsonResponse({'success': False, 'error_message': str(e)})
+
+#     return JsonResponse({'success': False, 'error_message': 'Invalid request'})
+
+@csrf_exempt
+@login_required
+def save_user_data(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+
+        # Perform validation and save logic
+        if email and phone:
+            # Check if email already exists
+            if MyUser.objects.filter(email=email).exclude(username=request.user.username).exists():
+                return JsonResponse({'success': False, 'error': 'Email already exists for another user'})
+
+            # Check if phone number already exists
+            if MyUser.objects.filter(phone_number=phone).exclude(username=request.user.username).exists():
+                return JsonResponse({'success': False, 'error': 'Phone number already exists for another user'})
+
+            # Save data successfully
+            request.user.email = email
+            request.user.save()
+
+            user = request.user
+            user.phone_number = phone
+            user.save()
+
+            return JsonResponse({'success': True, 'email': email, 'phone': phone})
+        else:
+            # Invalid data
+            return JsonResponse({'success': False, 'error': 'Invalid data'})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})

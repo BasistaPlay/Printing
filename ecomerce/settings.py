@@ -28,7 +28,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['www.mafia.lat', '104.248.195.146', 'mafia.lat', 'https://mafia.lat']
 
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
 CSRF_TRUSTED_ORIGINS = ['https://www.mafia.lat', 'https://mafia.lat']
 
 # Application definition

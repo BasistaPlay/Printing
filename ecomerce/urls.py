@@ -34,7 +34,9 @@ urlpatterns = [
          page.item_decrement, name='item_decrement'),
     path('cart/cart_clear/', page.cart_clear, name='cart_clear'),
     path('cart/cart-detail/',page.cart_detail,name='cart_detail'),
-    path('check_discount_code/',page.check_discount_code,name='check_discount_code'),
+    path('check_discount_code/',page.check_discount_code, name='check_discount_code'),
+    path('account/',page.account, name='account'),
+    path('save_user_data/', page.save_user_data, name='save_user_data'),
 ]
 
 urlpatterns += i18n_patterns(
