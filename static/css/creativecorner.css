@@ -56,10 +56,6 @@ section{
 .box:hover{
     transform: translateY(-5px);
 }
-
-.star-wrapper {
-    direction: rtl;
-  }
 .star-wrapper a {
     font-size: 1.1em;
     color: #b4b3b3;

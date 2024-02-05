@@ -151,6 +151,10 @@
     gap: 30px;
     margin-bottom: 40px;
   }
+
+  .payment-method:hover{
+    border-color: var(--main-color);
+  }
   
   .payment-method .method {
     border: 1px solid var(--quick-silver);
