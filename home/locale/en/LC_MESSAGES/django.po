@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-18 20:09+0200\n"
+"POT-Creation-Date: 2024-02-11 20:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,166 +17,244 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\home\models.py:16 .\home\models.py:29
+#: .\home\models.py:17 .\home\models.py:30
 msgid "Virsraksts"
 msgstr "title"
 
-#: .\home\models.py:16
+#: .\home\models.py:17
 msgid "Ievadiet produkta nosaukumu."
 msgstr "Enter the name of the product."
 
-#: .\home\models.py:17 .\home\models.py:32
+#: .\home\models.py:18 .\home\models.py:33
 msgid "Bilde"
 msgstr "Image"
 
-#: .\home\models.py:18
+#: .\home\models.py:19
 msgid "Ievadiet saiti, uz kuru vedīs poga (ja nepieciešams)."
 msgstr "Enter the link to which the button will lead (if necessary)."
 
-#: .\home\models.py:30
+#: .\home\models.py:31
 msgid "Apraksts"
 msgstr "Description"
 
-#: .\home\models.py:31
+#: .\home\models.py:32
 msgid "papildu piezīmes"
 msgstr "Additional notes"
 
-#: .\home\models.py:38 .\home\templates\contact.html:65
-#: .\home\templates\register.html:26
+#: .\home\models.py:39 .\home\templates\account.html:36
+#: .\home\templates\contact.html:65 .\home\templates\register.html:26
 msgid "Vārds"
 msgstr "First name"
 
-#: .\home\models.py:39 .\home\templates\contact.html:69
-#: .\home\templates\register.html:30
+#: .\home\models.py:40 .\home\templates\account.html:40
+#: .\home\templates\contact.html:69 .\home\templates\register.html:30
 msgid "Uzvārds"
 msgstr "Last name"
 
-#: .\home\models.py:40 .\home\models.py:54 .\home\templates\contact.html:73
+#: .\home\models.py:41 .\home\models.py:55 .\home\templates\account.html:52
+#: .\home\templates\contact.html:73
 msgid "E-pasts"
 msgstr "e-mail"
 
-#: .\home\models.py:41 .\home\models.py:53 .\home\templates\contact.html:77
-#: .\home\templates\register.html:43
+#: .\home\models.py:42 .\home\models.py:54 .\home\templates\contact.html:77
+#: .\home\templates\register.html:47
 msgid "Telefona numurs"
 msgstr "Phone Number"
 
-#: .\home\models.py:43
+#: .\home\models.py:44
 msgid "Atbildēts"
 msgstr "Answered"
 
-#: .\home\models.py:44
+#: .\home\models.py:45
 msgid "Administrātora virsraksts"
 msgstr "Administrator Header"
 
-#: .\home\models.py:45
+#: .\home\models.py:46
 msgid "Administrātora vēstule"
 msgstr "Administrator letter"
 
-#: .\home\models.py:51
+#: .\home\models.py:52
 msgid "Adrese"
 msgstr "Address"
 
-#: .\home\models.py:52
+#: .\home\models.py:53
 msgid "Pasta indekss"
 msgstr "Postcode"
 
-#: .\home\models.py:55
+#: .\home\models.py:56
 msgid "Twitter saite"
 msgstr "Twitter link"
 
-#: .\home\models.py:56
+#: .\home\models.py:57
 msgid "Facebook saite"
 msgstr "facebook link"
 
-#: .\home\models.py:57
+#: .\home\models.py:58
 msgid "Instagram saite"
 msgstr "Instagram link"
 
-#: .\home\models.py:63 .\home\models.py:64 .\home\templates\contact.html:32
+#: .\home\models.py:64 .\home\models.py:65 .\home\templates\contact.html:32
 msgid "Kontaktinformācija"
 msgstr "Contact details"
 
-#: .\home\templates\base.html:29 .\home\templates\home_page.html:6
+#: .\home\templates\account.html:6
+msgid "Profils"
+msgstr "Profile"
+
+#: .\home\templates\account.html:33
+msgid "Personiskā informācija"
+msgstr "Contact details"
+
+#: .\home\templates\account.html:44 .\home\templates\login.html:25
+#: .\home\templates\register.html:38
+msgid "Lietotājvārds"
+msgstr "Username"
+
+#: .\home\templates\account.html:48
+msgid "Talr.n"
+msgstr "Tel. no."
+
+#: .\home\templates\account.html:56
+msgid "Rediģēt datus"
+msgstr "Edit data"
+
+#: .\home\templates\account.html:57
+msgid "Saglabāt datus"
+msgstr "Save data"
+
+#: .\home\templates\account.html:61
+msgid "Paroles Maiņa"
+msgstr "Change your password"
+
+#: .\home\templates\account.html:64
+msgid "Ievadiet veco paroli!"
+msgstr "Enter your old password!"
+
+#: .\home\templates\account.html:65
+msgid "Jaunā parole nevar būt vienāda ar veco paroli!"
+msgstr "The new password cannot be the same as the old password!"
+
+#: .\home\templates\account.html:66
+msgid "Parolei jābūt vismaz 8 rakstzīmēm garai"
+msgstr "Password must be at least 8 characters long"
+
+#: .\home\templates\account.html:67
+msgid "Jāsatur vismaz viens cipars"
+msgstr "Must contain at least one digit"
+
+#: .\home\templates\account.html:68
+msgid "Jāsatur vismaz viens lielais burts"
+msgstr "Must contain at least one uppercase letter"
+
+#: .\home\templates\account.html:72
+msgid "Vecā parole:"
+msgstr "Old password:"
+
+#: .\home\templates\account.html:77
+msgid "Jaunā parole:"
+msgstr "New password:"
+
+#: .\home\templates\account.html:82
+msgid "Atkārtoti ievadiet jauno paroli:"
+msgstr "Re-enter the new password:"
+
+#: .\home\templates\account.html:86
+msgid "Samainīt paroli"
+msgstr "Change password"
+
+#: .\home\templates\account.html:90
+msgid "Pasūtījumu Vēsture"
+msgstr "Order Summery"
+
+#: .\home\templates\account.html:91
+msgid "Šeit varētu būt informācija par jūsu pasūtījumu vēsturi."
+msgstr "Here you might have information about your order history."
+
+#: .\home\templates\base.html:30 .\home\templates\home_page.html:6
 msgid "Sākumlapa"
 msgstr "Homepage"
 
-#: .\home\templates\base.html:30 .\home\templates\creativecorner.html:7
+#: .\home\templates\base.html:31 .\home\templates\creativecorner.html:7
 msgid "Radošais stūrītis"
 msgstr "Creative corner"
 
-#: .\home\templates\base.html:31 .\home\templates\contact.html:7
+#: .\home\templates\base.html:32 .\home\templates\contact.html:7
 msgid "Sazinies ar mums"
 msgstr "Contact us"
 
-#: .\home\templates\base.html:32
+#: .\home\templates\base.html:33
 msgid "Par mums"
 msgstr "About us"
 
-#: .\home\templates\base.html:34
+#: .\home\templates\base.html:35
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
-#: .\home\templates\base.html:39
+#: .\home\templates\base.html:40
 msgid "Izlogoties"
 msgstr "Logout"
 
-#: .\home\templates\base.html:41
+#: .\home\templates\base.html:42
 msgid "Pierakstīties"
 msgstr "Sign up"
 
-#: .\home\templates\cart.html:7
+#: .\home\templates\cart.html:8
 msgid "Grozs"
 msgstr "Cart"
 
-#: .\home\templates\cart.html:26
+#: .\home\templates\cart.html:27
 msgid "Maksājumu informācija"
 msgstr "Payment Details"
 
-#: .\home\templates\cart.html:35
+#: .\home\templates\cart.html:36
 msgid "Kredītkarte"
 msgstr "Credit Card"
 
-#: .\home\templates\cart.html:53
+#: .\home\templates\cart.html:54
 msgid "Kartes īpašnieka vārds"
 msgstr "Cardholder name"
 
-#: .\home\templates\cart.html:58
+#: .\home\templates\cart.html:59
 msgid "Kartes numurs"
 msgstr "Card number"
 
-#: .\home\templates\cart.html:66
+#: .\home\templates\cart.html:67
 msgid "Derīguma termiņš"
 msgstr "Expiration date"
 
-#: .\home\templates\cart.html:91
+#: .\home\templates\cart.html:92
 msgid "Pirkt"
 msgstr "Pay"
 
-#: .\home\templates\cart.html:104
+#: .\home\templates\cart.html:101
 msgid "Pasūtījuma kopsavilkums"
 msgstr "Order Summery"
 
-#: .\home\templates\cart.html:199
+#: .\home\templates\cart.html:153
 msgid "Dāvanu karte/Atlaides kods"
 msgstr "Gift card/Discount code"
 
-#: .\home\templates\cart.html:205
+#: .\home\templates\cart.html:156
 msgid "Apstiprināt"
 msgstr "Apply"
 
-#: .\home\templates\cart.html:214
+#: .\home\templates\cart.html:166
 msgid "Starpsumma"
 msgstr "Subtotal"
 
-#: .\home\templates\cart.html:218
+#: .\home\templates\cart.html:170
 msgid "Nodoklis"
 msgstr "Tax"
 
-#: .\home\templates\cart.html:222
+#: .\home\templates\cart.html:174
 msgid "Piegāde"
 msgstr "Shipping"
 
-#: .\home\templates\cart.html:226
+#: .\home\templates\cart.html:178
+msgid "Atlaide"
+msgstr "Discount"
+
+#: .\home\templates\cart.html:182 .\home\templates\cart.html:186
 msgid "Kopā"
 msgstr "Total"
 
@@ -198,39 +276,35 @@ msgstr "Success"
 
 #: .\home\templates\detail.html:6
 msgid "Detail"
-msgstr ""
+msgstr "Detail"
 
-#: .\home\templates\detail.html:53
+#: .\home\templates\detail.html:44
 msgid "Autors: "
 msgstr "The author:"
 
-#: .\home\templates\detail.html:78 .\home\templates\detail.html:179
-msgid "Pievienot grozā"
-msgstr "Add to cart"
-
-#: .\home\templates\detail.html:146
+#: .\home\templates\detail.html:50
 msgid "Izmērs"
 msgstr "Sizes"
 
-#: .\home\templates\detail.html:167
+#: .\home\templates\detail.html:71
 msgid "Skaits"
 msgstr "Qty."
+
+#: .\home\templates\detail.html:83
+msgid "Pievienot grozā"
+msgstr "Add to cart"
 
 #: .\home\templates\home_page.html:72
 msgid "Top 3 pirktākie Krekli"
 msgstr "Top 3 most purchased shirts"
 
 #: .\home\templates\login.html:6 .\home\templates\login.html:19
-#: .\home\templates\login.html:33 .\home\templates\register.html:65
+#: .\home\templates\login.html:33 .\home\templates\register.html:69
 #: .\home\templates\test.html:6
 msgid "Pieslēgties"
 msgstr "Sign up"
 
-#: .\home\templates\login.html:25 .\home\templates\register.html:34
-msgid "e-pasts"
-msgstr "e-mail"
-
-#: .\home\templates\login.html:29 .\home\templates\register.html:54
+#: .\home\templates\login.html:29 .\home\templates\register.html:58
 msgid "Parole"
 msgstr "Password"
 
@@ -239,7 +313,7 @@ msgid "Vai jums nav konta? "
 msgstr "Don`t have an account? "
 
 #: .\home\templates\login.html:36 .\home\templates\register.html:6
-#: .\home\templates\register.html:20 .\home\templates\register.html:62
+#: .\home\templates\register.html:20 .\home\templates\register.html:66
 msgid "Reģistrēties"
 msgstr "Register"
 
@@ -251,15 +325,19 @@ msgstr "Forgot your password?"
 msgid "Atjaunot to šeit"
 msgstr "Restore it here"
 
-#: .\home\templates\register.html:47
+#: .\home\templates\register.html:34
+msgid "e-pasts"
+msgstr "e-mail"
+
+#: .\home\templates\register.html:51
 msgid "Meklēt pēc valsts nosaukuma"
 msgstr "Search by country name"
 
-#: .\home\templates\register.html:58
+#: .\home\templates\register.html:62
 msgid "Apstipriniet paroli"
 msgstr "Confirm Password"
 
-#: .\home\templates\register.html:65
+#: .\home\templates\register.html:69
 msgid "Vai jums jau ir konts? "
 msgstr "Do you already have an account?"
 
@@ -267,51 +345,85 @@ msgstr "Do you already have an account?"
 msgid "Vai esat aizmirsis paroli?"
 msgstr "Forgot your password?"
 
-#: .\home\templates\test.html:32
+#: .\home\templates\test.html:34
 msgid "Customize shirt color:"
-msgstr ""
+msgstr "Customize Shirt Color:"
 
-#: .\home\templates\test.html:42
+#: .\home\templates\test.html:44
 msgid "Buy Now"
 msgstr "Pirkt"
 
-#: .\home\templates\test.html:97
+#: .\home\templates\test.html:98
 msgid "Coming soon"
 msgstr ""
 
-#: .\home\views.py:27
-#, fuzzy
-#| msgid "Lūdzu ievadiet abas paroles."
+#: .\home\views.py:31
 msgid "Lūdzu, ievadiet e-pastu un paroli."
 msgstr "Please enter both passwords."
 
-#: .\home\views.py:36
+#: .\home\views.py:40
 msgid "Nepareizs e-pasts vai parole."
 msgstr "Incorrect email or password."
 
-#: .\home\views.py:52
+#: .\home\views.py:57
 msgid "Lūdzu ievadiet abas paroles."
 msgstr "Please enter both passwords."
 
-#: .\home\views.py:55
+#: .\home\views.py:60
 msgid "Paroles nesakrīt."
 msgstr "Passwords do not match."
 
-#: .\home\views.py:58
+#: .\home\views.py:63
 msgid "Lūdzu, ievadiet gan vārdu, gan uzvārdu."
 msgstr "Please enter both first and last names."
 
-#: .\home\views.py:61
+#: .\home\views.py:66
 msgid "Lūdzu ievadiet telefona numuru."
 msgstr "Please enter a telephone number."
 
-#: .\home\views.py:64
+#: .\home\views.py:69
 msgid "Šī e-pasta adrese jau tiek izmantota."
 msgstr "This email address is already in use."
 
-#: .\home\views.py:77
+#: .\home\views.py:72
+msgid "Šī Lietotājvārds jau tiek izmantots."
+msgstr "This email address is already in use."
+
+#: .\home\views.py:85
 msgid "Jūsu profils ir veiksmīgi reģistrēts."
 msgstr "Your profile was successfully registered."
+
+#: .\home\views.py:248
+msgid "E-pasts jau eksistē citam lietotājam"
+msgstr "Email already exists for another user"
+
+#: .\home\views.py:251
+msgid "Tālruņa numurs jau eksistē citam lietotājam"
+msgstr "Phone number already exists for another user"
+
+#: .\home\views.py:254
+msgid "Lietotājvārds jau eksistē citam lietotājam"
+msgstr "User name already exists for another user"
+
+#: .\home\views.py:266
+msgid "Nederīgi dati"
+msgstr "Invalid data"
+
+#: .\home\views.py:268
+msgid "Nederīga pieprasījuma metode"
+msgstr "Invalid request method"
+
+#: .\home\views.py:278
+msgid "Vecā parole nav pareiza."
+msgstr "The old password is incorrect."
+
+#: .\home\views.py:281
+msgid "Jaunā parole neatbilst nosacījumiem."
+msgstr "The new password does not meet the conditions."
+
+#: .\home\views.py:290
+msgid "Metode POST ir obligāta."
+msgstr "POST method is required."
 
 #~ msgid "Ievadiet produktam saistīto moto vai saukli."
 #~ msgstr "Enter the associated motto or slogan for the product."
