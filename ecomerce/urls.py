@@ -37,6 +37,7 @@ urlpatterns = [
     path('check_discount_code/',page.check_discount_code, name='check_discount_code'),
     path('account/',page.account, name='account'),
     path('save_user_data/', page.save_user_data, name='save_user_data'),
+    path('account/change_password/', page.change_password, name='change_password'),
 ]
 
 urlpatterns += i18n_patterns(
@@ -51,6 +52,7 @@ urlpatterns += i18n_patterns(
     path('contact-us/', page.contact_us, name='contact_us'),
     path('cart/', page.cart, name='cart'),
     path('creative-corner/<str:user>/<int:product_list_id>/', page.detail, name='detail'),
+    path('account/',page.account, name='account'),
 )
 
 handler404 = page.handler404

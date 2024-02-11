@@ -3,11 +3,12 @@
 {% load static i18n %}
 
 {% block title %}
-    {% trans 'Reģistrēties' %}
+    {% trans 'Profils' %}
 {% endblock %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/account.css' %}" />
+    <meta name="csrf-token" content="{{ csrf_token }}">
 
 {% endblock %}
 
@@ -29,45 +30,65 @@
     <div class="content-container">
         <div id="personalInfo" class="section" style="display: block;">
             <div id="messageContainer"></div>
-            <h2>Personiskā informācija</h2>
-            <div class="input-group">
+            <h2>{% trans 'Personiskā informācija' %}</h2>
+            <div class="data flex-container">
                 <div class="input-container">
-                    <label for="fname">Vārds</label>
+                    <label for="fname">{% trans 'Vārds' %}</label>
                     <input type="text" id="fname" name="fname" value="{{ user.first_name }}" readonly>
                 </div>
                 <div class="input-container lastname">
-                    <label for="lname">Uzvārds</label>
+                    <label for="lname">{% trans 'Uzvārds' %}</label>
                     <input type="text" id="lname" name="lname" value="{{ user.last_name }}" readonly>
                 </div>
+                <div class="input-container">
+                    <label for="username">{% trans 'Lietotājvārds' %}</label>
+                    <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
+                </div>
+                <div class="input-container">
+                    <label for="phone">{% trans 'Talr.n' %}</label>
+                    <input type="text" id="phone" name="phone" pattern="[0-9+]+" value="{{ user.phone_number }}" readonly>
+                </div>
+                <div class="input-container">
+                    <label for="email">{% trans 'E-pasts' %}</label>
+                    <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
+                </div>
             </div>
-            <div class="input-container">
-                <label for="phone">Talr.n</label>
-                <input type="text" id="phone" name="phone" pattern="[0-9+]+" value="{{ user.phone_number }}" readonly>
-            </div>
-            <div class="input-container">
-                <label for="email">E-pasts</label>
-                <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
-            </div>
-            <button class="button-password info-button" role="button" id="editButton" onclick="enableEditing()">Edit data</button>
-            <button class="button-password info-button" role="button" id="saveButton" style="display: none;" onclick="saveData()">Save data</button>
+            <button class="info-button" role="button" id="editButton" onclick="enableEditing()">{% trans 'Rediģēt datus' %}</button>
+            <button class="info-button" role="button" id="saveButton" style="display: none;" onclick="saveData()">{% trans 'Saglabāt datus' %}</button>
         </div>
+        
         <div id="passwordChange" class="section">
-            <h2>Parole Maiņa</h2>
-            <label for="oldPassword">Vecā parole:</label>
-            <input type="password" id="oldPassword" name="oldPassword">
-
-            <label for="newPassword1">Jaunā parole:</label>
-            <input type="password" id="newPassword1" name="newPassword1">
-
-            <label for="newPassword2">Atkārtoti ievadiet jauno paroli:</label>
-            <input type="password" id="newPassword2" name="newPassword2">
-
-            <button class="button-password" role="button">Samainīt paroli</button>
+            <h2>{% trans 'Paroles Maiņa' %}</h2>
+            <div id="message"></div>
+            <div id="conditionIndicator" class="condition-indicator">
+              <p id="oldPasswordIndicator">❌ {% trans 'Ievadiet veco paroli!' %}</p>
+              <p id="newDifferentIndicator">❌ {% trans 'Jaunā parole nevar būt vienāda ar veco paroli!' %}</p>
+              <p id="lengthIndicator">❌ {% trans 'Parolei jābūt vismaz 8 rakstzīmēm garai' %}</p>
+              <p id="numberIndicator">❌ {% trans 'Jāsatur vismaz viens cipars' %}</p>
+              <p id="uppercaseIndicator">❌ {% trans 'Jāsatur vismaz viens lielais burts' %}</p>
+              <div id="messageContainerPassword"></div>
+            </div>
+            <div class="input-container passwordChange">
+              <label for="oldPassword">{% trans 'Vecā parole:' %}</label>
+              <input type="password" id="oldPassword" name="oldPassword">
+              <i id="showOldPassword" class="fas fa-eye"></i>
+            </div>
+            <div class="input-container passwordChange">
+              <label for="newPassword1">{% trans 'Jaunā parole:' %}</label>
+              <input type="password" id="newPassword1" name="newPassword1">
+              <i id="showNewPassword1" class="fas fa-eye"></i>
+            </div>
+            <div class="input-container passwordChange">
+              <label for="newPassword2">{% trans 'Atkārtoti ievadiet jauno paroli:' %}</label>
+              <input type="password" id="newPassword2" name="newPassword2">
+              <i id="showNewPassword2" class="fas fa-eye"></i>
+            </div>
+            <button class="info-button button-password" role="button">{% trans 'Samainīt paroli' %}</button>
         </div>
 
         <div id="orderHistory" class="section">
-            <h2>Pasūtījumu Vēsture</h2>
-            <p>Šeit varētu būt informācija par jūsu pasūtījumu vēsturi.</p>
+            <h2>{% trans 'Pasūtījumu Vēsture' %}</h2>
+            <p>{% trans 'Šeit varētu būt informācija par jūsu pasūtījumu vēsturi.' %}</p>
         </div>
     </div>
 </div>

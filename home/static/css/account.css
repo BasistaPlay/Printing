@@ -1,3 +1,4 @@
+/* Izvietojums un izkārtojums */
 
 .navbar {
     background-color: var(--bg2-color);
@@ -8,28 +9,7 @@
     flex-direction: column;
     justify-content: space-around;
     border-radius: 10px 0 0 10px;
-}
-
-.navbar button {
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    text-decoration: none;
-    font-size: 17px;
-    border: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    background-color: var(--bg2-color);
-}
-
-.navbar button i {
-    margin-right: 5px;
-    color: var(--text-color);
-}
-
-.navbar button:hover {
-    background-color: #ddd;
-    color: black;
+    transition: all ease .55s;
 }
 
 .container {
@@ -48,26 +28,93 @@
 .section {
     padding: 10px;
     display: none;
-    /* text-align: center; */
     background-color: var(--second-color);
     width: 900px;
     align-items: center;
     margin: auto;
     border-radius: 0 10px 10px 0;
     height: 100%;
+    transition: all ease .55s;
 }
 
-.section h2 {
-    color: var(--text-color);
-    margin: 20px 20px 50px 20px;
+@media (max-width: 1050px) {
+    .section {
+        width: 700px;
+        height: auto;
+        margin-top: 70px
+    }
+
+    .condition-indicator {
+        position: relative;
+        margin-bottom: 35px;
+    }
 }
 
-#personalInfo p {
-    text-align: left;
-    padding-top: 5px;
+@media (max-width: 800px) {
+    .section {
+        width: 500px;
+        border-radius: 0 0 10px 10px;
+        height: auto;
+    }
+
+    .section h2 {
+        align-items: center;
+        text-align: center;
+    }
+
+    .navbar {
+        flex-direction: row;
+        height: 50px;
+        border-radius: 10px 10px 0 0;
+        position: absolute;
+        margin-top: 30px;
+        width: 500px;
+
+    }
+
+    .input-container {
+        width: calc(100% - 20px);
+    }
+
+    .input-container.left,
+    .input-container.right {
+        width: calc(50% - 10px);
+    }
+
+    .input-container.right {
+        margin-left: auto;
+    }
+    .input-container {
+        flex-basis: 50%;
+        width: auto;
+    }
 }
 
-.button-password {
+/* Pogas */
+
+.navbar button {
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    text-decoration: none;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    background-color: var(--bg2-color);
+}
+
+.navbar button i {
+    margin-right: 5px;
+    color: #fff;
+}
+
+.navbar button:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.info-button {
     margin-top: 20px;
     background-color: #13aa52;
     border: 1px solid #13aa52;
@@ -80,7 +127,6 @@
     font-size: 16px;
     font-weight: 400;
     outline: none;
-    outline: 0;
     padding: 10px 25px;
     text-align: center;
     transform: translateY(0);
@@ -88,54 +134,66 @@
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-  }
-  
-  .button-password:hover {
-    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
-    transform: translateY(-2px);
-  }
-  
-  @media (min-width: 768px) {
-    .button-password {
-      padding: 10px 30px;
-    }
-  }
-
-
-  #personalInfo div {
-    margin-bottom: 10px;
 }
 
-#personalInfo label {
-    display: block;
-    margin-top: -5px;
+.info-button:hover {
+    box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+    transform: translateY(-2px);
+}
+
+/* Ievades lauki un etiķetes */
+
+#personalInfo p {
+    text-align: left;
+    padding-top: 5px;
 }
 
 .input-container {
     position: relative;
     margin-bottom: 20px;
-    width: 49%;
+    width: 100%;
+    transition: all ease .55s;
 }
 
 .input-container label {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -3px;
     color: var(--text-color);
     transition: all 0.3s ease;
     pointer-events: none;
 }
 
 .input-container input[type="text"],
-.input-container input[type="email"] {
+.input-container input[type="email"],
+.input-container input[type="password"] {
     font-size: 16px;
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 5px 10px;
     background-color: transparent;
     outline: none;
     margin-top: 20px;
     border-radius: 5px;
-    border: solid 1px;
+    border: solid 0.1px var(--text-color);
+    color: var(--text-color);
+    transition: all ease .55s;
+    padding-right: 26px;
+}
+
+.input-container.left {
+    width: calc(50% - 10px);
+    left: 0;
+    transition: all ease .55s;
+}
+
+.input-container.right {
+    width: calc(50% - 10px);
+    right: 0;
+    transition: all ease .55s;
+}
+
+.input-container .passwordChange {
+    position: relative;
+    width: 300px;
 }
 
 .input-group {
@@ -149,25 +207,100 @@
     margin-right: 10px;
 }
 
-.input-group .input-container input{
+.input-group .input-container input {
     cursor: not-allowed;
+}
+/* Citas */
+/* 
+.alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 2px solid red;
+    border-radius: 10px;
+    z-index: 9999;
+}
+
+.alert p {
+    margin: 0;
+} */
+
+.condition-indicator {
+    border: 2px solid red;
+    padding: 30px;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+    float: right;
+    margin-right: 30px;
+    color: red;
+    width: 380px
+}
+
+.condition-indicator.valid {
+    border-color: green;
+}
+
+.passwordChange i {
+    position: absolute;
+    display: flex;
+    flex-direction: row-reverse;
+    bottom: 7px;
+    right: 26px;
+    cursor: pointer;
+}
+
+.data {
+    max-height: 500px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.input-container {
+    flex-basis: 50%;
+    width: 450px;
 }
 
 .input-container.username {
-    margin-left: auto;
-    width: 50%;
-    position: relative;
-}
-
-.input-container.username label {
     text-align: right;
+    margin-left: auto;
 }
 
-.input-container.username input[type="text"] {
-    text-align: left;
+.section h2 {
+    color: var(--text-color);
+    margin: 20px 20px 50px 20px;
+    transition: all ease .55s;
 }
 
-.info-button{
-    position: relative;
-    right: ;\: 0;
+#message {
+    padding: 10px 0;
+    position: absolute;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+    margin-right: 30px;
+    order: -1;
+    width: 330px;
+    top: 153px;
+    right: 709px;
+}
+
+.alert-success{
+    color: green;
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.alert-danger{
+    border: 2px solid red;
+    color: red;
+    border-radius: 10px;
+    padding: 30px;
 }

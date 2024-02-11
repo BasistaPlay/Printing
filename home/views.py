@@ -8,13 +8,13 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from django.http import Http404
 from home.models import user as MyUser
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
+from django.contrib.auth import update_session_auth_hash
 
 
 def homepage(request):
@@ -24,14 +24,14 @@ def homepage(request):
 
 def login_view(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
 
-        if not email or not password:
+        if not username or not password:
             messages.error(request, _('Lūdzu, ievadiet e-pastu un paroli.'))
             return render(request, 'login.html')
 
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
@@ -48,6 +48,7 @@ def register(request):
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         email = request.POST['email']
+        username = request.POST['username']
         phone_number = request.POST['phone_number']
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
@@ -67,13 +68,16 @@ def register(request):
         if MyUser.objects.filter(email=email).exists():
             errors.append(_('Šī e-pasta adrese jau tiek izmantota.'))
 
+        if MyUser.objects.filter(username=username).exists():
+            errors.append(_('Šī Lietotājvārds jau tiek izmantots.'))
+
         if errors:
             for error in errors:
                 messages.error(request, error)
             return render(request, 'register.html')
 
         try:
-            user = MyUser.objects.create_user(username=email, email=email, password=pass1)
+            user = MyUser.objects.create_user(username=username, email=email, password=pass1)
             user.first_name = first_name
             user.last_name = last_name
             user.phone_number = phone_number
@@ -93,14 +97,13 @@ def logout_view(request):
 def contact_us(request):
     contacts = Contact.objects.first()
     if request.method == 'POST':
-        # Saņemiet datus no POST pieprasījuma
+
         first_name = request.POST.get('first_name', '')
         last_name = request.POST.get('last_name', '')
         email = request.POST.get('email', '')
         phone_number = request.POST.get('phone_number', '')
         user_message = request.POST.get('message', '')
 
-        # Saglabājiet datus datu bāzē
         contact_message = ContactMessage.objects.create(
             first_name=first_name,
             last_name=last_name,
@@ -109,7 +112,6 @@ def contact_us(request):
             message=user_message
         )
 
-        # Izmantojiet send_mail, lai aizsūtītu apstiprinājuma ziņojumu lietotājam
         subject = 'Ziņojums saņemts'
         message = 'Paldies par Jūsu ziņojumu. Mēs esam to saņēmuši un sazināsimies ar Jums drīzumā.'
         from_email = settings.DEFAULT_FROM_EMAIL
@@ -117,13 +119,11 @@ def contact_us(request):
 
         send_mail(subject, message, from_email, to_email, fail_silently=False)
 
-        # Paziņot lietotājam, ka ziņojums ir veiksmīgi nosūtīts
         messages.success(request, 'Ziņojums ir veiksmīgi nosūtīts!')
 
-        # Neaizmirstiet importēt messages no django.contrib
         return render(request, 'contact.html', {'Contact': contacts})
     else:
-        # Jūsu esošais skats kodam šeit
+
         return render(request, 'contact.html', {'Contact': contacts})
     
 
@@ -145,10 +145,8 @@ def save_rating(request):
     product_id = request.POST.get('product_id')
     rating_value = request.POST.get('rating')
 
-    # Iegūstiet vai izveidojiet produktu, uz kuru attiecas reitings
     product = get_object_or_404(Product_list, id=product_id)
 
-    # Saglabājiet reitingu datu bāzē
     rating, created = Rating.objects.get_or_create(user=request.user, product=product)
     rating.stars = rating_value
     rating.save()
@@ -238,41 +236,25 @@ def check_discount_code(request):
 def account(request):
     return render(request, 'account.html')
 
-# def save_user_data(request):
-#     if request.method == 'POST' and request.is_ajax():
-#         user = request.user
-#         user.first_name = request.POST.get('first_name')
-#         user.last_name = request.POST.get('last_name')
-#         user.phone_number = request.POST.get('phone')
-#         user.email = request.POST.get('email')
-
-#         try:
-#             user.save()
-#             return JsonResponse({'success': True})
-#         except Exception as e:
-#             return JsonResponse({'success': False, 'error_message': str(e)})
-
-#     return JsonResponse({'success': False, 'error_message': 'Invalid request'})
-
-@csrf_exempt
-@login_required
 def save_user_data(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         phone = request.POST.get('phone')
+        username = request.POST.get('username') 
 
-        # Perform validation and save logic
-        if email and phone:
-            # Check if email already exists
+        if email and phone and username:
+
             if MyUser.objects.filter(email=email).exclude(username=request.user.username).exists():
-                return JsonResponse({'success': False, 'error': 'Email already exists for another user'})
+                return JsonResponse({'success': False, 'error': _('E-pasts jau eksistē citam lietotājam')})
 
-            # Check if phone number already exists
             if MyUser.objects.filter(phone_number=phone).exclude(username=request.user.username).exists():
-                return JsonResponse({'success': False, 'error': 'Phone number already exists for another user'})
+                return JsonResponse({'success': False, 'error': _('Tālruņa numurs jau eksistē citam lietotājam')})
+            
+            if MyUser.objects.filter(username=username).exclude(username=request.user.username).exists():
+                return JsonResponse({'success': False, 'error': _('Lietotājvārds jau eksistē citam lietotājam')})
 
-            # Save data successfully
             request.user.email = email
+            request.user.username = username
             request.user.save()
 
             user = request.user
@@ -281,7 +263,31 @@ def save_user_data(request):
 
             return JsonResponse({'success': True, 'email': email, 'phone': phone})
         else:
-            # Invalid data
-            return JsonResponse({'success': False, 'error': 'Invalid data'})
+            return JsonResponse({'success': False, 'error': _('Nederīgi dati')})
 
-    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    return JsonResponse({'success': False, 'error': _('Nederīga pieprasījuma metode')})
+
+@login_required
+@method_decorator(csrf_exempt, name='dispatch')
+def change_password(request):
+    if request.method == 'POST':
+        old_password = request.POST.get('oldPassword')
+        new_password = request.POST.get('newPassword')
+
+        if not request.user.check_password(old_password):
+            return JsonResponse({'success': False, 'error': _('Vecā parole nav pareiza.')})
+
+        if not is_valid_password(new_password):
+            return JsonResponse({'success': False, 'error': _('Jaunā parole neatbilst nosacījumiem.')})
+
+        request.user.set_password(new_password)
+        request.user.save()
+
+        update_session_auth_hash(request, request.user)
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': _('Metode POST ir obligāta.')})
+
+def is_valid_password(password):
+    return len(password) >= 8 and any(char.isdigit() for char in password) and any(char.isupper() for char in password)
