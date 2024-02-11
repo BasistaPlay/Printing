@@ -53,6 +53,8 @@ urlpatterns += i18n_patterns(
     path('cart/', page.cart, name='cart'),
     path('creative-corner/<str:user>/<int:product_list_id>/', page.detail, name='detail'),
     path('account/',page.account, name='account'),
+    path('save_user_data/', page.save_user_data, name='save_user_data'),
+    path('account/change_password/', page.change_password, name='change_password'),
 )
 
 handler404 = page.handler404
