@@ -174,12 +174,12 @@ document.addEventListener("DOMContentLoaded", function() {
                                    
       if (allIndicatorsGreen && allIndicatorsVisible) {
         border.style.borderColor = "green";
-        changePasswordButton.style.cursor = "pointer"; // Nomainiet kursoru uz "pointer"
-        changePasswordButton.addEventListener("click", changePassword); // Pievienojiet click event listener
+        changePasswordButton.style.cursor = "pointer";
+        changePasswordButton.addEventListener("click", changePassword);
     } else {
         border.style.borderColor = "red";
-        changePasswordButton.style.cursor = "not-allowed"; // Nomainiet kursoru uz "not-allowed"
-        changePasswordButton.removeEventListener("click", changePassword); // Noņemiet click event listener
+        changePasswordButton.style.cursor = "not-allowed";
+        changePasswordButton.removeEventListener("click", changePassword);
     }
 }
 
@@ -264,3 +264,58 @@ function changePassword() {
       document.getElementById("message").innerHTML = '<div class="alert alert-danger" role="alert">Kļūda sazinoties ar serveri: ' + error.message + '</div>';
   });
 }
+
+
+document.getElementById("deleteProfileBtn").addEventListener("click", function() {
+    var password = document.getElementById("password").value;
+    var csrfToken = "{{ csrf_token }}";
+    var deleteProfileUrl = "/account/delete_account/";
+    var home = '/';
+    
+    var formData = new FormData();
+    formData.append('password', password);
+    
+    fetch(deleteProfileUrl, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': csrfToken
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        var messagesElement = document.getElementById("deleteuser-messages");
+        if (data.success) {
+            messagesElement.innerHTML = '<div class="success-message">Jūsu profils ir veiksmīgi izdzēsts.</div>';
+            messagesElement.classList.remove("alert-danger");
+            messagesElement.classList.add("success");
+            setTimeout(function() {
+                window.location.href = home;
+            }, 3000); // Pāradresē uz sākumlapu pēc 3 sekundēm
+        } else {
+            messagesElement.innerHTML = '<div class="error">Kļūda: ' + data.error + '</div>';
+            messagesElement.classList.remove("success-message");
+            messagesElement.classList.add("alert-danger");
+        }
+    })
+    .catch(error => {
+        var messagesElement = document.getElementById("deleteuser-messages");
+        messagesElement.innerHTML = '<div class="error">Kļūda: Neizdevās sazināties ar serveri.</div>';
+        messagesElement.classList.remove("success-message");
+        messagesElement.classList.add("alert-danger");
+        console.error('There has been a problem with your fetch operation:', error);
+    });
+    
+});
+
+document.getElementById("password").addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("deleteProfileBtn").click();
+    }
+});

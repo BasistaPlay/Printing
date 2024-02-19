@@ -499,18 +499,10 @@ input {
   height: 30px;
   background: none;
   border-radius: 50%;
-  border: 1px solid var(--text-color);
-  -webkit-border-radiys: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  /* border: 0.01px solid var(--text-color); */
   margin-right: 12px;
   cursor: pointer;
-  transition: all 0.5 ease;
-  -webkit-transition: all 0.5 ease;
-  -moz-transition: all 0.5 ease;
-  -ms-transition: all 0.5 ease;
-  -o-transition: all 0.5 ease;
+  transition: all 0.5s ease;
 }
 
 .color-select:hover {
@@ -518,7 +510,7 @@ input {
 }
 
 .active-color {
-  border: 2px solid var(--text-color);
+  box-shadow: 0 0 0 5px var(--second-color), 0 0 0 6px var(--text-color);
 }
 
 .color-groups {

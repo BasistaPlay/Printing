@@ -90,6 +90,10 @@ header {
     margin-right: 20px;
     transition: all ease .55;
 }
+.h-btn i {
+    position: relative;
+    right: 10px;
+}
 
 .h-btn:hover{
     background: transparent;
