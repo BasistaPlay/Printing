@@ -12,7 +12,6 @@ from home.models import user as MyUser
 from django.contrib.auth.decorators import login_required
 from cart.cart import Cart
 from django.views.decorators.csrf import csrf_exempt
-import json
 from django.utils.decorators import method_decorator
 from django.contrib.auth import update_session_auth_hash
 
@@ -291,3 +290,17 @@ def change_password(request):
 
 def is_valid_password(password):
     return len(password) >= 8 and any(char.isdigit() for char in password) and any(char.isupper() for char in password)
+
+
+@login_required
+@csrf_exempt
+def delete_profile(request):
+    if request.method == 'POST':
+        password = request.POST.get('password')
+        print(password)
+        if request.user.check_password(password):
+            request.user.delete()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': _('Nepareiza parole.')})
+    return JsonResponse({'success': False, 'error': _('Metode POST ir obligāta.')})

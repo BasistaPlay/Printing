@@ -37,7 +37,10 @@
         </ul>
         <div class="h-main">
             {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}" class="h-btn">{% trans 'Izlogoties' %}</a>
+            <a href="{% url 'account' %}" class="h-btn">
+                <i class="fas fa-user"></i>
+                {% trans 'Profils' %}
+            </a>
             {% else %}
                 <a href='{% url 'login' %}' class='h-btn'>{% trans 'Pierakstīties' %}</a>
             {% endif %}

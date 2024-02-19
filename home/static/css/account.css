@@ -1,5 +1,3 @@
-/* Izvietojums un izkārtojums */
-
 .navbar {
     background-color: var(--bg2-color);
     float: left;
@@ -90,9 +88,8 @@
     }
 }
 
-/* Pogas */
 
-.navbar button {
+.navbar button, .navbar a {
     display: block;
     color: #f2f2f2;
     text-align: center;
@@ -104,14 +101,36 @@
     background-color: var(--bg2-color);
 }
 
-.navbar button i {
+.navbar button i, .navbar a i {
     margin-right: 5px;
     color: #fff;
 }
 
-.navbar button:hover {
+.navbar button:hover, .navbar a:hover {
     background-color: #ddd;
     color: black;
+}
+
+#deleteaccount p{
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    padding: 0 30px 0 30px;
+}
+
+#deleteaccount .input-container{
+    margin-left: 30px ;
+}
+
+#deleteaccount button{
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 30px 
 }
 
 .info-button {
@@ -140,8 +159,6 @@
     box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
     transform: translateY(-2px);
 }
-
-/* Ievades lauki un etiķetes */
 
 #personalInfo p {
     text-align: left;
@@ -210,24 +227,6 @@
 .input-group .input-container input {
     cursor: not-allowed;
 }
-/* Citas */
-/* 
-.alert {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border: 2px solid red;
-    border-radius: 10px;
-    z-index: 9999;
-}
-
-.alert p {
-    margin: 0;
-} */
 
 .condition-indicator {
     border: 2px solid red;
@@ -289,6 +288,30 @@
     width: 330px;
     top: 153px;
     right: 709px;
+}
+
+#deleteuser-messages {
+    position: relative;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.success-message {
+    color: green;
+    border: 2px solid green;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.error-messages {
+    border: 2px solid red;
+    color: red;
+    border-radius: 10px;
+    padding: 30px;
 }
 
 .alert-success{

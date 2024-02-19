@@ -38,6 +38,7 @@ urlpatterns = [
     path('account/',page.account, name='account'),
     path('save_user_data/', page.save_user_data, name='save_user_data'),
     path('account/change_password/', page.change_password, name='change_password'),
+    path('account/delete_account/', page.delete_profile, name='delete_profile'),
 ]
 
 urlpatterns += i18n_patterns(
