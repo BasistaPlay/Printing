@@ -124,10 +124,11 @@ def contact_us(request):
     else:
 
         return render(request, 'contact.html', {'Contact': contacts})
-    
 
-def test(request):
-    return render(request, 'test.html')
+def design(request, slug):
+    product = Product.objects.get(slug=slug)
+
+    return render(request, 'design.html', {'product': product})
 
 
 def creativecorner(request):
@@ -242,15 +243,23 @@ def save_user_data(request):
         username = request.POST.get('username') 
 
         if email and phone and username:
+            existing_email = MyUser.objects.filter(email=email).exclude(username=request.user.username).exists()
+            existing_phone = MyUser.objects.filter(phone_number=phone).exclude(username=request.user.username).exists()
+            existing_username = MyUser.objects.filter(username=username).exclude(username=request.user.username).exists()
 
-            if MyUser.objects.filter(email=email).exclude(username=request.user.username).exists():
-                return JsonResponse({'success': False, 'error': _('E-pasts jau eksistē citam lietotājam')})
+            error_messages = {}
 
-            if MyUser.objects.filter(phone_number=phone).exclude(username=request.user.username).exists():
-                return JsonResponse({'success': False, 'error': _('Tālruņa numurs jau eksistē citam lietotājam')})
+            if existing_email:
+                error_messages['email'] = _('E-pasts jau eksistē citam lietotājam')
+
+            if existing_phone:
+                error_messages['phone'] = _('Tālruņa numurs jau eksistē citam lietotājam')
+
+            if existing_username:
+                error_messages['username'] = _('Lietotājvārds jau eksistē citam lietotājam')
             
-            if MyUser.objects.filter(username=username).exclude(username=request.user.username).exists():
-                return JsonResponse({'success': False, 'error': _('Lietotājvārds jau eksistē citam lietotājam')})
+            if error_messages:
+                return JsonResponse({'success': False, 'errors': error_messages})
 
             request.user.email = email
             request.user.username = username
@@ -265,6 +274,7 @@ def save_user_data(request):
             return JsonResponse({'success': False, 'error': _('Nederīgi dati')})
 
     return JsonResponse({'success': False, 'error': _('Nederīga pieprasījuma metode')})
+
 
 @login_required
 @method_decorator(csrf_exempt, name='dispatch')
