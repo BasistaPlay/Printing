@@ -1,16 +1,16 @@
 function showSection(sectionId) {
     hideAllSections();
     document.getElementById(sectionId).style.display = 'block';
-  }
-  
-  function hideAllSections() {
+}
+
+function hideAllSections() {
     var sections = document.getElementsByClassName('section');
     for (var i = 0; i < sections.length; i++) {
-      sections[i].style.display = 'none';
+        sections[i].style.display = 'none';
     }
-  }
+}
 
-  function enableEditing() {
+function enableEditing() {
     document.getElementById("email").readOnly = false;
     document.getElementById("phone").readOnly = false;
     document.getElementById("username").readOnly = false;
@@ -19,54 +19,101 @@ function showSection(sectionId) {
 }
 
 function saveData() {
-  var emailValue = document.getElementById("email").value;
-  var phoneValue = document.getElementById("phone").value;
-  var usernameValue = document.getElementById("username").value; 
+    var emailValue = document.getElementById("email").value;
+    var phoneValue = document.getElementById("phone").value;
+    var usernameValue = document.getElementById("username").value; 
 
-  var emailValid = validateEmail(emailValue);
-  var phoneValid = validatePhoneNumber(phoneValue);
+    var emailValid = validateEmail(emailValue);
+    var phoneValid = validatePhoneNumber(phoneValue);
+    var usernameValid = validateUsername(usernameValue);
 
+    var errorMessages = [];
 
-  if (!emailValid && !phoneValid) {
-      document.getElementById("messageContainer").innerText = gettext("Nederīgs e-pasts un tālruņa numurs.");
-      return;
-  }
+    if (!emailValid || !phoneValid || !usernameValid) {
+        if (!emailValid) {
+            errorMessages.push("Nederīgs e-pasts.");
+        }
+        
+        if (!phoneValid) {
+            errorMessages.push("Nederīgs tālruņa numurs.");
+        }
 
-  if (!emailValid) {
-      document.getElementById("messageContainer").innerText = "Nederīgs e-pasts.";
-      return;
-  }
+        if (!usernameValid) {
+            errorMessages.push("Nederīgs lietotājvārds.");
+        }
 
-  if (!phoneValid) {
-      document.getElementById("messageContainer").innerText = "Nederīgs tālruņa numurs.";
-      return;
-  }
+        displayErrorMessage(errorMessages.join("\n"));
+        return;
+    }
 
-  if (!validateUsername(usernameValue)) {
-      document.getElementById("messageContainer").innerText = "Nederīgs lietotājvārds.";
-      return;
-  }
-
-  fetch('/save_user_data/', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-CSRFToken': getCookie('csrftoken')
-      },
-
-      body: 'email=' + encodeURIComponent(emailValue) + '&phone=' + encodeURIComponent(phoneValue) + '&username=' + encodeURIComponent(usernameValue)
-  })
-  .then(response => response.json())
-  .then(data => {
-      if (data.success) {
-          alert("Dati veiksmīgi saglabāti");
-          showEditButton();
-      } else {
-          document.getElementById("messageContainer").innerText = data.error;
-      }
-  })
-  .catch(error => console.error('Kļūda:', error));
+    fetch('/save_user_data/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: 'email=' + encodeURIComponent(emailValue) + '&phone=' + encodeURIComponent(phoneValue) + '&username=' + encodeURIComponent(usernameValue)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            displaySuccessMessage("Dati veiksmīgi saglabāti");
+            document.getElementById("editButton").style.display = "block";
+            document.getElementById("saveButton").style.display = "none";
+            
+            document.getElementById("email").readOnly = true;
+            document.getElementById("phone").readOnly = true;
+            document.getElementById("username").readOnly = true;
+        } else {
+            if (data.errors) {
+                if (data.errors.email) {
+                    displayErrorMessage(data.errors.email);
+                }
+                if (data.errors.phone) {
+                    displayErrorMessage(data.errors.phone);
+                }
+                if (data.errors.username) {
+                    displayErrorMessage(data.errors.username);
+                }
+            } else {
+                displayErrorMessage(data.error);
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Kļūda:', error);
+        displayErrorMessage("Kļūda: Neizdevās saglabāt datus.");
+    });
 }
+
+function displayErrorMessage(message) {
+    var messageContainer = document.getElementById("messageContainer-savedata");
+    messageContainer.innerText = message;
+    messageContainer.classList.remove("success-message");
+    messageContainer.classList.add("error-message");
+    messageContainer.style.opacity = "1";
+    messageContainer.style.transform = "translateX(0%)";
+    messageContainer.style.display = "block";
+}
+
+function displaySuccessMessage(message) {
+    var messageContainer = document.getElementById("messageContainer-savedata");
+    messageContainer.innerText = message;
+    messageContainer.classList.remove("error-message");
+    messageContainer.classList.add("success-message");
+    messageContainer.style.opacity = "1";
+    messageContainer.style.transform = "translateX(0%)";
+    messageContainer.style.display = "block";
+    setTimeout(function() {
+        messageContainer.style.opacity = "0";
+        messageContainer.style.transform = "translateX(100%)";
+        setTimeout(function() {
+            messageContainer.style.display = "none";
+        }, 500);
+    }, 5000);
+}
+
+
 
 function validateUsername(username) {
   return /^[a-zA-Z0-9._-]+$/.test(username);
@@ -233,44 +280,51 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function changePassword() {
-  const oldPassword = document.getElementById("oldPassword").value;
-  const newPassword = document.getElementById("newPassword1").value;
+    const oldPassword = document.getElementById("oldPassword").value;
+    const newPassword = document.getElementById("newPassword1").value;
 
-  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
+    const formData = new FormData();
+    formData.append('oldPassword', oldPassword);
+    formData.append('newPassword', newPassword);
 
-  const formData = new FormData();
-  formData.append('oldPassword', oldPassword);
-  formData.append('newPassword', newPassword);
+    fetch('change_password/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': csrfToken
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const messageContainer = document.getElementById("message-password");
+        if (data.success) {
+            messageContainer.innerHTML = '<div class="alert success-message" role="alert">Parole veiksmīgi nomainīta!</div>';
 
-
-  fetch('change_password/', {
-      method: 'POST',
-      body: formData,
-      headers: {
-          'X-CSRFToken': csrfToken
-      }
-  })
-  .then(response => response.json())
-  .then(data => {
-
-      if (data.success) {
-          document.getElementById("message").innerHTML = '<div class="alert alert-success" role="alert">Parole veiksmīgi nomainīta!</div>';
-      } else {
-          document.getElementById("message").innerHTML = '<div class="alert alert-danger" role="alert">' + data.error + '</div>';
-      }
-  })
-  .catch(error => {
-      document.getElementById("message").innerHTML = '<div class="alert alert-danger" role="alert">Kļūda sazinoties ar serveri: ' + error.message + '</div>';
-  });
+        } else {
+            messageContainer.innerHTML = '<div class="alert error-message" role="alert">' + data.error + '</div>';
+        }
+    
+        messageContainer.style.opacity = "1";
+        messageContainer.style.transform = "translateX(0)";
+    
+        setTimeout(function() {
+            messageContainer.style.opacity = "0";
+            messageContainer.style.transform = "translateX(100%)";
+        }, 5000);
+    })
 }
 
+// Delite Profile
 
 document.getElementById("deleteProfileBtn").addEventListener("click", function() {
     var password = document.getElementById("password").value;
     var csrfToken = "{{ csrf_token }}";
     var deleteProfileUrl = "/account/delete_account/";
     var home = '/';
+    var seconds = 5; // Sekundes, pēc kurām pārmest uz sākumlapu
+    var count = seconds;
     
     var formData = new FormData();
     formData.append('password', password);
@@ -291,23 +345,36 @@ document.getElementById("deleteProfileBtn").addEventListener("click", function()
     .then(data => {
         var messagesElement = document.getElementById("deleteuser-messages");
         if (data.success) {
-            messagesElement.innerHTML = '<div class="success-message">Jūsu profils ir veiksmīgi izdzēsts.</div>';
-            messagesElement.classList.remove("alert-danger");
+            messagesElement.innerHTML = '<div class="success-message">Jūsu profils ir veiksmīgi izdzēsts. Jūs tiksiet pārmests uz sākumlapu pēc ' + seconds + ' sekundēm.</div>';
+            messagesElement.classList.remove("error-message");
             messagesElement.classList.add("success");
-            setTimeout(function() {
-                window.location.href = home;
-            }, 3000); // Pāradresē uz sākumlapu pēc 3 sekundēm
+            messagesElement.style.opacity = "1";
+            messagesElement.style.transform = "translateX(0)";
+            
+            var interval = setInterval(function() {
+                count--;
+                if (count === 0) {
+                    clearInterval(interval);
+                    window.location.href = home;
+                } else {
+                    messagesElement.innerHTML = '<div class="success-message">Jūsu profils ir veiksmīgi izdzēsts. Jūs tiksiet pārmests uz sākumlapu pēc ' + count + ' sekundēm.</div>';
+                }
+            }, 1000);
         } else {
-            messagesElement.innerHTML = '<div class="error">Kļūda: ' + data.error + '</div>';
-            messagesElement.classList.remove("success-message");
-            messagesElement.classList.add("alert-danger");
+            messagesElement.innerHTML = '<div class="error-message">' + data.error + '</div>';
+            messagesElement.style.opacity = "1";
+            messagesElement.style.transform = "translateX(0)";
         }
     })
     .catch(error => {
         var messagesElement = document.getElementById("deleteuser-messages");
         messagesElement.innerHTML = '<div class="error">Kļūda: Neizdevās sazināties ar serveri.</div>';
         messagesElement.classList.remove("success-message");
-        messagesElement.classList.add("alert-danger");
+        messagesElement.classList.add("error-message");
+        messagesElement.style.opacity = "1";
+        setTimeout(function() {
+            messagesElement.style.opacity = "0";
+        }, 5000);
         console.error('There has been a problem with your fetch operation:', error);
     });
     
@@ -319,3 +386,10 @@ document.getElementById("password").addEventListener("keyup", function(event) {
         document.getElementById("deleteProfileBtn").click();
     }
 });
+
+function showLogoutConfirmation() {
+    var confirmation = confirm("Vai tiešām vēlaties iziet no sava profila?");
+    if (confirmation) {
+        window.location.href = "/logout/"
+    }
+}

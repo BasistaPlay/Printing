@@ -1,8 +1,16 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
 .navbar {
+    position: relative;
     background-color: var(--bg2-color);
-    float: left;
     width: 50px;
-    height: 100%;
+    height: 420px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -10,82 +18,24 @@
     transition: all ease .55s;
 }
 
-.container {
-    margin-top: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 400px;
-}
-
 .content-container {
-    display: flex;
-    height: 100%;
+    position: relative;
+    width: 900px;
+    height: 420px;
+    background-color: var(--bg-color);
+    border-radius: 0 10px 10px 0;
+    transition: all ease .55s;
 }
 
 .section {
     padding: 10px;
     display: none;
     background-color: var(--second-color);
-    width: 900px;
-    align-items: center;
-    margin: auto;
-    border-radius: 0 10px 10px 0;
     height: 100%;
+    width: 100%;
+    align-items: center;
+    border-radius: 0 10px 10px 0;
     transition: all ease .55s;
-}
-
-@media (max-width: 1050px) {
-    .section {
-        width: 700px;
-        height: auto;
-        margin-top: 70px
-    }
-
-    .condition-indicator {
-        position: relative;
-        margin-bottom: 35px;
-    }
-}
-
-@media (max-width: 800px) {
-    .section {
-        width: 500px;
-        border-radius: 0 0 10px 10px;
-        height: auto;
-    }
-
-    .section h2 {
-        align-items: center;
-        text-align: center;
-    }
-
-    .navbar {
-        flex-direction: row;
-        height: 50px;
-        border-radius: 10px 10px 0 0;
-        position: absolute;
-        margin-top: 30px;
-        width: 500px;
-
-    }
-
-    .input-container {
-        width: calc(100% - 20px);
-    }
-
-    .input-container.left,
-    .input-container.right {
-        width: calc(50% - 10px);
-    }
-
-    .input-container.right {
-        margin-left: auto;
-    }
-    .input-container {
-        flex-basis: 50%;
-        width: auto;
-    }
 }
 
 
@@ -116,10 +66,6 @@
     line-height: 1.6;
     margin-bottom: 30px;
     padding: 0 30px 0 30px;
-}
-
-#deleteaccount .input-container{
-    margin-left: 30px ;
 }
 
 #deleteaccount button{
@@ -167,50 +113,31 @@
 
 .input-container {
     position: relative;
-    margin-bottom: 20px;
-    width: 100%;
     transition: all ease .55s;
 }
 
 .input-container label {
-    position: absolute;
+    position: relative;
     top: -3px;
     color: var(--text-color);
     transition: all 0.3s ease;
     pointer-events: none;
 }
 
-.input-container input[type="text"],
-.input-container input[type="email"],
-.input-container input[type="password"] {
+.input-container input {
     font-size: 16px;
     width: calc(100% - 20px);
     padding: 5px 10px;
-    background-color: transparent;
     outline: none;
-    margin-top: 20px;
+    margin-top: 3px;
     border-radius: 5px;
     border: solid 0.1px var(--text-color);
     color: var(--text-color);
     transition: all ease .55s;
     padding-right: 26px;
-}
-
-.input-container.left {
-    width: calc(50% - 10px);
-    left: 0;
-    transition: all ease .55s;
-}
-
-.input-container.right {
-    width: calc(50% - 10px);
-    right: 0;
-    transition: all ease .55s;
-}
-
-.input-container .passwordChange {
-    position: relative;
-    width: 300px;
+    background: #a3a3a342;
+    cursor: default;
+    margin-bottom: 10px;
 }
 
 .input-group {
@@ -247,9 +174,10 @@
     position: absolute;
     display: flex;
     flex-direction: row-reverse;
-    bottom: 7px;
+    bottom: 18px;
     right: 26px;
     cursor: pointer;
+    color: var(--text-color);
 }
 
 .data {
@@ -278,26 +206,58 @@
     transition: all ease .55s;
 }
 
-#message {
-    padding: 10px 0;
-    position: absolute;
-    border-radius: 10px;
-    transition: border-color 0.3s ease;
-    margin-right: 30px;
-    order: -1;
-    width: 330px;
-    top: 153px;
-    right: 709px;
+.navbar button {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
 }
 
-#deleteuser-messages {
-    position: relative;
+.navbar button:hover::after {
+    content: attr(title);
+    position: absolute;
     top: 50%;
-    right: 10px;
+    right: calc(100% + 10px);
     transform: translateY(-50%);
-    padding: 10px;
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
     border-radius: 5px;
-    z-index: 1000;
+    white-space: nowrap;
+}
+
+.navbar button:hover::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 5px);
+    transform: translateY(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #333;
+}
+
+.navbar button:hover {
+    color: #333;
+}
+
+.message-container {
+    position: fixed;
+    top: 210px;
+    right: 20px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    transform: translateX(100%);
+}
+
+.error-message {
+    border: 2px solid red;
+    color: red;
+    border-radius: 10px;
+    padding: 30px;
+    width: 400px;
 }
 
 .success-message {
@@ -307,23 +267,209 @@
     padding: 30px;
 }
 
-.error-messages {
-    border: 2px solid red;
-    color: red;
-    border-radius: 10px;
-    padding: 30px;
+.input-container input[type="text"]:not([readonly]),
+.input-container input[type="email"]:not([readonly]),
+.input-container input[type="password"]:not([readonly]) {
+    background-color: transparent;
+    cursor: text;
 }
 
-.alert-success{
-    color: green;
-    border: 2px solid green;
-    border-radius: 10px;
-    padding: 30px;
+@media (max-width: 1800px) {
+    .error-message{
+        width: 300px;
+    }
+
+    .success-message {
+        width: 300px;
+    }
 }
 
-.alert-danger{
-    border: 2px solid red;
-    color: red;
-    border-radius: 10px;
-    padding: 30px;
+@media (max-width: 1600px) {
+    .message-container {
+        position: relative;
+        top: 8px;
+        right: -16px;
+    }
+    .error-message{
+        width: 400px;
+        padding: 5px;
+    }
+
+    .success-message {
+        width: 400px;
+        padding: 5px;
+    }
+}
+
+
+@media (max-width: 1050px) {
+    .content-container {
+        width: 700px;
+        height: auto;
+    }
+
+    .container {
+        display: flex;
+        align-items:start;
+        margin-top: 200px;
+        position: relative;
+    }
+
+    .section {
+        border-radius: 0 0 10px 10px;
+    }
+
+    .condition-indicator {
+        position: relative;
+        margin-bottom: 35px;
+    }
+
+    .navbar {
+        flex-direction: row;
+        height: 50px;
+        border-radius: 10px 10px 0 0;
+        position: absolute;
+        margin-top: -51px;
+        width: 700px;
+    }
+
+    .input-container {
+        flex-basis: 100%;
+    }
+
+    .passwordChange i{
+        bottom: 17px;
+        right: 8px;
+    }
+    
+
+    .condition-indicator{
+        width: 672px;
+        margin-right: 5px
+    }
+    .navbar button:hover::after {
+        top: -50%;
+        right: calc(100% + -82px);
+    }
+
+    .input-container input {
+        width: 100%;
+    }
+    .input-container {
+        width: 100%;
+    }
+
+    .message-container {
+        position: relative;
+        top: 8px;
+        right: -16px;
+    }
+    .error-message{
+        width: 400px;
+        padding: 20px;
+    }
+
+    .success-message {
+        width: 400px;
+        padding: 20px;
+    }
+}
+
+
+
+@media (max-width: 800px) {
+    .content-container{
+        width: 420px;
+        height: auto;
+    }
+
+    .section {
+        border-radius: 0 0 10px 10px;
+    }
+
+    .navbar {
+        flex-direction: row;
+        height: 50px;
+        border-radius: 10px 10px 0 0;
+        position: absolute;
+        margin-top: -51px;
+        width: 420px;
+    }
+
+    
+
+    .condition-indicator{
+        width: 400px;
+        margin-right: 0;
+    }
+    .navbar button:hover::after {
+        top: -50%;
+        right: calc(100% + -82px);
+    }
+
+    .input-container input {
+        width: 100%;
+    }
+    .input-container {
+        width: 100%;
+    }
+    .error-message{
+        width: 380px;
+        padding: 20px;
+    }
+
+    .success-message {
+        width: 380px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 460px) {
+    .content-container{
+        width: 380px;
+        height: auto;
+    }
+    .navbar {
+        width: 380px;
+    }
+
+    .condition-indicator{
+        width: 360px;
+        margin-right: 0;
+    }
+
+    .error-message{
+        width: 340px;
+        padding: 20px;
+    }
+
+    .success-message {
+        width: 340px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .content-container{
+        width: 320px;
+        height: auto;
+    }
+    .navbar {
+        width: 320px;
+    }
+
+    .condition-indicator{
+        width: 300px;
+        margin-right: 0;
+    }
+
+    .error-message{
+        width: 280px;
+        padding: 20px;
+    }
+
+    .success-message {
+        width: 280px;
+        padding: 20px;
+    }
 }

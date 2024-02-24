@@ -20,11 +20,10 @@
         <p>{{custom_designs.additional_notes}}</p>
         <div class="hero-in">
             {% for product in products %}
-                <div class="box">
-                    <h3>{{ product.title }}<h1>
-                    <h5>{{ product.moto }}</h2>
+                <a class="box" href="{% url 'design_detail' slug=product.slug %}">
+                    <h3>{{ product.title }}</h3>
                     <img src="{{ product.image.url }}" alt="Image">
-                </div>
+                </a>
             {% endfor %}
         </div>
     </div>
@@ -56,7 +55,9 @@
             <div class="card-price">
                 <p>{{ product.price }}<sup> €</sup></p>
             </div>
-            <button class="card-button">Izveido dizaunu</button>
+            <form action="{% url 'design_detail' slug=product.slug %}" method="get">
+                <button type="submit" class="card-button">Izveido dizaunu</button>
+            </form>
         </div>
     {% endfor %}
     <div class="down-arrow second">

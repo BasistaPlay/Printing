@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, user, GiftCode
+from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, user, GiftCode, Color
 from modeltranslation.admin import TranslationAdmin
 from django.core.mail import send_mail
 from django.conf import settings
@@ -11,15 +11,21 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.html import format_html
 
 @admin.register(Product)
-class ProdructAdmin(TranslationAdmin):
+class ProdructAdmin(admin.ModelAdmin):
     list_display = ('title',)
 
     fieldsets = (
         ('Product', {
-            'fields': ('title', 'image', 'link')
+            'fields': ('title', 'image', 'slug')
         }),
         ('Price', {
             'fields': ('price', 'options'),
+        }),
+        ('Image', {
+            'fields': ('front_image_with_background', 'front_image_not_background', 'back_image_with_background', 'back_image_not_background'),
+        }),
+        ('Color', {
+            'fields': ('available_colors',),
         }),
     )
 
@@ -32,6 +38,17 @@ class ProdructAdmin(TranslationAdmin):
         css = {
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
+
+@admin.register(Color)
+class ColorAdmin(admin.ModelAdmin):
+
+    list_display = ('name','code')
+
+    fieldsets = (
+        ('Color', {
+            'fields': ('name', 'code',),
+        }),
+    )
 
 @admin.register(CustomDesign)
 class CustomDesignAdmin(TranslationAdmin):

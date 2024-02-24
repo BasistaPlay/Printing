@@ -116,7 +116,7 @@ a {
 
 .login-form button {
     font-size: 18px;
-    color: var(--text-color);
+    color: #fff;
     width: 100%;
     background-color: var(--main-color);
     border: none;

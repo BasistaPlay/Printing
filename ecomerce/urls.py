@@ -22,7 +22,6 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('contact-us/', page.contact_us, name='contact_us'),
     path('creative-corner/', page.creativecorner, name='creativecorner'),
-    path('test/', page.test, name='test'),
     path('creative-corner/<str:user>/<int:product_list_id>/', page.detail, name='detail'),
     path('save-rating/', page.save_rating, name='save_rating'),
     path('cart/', page.cart, name='cart'),
@@ -39,6 +38,7 @@ urlpatterns = [
     path('save_user_data/', page.save_user_data, name='save_user_data'),
     path('account/change_password/', page.change_password, name='change_password'),
     path('account/delete_account/', page.delete_profile, name='delete_profile'),
+    path('design/<slug:slug>/', page.design, name='design_detail'),
 ]
 
 urlpatterns += i18n_patterns(
@@ -49,13 +49,13 @@ urlpatterns += i18n_patterns(
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-    path('test/', page.test, name='test'),
     path('contact-us/', page.contact_us, name='contact_us'),
     path('cart/', page.cart, name='cart'),
     path('creative-corner/<str:user>/<int:product_list_id>/', page.detail, name='detail'),
     path('account/',page.account, name='account'),
     path('save_user_data/', page.save_user_data, name='save_user_data'),
     path('account/change_password/', page.change_password, name='change_password'),
+    path('design/<slug:slug>/', page.design, name='design_detail'),
 )
 
 handler404 = page.handler404

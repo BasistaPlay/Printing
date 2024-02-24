@@ -9,12 +9,9 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/account.css' %}" />
     <meta name="csrf-token" content="{{ csrf_token }}">
-
 {% endblock %}
 
 {% block body %}
-
-
 <div class="container">
     <div class="navbar">
         <button onclick="showSection('personalInfo')" title="{% trans 'Personiskā informācija' %}">
@@ -26,23 +23,23 @@
         <button onclick="showSection('orderHistory')" title="{% trans 'Pasūtījumu vēsture' %}">
             <i class="fas fa-history"></i>
         </button>
-        <a href="{% url 'logout' %}" title="{% trans 'Iziet' %}">
+        <button onclick="showLogoutConfirmation()" title="{% trans 'Iziet' %}">
             <i class="fas fa-sign-out-alt"></i>
-        </a>
+        </button>
         <button onclick="showSection('deleteaccount')" title="{% trans 'Profila dzēšana' %}">
             <i class="fas fa-user-times"></i>
         </button>
     </div>
     <div class="content-container">
         <div id="personalInfo" class="section" style="display: block;">
-            <div id="messageContainer"></div>
+            <div id="messageContainer-savedata" class="message-container"></div>
             <h2>{% trans 'Personiskā informācija' %}</h2>
             <div class="data flex-container">
                 <div class="input-container">
                     <label for="fname">{% trans 'Vārds' %}</label>
                     <input type="text" id="fname" name="fname" value="{{ user.first_name }}" readonly>
                 </div>
-                <div class="input-container lastname">
+                <div class="input-container">
                     <label for="lname">{% trans 'Uzvārds' %}</label>
                     <input type="text" id="lname" name="lname" value="{{ user.last_name }}" readonly>
                 </div>
@@ -65,7 +62,7 @@
         
         <div id="passwordChange" class="section">
             <h2>{% trans 'Paroles Maiņa' %}</h2>
-            <div id="message" class="messages"></div>
+            <div id="message-password" class="message-container"></div>
             <div id="conditionIndicator" class="condition-indicator">
               <p id="oldPasswordIndicator">❌ {% trans 'Ievadiet veco paroli!' %}</p>
               <p id="newDifferentIndicator">❌ {% trans 'Jaunā parole nevar būt vienāda ar veco paroli!' %}</p>
@@ -76,17 +73,17 @@
             </div>
             <div class="input-container passwordChange">
               <label for="oldPassword">{% trans 'Vecā parole:' %}</label>
-              <input type="password" id="oldPassword" name="oldPassword">
+              <input type="password" id="oldPassword" name="oldPassword" style="background: transparent;">
               <i id="showOldPassword" class="fas fa-eye"></i>
             </div>
             <div class="input-container passwordChange">
               <label for="newPassword1">{% trans 'Jaunā parole:' %}</label>
-              <input type="password" id="newPassword1" name="newPassword1">
+              <input type="password" id="newPassword1" name="newPassword1" style="background: transparent;">
               <i id="showNewPassword1" class="fas fa-eye"></i>
             </div>
             <div class="input-container passwordChange">
               <label for="newPassword2">{% trans 'Atkārtoti ievadiet jauno paroli:' %}</label>
-              <input type="password" id="newPassword2" name="newPassword2">
+              <input type="password" id="newPassword2" name="newPassword2" style="background: transparent;">
               <i id="showNewPassword2" class="fas fa-eye"></i>
             </div>
             <button class="info-button button-password" role="button">{% trans 'Samainīt paroli' %}</button>
@@ -98,7 +95,7 @@
         </div>
 
         <div id="deleteaccount" class="section">
-            <div id="deleteuser-messages"></div>
+            <div id="deleteuser-messages" class="message-container"></div>
             <h2>{% trans 'Profila dzēšana' %}</h2>
             <p>
                 {% trans 'Lūdzu, ņemiet vērā, ka, izdzēšot savu profilu, tiks neatgriezeniski dzēsti visi jūsu personiskie dati, pievienotie dizaini un veiktie pasūtījumi. Turklāt visi jūsu kontā esošie virtuālās valūtas līdzekļi tiks dzēsti.' %}
@@ -108,7 +105,7 @@
             </p>
             <div class="input-container">
                 <label for="Password">{% trans 'Parole:' %}</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" style="background: transparent;">
               </div>
             <button id="deleteProfileBtn">
                 {% trans 'Dzēst profilu' %}
@@ -116,8 +113,6 @@
         </div>
     </div>
 </div>
-
-
 {% endblock %}
 
 {% block js %}

@@ -7,18 +7,33 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from PIL import Image
+
 
 class user(AbstractUser):
     phone_number = PhoneNumberField(blank=True, null=True)
     def __str__(self):
         return self.username
 
+from django.db import models
+from PIL import Image
+
 class Product(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet produkta nosaukumu."))
     image = models.ImageField(_('Bilde'), upload_to='products/', blank=False)
-    link = models.URLField(blank=True, help_text=_("Ievadiet saiti, uz kuru vedīs poga (ja nepieciešams)."))
+    slug = models.SlugField(_('Slug'), unique=True, help_text=_("Ievadiet URL draudzīgu nosaukumu."))
     price = models.DecimalField(max_digits=10, decimal_places=2)
     options = models.TextField(blank=True, help_text="Ievadiet opcijas kā sarakstu ar komatiem")
+
+    # front_image = models.ImageField(_('Priekšējā bilde'), upload_to='products/', blank=True)
+    # back_image = models.ImageField(_('Aizmugurējā bilde'), upload_to='products/', blank=True)
+    front_image_with_background = models.ImageField(_('Priekšējā bilde ar fonu'), upload_to='products/', blank=True)
+    front_image_not_background = models.ImageField(_('Priekšējā bilde bez fona'), upload_to='products/', blank=True)
+    back_image_with_background = models.ImageField(_('Aizmugurējā bilde ar fonu'), upload_to='products/', blank=True)
+    back_image_not_background = models.ImageField(_('Aizmugurējā bilde bez fona'), upload_to='products/', blank=True)
+
+    available_colors = models.ManyToManyField('Color', related_name='products', blank=True)
+
 
     def __str__(self):
         return self.title
@@ -26,6 +41,35 @@ class Product(models.Model):
     def get_options_list(self):
         return [option.strip() for option in self.options.split(',')]
 
+    # def convertImg(self):
+    #     img = Image.open(self.front_image.path)
+    #     img = img.convert('RGBA')
+    #     pixels = list(img.getdata())
+
+    #     new_pixels = []
+    #     color_removed = (0, 0, 0, 255)
+
+    #     for pixel in pixels:
+    #         if pixel == color_removed:
+    #             new_pixels.append((0,0,0,0))
+    #         else:
+    #             new_pixels.append(pixel)
+
+    #     img.putdata(new_pixels)
+    #     img.save(self.front_image_not_background.path, 'png')
+    #     print('Bilde pārveidota un saglabāta kā front_image_not_background.png')
+
+    # def save(self, *args, **kwargs):
+    #     if self.front_image and not self.front_image_not_background:
+    #         self.convertImg()
+    #     super().save(*args, **kwargs)
+
+class Color(models.Model):
+    name = models.CharField(max_length=100)
+    code = ColorField()
+
+    def __str__(self):
+        return self.name
 class CustomDesign(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100)
     description = models.TextField(_('Apraksts'),)
