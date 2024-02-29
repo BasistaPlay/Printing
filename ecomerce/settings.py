@@ -86,8 +86,8 @@ WSGI_APPLICATION = 'ecomerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'urban_prod',
-        'USER': 'u_urban',
+        'NAME': 'edis',
+        'USER': 'edis',
         'PASSWORD': '123',
         'HOST': 'localhost',
         'PORT': '',
