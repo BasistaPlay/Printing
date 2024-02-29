@@ -12,57 +12,40 @@ from PIL import Image
 
 class user(AbstractUser):
     phone_number = PhoneNumberField(blank=True, null=True)
+
     def __str__(self):
         return self.username
 
-from django.db import models
-from PIL import Image
+    class Meta:
+        verbose_name = _("Lietotājs")
+        verbose_name_plural = _("Lietotāji")
+
 
 class Product(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet produkta nosaukumu."))
     image = models.ImageField(_('Bilde'), upload_to='products/', blank=False)
-    slug = models.SlugField(_('Slug'), unique=True, help_text=_("Ievadiet URL draudzīgu nosaukumu."))
+    slug = models.SlugField(_('Slug'), unique=True, help_text=_("Ievadiet URL draudzīgu nosaukumu."), blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     options = models.TextField(blank=True, help_text="Ievadiet opcijas kā sarakstu ar komatiem")
 
-    # front_image = models.ImageField(_('Priekšējā bilde'), upload_to='products/', blank=True)
-    # back_image = models.ImageField(_('Aizmugurējā bilde'), upload_to='products/', blank=True)
     front_image_with_background = models.ImageField(_('Priekšējā bilde ar fonu'), upload_to='products/', blank=True)
     front_image_not_background = models.ImageField(_('Priekšējā bilde bez fona'), upload_to='products/', blank=True)
     back_image_with_background = models.ImageField(_('Aizmugurējā bilde ar fonu'), upload_to='products/', blank=True)
     back_image_not_background = models.ImageField(_('Aizmugurējā bilde bez fona'), upload_to='products/', blank=True)
 
     available_colors = models.ManyToManyField('Color', related_name='products', blank=True)
-
+    available_sizes = models.ManyToManyField('Size', related_name='products', blank=True)
 
     def __str__(self):
         return self.title
-     
+
     def get_options_list(self):
         return [option.strip() for option in self.options.split(',')]
 
-    # def convertImg(self):
-    #     img = Image.open(self.front_image.path)
-    #     img = img.convert('RGBA')
-    #     pixels = list(img.getdata())
+    class Meta:
+        verbose_name = _("Produkts")
+        verbose_name_plural = _("Produkti")
 
-    #     new_pixels = []
-    #     color_removed = (0, 0, 0, 255)
-
-    #     for pixel in pixels:
-    #         if pixel == color_removed:
-    #             new_pixels.append((0,0,0,0))
-    #         else:
-    #             new_pixels.append(pixel)
-
-    #     img.putdata(new_pixels)
-    #     img.save(self.front_image_not_background.path, 'png')
-    #     print('Bilde pārveidota un saglabāta kā front_image_not_background.png')
-
-    # def save(self, *args, **kwargs):
-    #     if self.front_image and not self.front_image_not_background:
-    #         self.convertImg()
-    #     super().save(*args, **kwargs)
 
 class Color(models.Model):
     name = models.CharField(max_length=100)
@@ -70,14 +53,37 @@ class Color(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _("Krāsa")
+        verbose_name_plural = _("Krāsas")
+
+
+class Size(models.Model):
+    name = models.CharField(max_length=100)
+    size = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("Izmērs")
+        verbose_name_plural = _("Izmēri")
+
+
 class CustomDesign(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100)
     description = models.TextField(_('Apraksts'),)
-    additional_notes = models.TextField(_('papildu piezīmes'))
+    additional_notes = models.TextField(_('Papildu piezīmes'))
     image = models.ImageField(_('Bilde'), upload_to='page/', blank=False)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = _("Pielāgots dizains")
+        verbose_name_plural = _("Pielāgoti dizaini")
+
 
 class ContactMessage(models.Model):
     first_name = models.CharField(_('Vārds'), max_length=100)
@@ -92,6 +98,11 @@ class ContactMessage(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+    class Meta:
+        verbose_name = _("Kontaktziņojums")
+        verbose_name_plural = _("Kontaktziņojumi")
+
+
 class Contact(models.Model):
     address = models.CharField(_('Adrese'), max_length=255)
     postal_code = models.CharField(_('Pasta indekss'), max_length=20)
@@ -105,11 +116,10 @@ class Contact(models.Model):
         return f'Kontaktinformācija: {self.address}, {self.postal_code}, {self.phone_number}, {self.email}'
 
     class Meta:
-        verbose_name = _('Kontaktinformācija')
-        verbose_name_plural = _('Kontaktinformācija')
+        verbose_name = _("Kontakts")
+        verbose_name_plural = _("Kontakti")
 
 
-    
 class Product_list(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -130,10 +140,20 @@ class Product_list(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = _("Produkta saraksts")
+        verbose_name_plural = _("Produktu saraksti")
+
+
 class Rating(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
     product = models.ForeignKey(Product_list, on_delete=models.CASCADE)
     stars = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
+
+    class Meta:
+        verbose_name = _("Vērtējums")
+        verbose_name_plural = _("Vērtējumi")
+
 
 @receiver(post_save, sender=Rating)
 def update_product_average_rating(sender, instance, **kwargs):
@@ -149,7 +169,7 @@ class GiftCode(models.Model):
     min_order_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
-    quantity  = models.IntegerField(null=True, blank=True)
+    quantity = models.IntegerField(null=True, blank=True)
     unlimited_usage = models.BooleanField(default=False)
 
     def __str__(self):
@@ -163,3 +183,7 @@ class GiftCode(models.Model):
             (not self.end_date or today <= self.end_date) and
             (self.unlimited_usage or self.quantity is None or self.quantity > 0)
         )
+
+    class Meta:
+        verbose_name = _("Dāvanu kods")
+        verbose_name_plural = _("Dāvanu kodi")
