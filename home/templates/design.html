@@ -22,26 +22,45 @@
     <div class="image-container" id="back" style="display: none;">
         <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="img-1" />
         <img src="{{ product.back_image_with_background.url }}" class="img-2 front-image" />
-        <div id="text-container" data-side="back" style="position: absolute; top: 100px; left: 100px; width: 100%; height: 100%; pointer-events: none;"></div>
+        <div id="text-container" data-side="back" style="position: absolute; top: 100px; left: 100px; width: 100%; height: 100%; cursor: pointer;"></div>
     </div>
-    <div class="color"></div>
+    <div class="color" style="background-color: {{product.available_colors.first.code}}"></div>
   </div>
 
-  <div class="content-wrapper">
-    <div id="general" class="content">
-        <h1>{% trans 'Izveido savu' %} {{product.title}}</h1>
-        <div class="color-content">
-            <b>{% trans 'Pielāgot krāsu' %}</b>
-            <div class="color-groups">
-                {% for color in product.available_colors.all %}
-                    <div class="color-select" style="background-color: {{ color.code }}"></div>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="buy-button">
-          <button class="general-button">{% trans 'Pirkt tagad' %}</button>
+  <div id="general" class="content">
+    <h1>{% trans 'Izveido savu' %} {{ product.title }}</h1>
+    <div class="color-content">
+        <b>{% trans 'Pielāgot krāsu' %}</b>
+        <div class="color-groups">
+            {% for color in product.available_colors.all %}
+                <div class="color-select" style="background-color: {{ color.code }};"></div>
+            {% endfor %}
         </div>
     </div>
+    <div class="size-content">
+        {% if product.available_sizes.exists %}
+            <b>{% trans 'Izvēlies izmēru' %}</b>
+            <div class="size-select">
+                {% for size in product.available_sizes.all %}
+                    <div class="size-option" data-value="{{ size.size }}">
+                        {{ size.size }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <!-- <div class="quantity-content">
+        <b>Ievadi daudzumu:</b>
+        <div class="quanity-input">
+            <span class="next" id="quanity-next"></span>
+            <span class="prev" id="quanity-prev"></span>
+            <div id="box"></div>
+        </div>
+    </div> -->
+    <div class="buy-button">
+        <button class="general-button" id="buy-button">{% trans 'Pirkt tagad' %}</button>
+    </div>
+</div>
 
     <div id="upload" class="content" style="display: none;">
         <div class="upload-wrapper">
@@ -71,6 +90,13 @@
                 <option value="Arial" style="font-family: Arial;">Arial</option>
                 <option value="Times New Roman" style="font-family: 'Times New Roman';">Times New Roman</option>
                 <option value="Verdana" style="font-family: Verdana;">Verdana</option>
+                <option value="Courier New" style="font-family: 'Courier New';">Courier New</option>
+                <option value="Georgia" style="font-family: Georgia;">Georgia</option>
+                <option value="Helvetica" style="font-family: Helvetica;">Helvetica</option>
+                <option value="Tahoma" style="font-family: Tahoma;">Tahoma</option>
+                <option value="Comic Sans MS" style="font-family: 'Comic Sans MS';">Comic Sans MS</option>
+                <option value="Impact" style="font-family: Impact;">Impact</option>
+                <option value="Palatino Linotype" style="font-family: 'Palatino Linotype';">Palatino Linotype</option>
             </select>
         </div>
         <div class="input-container">

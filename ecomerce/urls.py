@@ -43,6 +43,7 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('', page.homepage, name='homepage'),
+    path('admin/', admin.site.urls),
     path('login/', page.login_view, name='login'),
     path('register/', page.register, name='register'),
     path('reset_password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
