@@ -39,6 +39,10 @@ urlpatterns = [
     path('account/change_password/', page.change_password, name='change_password'),
     path('account/delete_account/', page.delete_profile, name='delete_profile'),
     path('design/<slug:slug>/', page.design, name='design_detail'),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.socialaccount.urls')),
+    path('save_order/', page.save_order, name='save_order'),
+    
 ]
 
 urlpatterns += i18n_patterns(

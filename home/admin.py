@@ -6,11 +6,9 @@ from django.utils.html import format_html, strip_tags
 from ckeditor.widgets import CKEditorWidget
 from modeltranslation.admin import TranslationAdmin
 from .models import (Product, ContactMessage, CustomDesign, Contact, Product_list,
-                     Rating, User, GiftCode, Color, Size)
+                     Rating, User, GiftCode, Color, Size, TextList, ImageList, Order)
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-
-# Custom admin classes
 
 @admin.register(Product)
 class ProductAdmin(TranslationAdmin):
@@ -203,5 +201,88 @@ class ProductListAdmin(admin.ModelAdmin):
 
 admin.site.register(GiftCode)
 
-# Jazzmin configuration
-jazzmin_section_order = ("book loans", "general", "other")
+from django.contrib import admin
+from django.utils.html import mark_safe
+from .models import Order, ImageList, TextList
+
+class TextListInline(admin.TabularInline):
+    model = TextList
+    readonly_fields = ['text', 'font', 'text_size', 'text_color']
+    can_delete = False
+    extra = 0
+
+    def has_add_permission(self, request, obj):
+        return False
+
+from django.utils.safestring import mark_safe
+from django.contrib import admin
+from django.urls import reverse
+
+import base64
+class ImageListInline(admin.TabularInline):
+    model = ImageList
+    fields = ('image_preview', 'download_image')
+    readonly_fields = ('image_preview', 'download_image')
+    can_delete = False
+    extra = 0
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def image_preview(self, obj):
+        return format_html('<img src="{url}" width="{width}" height="{height}" />', url=obj.image, width='auto', height='200px')
+    image_preview.short_description = 'Preview'
+
+    def download_image(self, obj):
+        return format_html('<a href="{url}" download="front_image">Download PNG</a>', url=obj.image)
+    download_image.short_description = 'Download front image'
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'author', 'publish_product', 'allow_publish']
+    readonly_fields = ['author', 'publish_product', 'back_image', 'product_color', 'product_amount', 'product_size', 'display_product_color', 'front_img', 'back_img', 'download_button_back', 'download_button_front']
+    fieldsets = (
+        (None, {
+            'fields': ('author', 'publish_product', 'allow_publish')
+        }),
+        ('Product Information', {
+            'fields': ('product_color','display_product_color', 'product_amount', 'product_size')
+        }),
+        ('Product Images', {
+            'fields': ('front_img', 'download_button_front', 'back_img', 'download_button_back'), 
+        }),
+    )
+    inlines = [TextListInline, ImageListInline]
+
+    
+    def front_img(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height="{height}" />'.format(
+            url=obj.front_image,
+            width='auto',
+            height='200px',
+        ))
+    
+    def back_img(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height="{height}" />'.format(
+            url=obj.back_image,
+            width='auto',
+            height='200px',
+        ))
+    
+    def download_button_front(self, obj):
+        return format_html('<a href="{url}" download="front_image">Download PNG</a>', url=obj.front_image)
+    download_button_front.short_description = 'Download front image'
+
+    def download_button_back(self, obj):
+        return format_html('<a href="{url}" download="front_image">Download PNG</a>', url=obj.back_image)
+    download_button_back.short_description = 'Download back image'
+
+    def display_product_color(self, obj):
+        return format_html('<div style="width: 20px; height: 20px; background-color: {};"></div>', obj.product_color.code)
+    display_product_color.short_description = 'Product Color'
+
+    
+
+admin.site.register(Order, OrderAdmin)

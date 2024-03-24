@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, GiftCode
+from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, GiftCode, Order, Color, Size, TextList, ImageList
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -14,6 +14,7 @@ from cart.cart import Cart
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.contrib.auth import update_session_auth_hash
+import json
 
 
 def homepage(request):
@@ -314,3 +315,72 @@ def delete_profile(request):
         else:
             return JsonResponse({'success': False, 'error': _('Nepareiza parole.')})
     return JsonResponse({'success': False, 'error': _('Metode POST ir obligāta.')})
+
+
+@csrf_exempt
+@login_required
+def save_order(request):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        publish_product = request.POST.get('publish_product') == 'true'
+        product_amount = request.POST.get('num_value')
+        product_color_name = request.POST.get('product_color')
+        product_size_name = request.POST.get('product_size')
+        front_image_base64 = request.POST.get('front_image')
+        back_image_base64 = request.POST.get('back_image')
+
+        product_size = get_object_or_404(Size, size=product_size_name)
+        product_color = get_object_or_404(Color, name=product_color_name)
+
+        texts = json.loads(request.POST.get('texts'))
+
+        new_order = Order.objects.create(
+            author=request.user,
+            publish_product=publish_product,
+            product_amount=int(product_amount),
+            product_color=product_color,
+            product_size=product_size,
+            front_image=front_image_base64,
+            back_image=back_image_base64,
+        )
+
+        for text_data in texts:
+            text_obj = TextList.objects.create(
+                order_text=new_order,
+                text=text_data['text'],
+                font=text_data['font_family'],
+                text_size=text_data['font_size'],
+                text_color=text_data['text_color']
+            )
+
+        images = json.loads(request.POST.get('images'))
+        for image_data in images:
+            ImageList.objects.create(order_images=new_order, image=image_data)
+
+        return JsonResponse({'success': True, 'order_id': new_order.id})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+# from io import BytesIO
+# from PIL import Image
+# import base64
+
+# def convert_to_png(request, base64_data):
+#     # Atkodējam base64 enkodētos datus, lai iegūtu attēla binārā formātā
+#     image_data = base64.b64decode('data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==')
+
+#     # Izveidojam atmiņas buferi, kur saglabāt attēla datus
+#     image_buffer = BytesIO(image_data)
+
+#     # Atveram attēlu izmantojot PIL bibliotēku
+#     try:
+#         image = Image.open(image_buffer)
+#     except Exception as e:
+#         return HttpResponse(f"Error: {e}")
+
+#     # Izveidojam jaunu atmiņas buferi, kur saglabāt PNG attēla datus
+#     image_response = HttpResponse(content_type='image/png')
+
+#     # Saglabājam attēlu PNG formātā
+#     image.save(image_response, format='PNG')
+#     return image_response
