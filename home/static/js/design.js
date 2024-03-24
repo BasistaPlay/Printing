@@ -1,14 +1,11 @@
 // -----------Side-----------
 document.addEventListener('DOMContentLoaded', function() {
-    // Pārbaudam, vai lokālā krātuve jau satur vērtību
     let currentSide = localStorage.getItem('currentSide');
     
-    // Ja lokālā krātuve ir tukša vai nesatur pareizu vērtību, iestatam noklusējuma vērtību uz "front"
     if (!currentSide || (currentSide !== 'front' && currentSide !== 'back')) {
         currentSide = 'front';
         localStorage.setItem('currentSide', currentSide);
     } else if (currentSide === 'back') {
-        // Ja sākotnējā vērtība bija "back", tad to mainām uz "front"
         currentSide = 'front';
         localStorage.setItem('currentSide', currentSide);
     }
@@ -30,30 +27,63 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // var numbers = document.getElementById('box');
+// -----------quantity-content-----------
 
-    // for(i=0; i<20; i++){
-    //     var span = document.createElement('span');
-    //     span.textContent = i
-    //     numbers.appendChild(span)
-    // }
+    const plus = document.querySelector(".plus"),
+        minus = document.querySelector(".minus"),
+        num = document.querySelector(".num");
 
-    // var num = numbers.getElementsByTagName('span')
-    // var index = 0
+    let a = 1;
 
-    // $('#quanity-next').click(function() {
-    //     num[index].style.display = 'none'
-    //     index = (index + 1) % num.length
-    //     num[index].style.display = 'initial'
-    // })
+    plus.addEventListener('click', ()=>{
+        a++;
+        a = (a < 10) ? '0' + a : a
+        num.innerText = a;
+    })
 
-    // $('#quanity-prev').click(function() {
-    //     num[index].style.display = 'none'
-    //     index = (index - 1 + num.length) % num.length
-    //     num[index].style.display = 'initial'
-    // })
+    minus.addEventListener('click', ()=>{
+        if(a > 1){
+            a--;
+            a = (a < 10) ? '0' + a : a;
+            num.innerText = a;
+        }
+    })
 
-    // -----------Image-----------
+    // -----------Size-----------
+    var sizeOptions = document.querySelectorAll('.size-option');
+
+    sizeOptions.forEach(function(option) {
+        option.addEventListener('click', function() {
+
+            sizeOptions.forEach(function(opt) {
+                opt.classList.remove('active');
+            });
+
+            this.classList.add('active');
+        });
+    });
+
+// -----------Info-----------
+
+    var infoIcon = document.querySelector('.info-icon');
+    var modal = document.getElementById('info-modal');
+    var closeBtn = document.querySelector('.close');
+
+    infoIcon.addEventListener('click', function() {
+        modal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+// -----------Image-----------
     $('.upload-area').click(function() {
         $('#upload-input').trigger('click');
     });
@@ -129,7 +159,7 @@ $(document).on('mousedown', function(event) {
                     let imageId = Date.now();
 
                     let htmlList = `
-                    <div class='uploaded-img ${currentSide}' data-image-id='${imageId}'>
+                    <div class='uploaded-img ${currentSide}' data-image-id='${imageId}' id='save-img'>
                         <img src='${event.target.result}' draggable='true'>
                         <button type='button' class='remove-btn'>
                             <i class='fas fa-times'></i>
@@ -373,3 +403,119 @@ $(document).on('mousedown', function(event) {
     }
 
 });
+
+// --------saglaba datubaze--------
+function saveImage(side, callback) {
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    var productDiv = document.querySelector('.product');
+
+    var width = productDiv.offsetWidth;
+    var height = productDiv.offsetHeight;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    html2canvas(productDiv).then(function (renderedCanvas) {
+        context.drawImage(renderedCanvas, 0, 0);
+
+        var base64URL = canvas.toDataURL('image/png');
+
+        callback(side, base64URL);
+    });
+}
+
+$('#buy-button').click(function() {
+    var publishCheckbox = $('#publish-checkbox').is(":checked");
+    var numValue = $('.num').text();
+    var activeSize = $('.size-option.active').attr('data-value');
+    var activeColor = $('.color-select.active-color').attr('data-color-name');
+    var errorHtml = '';
+
+    if (!activeColor) {
+        errorHtml += '<p>Please select a color</p>';
+    }
+
+    if (!activeSize) {
+        errorHtml += '<p>Please select a size</p>';
+    }
+
+    if (errorHtml) {
+        $('#error-messages').html(errorHtml).addClass('show');
+        setTimeout(function() {
+            $('#error-messages').removeClass('show');
+        }, 10000);
+        return;
+    }
+
+    var texts = [];
+    $('#Text #text-list .text-list-item').each(function() {
+        var text = $(this).find('span').text();
+        var fontSize = $(this).find('span').css('font-size');
+        var fontColor = $(this).find('span').css('color');
+        var fontFamily = $(this).find('span').css('font-family');
+        
+        texts.push({
+            'text': text.trim(),
+            'font_size': fontSize,
+            'text_color': fontColor,
+            'font_family': fontFamily
+        });
+    });
+
+    var images = [];
+    $('#save-img img').each(function() {
+        var imageData = $(this).attr('src');
+        images.push(imageData);
+    });
+
+    var formData = new FormData();
+    formData.append('publish_product', publishCheckbox);
+    formData.append('num_value', numValue);
+    formData.append('product_color', activeColor);
+    formData.append('product_size', activeSize);
+    formData.append('images', JSON.stringify(images));
+    formData.append('texts', JSON.stringify(texts));
+
+    $('#front').css('display', 'block');
+    $('#back').css('display', 'none');
+
+    // Pirmā attēla saglabāšana
+    saveImage('front', function(side, base64URLFront) {
+        formData.append(side + '_image', base64URLFront);
+        $('#front').css('display', 'none');
+        $('#back').css('display', 'block');
+        saveImage('back', function(side, base64URLBack) {
+            formData.append(side + '_image', base64URLBack);
+
+            var csrfToken = $("input[name='csrfmiddlewaretoken']").val();
+            formData.append('csrfmiddlewaretoken', csrfToken);
+
+            $.ajax({
+                type: 'POST',
+                url: '/save_order/',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    displaySuccessMessage('Your order has been successfully saved!');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+    
+    function displaySuccessMessage(message) {
+        $('#success-message').text(message);
+        $('#success-message').fadeIn();
+        
+        setTimeout(function() {
+            $('#success-message').fadeOut();
+        }, 5000);
+    }
+});
+
+

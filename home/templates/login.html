@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load static i18n %}
+{% load socialaccount %}
 
 {% block title %}
     {% trans 'Pieslēgties' %}
@@ -35,6 +36,15 @@
                     </form>
                     <p class='account'>{% trans 'Vai jums nav konta? ' %}<a href='{% url 'register' %}'>{% trans 'Reģistrēties' %}</a></p>
                     <p class='account'>{% trans 'Aizmirsāt paroli?' %} <a href='{% url "password_reset" %}'>{% trans 'Atjaunot to šeit' %}</a></p>
+                    <p class="social-text">Vai pieslēdzies caur sociālajiem tīkliem</p>
+                    <div class="social-media">
+                        <a href="" class="social-icon">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="{% provider_login_url 'google' %}" class="social-icon">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class='form-img'>
                     {% if messages %}

@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from PIL import Image
+from django.conf import settings
 
 
 class user(AbstractUser):
@@ -187,3 +188,30 @@ class GiftCode(models.Model):
     class Meta:
         verbose_name = _("Dāvanu kods")
         verbose_name_plural = _("Dāvanu kodi")
+
+
+
+class Order(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    publish_product = models.BooleanField(default=False)
+    allow_publish = models.BooleanField(default=False)
+    front_image = models.ImageField(upload_to='users_products/', blank=True)
+    back_image = models.ImageField(upload_to='users_products/', blank=True)
+    product_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
+    product_amount = models.IntegerField(default=0)
+    product_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
+
+
+class TextList(models.Model):
+    order_text = models.ForeignKey(Order, on_delete=models.CASCADE)
+    text = models.TextField(blank=True)
+    font = models.CharField(max_length=50, blank=True)
+    text_size = models.CharField(blank=True, max_length=25)
+    text_color = models.CharField(max_length=20, blank=True)
+
+class ImageList(models.Model):
+    order_images = models.ForeignKey(Order, on_delete=models.CASCADE)
+    image = models.TextField(blank=True)
+
+    def __str__(self):
+        return f'Image for Order {self.order_images.id}'
