@@ -507,7 +507,7 @@ $('#buy-button').click(function() {
             });
         });
     });
-    
+
     function displaySuccessMessage(message) {
         $('#success-message').text(message);
         $('#success-message').fadeIn();
@@ -516,6 +516,5 @@ $('#buy-button').click(function() {
             $('#success-message').fadeOut();
         }, 5000);
     }
-});
-
+    });
 

@@ -308,7 +308,6 @@ def is_valid_password(password):
 def delete_profile(request):
     if request.method == 'POST':
         password = request.POST.get('password')
-        print(password)
         if request.user.check_password(password):
             request.user.delete()
             return JsonResponse({'success': True})
@@ -327,7 +326,7 @@ def save_order(request):
         product_size_name = request.POST.get('product_size')
         front_image_base64 = request.POST.get('front_image')
         back_image_base64 = request.POST.get('back_image')
-
+        
         product_size = get_object_or_404(Size, size=product_size_name)
         product_color = get_object_or_404(Color, name=product_color_name)
 

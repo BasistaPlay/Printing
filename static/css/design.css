@@ -330,7 +330,8 @@ body {
 .element-image img {
   position: absolute;
   z-index: 9;
-  margin-top: -448px;
+  height: 150px;
+  width: 150px;
 }
 
 .image-gallery {
@@ -413,8 +414,6 @@ body {
 
 select,
 input {
-  width: 200px;
-  /* pielāgojiet atbilstoši vajadzībai */
   margin-bottom: 10px;
   padding: 8px;
   color: var(--text-color);
@@ -499,7 +498,7 @@ input {
   height: 30px;
   background: none;
   border-radius: 50%;
-  /* border: 0.01px solid var(--text-color); */
+  border: 0.01px solid var(--text-color);
   margin-right: 12px;
   cursor: pointer;
   transition: all 0.5s ease;
@@ -531,6 +530,7 @@ input {
   height: 100%;
   z-index: 1;
   mix-blend-mode: multiply;
+  opacity: 0.7;
 }
 
 .text-list-item {
@@ -606,9 +606,6 @@ input {
   margin-top: 5px;
 }
 
-
-
-
 .general-button {
   margin: 10px;
   align-items: center;
@@ -649,8 +646,9 @@ input {
   align-items: center;
   justify-content: center;
 }
-#text-list {
-  max-height: 100px; /* Adjust the max-height as needed */
+
+#Text{
+  max-height: 500px;
   overflow-y: auto;
 }
 
@@ -725,6 +723,13 @@ input {
     justify-content: center;
   }
 
+  .size-content{
+    text-align: center;
+  }
+  .size-select{
+    justify-content: center;
+  }
+
   .input-container{
     margin: 0;
   }
@@ -736,4 +741,198 @@ input {
     width: 100%;
   }
 
+}
+
+.ui-wrapper{
+  z-index: 10;
+}
+
+.ui-resizable-handle.ui-resizable-nw {
+  width: 12px;
+  height: 12px;
+  background-color: var(--main-color);
+  border-radius: 50%;
+}
+
+.ui-resizable-handle.ui-resizable-ne {
+  width: 12px;
+  height: 12px;
+  background-color: var(--main-color);
+  border-radius: 50%;
+}
+
+.ui-resizable-handle.ui-resizable-sw { 
+  width: 12px;
+  height: 12px;
+  background-color: var(--main-color);
+  border-radius: 50%;
+}
+
+.ui-resizable-handle.ui-resizable-se {
+  width: 10px;
+  height: 10px;
+  background-color: var(--main-color);
+  border-radius: 50%;
+}
+
+.editable-text{
+  z-index: 6;
+}
+
+.ui-draggable{
+  z-index: 6;
+}
+
+.size-select {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.size-option {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  margin-bottom: 5px;
+  background-color: var(--main-color);
+  border: 1px solid var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+}
+
+.size-option:hover {
+  background-color: transparent; 
+  color: var(--text-color);
+}
+
+.size-option.active {
+  background-color: transparent; 
+  color: var(--text-color);
+  border: 1px solid var(--main-color);
+}
+
+.quantity-content{
+  height: 30px;
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-color);
+  border-radius: 8px;
+  color: #fff;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+  margin: 10px 0 10px 0;
+}
+
+.quantity-content span{
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quantity-content span.num{
+  font-size: 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+
+.quantity-content span.num::selection {
+  background-color: blue;
+  color: inherit;
+}
+
+.publish-info{
+  margin: 10px 0 10px 0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: var(--second-color);
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  color: var(--text-color);
+}
+
+.close {
+  color: red;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.info-icon{
+  cursor: pointer;
+}
+
+#publish-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.error-messages {
+  position: fixed;
+  top: 220px;
+  right: -400px;
+  background-color: #ffcccc;
+  color: #ff0000;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 9999;
+  transform: translateY(-50%);
+  transition: right 1s ease;
+}
+
+.error-messages.show {
+  right: 30px;
+  display: block;
+}
+
+.success-message {
+  position: fixed;
+  top: 220px;
+  right: 30px;
+  background-color: #04ff00;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 9999;
+  transform: translateY(-50%);
+  transition: right 1s ease;
+}
+
+#general {
+  max-height: 500px;
+  overflow-y: auto; 
 }
