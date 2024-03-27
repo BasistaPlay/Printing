@@ -406,21 +406,23 @@ $(document).on('mousedown', function(event) {
 
 // --------saglaba datubaze--------
 function saveImage(side, callback) {
+    var productDiv = document.querySelector('.product');
+    var parentWidth = productDiv.offsetWidth;
+    var parentHeight = productDiv.offsetHeight;
+
+    productDiv.style.width = parentWidth + 'px';
+    productDiv.style.height = parentHeight + 'px';
+
     var canvas = document.createElement('canvas');
     var context = canvas.getContext('2d');
-    var productDiv = document.querySelector('.product');
 
-    var width = productDiv.offsetWidth;
-    var height = productDiv.offsetHeight;
-
-    canvas.width = width;
-    canvas.height = height;
+    canvas.width = parentWidth;
+    canvas.height = parentHeight;
 
     html2canvas(productDiv).then(function (renderedCanvas) {
-        context.drawImage(renderedCanvas, 0, 0);
+        context.drawImage(renderedCanvas, 0, 0, parentWidth, parentHeight);
 
         var base64URL = canvas.toDataURL('image/png');
-
         callback(side, base64URL);
     });
 }
@@ -436,7 +438,7 @@ $('#buy-button').click(function() {
         errorHtml += '<p>Please select a color</p>';
     }
 
-    if (!activeSize) {
+    if (!activeSize && $('.size-option').length > 0) {
         errorHtml += '<p>Please select a size</p>';
     }
 
@@ -480,7 +482,6 @@ $('#buy-button').click(function() {
     $('#front').css('display', 'block');
     $('#back').css('display', 'none');
 
-    // Pirmā attēla saglabāšana
     saveImage('front', function(side, base64URLFront) {
         formData.append(side + '_image', base64URLFront);
         $('#front').css('display', 'none');
@@ -507,7 +508,7 @@ $('#buy-button').click(function() {
             });
         });
     });
-    
+
     function displaySuccessMessage(message) {
         $('#success-message').text(message);
         $('#success-message').fadeIn();
@@ -517,5 +518,3 @@ $('#buy-button').click(function() {
         }, 5000);
     }
 });
-
-

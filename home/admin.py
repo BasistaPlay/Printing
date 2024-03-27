@@ -6,7 +6,7 @@ from django.utils.html import format_html, strip_tags
 from ckeditor.widgets import CKEditorWidget
 from modeltranslation.admin import TranslationAdmin
 from .models import (Product, ContactMessage, CustomDesign, Contact, Product_list,
-                     Rating, User, GiftCode, Color, Size, TextList, ImageList, Order)
+                     Rating, user, GiftCode, Color, Size, TextList, ImageList, Order)
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
@@ -162,7 +162,7 @@ class ContactAdmin(admin.ModelAdmin):
         else:
             super().save_model(request, obj, form, change)
 
-@admin.register(User)
+@admin.register(user)
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
