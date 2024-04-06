@@ -88,20 +88,6 @@ function updateTotal() {
         }
     }
 
-    function updateQuantityOnServer(discountCode, newQuantity) {
-        fetch('/update_quantity/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
-            },
-            body: JSON.stringify({ discountCode, quantity: newQuantity })
-        })
-        .catch(error => {
-            console.error('Kļūda veicot pieprasījumu:', error);
-        });
-    }
-
     function calculateDiscountAmount(type, value, subtotal) {
         return type === 'percentage' ? (parseFloat(value) / 100) * subtotal : parseFloat(value);
     }
@@ -210,5 +196,110 @@ document.addEventListener('DOMContentLoaded', function() {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
         return parts.length === 2 ? parts.pop().split(';').shift() : null;
+    }
+});
+
+$(document).ready(function() {
+    // Pievienojam notikumu klausītājus uz groza darbībām
+    $('.action-link').click(function(event) {
+        event.preventDefault(); // Pārtraucam noklusēto saites darbību
+
+        var action = $(this).data('action'); // Noskaidrojam darbību (increment vai decrement)
+        var productId = $(this).closest('.detail').find('#quantity').data('product-id'); // Iegūstam produkta ID
+
+        if (action === 'increment') {
+            // Izpildam pievienošanas darbību
+            incrementQuantity(productId);
+        } else if (action === 'decrement') {
+            // Izpildam samazināšanas darbību
+            decrementQuantity(productId);
+        }
+    });
+
+    // Pievienojam notikumu klausītāju uz produktu noņemšanas darbību
+    $('.product-close-btn').click(function(event) {
+        event.preventDefault(); // Pārtraucam noklusēto saites darbību
+
+        var productId = $(this).data('product-id');
+        // Izpildam produktu noņemšanas darbību
+        removeItemFromCart(productId);
+    });
+});
+
+// Funkcija, kas palielina produkta daudzumu grozā
+function incrementQuantity(productId) {
+    // Veicam AJAX pieprasījumu, lai palielinātu produkta daudzumu grozā
+    $.ajax({
+        type: 'POST',
+        url: '/cart/item_increment/' + productId + '/',
+        success: function(response) {
+            $('.product-card[data-product-id="' + productId + '"] #quantity').text(response.quantity);
+            $('#total-price').text(response.total_amount);
+            updateTotal();
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+// Funkcija, kas samazina produkta daudzumu grozā
+function decrementQuantity(productId) {
+    // Veicam AJAX pieprasījumu, lai samazinātu produkta daudzumu grozā
+    $.ajax({
+        type: 'POST',
+        url: '/cart/item_decrement/' + productId + '/',
+        success: function(response) {
+            $('.product-card[data-product-id="' + productId + '"] #quantity').text(response.quantity);
+            $('#total-price').text(response.total_amount);
+            updateTotal();
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+function removeItemFromCart(productId) {
+    $.ajax({
+        type: 'POST',
+        url: '/cart/item_clear/' + productId + '/',
+        success: function(response) {
+            $('#total-price').text(response.total_amount);
+            updateTotal();
+            $('.product-card[data-product-id="' + productId + '"]').remove();
+            if (response.cart_count === 0) {
+                $('#cart-count').remove();
+            } else {
+                $('#cart-count').text(response.cart_count);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Atrodam CSRF sīkdatni pēc nosaukuma
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
     }
 });

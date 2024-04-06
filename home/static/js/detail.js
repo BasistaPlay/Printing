@@ -1,4 +1,3 @@
-/*----- MENU -----*/
 const showMenu = (toggleId,navId) =>{
     const toggle = document.getElementById(toggleId),
     nav = document.getElementById(navId)
@@ -11,7 +10,6 @@ const showMenu = (toggleId,navId) =>{
 }
 showMenu('nav-toggle','nav-menu')
 
-/*----- CAMBIO COLORS -----*/
 const sizes = document.querySelectorAll('.size__tallas');
 const colors = document.querySelectorAll('.sneaker__color');
 const sneaker = document.querySelectorAll('.sneaker__img');
@@ -54,26 +52,63 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    var starWrapper = document.querySelector('.star-wrapper');
-    var stars = starWrapper.querySelectorAll('a');
+document.addEventListener('DOMContentLoaded', function() {
+    var img = document.getElementById('sneakerImg');
 
-    starWrapper.addEventListener('mouseover', function (e) {
-        var targetStar = e.target;
-        var ratingValue = targetStar.getAttribute('data-rating-value');
+    if (img) {
+        var canvas = document.getElementById('outputCanvas');
+        var ctx = canvas.getContext('2d');
 
-        for (var i = 0; i < stars.length; i++) {
-            stars[i].classList.remove('active');
+        if (canvas && ctx) {
+            canvas.width = img.width;
+            canvas.height = img.height;
+
+            ctx.drawImage(img, 0, 0);
+
+            var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            var data = imageData.data;
+
+            var backgroundColor = [255, 255, 255];
+
+            for (var i = 0; i < data.length; i += 4) {
+                if (data[i] === backgroundColor[0] && data[i + 1] === backgroundColor[1] && data[i + 2] === backgroundColor[2]) {
+                    data[i + 3] = 0;
+                }
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+            var outputImg = new Image();
+            outputImg.src = canvas.toDataURL();
+
+            var img2 = document.getElementById('sneakerImg2');
+            var canvas2 = document.getElementById('outputCanvas2');
+            var ctx2 = canvas2.getContext('2d');
+
+            if (canvas2 && ctx2 && img2) {
+                canvas2.width = img2.width;
+                canvas2.height = img2.height;
+
+                ctx2.drawImage(img2, 0, 0);
+
+                var imageData2 = ctx2.getImageData(0, 0, canvas2.width, canvas2.height);
+                var data2 = imageData2.data;
+
+                var backgroundColor2 = [255, 255, 255];
+
+                for (var j = 0; j < data2.length; j += 4) {
+                    if (data2[j] === backgroundColor2[0] && data2[j + 1] === backgroundColor2[1] && data2[j + 2] === backgroundColor2[2]) {
+                        data2[j + 3] = 0;
+                    }
+                }
+
+                ctx2.putImageData(imageData2, 0, 0);
+            } else {
+                console.error('Canvas element not found or getContext() not supported');
+            }
+        } else {
+            console.error('Canvas element not found or getContext() not supported');
         }
-
-        for (var i = 0; i < ratingValue; i++) {
-            stars[i].classList.add('active');
-        }
-    });
-
-    starWrapper.addEventListener('mouseout', function () {
-        for (var i = 0; i < stars.length; i++) {
-            stars[i].classList.remove('active');
-        }
-    });
+    } else {
+        console.error('Image element not found');
+    }
 });

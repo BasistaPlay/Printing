@@ -9,6 +9,8 @@ from .models import (Product, ContactMessage, CustomDesign, Contact, Product_lis
                      Rating, user, GiftCode, Color, Size, TextList, ImageList, Order)
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
+from django.utils.safestring import mark_safe
+from django.utils.html import mark_safe
 
 @admin.register(Product)
 class ProductAdmin(TranslationAdmin):
@@ -185,25 +187,52 @@ class CustomUserAdmin(UserAdmin):
         }
 
 class RatingInline(admin.TabularInline):
+    readonly_fields = ['user', 'stars']
+    can_delete = False
+    extra = 0
     model = Rating
-    extra = 1
+
+    def has_add_permission(self, request, obj):
+        return False
 
 @admin.register(Product_list)
 class ProductListAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'author', 'product', 'display_front_image')
+    list_display = ('title', 'description', 'author', 'product', 'image_preview')
     search_fields = ['title', 'author__username']
+    readonly_fields = ['back_img', 'front_img', 'author', 'product', 'product_color']
+    fieldsets = (
+        (None, {
+            'fields': ('author', 'product','product_color', 'title', 'description')
+        }),
+        ('Product Images', {
+            'fields': ('front_img', 'back_img'), 
+        }),
+    )
     inlines = [RatingInline]
 
-    def display_front_image(self, obj):
-        return format_html('<img src="{}" style="width:50px;height:50px;"/>', obj.front_image.url)
-
-    display_front_image.short_description = _('Priekšējais attēls')
+    def image_preview(self, obj):
+        return format_html('<img src="{url}" width="{width}" height="{height}" />', url=obj.front_image, width='auto', height='100px')
+    image_preview.short_description = 'Preview'
+       
+    def front_img(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height="{height}" />'.format(
+            url=obj.front_image,
+            width='auto',
+            height='200px',
+        ))
+    
+    def back_img(self, obj):
+        return mark_safe('<img src="{url}" width="{width}" height="{height}" />'.format(
+            url=obj.back_image,
+            width='auto',
+            height='200px',
+        ))
+    
+    def display_product_color(self, obj):
+        return format_html('<div style="width: 20px; height: 20px; background-color: {};"></div>', obj.product_color.code)
+    display_product_color.short_description = 'Product Color'
 
 admin.site.register(GiftCode)
-
-from django.contrib import admin
-from django.utils.html import mark_safe
-from .models import Order, ImageList, TextList
 
 class TextListInline(admin.TabularInline):
     model = TextList
@@ -217,13 +246,8 @@ class TextListInline(admin.TabularInline):
     def display_text_color(self, obj):
         return format_html('<div style="border: 1px solid black; width: 20px; height: 20px; background-color: {};"></div>', obj.text_color)
     display_text_color.short_description = 'Text Color'
-    
-    
-from django.utils.safestring import mark_safe
-from django.contrib import admin
-from django.urls import reverse
 
-import base64
+
 class ImageListInline(admin.TabularInline):
     model = ImageList
     fields = ('image_preview', 'download_image')
@@ -246,11 +270,13 @@ class ImageListInline(admin.TabularInline):
         return False
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'author', 'publish_product', 'allow_publish']
-    readonly_fields = ['author', 'publish_product', 'back_image', 'product_color', 'product_amount', 'product_size', 'display_product_color', 'front_img', 'back_img', 'download_button_back', 'download_button_front']
+    list_display = ['id', 'product', 'author', 'publish_product', 'allow_publish']
+    readonly_fields = ['product', 'author', 'publish_product', 'back_image', 'product_color', 'product_amount', 'product_size', 'display_product_color', 'front_img', 'back_img', 'download_button_back', 'download_button_front',]
+    search_fields = ['author__username', 'id']
+    list_filter = ['product', 'publish_product']
     fieldsets = (
         (None, {
-            'fields': ('author', 'publish_product', 'allow_publish')
+            'fields': ('product', 'author', 'publish_product', 'allow_publish')
         }),
         ('Product Information', {
             'fields': ('product_color','display_product_color', 'product_amount', 'product_size')
@@ -287,6 +313,27 @@ class OrderAdmin(admin.ModelAdmin):
     def display_product_color(self, obj):
         return format_html('<div style="width: 20px; height: 20px; background-color: {};"></div>', obj.product_color.code)
     display_product_color.short_description = 'Product Color'
+
+    # def get_readonly_fields(self, request, obj=None):
+    #     readonly_fields = list(self.readonly_fields)
+    #     if obj and obj.publish_product:
+    #         readonly_fields.remove('allow_publish')
+    #     return readonly_fields
+    
+    def save_model(self, request, obj, form, change):
+        if obj.allow_publish and obj.publish_product:
+            product_list = Product_list.objects.create(
+                title="Your title here",
+                description="Your description here",
+                front_image=obj.front_image,
+                back_image=obj.back_image,
+                author=obj.author,
+                product=obj.product,
+                product_color=obj.product_color,
+            )
+            product_list.save()
+
+            obj.save()
 
     
 

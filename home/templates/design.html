@@ -18,6 +18,7 @@
   <div id="success-message" class="success-message"></div>
   <div class="product">
     <div class="image-container" id="front" style="display: block;">
+        <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
         <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="img-1" />
         <img src="{{ product.front_image_with_background.url }}" class="img-2 front-image" />
         <div id="text-container" data-side="front" style="position: absolute; top: 100px; left: 100px; width: 100%; height: 100%; cursor: pointer;"></div>

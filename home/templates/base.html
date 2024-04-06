@@ -30,7 +30,6 @@
             <li><a href='{% url 'homepage' %}' class="Home">{% trans 'Sākumlapa' %}</a></li>
             <li><a href='{% url 'creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
             <li><a href="{% url 'contact_us' %}" class="contact_us">{% trans 'Sazinies ar mums' %}</a></li>
-            <li><a href="#" class="abaut_us">{% trans 'Par mums' %}</a></li>
             {% if user.is_staff %}
                 <li><a href="{% url 'admin:index' %}" class="Admin">{% trans 'Admin' %}</a></li>
             {% endif %}

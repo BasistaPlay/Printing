@@ -22,8 +22,10 @@
           </div>
 
           <div>
-              <img src="{{ product.front_image.url }}" alt="" class="sneaker__img shows" color="#A29596">
-              <img src="{{ product.back_image.url }}" alt="" class="sneaker__img" color="#111111">
+              <img id="sneakerImg" src="{{ product.front_image }}" style="display: none;">
+              <canvas id="outputCanvas" class="sneaker__img shows" color="#A29596"></canvas>
+              <img id="sneakerImg2" src="{{ product.back_image }}" style="display: none;">
+              <canvas id="outputCanvas2" class="sneaker__img" color="#111111"></canvas>
           </div>
 
           <div class="sneaker__colors">

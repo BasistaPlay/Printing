@@ -432,6 +432,8 @@ $('#buy-button').click(function() {
     var numValue = $('.num').text();
     var activeSize = $('.size-option.active').attr('data-value');
     var activeColor = $('.color-select.active-color').attr('data-color-name');
+    var productSlug = $('#product-slug').val(); // Jauna līnija - iegūst produktu slug
+
     var errorHtml = '';
 
     if (!activeColor) {
@@ -452,17 +454,19 @@ $('#buy-button').click(function() {
 
     var texts = [];
     $('#Text #text-list .text-list-item').each(function() {
-        var text = $(this).find('span').text();
-        var fontSize = $(this).find('span').css('font-size');
-        var fontColor = $(this).find('span').css('color');
-        var fontFamily = $(this).find('span').css('font-family');
-        
-        texts.push({
-            'text': text.trim(),
-            'font_size': fontSize,
-            'text_color': fontColor,
-            'font_family': fontFamily
-        });
+        var text = $(this).find('span').text().trim();
+        if (text !== '') {
+            var fontSize = $(this).find('span').css('font-size');
+            var fontColor = $(this).find('span').css('color');
+            var fontFamily = $(this).find('span').css('font-family');
+            
+            texts.push({
+                'text': text,
+                'font_size': fontSize,
+                'text_color': fontColor,
+                'font_family': fontFamily
+            });
+        }
     });
 
     var images = [];
@@ -476,6 +480,7 @@ $('#buy-button').click(function() {
     formData.append('num_value', numValue);
     formData.append('product_color', activeColor);
     formData.append('product_size', activeSize);
+    formData.append('product_slug', productSlug);
     formData.append('images', JSON.stringify(images));
     formData.append('texts', JSON.stringify(texts));
 
@@ -499,7 +504,8 @@ $('#buy-button').click(function() {
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    console.log(response);
+                    var orderId = response.order_id;
+                    AddToCart(orderId)
                     displaySuccessMessage('Your order has been successfully saved!');
                 },
                 error: function(xhr, status, error) {
@@ -508,13 +514,65 @@ $('#buy-button').click(function() {
             });
         });
     });
-
-    function displaySuccessMessage(message) {
-        $('#success-message').text(message);
-        $('#success-message').fadeIn();
-        
-        setTimeout(function() {
-            $('#success-message').fadeOut();
-        }, 5000);
-    }
 });
+
+// Pievienojam funkciju, kas pievieno produktu grozam
+function AddToCart(order_id) {
+    var formData = new FormData();
+    formData.append('product_id', order_id);
+    
+    $.ajax({
+        type: 'POST',
+        url: '/cart/add/' + order_id + '/',
+        data: formData,
+        contentType: false,
+        processData: false,
+        beforeSend: function(xhr, settings) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        },
+        success: function(response) {
+            console.log(response);
+            displaySuccessMessage('Product added to cart successfully!');
+            $(document).ready(function() {
+                var cartCountElement = $('#cart-count');
+                if (cartCountElement.length === 0) {
+                    // Izveidojam jaunu #cart-count elementu un pievienojam to pie groza saites
+                    var newCartCountElement = $('<span id="cart-count"></span>');
+                    newCartCountElement.text(response.cart_count);
+                    $('#cart').append(newCartCountElement);
+                } else {
+                    // Ja #cart-count jau eksistē, tad vienkārši atjaunojam tā vērtību
+                    cartCountElement.text(response.cart_count);
+                }
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+// Funkcija, lai iegūtu CSRF žetonu no sīkfaila
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function displaySuccessMessage(message) {
+    $('#success-message').text(message);
+    $('#success-message').fadeIn();
+    
+    setTimeout(function() {
+        $('#success-message').fadeOut();
+    }, 5000);
+}

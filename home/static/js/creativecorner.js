@@ -1,41 +1,8 @@
 
 
-function showSection(sectionId) {
-    // Paslēpj visas sadaļas
-    var sections = document.querySelectorAll('.shop');
-    sections.forEach(function (section) {
-        section.classList.remove('active');
-    });
 
-    // Paslēpj visas pogas
-    var buttons = document.querySelectorAll('.tab-btn');
-    buttons.forEach(function (button) {
-        button.classList.remove('active');
-    });
-
-    // Parāda izvēlēto sadaļu
-    var selectedSection = document.getElementById(sectionId + '-section');
-    selectedSection.classList.add('active');
-
-    // Norāda aktīvo pogu
-    var selectedButton = document.getElementById(sectionId + '-btn');
-    selectedButton.classList.add('active');
-}
-
-
-var tabButtons = document.querySelectorAll('.tab-buttons button');
-
-tabButtons.forEach(function (button) {
-    button.addEventListener('click', function () {
-        var sectionId = this.dataset.target;
-        showSection(sectionId);
-    });
-});
-
-
-document.addEventListener('DOMContentLoaded', function () {
+function updateStars() {
     const starWrappers = document.querySelectorAll('.star-wrapper');
-
     starWrappers.forEach(function (starWrapper) {
         const rating = parseFloat(starWrapper.getAttribute('data-rating'));
         const stars = starWrapper.querySelectorAll('.fas');
@@ -45,10 +12,67 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (starValue <= rating) {
                 star.classList.add('active');
-            } else if (starValue - 0.5 === rating) {
-                star.classList.add('active-half');
+            } else {
+                star.classList.remove('active');
             }
         });
     });
-});
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Pirmā zvaigžņu atjaunināšana, kad lapas HTML tiek ielādēta
+    updateStars();
+
+    document.querySelectorAll('.color-option').forEach(function(colorOption) {
+        colorOption.addEventListener('click', function() {
+            this.classList.toggle('active');
+    
+            var selectedColors = [];
+            document.querySelectorAll('.color-option.active').forEach(function(activeColor) {
+                selectedColors.push(activeColor.getAttribute('data-color-id'));
+            });
+            document.getElementById('selected-colors').value = selectedColors.join(' ');
+
+            performAjaxRequest();
+        });
+    });
+
+    // Notikumu apstrāde, kad tiek veikta kāda filtrēšanas darbība
+    var $form = $('#filter-form');
+    var $searchInput = $('#search-input');
+    var $productSelect = $('#product-select');
+
+    $form.on('submit', function(event) {
+        event.preventDefault(); // novēršam noklusējuma formu iesniegšanu
+
+        performAjaxRequest();
+    });
+
+    $searchInput.on('keyup', function() {
+        performAjaxRequest();
+    });
+
+    $productSelect.on('change', function() {
+        performAjaxRequest();
+    });
+
+    // AJAX pieprasījuma izpildīšana un jauno zvaigznēšu atjaunināšana
+    function performAjaxRequest() {
+        var formData = $form.serialize();
+
+        $.ajax({
+            type: 'GET',
+            url: '/creative-corner/',
+            data: formData,
+            success: function(response) {
+                var newBoxes = $(response).find('.container .box');
+                $('.container').html(newBoxes);
+
+                updateStars(); // Jauno zvaigznēšu atjaunināšana
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ': ' + xhr.responseText);
+            }
+        });
+    }
+});

@@ -15,10 +15,10 @@
 
     <section class="shop t-short" id="shop">
         <div class="container">
-            {% for product_list in Product_list %}
+            {% for product_list in filtered_products %}
                 <div class="box">
                     <a href="{% url 'detail' user=user product_list_id=product_list.id %}">
-                        <img src="{{ product_list.front_image.url }}" alt="">
+                        <img src="{{ product_list.front_image }}" alt="">
                         <div class="star-wrapper" data-rating="{{ product_list.average_rating }}">
                             <a class="fas fa-star s1"></a>
                             <a class="fas fa-star s2"></a>
@@ -33,83 +33,33 @@
                 </div>
             {% endfor %}
         </div>
+        <aside class="filter-sidebar">
+            <form id="filter-form">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="search-input">Search:</label>
+                        <input type="text" id="search-input" name="search" placeholder="Search...">
+                    </div>
+                    <label>Color:</label>
+                    <div class="color-options">
+                        <input type="hidden" name="color" id="selected-colors">
+                        {% for color in all_colors %}
+                            <div class="color-option" data-color-id="{{ color.id }}" style="background-color: {{ color.code }}"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="product-select">Product List:</label>
+                    <select id="product-select" name="product_list">
+                        <option value="">All</option>
+                        {% for product in all_products %}
+                            <option value="{{ product.id }}">{{ product.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+        </aside>
     </section>
-<!-- 
-    <section class="shop cup" id="shop">
-        <div class="container">
-            <div class="box">
-                <img src="\static\img\cup.png" alt="">
-                <h4>Krekls</h4>
-                <div class="star-wrapper">
-                    <a href="#" class="fas fa-star s1 active"></a>
-                    <a href="#" class="fas fa-star s2 active"></a>
-                    <a href="#" class="fas fa-star s3 active"></a>
-                    <a href="#" class="fas fa-star s4 active"></a>
-                    <a href="#" class="fas fa-star s5 active"></a>
-                </div>
-                <div class="cart">
-                    <a href="#"><i class="bx bx-cart"></i></a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="\static\img\cup.png" alt="">
-                <h4>Krekls</h4>
-                <div class="star-wrapper">
-                    <a href="#" class="fas fa-star s1 active"></a>
-                    <a href="#" class="fas fa-star s2 active"></a>
-                    <a href="#" class="fas fa-star s3 active"></a>
-                    <a href="#" class="fas fa-star s4 active"></a>
-                    <a href="#" class="fas fa-star s5 active"></a>
-                </div>
-                <div class="cart">
-                    <a href="#"><i class="bx bx-cart"></i></a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="\static\img\cup.png" alt="">
-                <h4>Krekls</h4>
-                <div class="star-wrapper">
-                    <a href="#" class="fas fa-star s1 active"></a>
-                    <a href="#" class="fas fa-star s2 active"></a>
-                    <a href="#" class="fas fa-star s3 active"></a>
-                    <a href="#" class="fas fa-star s4 active"></a>
-                    <a href="#" class="fas fa-star s5 active"></a>
-                </div>
-                <div class="cart">
-                    <a href="#"><i class="bx bx-cart"></i></a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="\static\img\cup.png" alt="">
-                <h4>Krekls</h4>
-                <div class="star-wrapper">
-                    <a href="#" class="fas fa-star s1 active"></a>
-                    <a href="#" class="fas fa-star s2 active"></a>
-                    <a href="#" class="fas fa-star s3 active"></a>
-                    <a href="#" class="fas fa-star s4 active"></a>
-                    <a href="#" class="fas fa-star s5 active"></a>
-                </div>
-                <div class="cart">
-                    <a href="#"><i class="bx bx-cart"></i></a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="\static\img\cup.png" alt="">
-                <h4>Krekls</h4>
-                <div class="star-wrapper">
-                    <a href="#" class="fas fa-star s1 active"></a>
-                    <a href="#" class="fas fa-star s2 active"></a>
-                    <a href="#" class="fas fa-star s3 active"></a>
-                    <a href="#" class="fas fa-star s4 active"></a>
-                    <a href="#" class="fas fa-star s5 active"></a>
-                </div>
-                <div class="cart">
-                    <a href="#"><i class="bx bx-cart"></i></a>
-                </div>
-            </div>
-        </div>
-
-    </section> -->
 {% endblock %}
 
 {% block js %}
