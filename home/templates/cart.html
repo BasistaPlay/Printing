@@ -105,7 +105,7 @@
 
             {% for key,value in request.session.cart.items %}
 
-            <div class="product-card">
+            <div class="product-card" data-product-id="{{value.product_id}}">
   
               <div class="card">
   
@@ -120,13 +120,13 @@
                   <div class="wrapper">
   
                     <div  class="product-qty">
-                      <a href="{% url 'item_decrement' value.product_id %}" class="action-link" data-action="decrement">
+                      <a href="" class="action-link" data-action="decrement">
                         <ion-icon name="remove-outline"></ion-icon>
                       </a>
                 
                       <span id="quantity" data-product-id="{{ value.product_id }}">{{ value.quantity }}</span>
                 
-                      <a href="{% url 'item_increment' value.product_id %}" class="action-link" data-action="increment">
+                      <a href="" class="action-link" data-action="increment" data-product-id="{{ value.product_id }}">
                         <ion-icon name="add-outline"></ion-icon>
                       </a>
                     </div>
@@ -139,7 +139,7 @@
   
                 </div>
   
-                <a href="{% url 'item_clear' key %}" class="product-close-btn">
+                <a href="" class="product-close-btn" data-product-id="{{ value.product_id }}">
                   <ion-icon name="close-outline"></ion-icon>
                 </a>
               </div>

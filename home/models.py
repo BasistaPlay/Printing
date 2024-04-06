@@ -7,9 +7,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
-from PIL import Image
 from django.conf import settings
-
 
 class user(AbstractUser):
     phone_number = PhoneNumberField(blank=True, null=True)
@@ -128,6 +126,7 @@ class Product_list(models.Model):
     back_image = models.ImageField(upload_to='product_images/back/')
     author = models.ForeignKey(user, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
     average_rating = models.FloatField(default=0)
 
     def update_average_rating(self):
@@ -200,6 +199,7 @@ class Order(models.Model):
     product_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
     product_amount = models.IntegerField(default=0)
     product_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False)
 
 
 class TextList(models.Model):

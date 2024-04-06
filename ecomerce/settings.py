@@ -93,8 +93,8 @@ WSGI_APPLICATION = 'ecomerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'edis',
-        'USER': 'edis',
+        'NAME': 'urban_prod',
+        'USER': 'u_urban',
         'PASSWORD': '123',
         'HOST': 'localhost',
         'PORT': '',
@@ -230,9 +230,6 @@ JAZZMIN_SETTINGS = {
 
 CART_SESSION_ID = 'cart'
 
-SITE_ID = 2
-SOCIALACCOUNT_LOGIN_ON_GET = True
-
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
 AUTHENTICATION_BACKENDS = [
@@ -240,3 +237,5 @@ AUTHENTICATION_BACKENDS = [
 
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+LOGIN_REDIRECT_URL = '/'

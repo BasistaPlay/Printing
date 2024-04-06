@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, GiftCode, Order, Color, Size, TextList, ImageList
+from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, GiftCode, Color, Size, Order ,TextList, ImageList
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -15,7 +15,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.contrib.auth import update_session_auth_hash
 import json
-
+from cart.context_processor import cart_total_amount
+from django.db.models import Q
 
 def homepage(request):
     products = Product.objects.all()
@@ -132,9 +133,45 @@ def design(request, slug):
     return render(request, 'design.html', {'product': product})
 
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 def creativecorner(request):
-    product_list = Product_list.objects.all()
-    return render(request, 'creativecorner.html', {'Product_list': product_list})
+    all_colors = Color.objects.all()
+    all_products = Product.objects.all()
+
+    search_query = request.GET.get('search', '')
+    product_id = request.GET.get('product_list', '')
+
+    colors = request.GET.get('color', '')
+    colors_list = [color.strip() for color in colors.split() if color.strip()]
+
+    filtered_products = Product_list.objects.all()
+
+    if search_query:
+        filtered_products = filtered_products.filter(Q(title__icontains=search_query) | Q(author__username__icontains=search_query))
+
+    if product_id:
+        filtered_products = filtered_products.filter(product_id=product_id)
+
+    if colors_list:
+        filtered_products = filtered_products.filter(product_color__id__in=colors_list)
+
+    paginator = Paginator(filtered_products, 10)
+    page_number = request.GET.get('page')
+    try:
+        filtered_products = paginator.page(page_number)
+    except PageNotAnInteger:
+        filtered_products = paginator.page(1)
+    except EmptyPage:
+        filtered_products = paginator.page(paginator.num_pages)
+
+    context = {
+        'all_colors': all_colors,
+        'all_products': all_products,
+        'filtered_products': filtered_products,
+    }
+    return render(request, 'creativecorner.html', context)
+
 
 def detail(request, user, product_list_id):
     product = get_object_or_404(Product_list, id=product_list_id)
@@ -175,43 +212,48 @@ def handler500(request):
 def cart(request):
     return render(request, 'cart.html')
 
-@login_required(login_url="/login")
 def cart_add(request, id):
     cart = Cart(request)
-    product_list = Product_list.objects.get(id=id)
+    product_list = Order.objects.get(id=id)
     cart.add(product_list)
-    return redirect("homepage")
-
+    cart_count = len(request.session.get('cart', {}))
+    return JsonResponse({'success': True, 'cart_count': cart_count, 'message': 'Product added to cart successfully'})
 
 @login_required(login_url="/login")
 def item_clear(request, id):
     cart = Cart(request)
-    product_list = Product.objects.get(id=id)
+    product_list = Order.objects.get(id=id)
     cart.remove(product_list)
-    return redirect("cart_detail")
-
+    cart_total = cart_total_amount(request)
+    total_amount = cart_total.get('cart_total_amount', 0)
+    cart_count = len(request.session.get('cart', {}))
+    return JsonResponse({'success': True, 'total_amount': total_amount,'cart_count': cart_count, 'message': 'Product removed from cart successfully'})
 
 @login_required(login_url="/login")
 def item_increment(request, id):
     cart = Cart(request)
-    product_list = Product.objects.get(id=id)
+    product_list = Order.objects.get(id=id)
     cart.add(product_list)
-    return redirect("cart_detail")
-
+    cart_items = request.session['cart'][f'{id}']['quantity']
+    cart_total = cart_total_amount(request)
+    total_amount = cart_total.get('cart_total_amount', 0)
+    return JsonResponse({'success': True, 'quantity': cart_items,'total_amount': total_amount, 'message': 'Product quantity incremented successfully'})
 
 @login_required(login_url="/login")
 def item_decrement(request, id):
     cart = Cart(request)
-    product_list = Product.objects.get(id=id)
+    product_list = Order.objects.get(id=id)
     cart.decrement(product_list)
-    return redirect("cart_detail")
-
+    cart_items = request.session['cart'][f'{id}']['quantity']
+    cart_total = cart_total_amount(request)
+    total_amount = cart_total.get('cart_total_amount', 0)
+    return JsonResponse({'success': True, 'quantity': cart_items,'total_amount': total_amount, 'message': 'Product quantity decremented successfully'})
 
 @login_required(login_url="/login")
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
-    return redirect("cart_detail")
+    return JsonResponse({'success': True, 'message': 'Cart cleared successfully'})
 
 @login_required(login_url="/login")
 def cart_detail(request):
@@ -317,10 +359,14 @@ def delete_profile(request):
     return JsonResponse({'success': False, 'error': _('Metode POST ir obligāta.')})
 
 
-@csrf_exempt
 @login_required
+@csrf_exempt
 def save_order(request):
     if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        product_slug = request.POST.get('product_slug')
+        
+        product = get_object_or_404(Product, slug=product_slug)
+
         publish_product = request.POST.get('publish_product') == 'true'
         product_amount = request.POST.get('num_value')
         product_color_name = request.POST.get('product_color')
@@ -338,6 +384,7 @@ def save_order(request):
 
         new_order = Order.objects.create(
             author=request.user,
+            product=product,
             publish_product=publish_product,
             product_amount=int(product_amount),
             product_color=product_color,
@@ -362,28 +409,3 @@ def save_order(request):
         return JsonResponse({'success': True, 'order_id': new_order.id})
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request'})
-
-
-# from io import BytesIO
-# from PIL import Image
-# import base64
-
-# def convert_to_png(request, base64_data):
-#     # Atkodējam base64 enkodētos datus, lai iegūtu attēla binārā formātā
-#     image_data = base64.b64decode('data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==')
-
-#     # Izveidojam atmiņas buferi, kur saglabāt attēla datus
-#     image_buffer = BytesIO(image_data)
-
-#     # Atveram attēlu izmantojot PIL bibliotēku
-#     try:
-#         image = Image.open(image_buffer)
-#     except Exception as e:
-#         return HttpResponse(f"Error: {e}")
-
-#     # Izveidojam jaunu atmiņas buferi, kur saglabāt PNG attēla datus
-#     image_response = HttpResponse(content_type='image/png')
-
-#     # Saglabājam attēlu PNG formātā
-#     image.save(image_response, format='PNG')
-#     return image_response
