@@ -6,7 +6,7 @@ from django.utils.html import format_html, strip_tags
 from ckeditor.widgets import CKEditorWidget
 from modeltranslation.admin import TranslationAdmin
 from .models import (Product, ContactMessage, CustomDesign, Contact, Product_list,
-                     Rating, User, GiftCode, Color, Size, TextList, ImageList, Order)
+                     Rating, user, GiftCode, Color, Size, TextList, ImageList, Order)
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
@@ -162,7 +162,7 @@ class ContactAdmin(admin.ModelAdmin):
         else:
             super().save_model(request, obj, form, change)
 
-@admin.register(User)
+@admin.register(user)
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
@@ -207,13 +207,18 @@ from .models import Order, ImageList, TextList
 
 class TextListInline(admin.TabularInline):
     model = TextList
-    readonly_fields = ['text', 'font', 'text_size', 'text_color']
+    readonly_fields = ['text', 'font', 'text_size','text_color', 'display_text_color']
     can_delete = False
     extra = 0
 
     def has_add_permission(self, request, obj):
         return False
 
+    def display_text_color(self, obj):
+        return format_html('<div style="border: 1px solid black; width: 20px; height: 20px; background-color: {};"></div>', obj.text_color)
+    display_text_color.short_description = 'Text Color'
+    
+    
 from django.utils.safestring import mark_safe
 from django.contrib import admin
 from django.urls import reverse
