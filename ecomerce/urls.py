@@ -22,7 +22,7 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('contact-us/', page.contact_us, name='contact_us'),
     path('creative-corner/', page.creativecorner, name='creativecorner'),
-    path('creative-corner/<str:user>/<int:product_list_id>/', page.detail, name='detail'),
+    path('creative-corner/<str:user>/<str:product_title>/<int:order_id>/', page.detail, name='detail'),
     path('save-rating/', page.save_rating, name='save_rating'),
     path('cart/', page.cart, name='cart'),
     path('cart/add/<int:id>/', page.cart_add, name='cart_add'),
@@ -61,6 +61,7 @@ urlpatterns += i18n_patterns(
     path('save_user_data/', page.save_user_data, name='save_user_data'),
     path('account/change_password/', page.change_password, name='change_password'),
     path('design/<slug:slug>/', page.design, name='design_detail'),
+    path('creative-corner/', page.creativecorner, name='creativecorner'),
 )
 
 handler404 = page.handler404

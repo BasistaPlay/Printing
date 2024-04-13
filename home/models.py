@@ -8,6 +8,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from django.conf import settings
+from django.db.models import Count, Avg
+from itertools import cycle
 
 class user(AbstractUser):
     phone_number = PhoneNumberField(blank=True, null=True)
@@ -118,49 +120,6 @@ class Contact(models.Model):
         verbose_name = _("Kontakts")
         verbose_name_plural = _("Kontakti")
 
-
-class Product_list(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    front_image = models.ImageField(upload_to='product_images/front/')
-    back_image = models.ImageField(upload_to='product_images/back/')
-    author = models.ForeignKey(user, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    product_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
-    average_rating = models.FloatField(default=0)
-
-    def update_average_rating(self):
-        ratings = Rating.objects.filter(product=self)
-        if ratings.exists():
-            self.average_rating = ratings.aggregate(models.Avg('stars'))['stars__avg']
-        else:
-            self.average_rating = 0
-        self.save()
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = _("Produkta saraksts")
-        verbose_name_plural = _("Produktu saraksti")
-
-
-class Rating(models.Model):
-    user = models.ForeignKey(user, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product_list, on_delete=models.CASCADE)
-    stars = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
-
-    class Meta:
-        verbose_name = _("Vērtējums")
-        verbose_name_plural = _("Vērtējumi")
-
-
-@receiver(post_save, sender=Rating)
-def update_product_average_rating(sender, instance, **kwargs):
-    product = instance.product
-    product.update_average_rating()
-
-
 class GiftCode(models.Model):
     code = models.CharField(max_length=50, unique=True)
     is_valid = models.BooleanField(default=True)
@@ -188,8 +147,6 @@ class GiftCode(models.Model):
         verbose_name = _("Dāvanu kods")
         verbose_name_plural = _("Dāvanu kodi")
 
-
-
 class Order(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     publish_product = models.BooleanField(default=False)
@@ -200,6 +157,17 @@ class Order(models.Model):
     product_amount = models.IntegerField(default=0)
     product_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False)
+    title = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True)
+    average_rating = models.FloatField(default=0)
+
+    def update_average_rating(self):
+        ratings = Rating.objects.filter(order=self)
+        if ratings.exists():
+            self.average_rating = ratings.aggregate(models.Avg('stars'))['stars__avg']
+        else:
+            self.average_rating = 0
+        self.save()
 
 
 class TextList(models.Model):
@@ -215,3 +183,31 @@ class ImageList(models.Model):
 
     def __str__(self):
         return f'Image for Order {self.order_images.id}'
+    
+
+class Rating(models.Model):
+    user = models.ForeignKey(user, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    stars = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
+
+    class Meta:
+        verbose_name = _("Vērtējums")
+        verbose_name_plural = _("Vērtējumi")
+
+    @staticmethod
+    def get_top_rated_popular_products():
+        top_rated_popular_products = Order.objects.annotate(
+            num_ratings=Count('rating'),
+            avg_rating=Avg('rating__stars')
+        ).order_by('-num_ratings', '-avg_rating')
+
+        top_three_products = list(top_rated_popular_products[:3])
+        product_cycle = cycle(top_three_products)
+
+        return [next(product_cycle) for _ in range(3)]
+
+
+@receiver(post_save, sender=Rating)
+def update_product_average_rating(sender, instance, **kwargs):
+    product = instance.order
+    product.update_average_rating()

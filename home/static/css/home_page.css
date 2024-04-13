@@ -365,38 +365,35 @@ section{
     transition: all ease .55s;
 }
 
-.star-wrapper {
-    direction: rtl;
-  }
 .star-wrapper a {
     font-size: 1.5em;
-    color: #fff;
+    color: #cdcccc;
     text-decoration: none;
     transition: all 0.5s;
-  }
-.star-wrapper a:hover {
-    color: gold;
-    transform: scale(1.3);
-  }
-.s1.active{
-    color: gold;
-  }
-.s2.active {
-    color: gold;
-  }
-.s3.active {
-    color: gold;
-  }
-.s4.active {
-    color: gold;
-  }
-.s5.active {
-    color: gold;
+    cursor:default;
   }
 
-  .star-wrapper.active{
+.product h3{
+    text-align: center;
+}
+.s1.active{
     color: gold;
-  }
+}
+.s2.active {
+    color: gold;
+}
+.s3.active {
+    color: gold;
+}
+.s4.active {
+    color: gold;
+}
+.s5.active {
+    color: gold;
+}
+.star-wrapper.active{
+    color: gold;
+}
 
 .pricing{
     display: flex;

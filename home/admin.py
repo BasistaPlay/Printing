@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.utils.html import format_html, strip_tags
 from ckeditor.widgets import CKEditorWidget
 from modeltranslation.admin import TranslationAdmin
-from .models import (Product, ContactMessage, CustomDesign, Contact, Product_list,
+from .models import (Product, ContactMessage, CustomDesign, Contact,
                      Rating, user, GiftCode, Color, Size, TextList, ImageList, Order)
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
@@ -195,20 +195,6 @@ class RatingInline(admin.TabularInline):
     def has_add_permission(self, request, obj):
         return False
 
-@admin.register(Product_list)
-class ProductListAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'author', 'product', 'image_preview')
-    search_fields = ['title', 'author__username']
-    readonly_fields = ['back_img', 'front_img', 'author', 'product', 'product_color']
-    fieldsets = (
-        (None, {
-            'fields': ('author', 'product','product_color', 'title', 'description')
-        }),
-        ('Product Images', {
-            'fields': ('front_img', 'back_img'), 
-        }),
-    )
-    inlines = [RatingInline]
 
     def image_preview(self, obj):
         return format_html('<img src="{url}" width="{width}" height="{height}" />', url=obj.front_image, width='auto', height='100px')
@@ -271,7 +257,7 @@ class ImageListInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'product', 'author', 'publish_product', 'allow_publish']
-    readonly_fields = ['product', 'author', 'publish_product', 'back_image', 'product_color', 'product_amount', 'product_size', 'display_product_color', 'front_img', 'back_img', 'download_button_back', 'download_button_front',]
+    readonly_fields = ['product', 'author', 'publish_product', 'back_image', 'product_color', 'product_amount', 'product_size', 'display_product_color', 'front_img', 'back_img', 'download_button_back', 'download_button_front', 'average_rating']
     search_fields = ['author__username', 'id']
     list_filter = ['product', 'publish_product']
     fieldsets = (
@@ -279,13 +265,13 @@ class OrderAdmin(admin.ModelAdmin):
             'fields': ('product', 'author', 'publish_product', 'allow_publish')
         }),
         ('Product Information', {
-            'fields': ('product_color','display_product_color', 'product_amount', 'product_size')
+            'fields': ('title' ,'description','product_color','display_product_color', 'product_amount', 'product_size', 'average_rating')
         }),
         ('Product Images', {
             'fields': ('front_img', 'download_button_front', 'back_img', 'download_button_back'), 
         }),
     )
-    inlines = [TextListInline, ImageListInline]
+    inlines = [TextListInline, ImageListInline, RatingInline]
 
     
     def front_img(self, obj):
@@ -313,28 +299,6 @@ class OrderAdmin(admin.ModelAdmin):
     def display_product_color(self, obj):
         return format_html('<div style="width: 20px; height: 20px; background-color: {};"></div>', obj.product_color.code)
     display_product_color.short_description = 'Product Color'
-
-    # def get_readonly_fields(self, request, obj=None):
-    #     readonly_fields = list(self.readonly_fields)
-    #     if obj and obj.publish_product:
-    #         readonly_fields.remove('allow_publish')
-    #     return readonly_fields
-    
-    def save_model(self, request, obj, form, change):
-        if obj.allow_publish and obj.publish_product:
-            product_list = Product_list.objects.create(
-                title="Your title here",
-                description="Your description here",
-                front_image=obj.front_image,
-                back_image=obj.back_image,
-                author=obj.author,
-                product=obj.product,
-                product_color=obj.product_color,
-            )
-            product_list.save()
-            obj.publish_product = True
-            obj.save()
-
     
 
 admin.site.register(Order, OrderAdmin)

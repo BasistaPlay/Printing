@@ -112,3 +112,65 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Image element not found');
     }
 });
+
+var isAddingToCart = false;
+
+function AddToCart(product_id) {
+    if (!isAddingToCart) {
+        isAddingToCart = true;
+        var formData = new FormData();
+        formData.append('product_id', product_id);
+
+        $.ajax({
+            type: 'POST',
+            url: '/cart/add/' + product_id + '/',
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            },
+            success: function(response) {
+                console.log(response);
+                displaySuccessMessage('Product added to cart successfully!');
+                var cartCountElement = $('#cart-count');
+                if (cartCountElement.length === 0) {
+                    var newCartCountElement = $('<span id="cart-count"></span>');
+                    newCartCountElement.text(response.cart_count);
+                    $('#cart').append(newCartCountElement);
+                } else {
+                    cartCountElement.text(response.cart_count);
+                }
+                isAddingToCart = false;
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+                isAddingToCart = false;
+            }
+        });
+    }
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function displaySuccessMessage(message) {
+    $('#success-message').text(message);
+    $('#success-message').fadeIn();
+    
+    setTimeout(function() {
+        $('#success-message').fadeOut();
+    }, 5000);
+}

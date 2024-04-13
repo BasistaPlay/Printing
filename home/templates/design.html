@@ -70,6 +70,11 @@
         <span class="info-icon"><i class="fas fa-info-circle"></i></span>
     </div>
 
+    <div id="additional-info" style="display: none;">
+        <input type="text" id="title-input" placeholder="Title">
+        <textarea id="description-input" placeholder="Description"></textarea>
+    </div>
+
     <div class="buy-button">
         <button class="general-button" id="buy-button">{% trans 'Pirkt tagad' %}</button>
     </div>
@@ -84,6 +89,7 @@
         <ul>
             <li></li>
             <li>{% trans 'Necenzūrēts vai nepiedienīgs saturs nav atļauts.' %}</li>
+            <li>{% trans 'Necenzēti vai nepiemēroti teksti nav atļauti virsrakstos un aprakstos.' %}</li>
             <li>{% trans 'Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības.' %}</li>
             <li>{% trans 'Publicējot darbu, jūs piekrītat tā izmantošanai mūsu platformā un tās reklamēšanai.' %}</li>
             <li>{% trans 'Jūs piekrītat, ka mēs varēsim izmantot jūsu lietotāja vārdu vai citu informāciju darbu reklamēšanai vai promocijai mūsu vietnē vai sociālajos tīklos.' %}</li>
@@ -160,20 +166,25 @@
   <div class="navbar-wrapper pc">
     <div class="nav-item" id="generalIcon">
         <i class="fas fa-cogs"></i>
+        <div class="tooltip">General</div>
     </div>
     <div class="nav-item" id="imageIcon">
         <i class="fas fa-image"></i>
+        <div class="tooltip">Image</div>
     </div>
     <div class="nav-item" id="textIcon">
         <i class="fas fa-font"></i>
+        <div class="tooltip">Text</div>
     </div>
     <div class="nav-item" id="Ai-generatoricon">
         <i class="fas fa-robot"></i>
+        <div class="tooltip">AI Generator</div>
     </div>
     <div class="nav-item" id="roatateicon">
         <i class="fa-solid fa-arrow-rotate-left"></i>
+        <div class="tooltip">Rotate</div>
     </div>
-  </div>
+</div>
   
 {% endblock %}
 

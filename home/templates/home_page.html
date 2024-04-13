@@ -70,42 +70,26 @@
 
 <section class="top-products">
     <div class="top-products-header">
-        <h1>{% trans 'Top 3 pirktākie Krekli' %}</h2>
+        <h1>{% trans 'Top 3 pirktākie Produkti' %}</h1>
     </div>
     <div class="product-container">
-        <div class="product" id="product1">
-            <img src="{% static '/img/image_1.png' %}" alt="Product 1">
-            <h3>Product 1</h3>
-            <div class="star-wrapper">
-                <a href="#" class="fas fa-star s1 active"></a>
-                <a href="#" class="fas fa-star s2 active"></a>
-                <a href="#" class="fas fa-star s3 active"></a>
-                <a href="#" class="fas fa-star s4 active"></a>
-                <a href="#" class="fas fa-star s5 active"></a>
-            </div>
+        {% for product in products_top %}
+        <div class="product" id="product{{ forloop.counter }}">
+            <a href="{% url 'detail' user=user product_title=product.product.title order_id=product.id %}">
+                <img src="{{ product.front_image }}" alt="{{ product.title }}">
+                <h3>{{ product.title }}</h3>
+                <div class="star-wrapper">
+                    {% for _ in "54321"|make_list %}
+                        {% if forloop.counter <= product.average_rating %}
+                            <a class="fas fa-star s{{ forloop.counter }} active"></a>
+                        {% else %}
+                            <a class="fas fa-star s{{ forloop.counter }}"></a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </a>
         </div>
-        <div class="product" id="product2">
-            <img src="{% static '/img/image_1.png' %}" alt="Product 2">
-            <h3>Product 2</h3>
-            <div class="star-wrapper">
-                <a href="#" class="fas fa-star s1 active"></a>
-                <a href="#" class="fas fa-star s2 active"></a>
-                <a href="#" class="fas fa-star s3 active"></a>
-                <a href="#" class="fas fa-star s4 active"></a>
-                <a href="#" class="fas fa-star s5 active"></a>
-            </div>
-        </div>
-        <div class="product" id="product3">
-            <img src="{% static '/img/image_1.png' %}" alt="Product 3">
-            <h3>Product 3</h3>
-            <div class="star-wrapper">
-                <a href="#" class="fas fa-star s1 active"></a>
-                <a href="#" class="fas fa-star s2 active"></a>
-                <a href="#" class="fas fa-star s3 active"></a>
-                <a href="#" class="fas fa-star s4 active"></a>
-                <a href="#" class="fas fa-star s5 active"></a>
-            </div>
-        </div>
+        {% endfor %}
         <div class="down-arrow third">
             <i class="bx bx-up-arrow-alt"></i>
         </div>
