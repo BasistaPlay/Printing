@@ -18,6 +18,8 @@ import json
 from cart.context_processor import cart_total_amount
 from django.db.models import Q
 from django.core.paginator import Paginator
+from home.capcha import FormWithCaptcha
+import stripe
 
 def homepage(request):
     products = Product.objects.all()
@@ -26,13 +28,30 @@ def homepage(request):
     return render(request, 'home_page.html', {'products' : products, 'custom_designs' : custom_designs, 'products_top' : top_rated_popular_products})
 
 def login_view(request):
+    context = {
+        'form': FormWithCaptcha(),
+    }
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        if 'login_attempts' not in request.session:
+            request.session['login_attempts'] = 0
+        request.session['login_attempts'] += 1
+
+        if request.session['login_attempts'] >= 3:
+            context['show_recaptcha'] = True
+        else:
+            context['show_recaptcha'] = False
+
+        if context['show_recaptcha'] and 'g-recaptcha-response' not in request.POST:
+            messages.error(request, 'Lūdzu, veiciet reCAPTCHA pārbaudi.')
+            return render(request, 'login.html', context)
+
         if not username or not password:
-            messages.error(request, _('Lūdzu, ievadiet e-pastu un paroli.'))
-            return render(request, 'login.html')
+            messages.error(request, 'Lūdzu, ievadiet e-pastu un paroli.')
+            return render(request, 'login.html', context)
 
         user = authenticate(request, username=username, password=password)
 
@@ -40,9 +59,9 @@ def login_view(request):
             login(request, user)
             return redirect('homepage')
         else:
-            messages.error(request, _('Nepareizs e-pasts vai parole.'))
+            messages.error(request, 'Nepareizs e-pasts vai parole.')
 
-    return render(request, 'login.html')
+    return render(request, 'login.html', context)
 
 def register(request):
     errors = []

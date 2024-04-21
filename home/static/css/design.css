@@ -162,6 +162,7 @@ body {
 .nav-item {
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 
 .tooltip {
@@ -424,12 +425,20 @@ body {
 
 #font-select,
 #text-input {
-  width: 95%;
-  margin-bottom: 10px;
-  padding: 8px;
-  font-size: 18px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
   color: var(--text-color);
   background: var(--input-color);
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+#font-select:focus,
+#text-input:focus {
+  outline: none;
+  border-color: var(--main-color)
 }
 
 #text-input::placeholder{
@@ -458,6 +467,7 @@ input {
 }
 
 .button {
+  width: 70%;
   margin: 10px;
   padding: 10px 40px;
   text-align: center;
@@ -498,7 +508,7 @@ input {
   appearance: none;
   width: 100px;
   height: 35px;
-  border: none;
+  border: 1px solid var(--text-color);
   cursor: pointer;
 }
 
@@ -631,7 +641,6 @@ input {
 }
 
 .general-button {
-  margin: 10px;
   align-items: center;
   padding: 15px 100px;
   text-align: center;
@@ -649,6 +658,56 @@ input {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+}
+
+.addTextbtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.input-container-2{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-field input[type="number"],
+.input-field input[type="color"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
 }
 
 .general-button:hover {
@@ -993,11 +1052,19 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  /* color: var(--text-color); */
+}
+
+#additional-info input::placeholder,
+#additional-info textarea::placeholder{
+  color: var(--text-color)
 }
 
 #additional-info textarea {
   height: 100px;
   resize: vertical;
+  background-color: var(--input-color);
+  color: var(--text-color);
 }
 
 #additional-info input[type="text"]:focus,
@@ -1018,4 +1085,73 @@ input {
 .info-icon i {
   color: var(--main-color);
   font-size: 16px;
+}
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--main-color);
+  border-radius: 50%;
+  width: 50px; 
+  height: 50px;
+  animation: spin 1s linear infinite;
+  display: none;
+  position: absolute;
+  margin-top: 150px;
+  margin-left: 300px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#Ai-generator h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#textInput-Ai {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+#generateButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#generateButton:hover {
+  background-color: #45a049;
+}
+
+#image {
+  height: 250px;
+  margin-top: 20px;
+}
+
+#sendToImageBtn {
+  display: none;
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+#sendToImageBtn:hover {
+  background-color: #45a049;
 }

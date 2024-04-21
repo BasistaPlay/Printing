@@ -22,6 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-v1fiaup#2ni$7o)+u(uzkc9n$((#nrayt9__52wtm#651%-tpj'
+RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:8000'}
+RECAPTCHA_REQUIRED_SCORE = 0.85
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -35,6 +37,7 @@ CSRF_TRUSTED_ORIGINS = ['https://www.mafia.lat', 'https://mafia.lat']
 
 INSTALLED_APPS = [
     'modeltranslation',
+    'django_recaptcha',
     'jazzmin',
     'cart',
     'django.contrib.admin',
@@ -47,7 +50,7 @@ INSTALLED_APPS = [
     'ckeditor',
     "phonenumber_field",
     'ckeditor_uploader',
-    'home',
+    'home.apps.HomeConfig',
 
     'allauth',
     'allauth.account',
@@ -153,8 +156,7 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
-# Default primary key field type
+
 STATIC_ROOT = '/home/urban/Printing/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -225,6 +227,8 @@ JAZZMIN_SETTINGS = {
         "home.GiftCode": "fas fa-gift",
         "home.Color": "fas fa-paint-brush",
         "home.Size": "fas fa-ruler",
+        "home.Order": "fas fa-shopping-cart",
+        "django_recaptcha.RecaptchaKeys": "fas fa-key",
     },
 }
 
@@ -234,8 +238,10 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 LOGIN_REDIRECT_URL = '/'
+
+STRIPE_SECRET_KEY = 'pk_live_51M5VxtAiAB9ovPLgEGEw9t7j87Ma1upeHUAKYdb6OpOOUryFgA2RfUCMFZTw1hgX6J1MNZVuFu1ZT1S4uHvydHzA005bhtDvj7'
+STRIPE_PUBLIC_KEY = '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'

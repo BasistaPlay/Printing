@@ -17,6 +17,9 @@
         <button onclick="showSection('personalInfo')" title="{% trans 'Personiskā informācija' %}">
             <i class="fas fa-user"></i>
         </button>
+        <button onclick="showSection('language-container')" title="{% trans 'Valodas maiņa' %}">
+            <i class="fas fa-language"></i>
+        </button>
         <button onclick="showSection('passwordChange')" title="{% trans 'Paroles maiņa' %}">
             <i class="fas fa-key"></i>
         </button>
@@ -58,6 +61,29 @@
             </div>
             <button class="info-button" role="button" id="editButton" onclick="enableEditing()">{% trans 'Rediģēt datus' %}</button>
             <button class="info-button" role="button" id="saveButton" style="display: none;" onclick="saveData()">{% trans 'Saglabāt datus' %}</button>
+        </div>
+
+        <div id="language-container" class="section">
+            <h2>{% trans 'Valodas maiņa' %}</h2>
+            <form action="{% url 'set_language' %}" method="post" class="language-form">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ request.path }}" />
+                <select name="language" id="language-select" class="language-select">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% for lang_code, lang_name in LANGUAGES %}
+                        <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected="selected"{% endif %}>
+                            {{ lang_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="language-submit">
+                    {% trans 'Mainīt valodu' %}
+                </button>
+            </form>
+            <p class="language-description">
+                {% trans 'Izvēlieties valodu, kuru vēlaties izmantot šajā lapā.' %}
+            </p>
         </div>
         
         <div id="passwordChange" class="section">

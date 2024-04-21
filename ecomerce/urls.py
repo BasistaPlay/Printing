@@ -6,7 +6,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
-
 from home import views as page
 
 urlpatterns = [
@@ -62,6 +61,7 @@ urlpatterns += i18n_patterns(
     path('account/change_password/', page.change_password, name='change_password'),
     path('design/<slug:slug>/', page.design, name='design_detail'),
     path('creative-corner/', page.creativecorner, name='creativecorner'),
+    path('creative-corner/<str:user>/<str:product_title>/<int:order_id>/', page.detail, name='detail'),
 )
 
 handler404 = page.handler404
