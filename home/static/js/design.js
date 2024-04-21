@@ -404,6 +404,20 @@ $(document).on('mousedown', function(event) {
 
 });
 
+// --------Parādas virsraksta un apraksta inputi--------
+
+var publishCheckbox = document.getElementById('publish-checkbox');
+var additionalInfo = document.getElementById('additional-info');
+
+publishCheckbox.addEventListener('change', function() {
+
+    if (this.checked) {
+        additionalInfo.style.display = 'block';
+    } else {
+        additionalInfo.style.display = 'none';
+    }
+});
+
 // --------saglaba datubaze--------
 function saveImage(side, callback) {
     var productDiv = document.querySelector('.product');
@@ -432,7 +446,9 @@ $('#buy-button').click(function() {
     var numValue = $('.num').text();
     var activeSize = $('.size-option.active').attr('data-value');
     var activeColor = $('.color-select.active-color').attr('data-color-name');
-    var productSlug = $('#product-slug').val(); // Jauna līnija - iegūst produktu slug
+    var productSlug = $('#product-slug').val();
+    var title = $('#title-input').val();
+    var description = $('#description-input').val();
 
     var errorHtml = '';
 
@@ -442,6 +458,16 @@ $('#buy-button').click(function() {
 
     if (!activeSize && $('.size-option').length > 0) {
         errorHtml += '<p>Please select a size</p>';
+    }
+
+    if (publishCheckbox) {
+        if (!title.trim()) {
+            errorHtml += '<p>Title is required</p>';
+        }
+
+        if (!description.trim()) {
+            errorHtml += '<p>Description is required</p>';
+        }
     }
 
     if (errorHtml) {
@@ -481,6 +507,8 @@ $('#buy-button').click(function() {
     formData.append('product_color', activeColor);
     formData.append('product_size', activeSize);
     formData.append('product_slug', productSlug);
+    formData.append('product_title', title);
+    formData.append('product_description', description);
     formData.append('images', JSON.stringify(images));
     formData.append('texts', JSON.stringify(texts));
 
@@ -516,7 +544,6 @@ $('#buy-button').click(function() {
     });
 });
 
-// Pievienojam funkciju, kas pievieno produktu grozam
 function AddToCart(order_id) {
     var formData = new FormData();
     formData.append('product_id', order_id);
@@ -536,12 +563,10 @@ function AddToCart(order_id) {
             $(document).ready(function() {
                 var cartCountElement = $('#cart-count');
                 if (cartCountElement.length === 0) {
-                    // Izveidojam jaunu #cart-count elementu un pievienojam to pie groza saites
                     var newCartCountElement = $('<span id="cart-count"></span>');
                     newCartCountElement.text(response.cart_count);
                     $('#cart').append(newCartCountElement);
                 } else {
-                    // Ja #cart-count jau eksistē, tad vienkārši atjaunojam tā vērtību
                     cartCountElement.text(response.cart_count);
                 }
             });
@@ -552,7 +577,6 @@ function AddToCart(order_id) {
     });
 }
 
-// Funkcija, lai iegūtu CSRF žetonu no sīkfaila
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {

@@ -154,4 +154,60 @@ section{
 .color-option.active {
   border-color: #000;
   transition: border-color 0.3s ease;
+  background-color:#42414146;
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  /* transition: bottom 0.3s;  */
+}
+
+.pagination ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.pagination ul li {
+  margin: 0 5px;
+}
+
+.pagination ul li a,
+.pagination ul li span {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.pagination ul li.disabled span {
+  color: #999;
+  cursor: not-allowed;
+}
+
+.pagination ul li.active span {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+.success-message {
+  position: fixed;
+  top: 220px;
+  right: 30px;
+  background-color: #04ff00;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 9999;
+  transform: translateY(-50%);
+  transition: right 1s ease;
 }

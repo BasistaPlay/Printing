@@ -15,7 +15,8 @@
 {% endblock %}
 
 {% block body %}
-
+    <div id="error-messages" class="error-messages"></div>
+    <div id="success-message" class="success-message"></div>
     <div class="home">
       <div class="sneaker">
           <div class="sneaker__figure">
@@ -48,44 +49,30 @@
               <p class="data__description">{{product.description}}</p>
           </div>
           <div class="actions">
-              <div class="size">
-                  <h3 class="size__title">{% trans 'Izmērs' %}</h3>
-                  <div class="size__content">
-                      <span class="size__tallas active">
-                          XS
-                      </span>
-                      <span class="size__tallas">
-                          S
-                      </span>
-                      <span class="size__tallas">
-                          M
-                      </span>
-                      <span class="size__tallas">
-                          L
-                      </span>
-                      <span class="size__tallas">
-                          XL
-                    </span>
-                  </div>
-              </div>
-<!-- 
-              <div class="quantity">
-                  <h3 class="quantity__title">{% trans 'Skaits' %}</h3>
-                  <div class="quantity__content"> 
-                      <span>-</span>
-                      <span>1</span>
-                      <span>+</span>
-                  </div>
-              </div> -->
+            {% if size.available_sizes.all %}
+                <div class="size">
+                    <h3 class="size__title">{% trans 'Izmērs' %}</h3>
+                    <div class="size__content">
+                        {% for size in size.available_sizes.all %}
+                            <span class="size__tallas">{{ size.size }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
           </div>
 
           <div class="price">
-              <span class="price__title">{{product.product.price}} €</span>
-              <a href="{% url 'cart_add' product.id %}" class="price__button">
-                <i class="fa-solid fa-cart-shopping"></i>{% trans 'Pievienot grozā' %}</a>
-          </div>
+            <span class="price__title">{{ product.product.price }} €</span>
+            <a href="#" onclick="AddToCart('{{ product.id }}')" class="price__button">
+                <i class="fa-solid fa-cart-shopping"></i>{% trans 'Pievienot grozā' %}
+            </a>
+        </div>
+
       </div>
   </div>
+    <div id="success-alert" class="alert alert-success">
+        <strong>Jūsu reitings ir saglabāts!</strong>
+    </div>
 
 {% endblock %}
 
@@ -98,7 +85,8 @@
         document.addEventListener('DOMContentLoaded', function () {
             const starWrapper = document.querySelector('.star-wrapper');
             const stars = starWrapper.querySelectorAll('.fas');
-        
+            const successAlert = document.getElementById('success-alert');
+
             stars.forEach(function (star) {
                 star.addEventListener('click', function () {
                     const ratingValue = parseInt(star.getAttribute('data-rating-value'));
@@ -106,9 +94,8 @@
                     saveRating(productId, ratingValue);
                 });
             });
-        
+
             function saveRating(productId, ratingValue) {
-        
                 $.ajax({
                     type: 'POST',
                     url: '/save-rating/',
@@ -118,13 +105,35 @@
                         'csrfmiddlewaretoken': '{{ csrf_token }}',
                     },
                     success: function (response) {
-                        console.log('Reitings saglabāts datubāzē!', response);
+
+                        successAlert.style.display = 'block';
+                        successAlert.innerHTML = '<strong>Jūsu reitings ir saglabāts!</strong>';
+                        successAlert.style.right = '30px';
+                        setTimeout(function() {
+                            successAlert.style.right = '-400px';
+                        }, 5000);
+                        updateStarRating(productId, ratingValue);
                     },
                     error: function (xhr, status, error) {
                         console.error('Kļūda saglabājot reitingu:', xhr.responseText);
                     },
                 });
             }
+
+            function updateStarRating(productId, ratingValue) {
+            const starWrapper = document.querySelector('.star-wrapper[data-product-id="' + productId + '"]');
+            const stars = starWrapper.querySelectorAll('.fas');
+
+            stars.forEach(function (star, index) {
+                if (index < ratingValue) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+
+            starWrapper.setAttribute('data-rating', ratingValue.toFixed(1));
+        }
         });
-        </script>
+    </script>
 {% endblock %}

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent
 SECRET_KEY = 'django-insecure-v1fiaup#2ni$7o)+u(uzkc9n$((#nrayt9__52wtm#651%-tpj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.mafia.lat', '104.248.195.146', 'mafia.lat', 'https://mafia.lat']
 
@@ -93,8 +93,8 @@ WSGI_APPLICATION = 'ecomerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'urban_prod',
-        'USER': 'u_urbann',
+        'NAME': 'urban_prodd',
+        'USER': 'u_urbannn',
         'PASSWORD': '123',
         'HOST': 'localhost',
         'PORT': '',
@@ -239,4 +239,3 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_REDIRECT_URL = '/'
-

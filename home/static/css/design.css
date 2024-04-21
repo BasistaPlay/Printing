@@ -159,6 +159,34 @@ body {
   width: 100px;
 }
 
+.nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateY(-100px);
+  position: absolute;
+  background-color: var(--second-color);
+  color: var(--text-color);
+  text-align: center;
+  padding: 10px;
+  border-radius: 4px;
+  z-index: 1;
+  width: 150px;
+  left: 110%;
+  transform: translateX(-50%);
+}
+
+.nav-item:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .navbar-wrapper {
   position: relative;
   height: 470px;
@@ -171,10 +199,6 @@ body {
   flex-direction: column;
   flex-wrap: nowrap;
   border-radius: 10px;
-}
-
-.nav-item i {
-  cursor: pointer;
 }
 
 .content {
@@ -672,6 +696,26 @@ input {
 	background-color: var(--main-color);
 }
 
+@media screen and (max-width: 1685px) {
+  .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(-100px);
+    position: absolute;
+    background-color: var(--second-color);
+    color: var(--text-color);
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 1;
+    width: 100px;
+    left: 110%;
+    transform: translateX(-50%);
+  }
+  
+}
+
 @media screen and (max-width: 1329px) {
 
   body {
@@ -935,4 +979,43 @@ input {
 #general {
   max-height: 500px;
   overflow-y: auto; 
+}
+
+#additional-info {
+  margin-top: 10px;
+}
+
+#additional-info input,
+#additional-info textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#additional-info textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+#additional-info input[type="text"]:focus,
+#additional-info textarea:focus {
+  outline: none;
+  border-color: var(--main-color);
+  box-shadow: 0 0 5px var(--main-color);
+}
+
+.publish-info {
+  margin-top: 20px;
+}
+
+.info-icon {
+  margin-left: 10px;
+}
+
+.info-icon i {
+  color: var(--main-color);
+  font-size: 16px;
 }

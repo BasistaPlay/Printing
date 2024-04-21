@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, ContactMessage, CustomDesign, Contact, Product_list, Rating, GiftCode, Color, Size, Order ,TextList, ImageList
+from .models import Product, ContactMessage, CustomDesign, Contact, Rating, GiftCode, Color, Size, Order ,TextList, ImageList
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -17,11 +17,13 @@ from django.contrib.auth import update_session_auth_hash
 import json
 from cart.context_processor import cart_total_amount
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 def homepage(request):
     products = Product.objects.all()
     custom_designs = CustomDesign.objects.first()
-    return render(request, 'home_page.html', {'products' : products, 'custom_designs' : custom_designs})
+    top_rated_popular_products = Rating.get_top_rated_popular_products()
+    return render(request, 'home_page.html', {'products' : products, 'custom_designs' : custom_designs, 'products_top' : top_rated_popular_products})
 
 def login_view(request):
     if request.method == 'POST':
@@ -133,7 +135,7 @@ def design(request, slug):
     return render(request, 'design.html', {'product': product})
 
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def creativecorner(request):
     all_colors = Color.objects.all()
@@ -145,7 +147,7 @@ def creativecorner(request):
     colors = request.GET.get('color', '')
     colors_list = [color.strip() for color in colors.split() if color.strip()]
 
-    filtered_products = Product_list.objects.all()
+    filtered_products = Order.objects.filter(Q(publish_product=True) & Q(allow_publish=True))
 
     if search_query:
         filtered_products = filtered_products.filter(Q(title__icontains=search_query) | Q(author__username__icontains=search_query))
@@ -156,27 +158,37 @@ def creativecorner(request):
     if colors_list:
         filtered_products = filtered_products.filter(product_color__id__in=colors_list)
 
+    paginator = Paginator(filtered_products, 10)
+
+    page_number = request.GET.get('page')
+    try:
+        page_obj = paginator.page(page_number)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+
     context = {
         'all_colors': all_colors,
         'all_products': all_products,
-        'filtered_products': filtered_products,
+        'page_obj': page_obj,
     }
     return render(request, 'creativecorner.html', context)
 
 
-def detail(request, user, product_list_id):
-    product = get_object_or_404(Product_list, id=product_list_id)
-    return render(request, 'detail.html', {'product': product})
+def detail(request, user, order_id, product_title):
+    product = get_object_or_404(Order, id=order_id)
+    size = get_object_or_404(Product, title=product_title)
+    return render(request, 'detail.html', {'product': product, 'size':size})
 
 @login_required(login_url="/login")
 @require_POST
 def save_rating(request):
     product_id = request.POST.get('product_id')
     rating_value = request.POST.get('rating')
+    product = get_object_or_404(Order, id=product_id)
+    rating, created = Rating.objects.get_or_create(user=request.user, order_id=product_id)
 
-    product = get_object_or_404(Product_list, id=product_id)
-
-    rating, created = Rating.objects.get_or_create(user=request.user, product=product)
     rating.stars = rating_value
     rating.save()
 
@@ -362,6 +374,8 @@ def save_order(request):
         product_amount = request.POST.get('num_value')
         product_color_name = request.POST.get('product_color')
         product_size_name = request.POST.get('product_size')
+        product_title = request.POST.get('product_title')
+        product_description = request.POST.get('product_description')
         front_image_base64 = request.POST.get('front_image')
         back_image_base64 = request.POST.get('back_image')
 
@@ -380,6 +394,8 @@ def save_order(request):
             product_amount=int(product_amount),
             product_color=product_color,
             product_size=product_size,
+            title=product_title,
+            description=product_description,
             front_image=front_image_base64,
             back_image=back_image_base64,
         )
