@@ -1,6 +1,7 @@
 {% load static %}
 {% load static i18n %}
 {% load cart_tag %}
+{% load custom_tags %}
 
 <!DOCTYPE html>
 <html lang="lv">
@@ -16,32 +17,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:wght@600&display=swap" rel="stylesheet">
-    
-
-
+    <link rel="icon" href="{% display_icon %}" type="image/png">
     {% block css %}
     {% endblock %}
 </head>
 
 <body>
     <header>
-        <a href='{% url 'homepage' %}' class="logo"><i class="ri-home-heart-fill"></i><span>Logo</span></a>
+        <a href='{% url 'homepage' %}' class="logo"><img src='{% display_icon %}'><span>EricPrint</span></a>
         <ul class="navlist">
             <li><a href='{% url 'homepage' %}' class="Home">{% trans 'Sākumlapa' %}</a></li>
             <li><a href='{% url 'creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
             <li><a href="{% url 'contact_us' %}" class="contact_us">{% trans 'Sazinies ar mums' %}</a></li>
+            {% if user.is_authenticated %}
+                <li class='acc-nav'><a href="{% url 'account' %}"  class="contact_us">{% trans 'Profils' %}</a></li>
+            {% else %}
+                <li class='acc-nav'><a href='{% url 'login' %}' class="contact_us">{% trans 'Pierakstīties' %}</a></li>
+            {% endif %}
             {% if user.is_staff %}
                 <li><a href="{% url 'admin:index' %}" class="Admin">{% trans 'Admin' %}</a></li>
             {% endif %}
         </ul>
         <div class="h-main">
             {% if user.is_authenticated %}
-            <a href="{% url 'account' %}" class="h-btn">
+            <a href="{% url 'account' %}" class="h-btn acc">
                 <i class="fas fa-user"></i>
                 {% trans 'Profils' %}
             </a>
             {% else %}
-                <a href='{% url 'login' %}' class='h-btn'>{% trans 'Pierakstīties' %}</a>
+                <a href='{% url 'login' %}' class='h-btn acc'>{% trans 'Pierakstīties' %}</a>
             {% endif %}
             <div class="bx bx-menu" id="menu-icon"></div>
             <a class="bx bx-cart" href="{% url 'cart' %}" id="cart">

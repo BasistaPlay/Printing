@@ -13,131 +13,157 @@
 
 {% block body %}
 <div class="container">
-    <div class="navbar">
-        <button onclick="showSection('personalInfo')" title="{% trans 'Personiskā informācija' %}">
-            <i class="fas fa-user"></i>
-        </button>
-        <button onclick="showSection('language-container')" title="{% trans 'Valodas maiņa' %}">
-            <i class="fas fa-language"></i>
-        </button>
-        <button onclick="showSection('passwordChange')" title="{% trans 'Paroles maiņa' %}">
-            <i class="fas fa-key"></i>
-        </button>
-        <button onclick="showSection('orderHistory')" title="{% trans 'Pasūtījumu vēsture' %}">
-            <i class="fas fa-history"></i>
-        </button>
-        <button onclick="showLogoutConfirmation()" title="{% trans 'Iziet' %}">
-            <i class="fas fa-sign-out-alt"></i>
-        </button>
-        <button onclick="showSection('deleteaccount')" title="{% trans 'Profila dzēšana' %}">
-            <i class="fas fa-user-times"></i>
-        </button>
-    </div>
     <div class="content-container">
-        <div id="personalInfo" class="section" style="display: block;">
-            <div id="messageContainer-savedata" class="message-container"></div>
-            <h2>{% trans 'Personiskā informācija' %}</h2>
-            <div class="data flex-container">
-                <div class="input-container">
-                    <label for="fname">{% trans 'Vārds' %}</label>
-                    <input type="text" id="fname" name="fname" value="{{ user.first_name }}" readonly>
-                </div>
-                <div class="input-container">
-                    <label for="lname">{% trans 'Uzvārds' %}</label>
-                    <input type="text" id="lname" name="lname" value="{{ user.last_name }}" readonly>
-                </div>
-                <div class="input-container">
-                    <label for="username">{% trans 'Lietotājvārds' %}</label>
-                    <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
-                </div>
-                <div class="input-container">
-                    <label for="phone">{% trans 'Talr.n' %}</label>
-                    <input type="text" id="phone" name="phone" pattern="[0-9+]+" value="{{ user.phone_number }}" readonly>
-                </div>
-                <div class="input-container">
-                    <label for="email">{% trans 'E-pasts' %}</label>
-                    <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
-                </div>
-            </div>
-            <button class="info-button" role="button" id="editButton" onclick="enableEditing()">{% trans 'Rediģēt datus' %}</button>
-            <button class="info-button" role="button" id="saveButton" style="display: none;" onclick="saveData()">{% trans 'Saglabāt datus' %}</button>
-        </div>
-
-        <div id="language-container" class="section">
-            <h2>{% trans 'Valodas maiņa' %}</h2>
-            <form action="{% url 'set_language' %}" method="post" class="language-form">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="{{ request.path }}" />
-                <select name="language" id="language-select" class="language-select">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% for lang_code, lang_name in LANGUAGES %}
-                        <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected="selected"{% endif %}>
-                            {{ lang_name }}
-                        </option>
-                    {% endfor %}
-                </select>
-                <button type="submit" class="language-submit">
-                    {% trans 'Mainīt valodu' %}
-                </button>
-            </form>
-            <p class="language-description">
-                {% trans 'Izvēlieties valodu, kuru vēlaties izmantot šajā lapā.' %}
-            </p>
-        </div>
-        
-        <div id="passwordChange" class="section">
-            <h2>{% trans 'Paroles Maiņa' %}</h2>
-            <div id="message-password" class="message-container"></div>
-            <div id="conditionIndicator" class="condition-indicator">
-              <p id="oldPasswordIndicator">❌ {% trans 'Ievadiet veco paroli!' %}</p>
-              <p id="newDifferentIndicator">❌ {% trans 'Jaunā parole nevar būt vienāda ar veco paroli!' %}</p>
-              <p id="lengthIndicator">❌ {% trans 'Parolei jābūt vismaz 8 rakstzīmēm garai' %}</p>
-              <p id="numberIndicator">❌ {% trans 'Jāsatur vismaz viens cipars' %}</p>
-              <p id="uppercaseIndicator">❌ {% trans 'Jāsatur vismaz viens lielais burts' %}</p>
-              <div id="messageContainerPassword"></div>
-            </div>
-            <div class="input-container passwordChange">
-              <label for="oldPassword">{% trans 'Vecā parole:' %}</label>
-              <input type="password" id="oldPassword" name="oldPassword" style="background: transparent;">
-              <i id="showOldPassword" class="fas fa-eye"></i>
-            </div>
-            <div class="input-container passwordChange">
-              <label for="newPassword1">{% trans 'Jaunā parole:' %}</label>
-              <input type="password" id="newPassword1" name="newPassword1" style="background: transparent;">
-              <i id="showNewPassword1" class="fas fa-eye"></i>
-            </div>
-            <div class="input-container passwordChange">
-              <label for="newPassword2">{% trans 'Atkārtoti ievadiet jauno paroli:' %}</label>
-              <input type="password" id="newPassword2" name="newPassword2" style="background: transparent;">
-              <i id="showNewPassword2" class="fas fa-eye"></i>
-            </div>
-            <button class="info-button button-password" role="button">{% trans 'Samainīt paroli' %}</button>
-        </div>
-
-        <div id="orderHistory" class="section">
-            <h2>{% trans 'Pasūtījumu Vēsture' %}</h2>
-            <p>{% trans 'Šeit varētu būt informācija par jūsu pasūtījumu vēsturi.' %}</p>
-        </div>
-
-        <div id="deleteaccount" class="section">
-            <div id="deleteuser-messages" class="message-container"></div>
-            <h2>{% trans 'Profila dzēšana' %}</h2>
-            <p>
-                {% trans 'Lūdzu, ņemiet vērā, ka, izdzēšot savu profilu, tiks neatgriezeniski dzēsti visi jūsu personiskie dati, pievienotie dizaini un veiktie pasūtījumi. Turklāt visi jūsu kontā esošie virtuālās valūtas līdzekļi tiks dzēsti.' %}
-            </p>
-            <p>
-                {% trans 'Lai turpinātu, lūdzu, ievadiet savu konta paroli un noklikšķiniet uz "Dzēst profilu". Šo darbību nevar atsaukt, tāpēc, lūdzu, pārliecinieties, ka esat pilnīgi pārliecināti par šo izvēli.' %}
-            </p>
-            <div class="input-container">
-                <label for="Password">{% trans 'Parole:' %}</label>
-                <input type="password" id="password" name="password" style="background: transparent;">
-              </div>
-            <button id="deleteProfileBtn">
-                {% trans 'Dzēst profilu' %}
+        <div class="navbar">
+            <button onclick="showSection('personalInfo')" title="{% trans 'Personiskā informācija' %}">
+                <i class="fas fa-user"></i>
+            </button>
+            <button onclick="showSection('language-container')" title="{% trans 'Valodas maiņa' %}">
+                <i class="fas fa-language"></i>
+            </button>
+            <button onclick="showSection('passwordChange')" title="{% trans 'Paroles maiņa' %}">
+                <i class="fas fa-key"></i>
+            </button>
+            <button onclick="showLogoutConfirmation()" title="{% trans 'Iziet' %}">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
+            <button onclick="showSection('deleteaccount')" title="{% trans 'Profila dzēšana' %}">
+                <i class="fas fa-user-times"></i>
             </button>
         </div>
+        <div class='boxes'>
+            <div class="left-container">
+                <div id="personalInfo" class="section" style="display: block;">
+                    <div id="messageContainer-savedata" class="message-container" style='display:none'></div>
+                    <h2>{% trans 'Personiskā informācija' %}</h2>
+                    <div class="data flex-container">
+                        <div class="input-container">
+                            <label for="fname">{% trans 'Vārds' %}</label>
+                            <input type="text" id="fname" name="fname" value="{{ user.first_name }}" readonly>
+                        </div>
+                        <div class="input-container">
+                            <label for="lname">{% trans 'Uzvārds' %}</label>
+                            <input type="text" id="lname" name="lname" value="{{ user.last_name }}" readonly>
+                        </div>
+                        <div class="input-container">
+                            <label for="username">{% trans 'Lietotājvārds' %}</label>
+                            <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
+                        </div>
+                        <div class="input-container">
+                            <label for="phone">{% trans 'Talr.n' %}</label>
+                            <input type="text" id="phone" name="phone" pattern="[0-9+]+" value="{{ user.phone_number }}" readonly>
+                        </div>
+                        <div class="input-container">
+                            <label for="email">{% trans 'E-pasts' %}</label>
+                            <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
+                        </div>
+                    </div>
+                    <button class="info-button" role="button" id="editButton" onclick="enableEditing()">{% trans 'Rediģēt datus' %}</button>
+                    <button class="info-button" role="button" id="saveButton" style="display: none;" onclick="saveData()">{% trans 'Saglabāt datus' %}</button>
+                </div>
+
+                <div id="language-container" class="section">
+                    <h2>{% trans 'Valodas maiņa' %}</h2>
+                    <form action="{% url 'set_language' %}" method="post" class="language-form">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.path }}" />
+                        <select name="language" id="language-select" class="language-select">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang_code, lang_name in LANGUAGES %}
+                                <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected="selected"{% endif %}>
+                                    {{ lang_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="language-submit">
+                            {% trans 'Mainīt valodu' %}
+                        </button>
+                    </form>
+                    <p class="language-description">
+                        {% trans 'Izvēlieties valodu, kuru vēlaties izmantot šajā lapā.' %}
+                    </p>
+                </div>
+                
+                <div id="passwordChange" class="section">
+                    <h2>{% trans 'Paroles Maiņa' %}</h2>
+                    <div id="message-password" class="message-container" style='display:none;'></div>
+                    <div id="conditionIndicator" class="condition-indicator">
+                    <p id="oldPasswordIndicator">❌ {% trans 'Ievadiet veco paroli!' %}</p>
+                    <p id="newDifferentIndicator">❌ {% trans 'Jaunā parole nevar būt vienāda ar veco paroli!' %}</p>
+                    <p id="lengthIndicator">❌ {% trans 'Parolei jābūt vismaz 8 rakstzīmēm garai' %}</p>
+                    <p id="numberIndicator">❌ {% trans 'Jāsatur vismaz viens cipars' %}</p>
+                    <p id="uppercaseIndicator">❌ {% trans 'Jāsatur vismaz viens lielais burts' %}</p>
+                    <div id="messageContainerPassword"></div>
+                    </div>
+                    <div class="input-container passwordChange">
+                    <label for="oldPassword">{% trans 'Vecā parole:' %}</label>
+                    <input type="password" id="oldPassword" name="oldPassword" style="background: transparent;">
+                    <i id="showOldPassword" class="fas fa-eye"></i>
+                    </div>
+                    <div class="input-container passwordChange">
+                    <label for="newPassword1">{% trans 'Jaunā parole:' %}</label>
+                    <input type="password" id="newPassword1" name="newPassword1" style="background: transparent;">
+                    <i id="showNewPassword1" class="fas fa-eye"></i>
+                    </div>
+                    <div class="input-container passwordChange">
+                    <label for="newPassword2">{% trans 'Atkārtoti ievadiet jauno paroli:' %}</label>
+                    <input type="password" id="newPassword2" name="newPassword2" style="background: transparent;">
+                    <i id="showNewPassword2" class="fas fa-eye"></i>
+                    </div>
+                    <button class="info-button button-password" role="button">{% trans 'Samainīt paroli' %}</button>
+                </div>
+
+                <div id="deleteaccount" class="section">
+                    <div id="deleteuser-messages" class="message-container"></div>
+                    <h2>{% trans 'Profila dzēšana' %}</h2>
+                    <p>
+                        {% trans 'Lūdzu, ņemiet vērā, ka, izdzēšot savu profilu, tiks neatgriezeniski dzēsti visi jūsu personiskie dati, pievienotie dizaini un veiktie pasūtījumi. Turklāt visi jūsu kontā esošie virtuālās valūtas līdzekļi tiks dzēsti.' %}
+                    </p>
+                    <p>
+                        {% trans 'Lai turpinātu, lūdzu, ievadiet savu konta paroli un noklikšķiniet uz "Dzēst profilu". Šo darbību nevar atsaukt, tāpēc, lūdzu, pārliecinieties, ka esat pilnīgi pārliecināti par šo izvēli.' %}
+                    </p>
+                    <div class="input-container">
+                        <label for="Password">{% trans 'Parole:' %}</label>
+                        <input type="password" id="password" name="password" style="background: transparent;">
+                    </div>
+                    <button id="deleteProfileBtn">
+                        {% trans 'Dzēst profilu' %}
+                    </button>
+                </div>
+            </div>
+            <div id="orderHistory" class="right-section">
+            <h2>{% trans 'Pasūtījumu Vēsture' %}</h2>
+            {% if user_orders %}
+                <div class="order-table-container">
+                    <table class="order-table">
+                        <thead>
+                            <tr>
+                                <th>{% trans 'Pasūtījuma numurs' %}</th>
+                                <th>{% trans 'Stāvoklis' %}</th>
+                                <th>{% trans 'Kopējā summa' %}</th>
+                                <th>{% trans 'Pasūtīts' %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in user_orders %}
+                                <tr>
+                                    <td>{{ order.order_number }}</td>
+                                    <td>{{ order.get_status_display }}</td>
+                                    <td>{{ order.amount }}</td>
+                                    <td>{{ order.created_at }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p>{% trans 'Nav atrasta neviena pasūtījumu vēstures ieraksta.' %}</p>
+            {% endif %}
+        </div>
     </div>
+</div>
+</div>
 </div>
 {% endblock %}
 

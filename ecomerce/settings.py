@@ -28,10 +28,10 @@ RECAPTCHA_REQUIRED_SCORE = 0.85
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['www.mafia.lat', '104.248.195.146', 'mafia.lat', 'https://mafia.lat']
+ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', 'https://ericprint.com']
 
 CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['https://www.mafia.lat', 'https://mafia.lat']
+CSRF_TRUSTED_ORIGINS = ['https://ericprint.com', 'https://www.ericprint.com']
 
 # Application definition
 
@@ -51,7 +51,9 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'ckeditor_uploader',
     'home.apps.HomeConfig',
-
+    'stripe_integration',
+    'chartjs',
+    'django_extensions',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -228,8 +230,10 @@ JAZZMIN_SETTINGS = {
         "home.Color": "fas fa-paint-brush",
         "home.Size": "fas fa-ruler",
         "home.Order": "fas fa-shopping-cart",
-        "django_recaptcha.RecaptchaKeys": "fas fa-key",
-    },
+        "home.Purchase": "fas fa-receipt",
+        "stripe_integration.StripeKeys": "fas fa-key",
+        "django_recaptcha.RecaptchaKeys": "fas fa-key"
+    }
 }
 
 CART_SESSION_ID = 'cart'
@@ -243,5 +247,6 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = '/'
 
-STRIPE_SECRET_KEY = 'pk_live_51M5VxtAiAB9ovPLgEGEw9t7j87Ma1upeHUAKYdb6OpOOUryFgA2RfUCMFZTw1hgX6J1MNZVuFu1ZT1S4uHvydHzA005bhtDvj7'
-STRIPE_PUBLIC_KEY = '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'
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = True

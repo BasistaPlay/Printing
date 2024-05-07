@@ -31,9 +31,8 @@
                             </div>
                         </div>
                         {% if show_recaptcha %}
-                        <!-- Ievietojiet reCAPTCHA formu tikai tad, ja show_recaptcha ir True -->
-                        {{ form.captcha }}
-                    {% endif %}
+                            {{ form.captcha }}
+                        {% endif %}
                         <button class='btn' type='submit'>
                             {% trans 'Pieslēgties' %}
                         </button>
@@ -42,7 +41,6 @@
                     <p class='account'>{% trans 'Aizmirsāt paroli?' %} <a href='{% url "password_reset" %}'>{% trans 'Atjaunot to šeit' %}</a></p>
                     <p class="social-text">Vai pieslēdzies caur sociālajiem tīkliem</p>
                     <div class="social-media">
-                        <!-- {{ form.as_p }} -->
                         <a href="" class="social-icon">
                             <i class="fab fa-facebook"></i>
                         </a>
@@ -79,12 +77,12 @@
             const errorElement = document.querySelector('.error-message .error');
 
             if (recaptchaResponse.length === 0) {
-                event.preventDefault(); // Aizkavē formu nosūtīšanu
+                event.preventDefault();
                 errorElement.textContent = 'Lūdzu, aizpildiet reCAPTCHA pārbaudi!';
-                errorElement.parentElement.style.display = 'block'; // Parāda kļūdas ziņojumu
+                errorElement.parentElement.style.display = 'block';
             } else {
-                errorElement.textContent = ''; // Notīra kļūdas ziņojumu, ja ir aizpildīta reCAPTCHA
-                errorElement.parentElement.style.display = 'none'; // Paslēpj kļūdas ziņojumu
+                errorElement.textContent = '';
+                errorElement.parentElement.style.display = 'none';
             }
         });
     });

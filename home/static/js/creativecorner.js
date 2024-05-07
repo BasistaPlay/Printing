@@ -32,6 +32,20 @@ document.addEventListener('DOMContentLoaded', function () {
             performAjaxRequest();
             updateColorIcons()
         });
+
+        const filterForm = document.getElementById('filter-form');
+        const filterSidebar = document.querySelector('.filter-sidebar');
+        const filterToggle = document.getElementById('filter-toggle');
+        const filtergroup = document.querySelector('.form-group');
+    
+        filterToggle.addEventListener('click', function() {
+            filterSidebar.classList.toggle('closed');
+            filtergroup.classList.toggle('closed');
+        });
+    
+        filterForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+        });
     });
 
     var $form = $('#filter-form');

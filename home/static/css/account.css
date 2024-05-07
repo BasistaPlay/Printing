@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
 }
 
 .navbar {
@@ -19,12 +19,12 @@
 }
 
 .content-container {
-    position: relative;
-    width: 900px;
-    height: 420px;
-    background-color: var(--bg-color);
-    border-radius: 0 10px 10px 0;
-    transition: all ease .55s;
+    display: flex;
+    width: 95%;
+    align-content: center;
+    flex-direction: row;
+    justify-content: center;
+    padding: 110px;
 }
 
 .section {
@@ -32,10 +32,20 @@
     display: none;
     background-color: var(--second-color);
     height: 100%;
-    width: 100%;
+    width: 880px;
     align-items: center;
     border-radius: 0 10px 10px 0;
     transition: all ease .55s;
+}
+
+.right-section{
+    padding: 10px;
+    background-color: var(--second-color);
+    height: 420px;
+    align-items: center;
+    border-radius: 10px 10px 10px 10px;
+    transition: all ease .55s;
+    margin-left: 20px;
 }
 
 
@@ -184,6 +194,10 @@
     max-height: 500px;
 }
 
+.boxes{
+    display: flex;
+}
+
 .flex-container {
     display: flex;
     flex-wrap: wrap;
@@ -244,28 +258,34 @@
 
 .message-container {
     position: fixed;
-    top: 210px;
-    right: 20px;
-    z-index: 9999;
+    top: 20%;
+    left: 87%;
+    transform: translate(-50%, -50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
     opacity: 0;
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateX(100%);
-}
-
-.error-message {
-    border: 2px solid red;
-    color: red;
-    border-radius: 10px;
-    padding: 30px;
-    width: 400px;
-}
-
-.success-message {
-    color: green;
-    border: 2px solid green;
-    border-radius: 10px;
-    padding: 30px;
-}
+  }
+  
+  .success-message {
+    background-color: #4caf50; /* Zaļa krāsa */
+  }
+  
+  .error-message {
+    background-color: #f44336; /* Sarkana krāsa */
+  }
+  
+  .warning-message {
+    background-color: #ff9800; /* Oranža krāsa */
+  }
+  
+  .info-message {
+    background-color: #2196f3; /* Zila krāsa */
+  }
 
 .input-container input[type="text"]:not([readonly]),
 .input-container input[type="email"]:not([readonly]),
@@ -299,24 +319,57 @@
         width: 400px;
         padding: 5px;
     }
+    .content-container {
+        width: 700px;
+    }
+    .section{
+        width: 700px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .section{
+        width: 600px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .section{
+        width: 600px;
+    }
 }
 
 
-@media (max-width: 1050px) {
+@media (max-width: 1250px) {
+
+    .boxes {
+        display: flex;
+        flex-direction: column;
+    }
+
     .content-container {
         width: 700px;
         height: auto;
     }
 
+    .section{
+        width: 700px
+    }
+
     .container {
         display: flex;
         align-items:start;
-        margin-top: 200px;
+        margin-top: 80px;
         position: relative;
     }
 
     .section {
         border-radius: 0 0 10px 10px;
+    }
+
+    .right-section{
+        margin-left: 0px;
+        margin-top: 25px;
     }
 
     .condition-indicator {
@@ -396,8 +449,14 @@
         width: 420px;
     }
 
-    
+    .section{
+        width: 420px
+    }
 
+    .right-section{
+        width: 420px;
+    }
+    
     .condition-indicator{
         width: 400px;
         margin-right: 0;
@@ -425,18 +484,19 @@
 }
 
 @media (max-width: 460px) {
-    .content-container{
+
+    .section{
         width: 380px;
-        height: auto;
     }
+
+    .right-section{
+        width: 380px;
+    }
+
     .navbar {
         width: 380px;
     }
 
-    .condition-indicator{
-        width: 360px;
-        margin-right: 0;
-    }
 
     .error-message{
         width: 340px;
@@ -458,9 +518,12 @@
         width: 320px;
     }
 
-    .condition-indicator{
-        width: 300px;
-        margin-right: 0;
+    .section{
+        width: 320px;
+    }
+
+    .right-section{
+        width: 320px;
     }
 
     .error-message{
@@ -514,4 +577,40 @@
 
 .language-submit:hover {
     background-color: #13aa52;
+}
+
+
+
+
+/* .left-container, .right-container {
+    width: 48%;
+} */
+
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-table th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+.product-image {
+    width: 50px;
+    height: auto;
+}
+
+.order-table-container {
+    max-height: 370px;
+    overflow-y: auto;
 }
