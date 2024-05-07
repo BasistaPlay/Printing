@@ -473,3 +473,45 @@
         padding: 20px;
     }
 }
+
+.language-description {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.language-form {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.language-select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #dedede21;
+    font-size: 16px;
+    margin-right: 10px;
+    color: var(--text-color);
+}
+
+.language-select option{
+    background-color: var(--second-color);
+    color: var(--text-color);
+}
+
+.language-submit {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--main-color);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.language-submit:hover {
+    background-color: #13aa52;
+}

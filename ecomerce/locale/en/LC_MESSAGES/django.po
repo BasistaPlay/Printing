@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-11 20:05+0200\n"
+"POT-Creation-Date: 2024-04-20 15:52+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\ecomerce\settings.py:134
+#: .\ecomerce\settings.py:144
 msgid "Latvian"
 msgstr ""
 
-#: .\ecomerce\settings.py:135
+#: .\ecomerce\settings.py:145
 msgid "English"
 msgstr ""
 
@@ -1455,6 +1455,11 @@ msgstr ""
 
 #: .\env\Lib\site-packages\django\views\templates\default_urlconf.html:248
 msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: .\env\Lib\site-packages\django_recaptcha\fields.py:20
+#: .\env\Lib\site-packages\django_recaptcha\fields.py:21
+msgid "Error verifying reCAPTCHA, please try again."
 msgstr ""
 
 #: .\env\Lib\site-packages\modeltranslation\widgets.py:24

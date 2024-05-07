@@ -94,13 +94,13 @@ section{
   top: 0;
   right: 0;
   height: 100%;
-  width: 250px; /* adjust width as needed */
+  width: 250px;
   background-color: #f2f2f2;
   padding: 20px;
-  overflow-y: auto; /* add scroll if content exceeds height */
-  border-right: 1px solid #ccc; /* add border for separation */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* add shadow for depth */
-  z-index: 100; /* ensure it's above other content */
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
 }
 
 .filter-sidebar form {
@@ -166,7 +166,6 @@ section{
   left: 0;
   right: 0;
   z-index: 999;
-  /* transition: bottom 0.3s;  */
 }
 
 .pagination ul {
@@ -210,4 +209,16 @@ section{
   z-index: 9999;
   transform: translateY(-50%);
   transition: right 1s ease;
+}
+
+.back-image {
+  display: none;
+}
+
+.box:hover .back-image {
+  display: inherit;
+}
+
+.box:hover .front-image {
+  display: none;
 }
