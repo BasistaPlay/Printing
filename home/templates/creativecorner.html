@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% load static %}
 {% load static i18n %}
@@ -62,9 +61,12 @@
               {% endif %}
             </ul>
           </div>
-        <aside class="filter-sidebar">
+        <aside class="filter-sidebar closed">
             <form id="filter-form">
-                <div class="form-group">
+                <div id="filter-toggle" class="filter-toggle">
+                    <i class="fas fa-filter"></i>
+                </div>
+                <div class="form-group closed">
                     <div class="form-group">
                         <label for="search-input">{% trans 'Meklēt:' %}</label>
                         <input type="text" id="search-input" name="search" placeholder="{% trans 'Meklēt...' %}">
@@ -76,15 +78,15 @@
                             <div class="color-option" data-color-id="{{ color.id }}" style="background-color: {{ color.code }}"></div>
                         {% endfor %}
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="product-select">{% trans 'Produktu saraksts:' %}</label>
-                    <select id="product-select" name="product_list">
-                        <option value="">{% trans 'Visi' %}</option>
-                        {% for product in all_products %}
-                            <option value="{{ product.id }}">{{ product.title }}</option>
-                        {% endfor %}
-                    </select>
+                    <div class="form-group">
+                        <label for="product-select">{% trans 'Produktu saraksts:' %}</label>
+                        <select id="product-select" name="product_list">
+                            <option value="">{% trans 'Visi' %}</option>
+                            {% for product in all_products %}
+                                <option value="{{ product.id }}">{{ product.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </form>
         </aside>

@@ -1,16 +1,17 @@
 from django.contrib import admin, messages
 from django.conf import settings
 from django import forms
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.utils.html import format_html, strip_tags
 from ckeditor.widgets import CKEditorWidget
 from modeltranslation.admin import TranslationAdmin
 from .models import (Product, ContactMessage, CustomDesign, Contact,
-                     Rating, user, GiftCode, Color, Size, TextList, ImageList, Order)
+                     Rating, user, GiftCode, Color, Size, TextList, ImageList, Order, Purchase)
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.html import mark_safe
+from django.template.loader import render_to_string
 
 @admin.register(Product)
 class ProductAdmin(TranslationAdmin):
@@ -35,15 +36,15 @@ class ProductAdmin(TranslationAdmin):
     )
 
     class Media:
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
+        js = [
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',  # Jaunāka jQuery versija
+            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',  # Jaunāka jQuery UI versija
+            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',  # Lokāli glabāts JS fails
+        ]
         css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),  # Lokāli glabāts CSS fails
         }
-
+        
 @admin.register(Color)
 class ColorAdmin(admin.ModelAdmin):
     list_display = ('name','code')
@@ -69,13 +70,13 @@ class CustomDesignAdmin(TranslationAdmin):
     list_display = ('title', 'description', 'additional_notes')
 
     class Media:
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
+        js = [
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',  # Jaunāka jQuery versija
+            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',  # Jaunāka jQuery UI versija
+            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',  # Lokāli glabāts JS fails
+        ]
         css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),  # Lokāli glabāts CSS fails
         }
         
     def save_model(self, request, obj, form, change):
@@ -117,22 +118,16 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
     def response_change(self, request, obj):
         if "_save" in request.POST:
-            user_email = obj.email
+            user_email = [obj.email]  # pārliecināsimies, ka user_email ir saraksts
             admin_subject = obj.admin_subject
             admin_message = obj.admin_message
 
-            plain_text_admin_message = strip_tags(admin_message)
+            html_content = render_to_string('e-mail/answer_message.html', {'admin_message': admin_message})
 
-            subject_user = ("Response to your inquiry: {admin_subject}").format(admin_subject=admin_subject)
-
-            send_mail(
-                subject_user,
-                plain_text_admin_message,
-                settings.DEFAULT_FROM_EMAIL,
-                [user_email],
-                html_message=admin_message,
-                fail_silently=False,
-            )
+            subject_user = f"Atbilde uz jūsu jautājumu: {admin_subject}"
+            email = EmailMultiAlternatives(subject_user, strip_tags(admin_message), settings.DEFAULT_FROM_EMAIL, user_email)
+            email.attach_alternative(html_content, "text/html")
+            email.send()
 
             obj.replied = True
             obj.save()
@@ -141,6 +136,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
             return super().response_change(request, obj)
 
         return super().response_change(request, obj)
+
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
@@ -177,13 +173,13 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ('is_active', 'is_staff', 'is_superuser', 'groups')
 
     class Media:
-        js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-            'modeltranslation/js/tabbed_translation_fields.js',
-        )
+        js = [
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',  # Jaunāka jQuery versija
+            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',  # Jaunāka jQuery UI versija
+            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',  # Lokāli glabāts JS fails
+        ]
         css = {
-            'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
+            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),  # Lokāli glabāts CSS fails
         }
 
 class RatingInline(admin.TabularInline):
@@ -318,3 +314,20 @@ admin.site.register(RecaptchaKeys, RecaptchaKeysAdmin)
     
 
 admin.site.register(Order, OrderAdmin)
+
+from django.contrib import admin
+from .models import Purchase, PurchaseProduct
+
+class PurchaseProductInline(admin.TabularInline):  # Inline tabula produktiem pasūtījumā
+    model = PurchaseProduct
+    extra = 0
+    readonly_fields = ['product', 'quantity']
+
+class PurchaseAdmin(admin.ModelAdmin):
+    list_display = ('order_number', 'amount', 'user', 'status', 'created_at')
+    search_fields = ('order_number', 'user__username')
+    list_filter = ('status', 'created_at')
+    readonly_fields = ['order_number', 'amount', 'user', 'created_at']
+    inlines = [PurchaseProductInline]
+
+admin.site.register(Purchase, PurchaseAdmin)

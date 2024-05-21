@@ -31,28 +31,47 @@
                     <div>
                         <h2>{% trans 'Kontaktinformācija' %}</h2>
                         <ul class="info">
-                            <li>
-                                <span><i class="fas fa-map-marker-alt" style="color: #000000;"></i></span>
-                                <span>{{Contact.address}}<br>
-                                    {{Contact.postal_code}}<br></span>
+                            {% if Contact %}
+                                <li>
+                                    {% if Contact.address %}
+                                        <span><i class="fas fa-map-marker-alt" style="color: #000000;"></i></span>
+                                        <span>{{Contact.address}}<br>
+                                    {% endif %}
+                                    {% if Contact.postal_code %}
+                                        {{Contact.postal_code}}<br></span>
+                                    {% endif %}
                                 </span>
-                            </li>
-                            <li>
-                                <span><i class="far fa-envelope" style="color: #000000;"></i></span>
-                                <span><a href = "mailto: nassosanagn@gmail.com">{{Contact.email}}</a></span>
-                            </li>
-                            <li>
-                                <span><i class="fas fa-phone-alt" style="color: #000000;"></i></span>
-                                <span>{{Contact.phone_number}}</span>
-                            </li>
-
+                                </li>
+                                {% if Contact.email %}
+                                <li>
+                                    <span><i class="far fa-envelope" style="color: #000000;"></i></span>
+                                    <span><a href="mailto:{{Contact.email}}">{{Contact.email}}</a></span>
+                                </li>
+                                {% endif %}
+                                {% if Contact.phone_number %}
+                                <li>
+                                    <span><i class="fas fa-phone-alt" style="color: #000000;"></i></span>
+                                    <span>{{Contact.phone_number}}</span>
+                                </li>
+                                {% endif %}
+                            {% endif %}
                         </ul>
                     </div>
+                    
                     <ul class="sci">
-                        <li><a href="{{Contact.facebook_link}}"><i class="fab fa-facebook" ></i></a></li>
-                        <li><a href="{{Contact.instagram_link}}"><i class="fab fa-instagram"></i></i></a></li>
-                        <li><a href="{{Contact.twitter_link}}"><i class="fab fa-twitter"></i></a></li>
-                        
+                        {% if Contact %}
+                            {% if Contact.facebook_link %}
+                                <li><a href="{{ Contact.facebook_link }}"><i class="fab fa-facebook"></i></a></li>
+                            {% endif %}
+                            
+                            {% if Contact.instagram_link %}
+                                <li><a href="{{ Contact.instagram_link }}"><i class="fab fa-instagram"></i></a></li>
+                            {% endif %}
+                            
+                            {% if Contact.twitter_link %}
+                                <li><a href="{{ Contact.twitter_link }}"><i class="fab fa-twitter"></i></a></li>
+                            {% endif %}
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="contactForm">
@@ -80,7 +99,13 @@
                                 <textarea name="message" required></textarea>
                                 <span>{% trans 'Raksti savu ziņu šeit...' %}</span>
                             </div>
-                            <div class="inputBox w100">
+                            <div class="inputBox w100 button">
+                                {{ form.captcha }}
+                                {% if form.captcha.errors %}
+                                <div class="error-message">
+                                    {% trans 'Lūdzu, aizpildiet CAPTCHA lauku, lai turpinātu.' %}
+                                </div>
+                            {% endif %}
                                 <input type="submit" value="{% trans 'Sūtīt' %}">
                             </div>
                         </div>
@@ -110,7 +135,25 @@
         </section>
 
     {% block js %}
-        <script src="https://unpkg.com/scrollreveal"></script>
         <script src="{% static 'js/contact.js' %}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+    
+            form.addEventListener('submit', function(event) {
+                const recaptchaResponse = grecaptcha.getResponse();
+                const errorElement = document.querySelector('.error-message .error');
+    
+                if (recaptchaResponse.length === 0) {
+                    event.preventDefault();
+                    errorElement.textContent = 'Lūdzu, aizpildiet reCAPTCHA pārbaudi!';
+                    errorElement.parentElement.style.display = 'block';
+                } else {
+                    errorElement.textContent = '';
+                    errorElement.parentElement.style.display = 'none';
+                }
+            });
+        });
+        </script>
     {% endblock %}
 {% endblock %}

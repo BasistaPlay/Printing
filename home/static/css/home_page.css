@@ -14,8 +14,8 @@ section{
 }
 
 .hero-img{
-    height: 500px;
-    width: 500px;
+    height: 600px;
+    width: 600px;
 }
 
 .hero-img img{
@@ -165,8 +165,8 @@ section{
 
 @media (max-width: 1470px){
     .hero-img{
-        height: 800px;
-        width: 800px;
+        height: 500px;
+        width: 500px;
     }
 }
 @media (max-width: 1400px){
@@ -188,6 +188,7 @@ section{
     .hero{
         grid-template-columns: 1fr;
         height: auto;
+        margin-top: 20px;
     }
     .hero-text{
         order: 2;
@@ -261,20 +262,32 @@ section{
     }
     .top-products-header{
         font-size: 40px
+    }   
+}
+
+@media(max-width:800px){
+    .top-products{
+    padding-top: 200px
     }
 
-    
 }
 
 @media(max-width:600px){
-    .hero-in{
-        grid-template-columns: repeat(auto-fit, minmax(190px, auto));
+    /* .hero-in{
         gap: 18px;
-    }
+    } */
     .box{
         padding: 10px 30px;
+        width: 130px;
+        height: 150px;
     }
-    .h-btn{
+
+    .hero-text h1{
+        font-size: 36px;
+        width: 350px;
+    }
+    
+    /* .h-btn{
         padding: 6px 14px;
         margin-right: 8px;
     }
@@ -289,27 +302,32 @@ section{
         margin-right: 5px;
     }
 
+    .hero-text{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
     .hero-text h4{
-        max-width: 450px;
+        max-width: 350px;
     }
 
     .hero-text p{
-        max-width: 450px;
+        max-width: 350px;
     }
 
     .hero-text h1{
         font-size: 36px;
-        width: 450px;
+        width: 350px;
     }
 
-    .box{
-        width: 180px;
-        height: 220px;
-    }
     .top-products-header h1{
         font-size: 32px;
     }
 
+    .pricing{
+        margin-bottom: 80px;
+    } */
 }
 .top-products-header {
     font-size: var(--big-font);
@@ -332,7 +350,7 @@ section{
 .product {
     max-width: 300px;
     padding: 20px;
-    background: var(--second-color) ;
+    background: #cecece ;
     border-radius: 8px;
     display: grid;
     justify-items: center;

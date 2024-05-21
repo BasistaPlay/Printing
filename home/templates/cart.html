@@ -14,6 +14,10 @@
 {% endblock %}
 
 {% block body %}
+
+<div id="loadingOverlay" class="loading-overlay">
+  <div class="loader"></div>
+</div>
 <main class="container">
 
     <h1 class="heading">
@@ -88,7 +92,7 @@
 
         </div>
 
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" id='submitBtn'>
           <b>{% trans 'Pirkt' %}</b><span id="payAmount">0.00</span> €
         </button>
 
@@ -101,7 +105,7 @@
           <h2 class="section-heading">{% trans 'Pasūtījuma kopsavilkums' %}</h2>
         
           
-          <div class="product-card">
+          <div class="product-cards">
 
             {% for key,value in request.session.cart.items %}
 
@@ -203,44 +207,36 @@
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="{% static 'js/cart.js' %}"></script>
 <script src="https://kit.fontawesome.com/77c18eb9f0.js" crossorigin="anonymous"></script>
+<script src="https://js.stripe.com/v3/"></script>
 <script>
-// document.addEventListener('DOMContentLoaded', function () {
-//     const validateButton = document.getElementById('validate-button');
-//     const discountTokenInput = document.getElementById('discount-token');
-//     const validationResult = document.getElementById('validation-result');
+  document.addEventListener("DOMContentLoaded", function() {
+    console.log("Sanity check!");
 
-//     validateButton.addEventListener('click', function () {
-//         const discountCode = discountTokenInput.value;
+    fetch("/config/")
+        .then((result) => { return result.json(); })
+        .then((data) => {
+            const stripe = Stripe(data.publicKey);
 
-//         // Veic pieprasījumu uz serveri, lai pārbaudītu atlaides kodu
-//         fetch('/check_discount_code/', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/x-www-form-urlencoded',
-//                 'X-CSRFToken': getCookie('csrftoken') // Iegūt CSRF žetona vērtību
-//             },
-//             body: `discount-token=${encodeURIComponent(discountCode)}`
-//         })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.valid) {
-//                 const currencySymbol = data.type === 'percentage' ? '%' : '€';
-//                 validationResult.innerHTML = `Atlaides kods ir derīgs! Vērtība: ${data.value}${currencySymbol}`;
-//             } else {
-//                 validationResult.innerHTML = 'Ievadītais kods nav derīgs.';
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Kļūda veicot pieprasījumu:', error);
-//         });
-//     });
-
-//     // Palīgfunkcija CSRF žetona iegūšanai
-//     function getCookie(name) {
-//         const value = `; ${document.cookie}`;
-//         const parts = value.split(`; ${name}=`);
-//         if (parts.length === 2) return parts.pop().split(';').shift();
-//     }
-// });
+            const submitBtn = document.querySelector("#submitBtn");
+            submitBtn.addEventListener("click", () => {
+              loadingOverlay.style.display = "flex";
+              
+              fetch("/create-checkout-session/")
+                  .then((result) => { return result.json(); })
+                  .then((data) => {
+                      // Izveidojiet norēķinu, izmantojot Checkout Session ID
+                      stripe.redirectToCheckout({ sessionId: data.sessionId })
+                          .then(function (result) {
+                              // Noņem loading-overlay, kad process ir pabeigts
+                              loadingOverlay.style.display = "none";
+                          });
+                  })
+                  .catch((error) => {
+                      console.error('Error:', error);
+                      loadingOverlay.style.display = "none";
+                  });
+          });
+  });
+  });
 </script>
 {% endblock %}

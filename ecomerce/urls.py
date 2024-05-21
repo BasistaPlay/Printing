@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 from home import views as page
+from stripe_integration import views as stripe
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -41,6 +42,16 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('allauth.socialaccount.urls')),
     path('save_order/', page.save_order, name='save_order'),
+
+    
+    path('<str:slug_url>/create-checkout-session/',
+         stripe.create_checkout_session),
+    path('config/', stripe.stripe_config),
+    path('webhook', stripe.stripe_webhook),
+    path('create-checkout-session/', stripe.create_checkout_session),
+    path('success/', stripe.SuccessView.as_view(), name='success'),
+    path('cancelled/', stripe.CancelledView.as_view(), name='cancel'),
+
     
 ]
 
@@ -70,3 +81,5 @@ handler500 = page.handler500
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    

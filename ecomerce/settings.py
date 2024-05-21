@@ -26,12 +26,14 @@ RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', 'https://ericprint.com']
 
 CSRF_COOKIE_SECURE = False
-CSRF_TRUSTED_ORIGINS = ['https://ericprint.com', 'https://www.ericprint.com', 'ericprint.com', 'www.ericprint.com']
+
+CSRF_TRUSTED_ORIGINS = ['https://ericprint.com', 'https://www.ericprint.com']
+
 
 # Application definition
 
@@ -51,7 +53,8 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'ckeditor_uploader',
     'home.apps.HomeConfig',
-
+    'stripe_integration',
+    #'django_extensions',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -228,8 +231,10 @@ JAZZMIN_SETTINGS = {
         "home.Color": "fas fa-paint-brush",
         "home.Size": "fas fa-ruler",
         "home.Order": "fas fa-shopping-cart",
-        "django_recaptcha.RecaptchaKeys": "fas fa-key",
-    },
+        "home.Purchase": "fas fa-receipt",
+        "stripe_integration.StripeKeys": "fas fa-key",
+        "django_recaptcha.RecaptchaKeys": "fas fa-key"
+    }
 }
 
 CART_SESSION_ID = 'cart'
@@ -242,3 +247,10 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_REDIRECT_URL = '/'
+
+FILE_CHARSET = 'utf-8'
+
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUNT_QUERY_EMAIL = True

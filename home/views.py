@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, ContactMessage, CustomDesign, Contact, Rating, GiftCode, Color, Size, Order ,TextList, ImageList
+from .models import Product, ContactMessage, CustomDesign, Contact, Rating, GiftCode, Color, Size, Order ,TextList, ImageList, Purchase
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 from django.contrib.auth import authenticate, login, logout
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
@@ -19,6 +19,8 @@ from cart.context_processor import cart_total_amount
 from django.db.models import Q
 from django.core.paginator import Paginator
 from home.capcha import FormWithCaptcha
+from django.template.loader import render_to_string
+
 
 def homepage(request):
     products = Product.objects.all()
@@ -117,8 +119,11 @@ def logout_view(request):
 
 def contact_us(request):
     contacts = Contact.objects.first()
+    context = {
+        'form': FormWithCaptcha(),
+        'Contact': contacts
+    }
     if request.method == 'POST':
-
         first_name = request.POST.get('first_name', '')
         last_name = request.POST.get('last_name', '')
         email = request.POST.get('email', '')
@@ -134,18 +139,21 @@ def contact_us(request):
         )
 
         subject = 'Ziņojums saņemts'
-        message = 'Paldies par Jūsu ziņojumu. Mēs esam to saņēmuši un sazināsimies ar Jums drīzumā.'
         from_email = settings.DEFAULT_FROM_EMAIL
         to_email = [email]
+        text_content = 'Paldies, par pirkumu.'
 
-        send_mail(subject, message, from_email, to_email, fail_silently=False)
+        email_content = render_to_string('e-mail/message_received.html', context)
+        email = EmailMultiAlternatives(subject, text_content, from_email, to_email)
+        email.attach_alternative(email_content, "text/html")
+
+        email.send()
 
         messages.success(request, 'Ziņojums ir veiksmīgi nosūtīts!')
 
-        return render(request, 'contact.html', {'Contact': contacts})
-    else:
+        return render(request, 'contact.html', context)
 
-        return render(request, 'contact.html', {'Contact': contacts})
+    return render(request, 'contact.html', context)
 
 def design(request, slug):
     product = Product.objects.get(slug=slug)
@@ -298,7 +306,8 @@ def check_discount_code(request):
     return JsonResponse({'valid': False})
 
 def account(request):
-    return render(request, 'account.html')
+    user_orders = Purchase.objects.filter(user=request.user)
+    return render(request, 'account.html', {'user_orders': user_orders})
 
 def save_user_data(request):
     if request.method == 'POST':

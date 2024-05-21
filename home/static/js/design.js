@@ -453,20 +453,20 @@ $('#buy-button').click(function() {
     var errorHtml = '';
 
     if (!activeColor) {
-        errorHtml += '<p>' + gettext('Please select a color') + '</p>';
+        errorHtml += '<p>' + 'Please select a color' + '</p>';
     }
     
     if (!activeSize && $('.size-option').length > 0) {
-        errorHtml += '<p>' + gettext('Please select a size') + '</p>';
+        errorHtml += '<p>' + 'Please select a size' + '</p>';
     }
     
     if (publishCheckbox) {
         if (!title.trim()) {
-            errorHtml += '<p>' + gettext('Title is required') + '</p>';
+            errorHtml += '<p>' +  'Title is required' + '</p>';
         }
     
         if (!description.trim()) {
-            errorHtml += '<p>' + gettext('Description is required') + '</p>';
+            errorHtml += '<p>' + 'Description is required' + '</p>';
         }
     }
     if (errorHtml) {
@@ -611,7 +611,7 @@ async function query() {
     loader.style.display = 'block';
 
     const response = await fetch(
-        "https://api-inference.huggingface.co/models/cloudqi/cqi_text_to_image_pt_v0",
+        "https://api-inference.huggingface.co/models/ZB-Tech/Text-to-Image",
         {
             headers: { Authorization: `Bearer ${token}` },
             method: "POST",

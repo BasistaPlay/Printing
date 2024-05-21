@@ -15,7 +15,7 @@ section{
 
 .box{
     padding: 0px 20px 10px 20px;
-    background-color: var(--second-color);
+    background-color: #cecece;
     box-shadow: 5px 30px 56.1276px rgb(55 55 55 / 12%);
     border-radius: 10px;
     position: relative;
@@ -95,12 +95,34 @@ section{
   right: 0;
   height: 100%;
   width: 250px;
-  background-color: #f2f2f2;
+  background-color: var(--second-color);
   padding: 20px;
   overflow-y: auto;
   border-right: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 100;
+  transition: width 0.3s ease;
+}
+
+.filter-sidebar.closed {
+  width: 50px;
+}
+
+.form-group.closed{
+  display: none;
+}
+
+.filter-toggle {
+  cursor: pointer;
+}
+
+.filter-toggle i {
+  font-size: 24px;
+}
+
+#product-select{
+  color: var(--text-color);
+    background: var(--input-color);
 }
 
 .filter-sidebar form {
@@ -110,6 +132,12 @@ section{
 
 .filter-sidebar .form-group {
   margin-bottom: 10px;
+}
+
+.form-group input{
+  color: var(--text-color);
+  background: var(--input-color);
+  border: 1px solid var(--text-color)
 }
 
 .filter-sidebar label {
@@ -221,4 +249,14 @@ section{
 
 .box:hover .front-image {
   display: none;
+}
+
+
+@media (max-width: 1200px) {
+  .container{
+    gap: 2rem 1rem;
+    justify-content: center;
+    justify-items: center;
+  }
+
 }

@@ -105,10 +105,10 @@ class ContactMessage(models.Model):
 
 
 class Contact(models.Model):
-    address = models.CharField(_('Adrese'), max_length=255)
-    postal_code = models.CharField(_('Pasta indekss'), max_length=20)
-    phone_number = models.CharField(_('Telefona numurs'), max_length=15)
-    email = models.EmailField(_('E-pasts'))
+    address = models.CharField(_('Adrese'),blank=True, null=True, max_length=255)
+    postal_code = models.CharField(_('Pasta indekss'),blank=True, null=True, max_length=20)
+    phone_number = models.CharField(_('Telefona numurs'),blank=True, null=True, max_length=15)
+    email = models.EmailField(_('E-pasts'), blank=True, null=True,)
     twitter_link = models.URLField(blank=True, null=True, verbose_name=_('Twitter saite'))
     facebook_link = models.URLField(blank=True, null=True, verbose_name=_('Facebook saite'))
     instagram_link = models.URLField(blank=True, null=True, verbose_name=_('Instagram saite'))
@@ -211,3 +211,29 @@ class Rating(models.Model):
 def update_product_average_rating(sender, instance, **kwargs):
     product = instance.order
     product.update_average_rating()
+
+class Purchase(models.Model):
+    ORDER_STATUS_CHOICES = [
+        ('PENDING', _('Gaida apstiprinājumu')),
+        ('PROCESSING', _('Apstrāde')),
+        ('SHIPPED', _('Nosūtīts')),
+        ('DELIVERED', _('Piegādāts')),
+        ('CANCELLED', _('Atcelts')),
+    ]
+    order_number = models.CharField(max_length=100)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='PENDING')
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Order {self.order_number} by {self.user.username}"
+    
+
+class PurchaseProduct(models.Model):
+    purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name='purchase_products')
+    product = models.ForeignKey(Order, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.product.title} - {self.quantity}"
