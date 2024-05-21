@@ -15,6 +15,22 @@
 
 {% block body %}
 
+<section class="order-confirmation">
+  <div class='overlay'>
+  <div class="container-success">
+      <div class="circle">
+          <div class="checkmark-success"><i class="fas fa-check"></i></div>
+          <div class="particles"></div>
+      </div>
+      <h1>{% trans 'Paldies par pasūtījumu!' %}</h1>
+      <p>{% trans 'Paldies par jūsu uzticību! Mēs esam ļoti priecīgi par jūsu pasūtījumu.' %}</p>
+      <div class="buttons">
+          <button class="view-order">{% trans 'Skatīt pasūtijumu' %}</button>
+          <button class="continue-shopping">{% trans 'Turpināt iepirkties' %}</button>
+      </div>
+  </div>
+</section>
+
 <div id="loadingOverlay" class="loading-overlay">
   <div class="loader"></div>
 </div>
@@ -224,10 +240,8 @@
               fetch("/create-checkout-session/")
                   .then((result) => { return result.json(); })
                   .then((data) => {
-                      // Izveidojiet norēķinu, izmantojot Checkout Session ID
                       stripe.redirectToCheckout({ sessionId: data.sessionId })
                           .then(function (result) {
-                              // Noņem loading-overlay, kad process ir pabeigts
                               loadingOverlay.style.display = "none";
                           });
                   })
