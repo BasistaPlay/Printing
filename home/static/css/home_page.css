@@ -3,7 +3,7 @@ section{
     
 }
 
-.hero{
+.hero {
     position: relative;
     width: 100%;
     height: 100vh;
@@ -94,52 +94,15 @@ section{
     transform: translateY(-5px) scale(1.1);
 }
 
-/* .first{
-    position: absolute;
-    bottom: 3.5rem;
-    right: 9%;
-}
-
-.second{
-    position: relative;
-    top: 30rem;
-    left: 17%;
-}
-
-.third{
-    position: relative;
-    bottom: 1.5rem;
-    left: 47%;
-} */
-
-
-/* .down-arrow i{
-    padding: 14px;
-    color: var(--bg-color);
-    background-color: var(--text-color);
-    font-size: 25px;
-    border-radius: 3rem;
-    cursor: pointer;
-    transition: all ease .55s;
-}
-
-.down-arrow i:hover{
-    background: var(--main-color);
-    transform: translateY(5px);
-} */
-
 .down-arrow {
     position: absolute;
 
-    right: 10px; /* Adjust the right position as needed */
+    right: 10px;
     cursor: pointer;
-    z-index: 999; /* Ensure it's above other elements */
+    z-index: 999;
     margin-top: 450px
-    
-    
 }
 
-/* Additional styling for the arrow icon if needed */
 .down-arrow i {
     padding: 14px;
     color: var(--bg-color);
@@ -184,53 +147,38 @@ section{
     }
 }
 
-@media(max-width:1230px){
-    .hero{
+@media (max-width: 1230px) {
+    .hero {
         grid-template-columns: 1fr;
         height: auto;
         margin-top: 20px;
     }
-    .hero-text{
+
+    .hero-text {
         order: 2;
     }
-    section{
-        padding: 50px 5%;
-    }
-    .hero-img{
+
+    .hero-img {
         margin: auto;
         height: auto;
         width: auto;
     }
-    /* .hero-img img{
-        width: 100%;
-        height: auto;
-        max-width: 500px;
-        margin-right: 220px;
-    } */
-    .down-arrow{
+
+    .down-arrow {
         display: none;
     }
-    .product-container{
+
+    .product-container {
         flex-direction: column;
     }
-    .hero-text h4{
-        text-align: center;
-    }
 
-    .hero-text p{
+    .hero-text h4,
+    .hero-text p,
+    .hero-text h1 {
         text-align: center;
-    }
-
-    .hero-text h1{
-        text-align: center;
-    }
-    .card-wrapper{
-        width: 250px;
-    }
-    .top-products-header h1{
-        font-size: 16px;
     }
 }
+
 @media(max-width:1070px){
     header{
         padding: 10px 3%;
@@ -265,17 +213,28 @@ section{
     }   
 }
 
-@media(max-width:800px){
-    .top-products{
-    padding-top: 200px
+@media (max-width: 800px) {
+    .top-products {
+        padding-top: 50px;
     }
 
+    .top-products-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .product-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product {
+        max-width: 90%;
+        margin: 10px;
+    }
 }
 
 @media(max-width:600px){
-    /* .hero-in{
-        gap: 18px;
-    } */
     .box{
         padding: 10px 30px;
         width: 130px;
@@ -284,50 +243,12 @@ section{
 
     .hero-text h1{
         font-size: 36px;
-        width: 350px;
-    }
-    
-    /* .h-btn{
-        padding: 6px 14px;
-        margin-right: 8px;
-    }
-    :root{
-        --big-font: 3rem;
-        --p-font: 14px;
-    }
-    .logo{
-        font-size: 32px;
-    }
-    #menu-icon{
-        margin-right: 5px;
-    }
-
-    .hero-text{
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    .hero-text h4{
-        max-width: 350px;
-    }
-
-    .hero-text p{
-        max-width: 350px;
-    }
-
-    .hero-text h1{
-        font-size: 36px;
-        width: 350px;
     }
 
     .top-products-header h1{
-        font-size: 32px;
+        font-size: 36px;
     }
-
-    .pricing{
-        margin-bottom: 80px;
-    } */
+    
 }
 .top-products-header {
     font-size: var(--big-font);
@@ -413,13 +334,14 @@ section{
     color: gold;
 }
 
-.pricing{
+.pricing {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: auto;
+    padding: 50px 0;
 }
 
 .pricing-title {
@@ -515,8 +437,4 @@ section{
 
 img {
     pointer-events: none;
-}
-
-.order-confirmation {
-    display: none;
 }
