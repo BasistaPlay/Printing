@@ -1155,3 +1155,8 @@ input {
 #sendToImageBtn:hover {
   background-color: #45a049;
 }
+
+.uploaded-img.element-image {
+  bottom: 10%;
+  left: 35%;
+}

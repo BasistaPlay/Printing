@@ -4,29 +4,24 @@ section{
 
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, auto));
-  align-items: center;
-  gap: 3rem 8rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 3rem;
   text-align: center;
   padding-top: 2rem;
-  justify-content: left;
-  justify-items: center;
 }
 
-.box{
-    padding: 0px 20px 10px 20px;
-    background-color: #cecece;
-    box-shadow: 5px 30px 56.1276px rgb(55 55 55 / 12%);
-    border-radius: 10px;
-    position: relative;
-    transition: all .35s ease;
-    width: 250px;
-    cursor: pointer;
+.box {
+  padding: 0px 20px 10px 20px;
+  background-color: #cecece;
+  box-shadow: 5px 30px 56.1276px rgb(55 55 55 / 12%);
+  border-radius: 10px;
+  transition: all .35s ease;
+  cursor: pointer;
 }
 
-.box img{
-    height: 150px;
-    width: auto;
+.box img {
+  height: 150px;
+  width: auto;
 }
 
 .box h4{
@@ -41,42 +36,30 @@ section{
     margin-bottom: 20px;
 }
 
-.box .cart i{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 35px;
-    height: 35px;
-    color: var(--text-color);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+.box .cart i {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35px;
+  height: 35px;
+  color: var(--text-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
 }
 
-.box:hover{
-    transform: translateY(-5px);
+.box:hover {
+  transform: translateY(-5px);
 }
 .star-wrapper a {
-    font-size: 1.1em;
-    color: #b4b3b3;
-    transition: all 0.5s;
-  }
-.s1.active{
-    color: gold;
-  }
-.s2.active {
-    color: gold;
-  }
-.s3.active {
-    color: gold;
-  }
-.s4.active {
-    color: gold;
-  }
-.s5.active {
-    color: gold;
-  }
+  font-size: 1.1em;
+  color: #b4b3b3;
+  transition: all 0.5s;
+}
+.s1.active, .s2.active, .s3.active, .s4.active, .s5.active {
+  color: gold;
+}
 
   .star-wrapper.active,
   .star-wrapper.active-half{
@@ -108,7 +91,7 @@ section{
   width: 50px;
 }
 
-.form-group.closed{
+.form-group.closed {
   display: none;
 }
 
@@ -120,14 +103,13 @@ section{
   font-size: 24px;
 }
 
+.filter-sidebar form {
+  margin-top: 100px;
+}
+
 #product-select{
   color: var(--text-color);
     background: var(--input-color);
-}
-
-.filter-sidebar form {
-  margin-top: 100px;
-
 }
 
 .filter-sidebar .form-group {

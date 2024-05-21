@@ -14,9 +14,9 @@
     <div id="error-messages" class="error-messages"></div>
     <div id="success-message" class="success-message"></div>
     <section class="shop t-short" id="shop">
-        <div class="container">
+        <div class="container" id="product-container">
             {% for product_list in page_obj %}
-                <div class="box">
+                <div class="box" data-order="{{ product_list.average_rating }}">
                     <a href="{% url 'detail' user=user product_title=product_list.product.title order_id=product_list.id %}">
                         <img src="{{ product_list.front_image }}" alt="" class='front-image'>
                         <img src="{{ product_list.back_image }}" alt="Back Image" class='back-image'>
@@ -36,31 +36,29 @@
         </div>
         <div class="pagination">
             <ul>
-              {% if page_obj.has_previous %}
-                <li><a href="?page=1">&laquo;&laquo;</a></li>
-                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-              {% else %}
-                <li class="disabled"><span>&laquo;&laquo;</span></li>
-                <li class="disabled"><span>&laquo;</span></li>
-              {% endif %}
-              
-              {% for num in page_obj.paginator.page_range %}
-                {% if num == page_obj.number %}
-                  <li class="active"><span>{{ num }}</span></li>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                  <li><a href="?page={{ num }}">{{ num }}</a></li>
+                {% if page_obj.has_previous %}
+                    <li><a href="?page=1">&laquo;&laquo;</a></li>
+                    <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;&laquo;</span></li>
+                    <li class="disabled"><span>&laquo;</span></li>
                 {% endif %}
-              {% endfor %}
-              
-              {% if page_obj.has_next %}
-                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-                <li><a href="?page={{ page_obj.paginator.num_pages }}">&raquo;&raquo;</a></li>
-              {% else %}
-                <li class="disabled"><span>&raquo;</span></li>
-                <li class="disabled"><span>&raquo;&raquo;</span></li>
-              {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num == page_obj.number %}
+                        <li class="active"><span>{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li><a href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                    <li><a href="?page={{ page_obj.paginator.num_pages }}">&raquo;&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                    <li class="disabled"><span>&raquo;&raquo;</span></li>
+                {% endif %}
             </ul>
-          </div>
+        </div>
         <aside class="filter-sidebar closed">
             <form id="filter-form">
                 <div id="filter-toggle" class="filter-toggle">
@@ -87,6 +85,7 @@
                             {% endfor %}
                         </select>
                     </div>
+                    
                 </div>
             </form>
         </aside>

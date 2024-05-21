@@ -18,6 +18,8 @@ from home.models import CustomDesign, Purchase, Order, PurchaseProduct
 import stripe
 from django.views.generic import TemplateView
 
+logger = logging.getLogger(__name__)
+
 stripe_keys = StripeKeys.objects.first()
 if stripe_keys:
     stripe_public_key = stripe_keys.public_key
@@ -86,7 +88,6 @@ def create_checkout_session(request):
     except Exception as e:
         return JsonResponse({'error': str(e)})
 
-logger = logging.getLogger(__name__)
 
 @csrf_exempt
 def stripe_webhook(request):
@@ -127,7 +128,6 @@ def stripe_webhook(request):
 
                 buffer = BytesIO()
                 p = canvas.Canvas(buffer, pagesize=letter)
-                #pdfmetrics.registerFont(TTFont('ArialUnicode', 'arial.ttf'))
                 p.setFont("Helvetica", 12)
 
                 company_name = "Erika druka"
@@ -191,6 +191,11 @@ def stripe_webhook(request):
                         quantity=item['quantity']
                     )
                 logger.info("Purchase and PurchaseProduct records created successfully")
+
+                request.session['cart'] = {}
+                request.session.modified = True
+                logger.info("Cart has been emptied after successful purchase")
+
             except Exception as e:
                 logger.error(f"Error processing checkout.session.completed: {e}")
                 return HttpResponse(status=500)
@@ -201,6 +206,11 @@ def stripe_webhook(request):
 
 class SuccessView(TemplateView):
     template_name = 'cart.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        request.session['cart'] = {}
+        request.session.modified = True
+        return super().dispatch(request, *args, **kwargs)
 
 
 class CancelledView(TemplateView):

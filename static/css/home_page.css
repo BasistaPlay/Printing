@@ -516,3 +516,7 @@ section{
 img {
     pointer-events: none;
 }
+
+.order-confirmation {
+    display: none;
+}
