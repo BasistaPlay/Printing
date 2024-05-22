@@ -73,6 +73,7 @@ urlpatterns += i18n_patterns(
     path('design/<slug:slug>/', page.design, name='design_detail'),
     path('creative-corner/', page.creativecorner, name='creativecorner'),
     path('creative-corner/<str:user>/<str:product_title>/<int:order_id>/', page.detail, name='detail'),
+    path('success/', stripe.SuccessView.as_view(), name='success'),
 )
 
 handler404 = page.handler404
