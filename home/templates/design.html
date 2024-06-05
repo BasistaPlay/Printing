@@ -17,19 +17,21 @@
   <div id="error-messages" class="error-messages"></div>
   <div id="success-message" class="success-message"></div>
   <div class="product">
-    <div class="image-container" id="front" style="display: block; position: relative;">
+    <div class="image-container" id="front" style="display: block;">
+        <div class="boundary" id="boundary-front"></div>
         <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
-        <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="img-1" />
+        <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="front-img" />
         <img src="{{ product.front_image_with_background.url }}" class="img-2 front-image" />
-        <div id="text-container" data-side="front" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+        <div id="text-container" data-side="front" style="position: absolute;"></div>
     </div>
-    <div class="image-container" id="back" style="display: none; position: relative;">
-        <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="img-1" />
+    <div class="image-container" id="back" style="display: none;">
+        <div class="boundary" id="boundary-back"></div>
+        <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="back-img" />
         <img src="{{ product.back_image_with_background.url }}" class="img-2 front-image" />
-        <div id="text-container" data-side="back" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+        <div id="text-container" data-side="back" style="position: absolute;"></div>
     </div>
     <div class="color" style="background-color: {{product.available_colors.first.code}}"></div>
-  </div>
+</div>
 
   <div id="general" class="content">
     <h1>{% trans 'Izveido savu' %} {{ product.title }}</h1>
@@ -111,7 +113,8 @@
             <p class="upload-area-text">{% trans 'Nometiet attēlus vai' %}<span> {% trans ' Pārlūkot' %}</span></p>
         </div>
         <input type="file" class="visually-hidden" name="" id="upload-input" accept="image/*" multiple>
-        <div class="upload-img" style="padding: 20px;"></div>
+        <div class="upload-img" style="padding: 20px;">
+        </div>
     </div>
 </div>
 
@@ -187,7 +190,6 @@
         <div class="tooltip">{% trans 'Pagriezt' %}</div>
     </div>
 </div>
-
 {% endblock %}
 
 {% block js %}
@@ -198,4 +200,43 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script>
+    function createBoundary(containerId, boundaryId, widthFactor, heightFactor) {
+        const container = document.getElementById(containerId);
+        const boundary = document.getElementById(boundaryId);
+        const image = container.querySelector('.img-1');
+    
+        const originalDisplay = container.style.display;
+    
+        if (originalDisplay === 'none') {
+            container.style.display = 'block';
+        }
+    
+        image.onload = function() {
+            const imageWidth = image.clientWidth;
+            const imageHeight = image.clientHeight;
+            const boundaryWidth = imageWidth * widthFactor;
+            const boundaryHeight = imageHeight * heightFactor;
+    
+            const boundaryTop = (imageHeight - boundaryHeight) / 2;
+            const boundaryLeft = (imageWidth - boundaryWidth) / 2;
+    
+            boundary.style.top = boundaryTop + 'px';
+            boundary.style.left = boundaryLeft + 'px';
+            boundary.style.width = boundaryWidth + 'px';
+            boundary.style.height = boundaryHeight + 'px';
+            boundary.style.position = 'absolute';
+    
+            container.style.display = originalDisplay;
+        };
+    
+        if (image.complete) {
+            image.onload();
+        }
+    }
+    
+    createBoundary('front', 'boundary-front', 0.4, 0.6);
+    
+    createBoundary('back', 'boundary-back', 0.4, 0.6);
+  </script>
 {% endblock %}
