@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     $('.upload-img').append(htmlList);
 
                     let htmlKrekls = `
-                    <div class='uploaded-img element-image ${currentSide} centered' data-image-id='${imageId}' style='z-index:2; background: transparent;'>
+                    <div class='uploaded-img element-image ${currentSide}' data-image-id='${imageId}' style='z-index:2; top:100px; background: transparent;'>
                         <img src='${event.target.result}' class='editable-image resizable-image' draggable='true' style='background: transparent;'>
                     </div>
                 `;
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentSide = getCurrentSide();
             const textContainer = document.getElementById('text-container');
             const textElement = document.createElement('div');
-            textElement.innerHTML = `<span class="editable-text centered" style="font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value}; z-index: 6;">${text}</span>`;
+            textElement.innerHTML = `<span class="editable-text centered" style="left:244px; top:-241px; font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value}; z-index: 6;">${text}</span>`;
             textElement.classList.add('centered');
             const listItem = document.createElement('li');
             listItem.className = 'text-list-item';
@@ -621,7 +621,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
 
-    const token = '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';
+    const token = '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';
     const InputTxt = document.getElementById('textInput-Ai');
     const image = document.getElementById('image');
     const button = document.getElementById('generateButton');
@@ -684,7 +684,7 @@ document.addEventListener('DOMContentLoaded', function() {
             newImg.src = base64data;
 
             const htmlImage = `
-                <div class='uploaded-img element-image ${sideId} centered ui-wrapper' data-image-id='${imageId}'>
+                <div class='uploaded-img element-image ${sideId} centered ui-wrapper' style='z-index:2; top:100px; background: transparent;' data-image-id='${imageId}'>
                     <img src='${base64data}' class='editable-image resizable-image' draggable='true'>
                 </div>
             `;

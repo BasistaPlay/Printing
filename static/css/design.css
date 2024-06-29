@@ -1160,3 +1160,9 @@ input {
   bottom: 10%;
   left: 35%;
 }
+
+.boundary {
+  position: absolute;
+  border: 2px dashed #000;
+  pointer-events: none;
+}

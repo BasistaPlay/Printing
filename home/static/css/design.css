@@ -1166,9 +1166,3 @@ input {
   border: 2px dashed #000;
   pointer-events: none;
 }
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}

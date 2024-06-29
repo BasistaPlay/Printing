@@ -135,10 +135,10 @@ def stripe_webhook(request):
                 logo = ImageReader(logo_path)
                 p.drawImage(logo, 50, 670, width=100, height=100)
 
-                company_code = "Firmas kods: XXXXXXXX"
-                address = "Ielas nosaukums, Pilseta, Valsts, Pasta indekss"
-                phone = "Telefona numurs: +1234567890"
-                email = "E-pasta adrese: info@example.com"
+                company_code = "Firmas kods: 40003685547"
+                address = "Latgales iela 269a, Riga, Latvija, LV-1063"
+                phone = "Telefona numurs: +26943774  "
+                email = "E-pasta adrese: info@ericprint.com"
 
                 p.setFillColorRGB(0, 0, 0)
                 p.setFont("Helvetica", 12)
