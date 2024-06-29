@@ -1,10 +1,10 @@
 {% load static %}
-{% load static i18n %}
+{% load i18n %}
 {% load cart_tag %}
 {% load custom_tags %}
 
 <!DOCTYPE html>
-<html lang="lv">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,13 +24,16 @@
 
 <body>
     <header>
-        <a href='{% url 'homepage' %}' class="logo"><img src='{% display_icon %}'><span>EricPrint</span></a>
+        <a href='{% url 'homepage' %}' class="logo">
+            <img src='{% display_icon %}' alt="EricPrint Logo">
+            <span>EricPrint</span>
+        </a>
         <ul class="navlist">
             <li><a href='{% url 'homepage' %}' class="Home">{% trans 'Sākumlapa' %}</a></li>
             <li><a href='{% url 'creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
             <li><a href="{% url 'contact_us' %}" class="contact_us">{% trans 'Sazinies ar mums' %}</a></li>
             {% if user.is_authenticated %}
-                <li class='acc-nav'><a href="{% url 'account' %}"  class="contact_us">{% trans 'Profils' %}</a></li>
+                <li class='acc-nav'><a href="{% url 'account' %}" class="contact_us">{% trans 'Profils' %}</a></li>
             {% else %}
                 <li class='acc-nav'><a href='{% url 'login' %}' class="contact_us">{% trans 'Pierakstīties' %}</a></li>
             {% endif %}
@@ -50,59 +53,33 @@
             <div class="bx bx-menu" id="menu-icon"></div>
             <a class="bx bx-cart" href="{% url 'cart' %}" id="cart">
                 {% if request.session.cart|length >= 1 %}
-                    <span id="cart-count">{{request.session.cart|length}}</span>
-                {% else %}
+                    <span id="cart-count">{{ request.session.cart|length }}</span>
                 {% endif %}
-              </a>
+            </a>
             <div class="bx bx-moon" id="darkmode"></div>
-        </div>
-    </header>
-        
-    {% block body %}{% endblock %}
-
-    <!-- <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="footer-col">
-                    <h4>company</h4>
-                    <ul>
-                        <li><a href="#">about us</a></li>
-                        <li><a href="#">our services</a></li>
-                        <li><a href="#">privacy policy</a></li>
-                        <li><a href="#">affiliate program</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>get help</h4>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">shipping</a></li>
-                        <li><a href="#">returns</a></li>
-                        <li><a href="#">order status</a></li>
-                        <li><a href="#">payment options</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>online shop</h4>
-                    <ul>
-                        <li><a href="#">watch</a></li>
-                        <li><a href="#">bag</a></li>
-                        <li><a href="#">shoes</a></li>
-                        <li><a href="#">dress</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>follow us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <div class="language-switcher">
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <img src="{% if LANGUAGE_CODE == 'lv' %}{% static 'img/lv-flag.png' %}{% else %}{% static 'img/en-flag.png' %}{% endif %}" alt="{% if LANGUAGE_CODE == 'lv' %}Latvian{% else %}English{% endif %}">
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <form id="language-form" action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="language" value="lv">
+                                <img src="{% static 'img/lv-flag.png' %}" alt="Latvian"> Latviešu
+                            </button>
+                            <button type="submit" name="language" value="en">
+                                <img src="{% static 'img/en-flag.png' %}" alt="English"> English
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-   </footer> -->
+    </header>
+
+    {% block body %}{% endblock %}
 </body>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

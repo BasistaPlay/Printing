@@ -7,25 +7,26 @@
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/design.css' %}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{% static 'css/design.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock %}
 
 {% block body %}
 {% csrf_token %}
-  <div id="error-messages" class="error-messages"></div>
-  <div id="success-message" class="success-message"></div>
-  <div class="product">
+    <div id="error-messages" class="error-messages"></div>
+    <div id="success-message" class="success-message"></div>
+    <div class="product">
     <div class="image-container" id="front" style="display: block;">
-        <div class="boundary" id="boundary-front"></div>
+        <div class="boundary" id="boundary-front" style="top: {{ adjusted_front_image_coords.top }}px; margin-left: {{ adjusted_front_image_coords.left }}px; width: {{ adjusted_front_image_coords.width }}px; height: {{ adjusted_front_image_coords.height }}px;"></div>
+
         <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
         <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="front-img" />
         <img src="{{ product.front_image_with_background.url }}" class="img-2 front-image" />
         <div id="text-container" data-side="front" style="position: absolute;"></div>
     </div>
     <div class="image-container" id="back" style="display: none;">
-        <div class="boundary" id="boundary-back"></div>
+        <div class="boundary" id="boundary-back" style="left: {{ adjusted_back_image_coords.left }}px; top: {{ adjusted_back_image_coords.top }}px; width: {{ adjusted_back_image_coords.width }}px; height: {{ adjusted_back_image_coords.height }}px;"></div>
         <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="back-img" />
         <img src="{{ product.back_image_with_background.url }}" class="img-2 front-image" />
         <div id="text-container" data-side="back" style="position: absolute;"></div>
@@ -33,7 +34,7 @@
     <div class="color" style="background-color: {{product.available_colors.first.code}}"></div>
 </div>
 
-  <div id="general" class="content">
+    <div id="general" class="content">
     <h1>{% trans 'Izveido savu' %} {{ product.title }}</h1>
     <div class="color-content">
         <b>{% trans 'Pielāgot krāsu' %}</b>
@@ -193,50 +194,11 @@
 {% endblock %}
 
 {% block js %}
-  <script src="{% static 'js/design.js' %}"></script>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  <script>
-    function createBoundary(containerId, boundaryId, widthFactor, heightFactor) {
-        const container = document.getElementById(containerId);
-        const boundary = document.getElementById(boundaryId);
-        const image = container.querySelector('.img-1');
-    
-        const originalDisplay = container.style.display;
-    
-        if (originalDisplay === 'none') {
-            container.style.display = 'block';
-        }
-    
-        image.onload = function() {
-            const imageWidth = image.clientWidth;
-            const imageHeight = image.clientHeight;
-            const boundaryWidth = imageWidth * widthFactor;
-            const boundaryHeight = imageHeight * heightFactor;
-    
-            const boundaryTop = (imageHeight - boundaryHeight) / 2;
-            const boundaryLeft = (imageWidth - boundaryWidth) / 2;
-    
-            boundary.style.top = boundaryTop + 'px';
-            boundary.style.left = boundaryLeft + 'px';
-            boundary.style.width = boundaryWidth + 'px';
-            boundary.style.height = boundaryHeight + 'px';
-            boundary.style.position = 'absolute';
-    
-            container.style.display = originalDisplay;
-        };
-    
-        if (image.complete) {
-            image.onload();
-        }
-    }
-    
-    createBoundary('front', 'boundary-front', 0.4, 0.6);
-    
-    createBoundary('back', 'boundary-back', 0.4, 0.6);
-  </script>
+    <script src="{% static 'js/design.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 {% endblock %}

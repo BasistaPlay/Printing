@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'ckeditor',
     "phonenumber_field",
     'ckeditor_uploader',
-    'home.apps.HomeConfig',
+    'home',
     'stripe_integration',
     'chartjs',
     'django_extensions',
@@ -87,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -158,6 +159,10 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 STATIC_ROOT = '/home/urban/Printing/static/'
 
@@ -230,6 +235,7 @@ JAZZMIN_SETTINGS = {
         "home.Color": "fas fa-paint-brush",
         "home.Size": "fas fa-ruler",
         "home.Order": "fas fa-shopping-cart",
+        "home.category": "fas fa-tags",
         "home.Purchase": "fas fa-receipt",
         "stripe_integration.StripeKeys": "fas fa-key",
         "django_recaptcha.RecaptchaKeys": "fas fa-key"

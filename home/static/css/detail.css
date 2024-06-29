@@ -484,3 +484,20 @@ a {
   transform: translateY(-50%);
   transition: right 1s ease;
 }
+
+
+.boundary{
+  position: absolute;
+}
+
+.editable-text {
+  max-width: 100%;
+  word-wrap: break-word; /* Atļauj teksta pāreju uz nākamo rindu, ja tas sasniedz rāmja malu */
+}
+
+.text-a {
+  white-space: normal;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}

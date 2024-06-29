@@ -7,3 +7,5 @@ home/__pycache__/
 static/img/
 ecomerce/static/
 home/migrations/
+ecomerce/staticfiles/
+static/

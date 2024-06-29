@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     $('.upload-img').append(htmlList);
 
                     let htmlKrekls = `
-                    <div class='uploaded-img element-image ${currentSide} centered' data-image-id='${imageId}' style='z-index:2; background: transparent;'>
+                    <div class='uploaded-img element-image ${currentSide}' data-image-id='${imageId}' style='z-index:2; top:100px; background: transparent;'>
                         <img src='${event.target.result}' class='editable-image resizable-image' draggable='true' style='background: transparent;'>
                     </div>
                 `;
@@ -177,11 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         selectedContainer = $('#back');
                     }
                     selectedContainer.prepend(htmlKrekls);
-
-                    // // Center the image for 1 second and then remove the centered class
-                    // setTimeout(function() {
-                    //     $(`.uploaded-img[data-image-id='${imageId}']`).removeClass('centered');
-                    // }, 1000);
 
                     $('.remove-btn').click(function() {
                         let imageIdToRemove = $(this).parent().data('image-id');
@@ -311,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentSide = getCurrentSide();
             const textContainer = document.getElementById('text-container');
             const textElement = document.createElement('div');
-            textElement.innerHTML = `<span class="editable-text centered" style="font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value}; z-index: 6;">${text}</span>`;
+            textElement.innerHTML = `<span class="editable-text centered" style="left:244px; top:-241px; font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value}; z-index: 6; word-wrap: break-word;">${text}</span>`;
             textElement.classList.add('centered');
             const listItem = document.createElement('li');
             listItem.className = 'text-list-item';
@@ -329,11 +324,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
             $('.editable-text').draggable({
                 containment: `#boundary-${currentSide}`,
+                start: function(event, ui) {
+                    $(this).data('startLeft', ui.position.left);
+                    $(this).data('startTop', ui.position.top);
+                },
+                drag: function(event, ui) {
+                    ui.position.left = Math.round(ui.position.left);
+                    ui.position.top = Math.round(ui.position.top);
+                    $(this).css({
+                        transform: `translate(${ui.position.left}px, ${ui.position.top}px)`,
+                    });
+                },
                 stop: function(event, ui) {
-                    ui.helper.css('transform', 'translate(-50%, -50%)');
+                    let startLeft = $(this).data('startLeft');
+                    let startTop = $(this).data('startTop');
+                    $(this).css({
+                        left: startLeft,
+                        top: startTop,
+                        transform: 'none',
+                    });
                 }
             });
-
             if (currentSide === 'front') {
                 $('#front #text-container').append(textElement);
             } else {
@@ -438,7 +449,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var parentWidth = productDiv.offsetWidth;
         var parentHeight = productDiv.offsetHeight;
 
-        // Hide boundaries before capturing the image
         var boundaries = document.querySelectorAll('.boundary');
         boundaries.forEach(boundary => boundary.style.display = 'none');
 
@@ -457,7 +467,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var base64URL = canvas.toDataURL('image/png');
             callback(side, base64URL);
 
-            // Restore boundaries after capturing the image
             boundaries.forEach(boundary => boundary.style.display = 'block');
         });
     }
@@ -621,7 +630,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
 
-    const token = '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';
+    const token = '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';
     const InputTxt = document.getElementById('textInput-Ai');
     const image = document.getElementById('image');
     const button = document.getElementById('generateButton');
@@ -684,17 +693,12 @@ document.addEventListener('DOMContentLoaded', function() {
             newImg.src = base64data;
 
             const htmlImage = `
-                <div class='uploaded-img element-image ${sideId} centered ui-wrapper' data-image-id='${imageId}'>
+                <div class='uploaded-img element-image ${sideId} ui-wrapper' style='z-index:2; top:100px; background: transparent;' data-image-id='${imageId}'>
                     <img src='${base64data}' class='editable-image resizable-image' draggable='true'>
                 </div>
             `;
 
             selectedContainer.insertAdjacentHTML('afterbegin', htmlImage);
-
-            // // Center the image for 1 second and then remove the centered class
-            // setTimeout(function() {
-            //     $(`.uploaded-img[data-image-id='${imageId}']`).removeClass('centered');
-            // }, 1000);
 
             let $resizableImage = $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`);
             $resizableImage.resizable({

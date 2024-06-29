@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.db.models import Count, Avg
 from itertools import cycle
+from django.utils.text import slugify
 
 class user(AbstractUser):
     phone_number = PhoneNumberField(blank=True, null=True)
@@ -22,12 +23,28 @@ class user(AbstractUser):
         verbose_name_plural = _("Lietotāji")
 
 
+class Category(models.Model):
+    title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet kategorijas nosaukumu."))
+    slug = models.SlugField(_('Slug'), unique=True, help_text=_("Ievadiet URL draudzīgu nosaukumu."), blank=True)
+    image = models.ImageField(_('Bilde'), upload_to='category_images/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Category, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = _("Kategorija")
+        verbose_name_plural = _("Kategorijas")
+
 class Product(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet produkta nosaukumu."))
     image = models.ImageField(_('Bilde'), upload_to='products/', blank=False)
     slug = models.SlugField(_('Slug'), unique=True, help_text=_("Ievadiet URL draudzīgu nosaukumu."), blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    options = models.TextField(blank=True, help_text="Ievadiet opcijas kā sarakstu ar komatiem")
+    options = models.TextField(blank=True, help_text=_("Ievadiet opcijas kā sarakstu ar komatiem"))
 
     front_image_with_background = models.ImageField(_('Priekšējā bilde ar fonu'), upload_to='products/', blank=True)
     front_image_not_background = models.ImageField(_('Priekšējā bilde bez fona'), upload_to='products/', blank=True)
@@ -36,6 +53,13 @@ class Product(models.Model):
 
     available_colors = models.ManyToManyField('Color', related_name='products', blank=True)
     available_sizes = models.ManyToManyField('Size', related_name='products', blank=True)
+
+    front_image_coords = models.JSONField(blank=True, null=True)
+    back_image_coords = models.JSONField(blank=True, null=True)
+
+    views = models.PositiveIntegerField(default=0)
+
+    categories = models.ManyToManyField(Category, related_name='products')
 
     def __str__(self):
         return self.title
