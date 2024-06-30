@@ -693,7 +693,7 @@ document.addEventListener('DOMContentLoaded', function() {
             newImg.src = base64data;
 
             const htmlImage = `
-                <div class='uploaded-img element-image ${sideId} ui-wrapper' style='z-index:2; top:100px; background: transparent;' data-image-id='${imageId}'>
+                <div class='uploaded-img element-image ${sideId} centered ui-wrapper' style='z-index:2; top:100px; background: transparent;' data-image-id='${imageId}'>
                     <img src='${base64data}' class='editable-image resizable-image' draggable='true'>
                 </div>
             `;

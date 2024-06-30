@@ -9,3 +9,4 @@ ecomerce/static/
 home/migrations/
 ecomerce/staticfiles/
 static/
+db.sqlite3
