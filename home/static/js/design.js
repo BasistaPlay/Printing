@@ -297,66 +297,99 @@ document.addEventListener('DOMContentLoaded', function() {
         const textList = document.getElementById('text-list');
         const fontSize = document.getElementById('font-size').value + 'px';
         const editButton = document.getElementById('addTextButton');
-
+    
         editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
-
+    
         const text = textInput.value.trim();
-
+    
         if (text !== '') {
             const currentSide = getCurrentSide();
             const textContainer = document.getElementById('text-container');
+    
+            if (!textContainer) {
+                console.error(`Text container not found for side: ${currentSide}`);
+                return;
+            }
+    
             const textElement = document.createElement('div');
-            textElement.innerHTML = `<span class="editable-text centered" style="left:244px; top:-241px; font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value}; z-index: 6; word-wrap: break-word;">${text}</span>`;
-            textElement.classList.add('centered');
+            textElement.className = 'draggable-text ui-draggable ui-draggable-handle ui-resizable';
+            textElement.style.position = 'relative'; // Ensure position is set
+            textElement.style.left = '0'; // Set left to 0
+            textElement.style.top = '0';
+            textElement.innerHTML = `<span class="editable-text">${text}</span>`;
+            textContainer.appendChild(textElement);
+    
+            // Allow browser to render and measure the element
+            requestAnimationFrame(() => {
+                // Calculate center position
+                const containerWidth = textContainer.offsetWidth;
+                const containerHeight = textContainer.offsetHeight;
+    
+                const textSpan = textElement.querySelector('.editable-text');
+                textSpan.style.fontSize = fontSize;
+    
+                // Update width based on text content
+                const textWidth = textSpan.offsetWidth;
+                textElement.style.width = `${textWidth}px`;
+    
+                const elementWidth = textElement.offsetWidth;
+                const elementHeight = textElement.offsetHeight;
+    
+                const centerX = (containerWidth - elementWidth) / 2;
+                const centerY = (containerHeight - elementHeight) / 2;
+    
+                // Update position to center
+                textElement.style.left = `${centerX}px`;
+                textElement.style.top = `${centerY}px`;
+    
+                // Initialize resizable and draggable
+                addResizableAndDraggable(textElement, currentSide, fontSize);
+            });
+    
             const listItem = document.createElement('li');
             listItem.className = 'text-list-item';
-            textContainer.appendChild(textElement);
             listItem.innerHTML = `
-                <span style="font-size: ${fontSize}; color: ${document.getElementById('font-color').value}; font-family: ${document.getElementById('font-select').value};">${text}</span>
+                <span style="font-size: ${fontSize};">${text}</span>
                 <button class="edit-button" onclick="editTextInList(this)"><i class="fas fa-edit"></i></button>
                 <button class="delete-button" onclick="deleteText(this)"><i class="fas fa-trash-alt"></i></button>
             `;
-
+    
             textList.appendChild(listItem);
-
-            textElement.setAttribute('draggable', 'true');
-            textElement.setAttribute('class', 'text-a');
-
-            $('.editable-text').draggable({
-                containment: `#boundary-${currentSide}`,
-                start: function(event, ui) {
-                    $(this).data('startLeft', ui.position.left);
-                    $(this).data('startTop', ui.position.top);
-                },
-                drag: function(event, ui) {
-                    ui.position.left = Math.round(ui.position.left);
-                    ui.position.top = Math.round(ui.position.top);
-                    $(this).css({
-                        transform: `translate(${ui.position.left}px, ${ui.position.top}px)`,
-                    });
-                },
-                stop: function(event, ui) {
-                    let startLeft = $(this).data('startLeft');
-                    let startTop = $(this).data('startTop');
-                    $(this).css({
-                        left: startLeft,
-                        top: startTop,
-                        transform: 'none',
-                    });
-                }
-            });
-            if (currentSide === 'front') {
-                $('#front #text-container').append(textElement);
-            } else {
-                $('#back #text-container').append(textElement);
-            }
-
+    
             textInput.value = '';
         } else {
             alert('Please enter text before adding to the list.');
         }
     }
-
+    function addResizableAndDraggable(element, currentSide, fontSize) {
+        const $element = $(element);
+        let currentWidth, currentHeight;
+    
+        $element.draggable({
+            containment: `#boundary-${currentSide}`,
+            start: function(event, ui) {
+                $(this).data('startLeft', ui.position.left);
+                $(this).data('startTop', ui.position.top);
+            },
+            drag: function(event, ui) {
+                ui.position.left = Math.round(ui.position.left);
+                ui.position.top = Math.round(ui.position.top);
+                $(this).css({
+                    left: ui.position.left,
+                    top: ui.position.top,
+                });
+            },
+            stop: function(event, ui) {
+                $(this).css({
+                    left: ui.position.left,
+                    top: ui.position.top,
+                });
+            }
+        })
+        $element.children('.editable-text').css({
+            fontSize: fontSize,
+        });
+    }
     window.editTextInList = function(button) {
         const listItem = button.parentNode;
         const textSpan = listItem.querySelector('span');
@@ -443,33 +476,97 @@ document.addEventListener('DOMContentLoaded', function() {
             additionalInfo.style.display = 'none';
         }
     });
-
     function saveImage(side, callback) {
         var productDiv = document.querySelector('.product');
         var parentWidth = productDiv.offsetWidth;
         var parentHeight = productDiv.offsetHeight;
-
+    
         var boundaries = document.querySelectorAll('.boundary');
         boundaries.forEach(boundary => boundary.style.display = 'none');
-
+    
         productDiv.style.width = parentWidth + 'px';
         productDiv.style.height = parentHeight + 'px';
-
+    
+        // Izveidojam canvas elementu un iegūstam kontekstu
         var canvas = document.createElement('canvas');
         var context = canvas.getContext('2d');
-
+    
         canvas.width = parentWidth;
         canvas.height = parentHeight;
-
-        html2canvas(productDiv).then(function (renderedCanvas) {
+    
+        // Izmantojam html2canvas, lai zīmētu produktu div uz canvas
+        html2canvas(productDiv).then(function(renderedCanvas) {
+            // Dabūjam izveidoto html2canvas renderēto canvas elementu
             context.drawImage(renderedCanvas, 0, 0, parentWidth, parentHeight);
-
+    
+            // Iegūstam pixel datus no canvas
+            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            var data = imageData.data;
+    
+            // Izveidojam objektu, lai skaitītu, cik bieži sastopami ir dažādi pikseļu krāsu kombinācijas
+            var pixelCount = {};
+    
+            // Aizpildām objektu ar pikseļu krāsu kombināciju skaitītājiem
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+                var key = r + ',' + g + ',' + b;
+    
+                if (!pixelCount[key]) {
+                    pixelCount[key] = 0;
+                }
+    
+                pixelCount[key]++;
+            }
+    
+            // Atrast pikseļu krāsu kombināciju ar maksimālo skaitu (domājam, ka tie ir fona pikseļi)
+            var maxCount = 0;
+            var backgroundColorKey;
+    
+            for (var key in pixelCount) {
+                if (pixelCount[key] > maxCount) {
+                    maxCount = pixelCount[key];
+                    backgroundColorKey = key;
+                }
+            }
+    
+            // Atrodam RGB vērtības no krāsu kombinācijas
+            var rgbValues = backgroundColorKey.split(',').map(function(value) {
+                return parseInt(value);
+            });
+    
+            // Dzēšam fona pikseļus (vērtības, kas atbilst maksimālajam skaitam)
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+    
+                if (r === rgbValues[0] && g === rgbValues[1] && b === rgbValues[2]) {
+                    // Iestatam alfa kanālu uz 0, lai padarītu pikseli caurspīdīgu (fons)
+                    data[i + 3] = 0;
+                }
+            }
+    
+            // Nogriežam 15px no apakšas
+            var trimHeight = 15;
+            context.clearRect(0, canvas.height - trimHeight, canvas.width, trimHeight);
+    
+            // Iestatam jaunos pikseļu datus atpakaļ uz canvas
+            context.putImageData(imageData, 0, 0);
+    
+            // Iegūstam base64 URL no canvas, saglabājot tikai objektu bez fona
             var base64URL = canvas.toDataURL('image/png');
+    
+            // Izsaucam callback funkciju ar saglabāto base64 URL
             callback(side, base64URL);
-
+    
+            // Atjaunojam robežu elementu izvietojumu un rādīšanu
             boundaries.forEach(boundary => boundary.style.display = 'block');
         });
     }
+    
+    
 
     $('#buy-button').click(function() {
         var publishCheckbox = $('#publish-checkbox').is(":checked");
@@ -689,11 +786,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const sideId = selectedContainer.id;
 
             const newImg = document.createElement('img');
-            newImg.className = 'uploaded-img element-image resizable-image centered';
+            newImg.className = 'uploaded-img element-image resizable-image';
             newImg.src = base64data;
 
             const htmlImage = `
-                <div class='uploaded-img element-image ${sideId} centered ui-wrapper' style='z-index:2; top:100px; background: transparent;' data-image-id='${imageId}'>
+                <div class='uploaded-img element-image ${sideId} ui-wrapper' style='z-index:2; top:100px; background: transparent;' data-image-id='${imageId}'>
                     <img src='${base64data}' class='editable-image resizable-image' draggable='true'>
                 </div>
             `;

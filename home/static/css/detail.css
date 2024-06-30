@@ -120,9 +120,10 @@ a {
 .sneaker__figure {
   width: 240px;
   height: 240px;
-  background-color: #cecece;
+  background:  var(--second-color);
   border-radius: 50%;
   transition: .5s;
+  
 }
 
 .sneaker__img {
@@ -134,7 +135,7 @@ a {
   margin-left: auto;
   margin-right: auto;
   opacity: 0;
-  clip: rect(0px, 500px, 295px, 0px);
+  clip-path: inset(5px 5px 5px 5px);
 }
 
 .sneaker__img.shows {

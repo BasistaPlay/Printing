@@ -12,7 +12,7 @@ section{
 
 .box {
   padding: 0px 20px 10px 20px;
-  background-color: #cecece;
+  background:  var(--second-color);
   box-shadow: 5px 30px 56.1276px rgb(55 55 55 / 12%);
   border-radius: 10px;
   transition: all .35s ease;
@@ -22,6 +22,7 @@ section{
 .box img {
   height: 150px;
   width: auto;
+  clip-path: inset(5px 5px 5px 5px);
 }
 
 .box h4{
