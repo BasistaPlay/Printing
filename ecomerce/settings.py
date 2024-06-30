@@ -26,7 +26,7 @@ RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', 'https://ericprint.com']
 
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'ckeditor',
     "phonenumber_field",
     'ckeditor_uploader',
-    'home.apps.HomeConfig',
+    'home',
     'stripe_integration',
     #'django_extensions',
     'allauth',
@@ -88,6 +88,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -159,6 +160,10 @@ LOCALE_PATHS = [
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
 STATIC_ROOT = '/home/urban/Printing/static/'
 
@@ -231,6 +236,7 @@ JAZZMIN_SETTINGS = {
         "home.Color": "fas fa-paint-brush",
         "home.Size": "fas fa-ruler",
         "home.Order": "fas fa-shopping-cart",
+        "home.category": "fas fa-tags",
         "home.Purchase": "fas fa-receipt",
         "stripe_integration.StripeKeys": "fas fa-key",
         "django_recaptcha.RecaptchaKeys": "fas fa-key"

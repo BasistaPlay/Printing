@@ -13,80 +13,87 @@
 
 {% block body %}
 
-<section class="hero">
-    <div class="hero-text">
-        <h1>{{custom_designs.title}}</h1>
-        <h4>{{custom_designs.description}}</h4>
-        <p>{{custom_designs.additional_notes}}</p>
-        <div class="hero-in">
-            {% for product in products %}
-                <a class="box" href="{% url 'design_detail' slug=product.slug %}">
-                    <h3>{{ product.title }}</h3>
-                    <img src="{{ product.image.url }}" alt="Image">
-                </a>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="hero-img">
-        <img src="{{ custom_designs.image.url }}" alt="Image">
-    </div>
-    <div class="down-arrow first">
-        <i class="bx bx-down-arrow-alt"></i>
-    </div>
-</section>
-
-<section class="pricing">
-    {% for product in products %}
-        <div class="card-wrapper">
-            <div class="card-header">
-                <img src="{{ product.image.url }}" alt="">
-                <h2>{{ product.title }}</h2>
-            </div>
-            <div class="card-detail">
-                {% for option in product.get_options_list %}
-                    <p><span class="fas fa-check check"> <b class="text">{{ option }}</b></span></p>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>{{ custom_designs.title }}</h1>
+            <h4>{{ custom_designs.description }}</h4>
+            <p>{{ custom_designs.additional_notes }}</p>
+            <div class="hero-in">
+                {% for product in popular_products %}
+                    <a class="box" href="{% url 'design_detail' slug=product.slug %}">
+                        <h3>{{ product.title }}</h3>
+                        <img src="{{ product.image.url }}" alt="Image">
+                        <!-- Pievieno ikonu, kas saistīta ar kategoriju -->
+                        <i class="{{ product.category_icon }}"></i>
+                    </a>
                 {% endfor %}
-            </div>
-            <div class="card-price">
-                <p>{{ product.price }}<sup> €</sup></p>
-            </div>
-            <form action="{% url 'design_detail' slug=product.slug %}" method="get">
-                <button type="submit" class="card-button">Izveido dizaunu</button>
-            </form>
-        </div>
-    {% endfor %}
-    <div class="down-arrow second">
-        <i class="bx bx-down-arrow-alt"></i>
-    </div>
-</section>
 
-<section class="top-products">
-    <div class="top-products-header">
-        <h1>{% trans 'Top 3 pirktākie Produkti' %}</h1>
-    </div>
-    <div class="product-container">
-        {% for product in products_top %}
-        <div class="product" id="product{{ forloop.counter }}">
-            <a href="{% url 'detail' user=user product_title=product.product.title order_id=product.id %}">
-                <img src="{{ product.front_image }}" alt="{{ product.title }}">
-                <h3>{{ product.title }}</h3>
-                <div class="star-wrapper">
-                    {% for _ in "54321"|make_list %}
-                        {% if forloop.counter <= product.average_rating %}
-                            <a class="fas fa-star s{{ forloop.counter }} active"></a>
-                        {% else %}
-                            <a class="fas fa-star s{{ forloop.counter }}"></a>
-                        {% endif %}
+                <!-- Poga ar visām kategorijām -->
+                <div class="categories-button">
+                    <a href="{% url 'all_categories' %}" class="btn">{% trans 'Kategorijas' %}</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-img">
+            <img src="{{ custom_designs.image.url }}" alt="Image">
+        </div>
+        <div class="down-arrow first">
+            <i class="bx bx-down-arrow-alt"></i>
+        </div>
+    </section>
+
+    <section class="pricing">
+        {% for product in products %}
+            <div class="card-wrapper">
+                <div class="card-header">
+                    <img src="{{ product.image.url }}" alt="">
+                    <h2>{{ product.title }}</h2>
+                </div>
+                <div class="card-detail">
+                    {% for option in product.get_options_list %}
+                        <p><span class="fas fa-check check"> <b class="text">{{ option }}</b></span></p>
                     {% endfor %}
                 </div>
-            </a>
-        </div>
+                <div class="card-price">
+                    <p>{{ product.price }}<sup> €</sup></p>
+                </div>
+                <form action="{% url 'design_detail' slug=product.slug %}" method="get">
+                    <button type="submit" class="card-button">Izveido dizaunu</button>
+                </form>
+            </div>
         {% endfor %}
-        <div class="down-arrow third">
-            <i class="bx bx-up-arrow-alt"></i>
+        <div class="down-arrow second">
+            <i class="bx bx-down-arrow-alt"></i>
         </div>
-    </div>
-</section>
+    </section>
+
+    <section class="top-products">
+        <div class="top-products-header">
+            <h1>{% trans 'Top 3 pirktākie Produkti' %}</h1>
+        </div>
+        <div class="product-container">
+            {% for product in products_top %}
+            <div class="product" id="product{{ forloop.counter }}">
+                <a href="{% url 'detail' user=user product_title=product.product.title order_id=product.id %}">
+                    <img src="{{ product.front_image }}" alt="{{ product.title }}">
+                    <h3>{{ product.title }}</h3>
+                    <div class="star-wrapper">
+                        {% for _ in "54321"|make_list %}
+                            {% if forloop.counter <= product.average_rating %}
+                                <a class="fas fa-star s{{ forloop.counter }} active"></a>
+                            {% else %}
+                                <a class="fas fa-star s{{ forloop.counter }}"></a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            <div class="down-arrow third">
+                <i class="bx bx-up-arrow-alt"></i>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}
 

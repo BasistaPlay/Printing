@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/category.css' %}" />
+{% endblock %}
+
+{% block title %}Kategorijas{% endblock %}
+
+{% block body %}
+<main class="categories-container">
+    <h1 class="animated-title">{% trans "Produktu Kategorijas" %}</h1>
+    <div class="category-cards">
+        {% for category in categories %}
+        <a href="{% url 'category_detail' category.slug %}" class="category-card">
+            <div class="image-container">
+                <img src="{{ category.image.url }}" alt="{{ category.title }}" class="category-image">
+            </div>
+            <div class="category-info">
+                <h2>{{ category.title }}</h2>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

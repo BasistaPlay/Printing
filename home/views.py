@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Product, ContactMessage, CustomDesign, Contact, Rating, GiftCode, Color, Size, Order ,TextList, ImageList, Purchase
+from .models import Product, ContactMessage, CustomDesign, Contact, Rating, GiftCode, Color, Size, Order ,TextList, ImageList, Purchase, Category
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
@@ -22,11 +22,34 @@ from home.capcha import FormWithCaptcha
 from django.template.loader import render_to_string
 
 
+
+
+
 def homepage(request):
     products = Product.objects.all()
     custom_designs = CustomDesign.objects.first()
     top_rated_popular_products = Rating.get_top_rated_popular_products()
-    return render(request, 'home_page.html', {'products' : products, 'custom_designs' : custom_designs, 'products_top' : top_rated_popular_products})
+    popular_products = Product.objects.order_by('-views')[:2]
+
+    context = {
+        'custom_designs': custom_designs,
+        'popular_products': popular_products,
+        'products' : products,
+        'products_top': top_rated_popular_products,
+    }
+
+    return render(request, 'home_page.html', context)
+
+def all_categories(request):
+    categories = Category.objects.all()
+    context = {'categories': categories}
+    return render(request, 'all_categories.html', context)
+
+def category_detail(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    products = Product.objects.filter(categories=category)
+    context = {'category': category, 'products': products}
+    return render(request, 'category_detail.html', context)
 
 def login_view(request):
     context = {
@@ -155,10 +178,35 @@ def contact_us(request):
 
     return render(request, 'contact.html', context)
 
+@login_required(login_url="/login")
 def design(request, slug):
-    product = Product.objects.get(slug=slug)
+    product = get_object_or_404(Product, slug=slug)
+    product.views += 1
+    product.save()
+    
+    front_image_coords = product.front_image_coords
+    back_image_coords = product.back_image_coords
 
-    return render(request, 'design.html', {'product': product})
+    adjusted_front_image_coords = {
+        'left': '{:.2f}'.format(front_image_coords['left'] + 15),
+        'top': '{:.2f}'.format(front_image_coords['top'] + 20),
+        'width': '{:.2f}'.format(front_image_coords['width'] + 35),
+        'height': '{:.2f}'.format(front_image_coords['height'] + 20)
+    }
+    adjusted_back_image_coords = {
+        'left': '{:.2f}'.format(back_image_coords['left'] + 15),
+        'top': '{:.2f}'.format(back_image_coords['top'] + 20),
+        'width': '{:.2f}'.format(back_image_coords['width'] + 35),
+        'height': '{:.2f}'.format(back_image_coords['height'] + 20)
+    }
+
+    context = {
+        'product': product,
+        'adjusted_front_image_coords': adjusted_front_image_coords,
+        'adjusted_back_image_coords': adjusted_back_image_coords
+    }
+    
+    return render(request, 'design.html', context)
 
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -443,3 +491,4 @@ def save_order(request):
         return JsonResponse({'success': True, 'order_id': new_order.id})
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request'})
+    
