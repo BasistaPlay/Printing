@@ -5,6 +5,5 @@ class HomeConfig(AppConfig):
     name = 'home'
 
     def ready(self):
-        # Reģistrējiet šeit savu pielāgoto tagu bibliotēku
         from django.template import Engine
         Engine.get_default().template_libraries['icon_tags'] = 'home.templatetags.icon_tags'

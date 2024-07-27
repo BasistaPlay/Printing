@@ -1,10 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from home.models import user
 from django.core.exceptions import ValidationError
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.phonenumber import PhoneNumber
-# from captcha.fields import ReCaptchaField
+
 
 class CustomUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(max_length=15, required=False)
@@ -17,15 +17,7 @@ class CustomUserCreationForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150)
     password = forms.CharField(widget=forms.PasswordInput)
-    # captcha = ReCaptchaField(required=False)
 
-
-
-    # def __init__(self, *args, **kwargs):
-    #     show_recaptcha = kwargs.pop('initial', {}).get('show_recaptcha', True)
-    #     super().__init__(*args, **kwargs)
-    #     if show_recaptcha:
-    #         self.fields['captcha'].required = True
 
 class RegistrationForm(UserCreationForm):
     phone_number = PhoneNumberField()
@@ -75,6 +67,9 @@ class RegistrationForm(UserCreationForm):
 
         return phone_number
 
+class EmailVerificationForm(forms.Form):
+    code = forms.CharField(max_length=5, required=True, label='Verification Code')
+
 
 class ContactForm(forms.Form):
     first_name = forms.CharField(max_length=100)
@@ -83,20 +78,41 @@ class ContactForm(forms.Form):
     phone_number = forms.CharField(max_length=15)
     message = forms.CharField(widget=forms.Textarea)
 
-class UserProfileForm(forms.ModelForm):
+
+class PersonalInfoForm(forms.ModelForm):
     class Meta:
         model = user
         fields = ['first_name', 'last_name', 'username', 'email', 'phone_number']
         widgets = {
             'first_name': forms.TextInput(attrs={'readonly': 'readonly'}),
             'last_name': forms.TextInput(attrs={'readonly': 'readonly'}),
-            'username': forms.TextInput(attrs={'readonly': 'readonly'}),
-            'email': forms.EmailInput(attrs={'readonly': 'readonly'}),
-            'phone_number': forms.TextInput(attrs={'readonly': 'readonly'}),
         }
 
     def __init__(self, *args, **kwargs):
-        super(UserProfileForm, self).__init__(*args, **kwargs)
+        super(PersonalInfoForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             if self.errors.get(field_name):
                 field.widget.attrs.update({'class': 'is-invalid'})
+
+
+# class PersonalInfoForm(UserChangeForm):
+#     class Meta:
+#         model = user
+#         fields = ('first_name', 'last_name', 'email', 'username', 'phone_number')
+
+#     def __init__(self, *args, **kwargs):
+#         super(PersonalInfoForm, self).__init__(*args, **kwargs)
+#         # Remove password fields
+#         if 'password' in self.fields:
+#             del self.fields['password']
+
+class LanguageForm(forms.Form):
+    language = forms.ChoiceField(choices=[('en', 'English'), ('lv', 'Latvian')])
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    class Meta:
+        model = user
+        fields = ('old_password', 'new_password1', 'new_password2')
+
+class DeleteAccountForm(forms.Form):
+    password = forms.CharField(widget=forms.PasswordInput)

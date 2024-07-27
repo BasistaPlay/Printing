@@ -10,3 +10,8 @@ home/migrations/
 ecomerce/staticfiles/
 static/
 db.sqlite3
+shoping_cart/__pycache__/
+shoping_cart/migrations/__pycache__/
+shoping_cart/templatetags/__pycache__/
+User_app/__pycache__/
+User_app/migrations/__pycache__/

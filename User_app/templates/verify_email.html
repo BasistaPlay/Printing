@@ -1,0 +1,41 @@
+<!-- templates/verify_email.html -->
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/verify_email.css' %}" />
+{% endblock %}
+
+{% block title %}
+    Verify Email
+{% endblock %}
+
+{% block body %}
+    <div class='login-form verify'>
+        <div class='container'>
+            <div class='main'>
+                <div class='content'>
+                    <h2>{% trans 'Verificēt e-pastu' %}</h2>
+                    <p>{% trans 'Verifikācijas kods tika nosūtīts uz' %} {{ email }}. {% trans 'Lūdzu, ievadiet kodu zemāk, lai verificētu savu e-pastu.' %}</p>
+                    <form method='post'>
+                        {% csrf_token %}
+                        <div class="formBox">
+                            <div class="inputBox w100 {% if form.code.errors %}error{% endif %}">
+                                {{ form.code.label_tag }}
+                                {{ form.code }}
+                                {% if form.code.errors %}
+                                    <p class="error-message">{{ form.code.errors }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <button class='btn' type='submit'>
+                            {% trans 'Verificēt' %}
+                        </button>
+                    </form>
+                    <p class='account'>{% trans 'Nesaņēmāt kodu?' %} <a href='{% url 'profile:resend_verification_code' %}'>{% trans 'Nosūtīt kodu vēlreiz' %}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

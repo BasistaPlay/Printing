@@ -18,36 +18,93 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const plus = document.querySelector(".plus"),
-        minus = document.querySelector(".minus"),
-        num = document.querySelector(".num");
+    minus = document.querySelector(".minus"),
+    num = document.querySelector(".num"),
+    sizeSelect = document.querySelector(".size-select"),
+    originalSizes = [...document.querySelectorAll(".size-option")];
 
     let a = 1;
 
+    let activeSelections = Array.from({ length: a }, () => null);
+
+    function updateNumDisplay() {
+        num.innerText = a < 10 ? '0' + a : a;
+        updateSizeOptions();
+    }
+
+    function updateSizeOptions() {
+        const sizeSelect = document.querySelector('.size-select');
+        if (!sizeSelect) {
+            console.error("sizeSelect element not found.");
+            return;
+        }
+    
+        sizeSelect.innerHTML = '';
+    
+        for (let i = 0; i < a; i++) {
+            let row = document.createElement('div');
+            row.classList.add('size-row');
+            row.classList.add(`size-row-${i+1}`);
+    
+            originalSizes.forEach(size => {
+                let option = document.createElement('div');
+                option.classList.add('size-option');
+                option.setAttribute('data-value', size.getAttribute('data-value'));
+                option.innerText = size.innerText;
+    
+                // Atjaunot aktīvo izvēli, ja tā pastāv
+                if (activeSelections[i] === size.getAttribute('data-value')) {
+                    option.classList.add('active');
+                }
+    
+                option.addEventListener('click', function() {
+                    row.querySelectorAll('.size-option').forEach(function(opt) {
+                        opt.classList.remove('active');
+                    });
+                    option.classList.add('active');
+                    activeSelections[i] = size.getAttribute('data-value');
+                    calculateActiveSizes();
+                });
+    
+                row.appendChild(option);
+            });
+    
+            sizeSelect.appendChild(row);
+        }
+        
+        activeSelections = activeSelections.slice(0, a);
+        while (activeSelections.length < a) {
+            activeSelections.push(null);
+        }
+    }
+    
+    updateSizeOptions();
+
+    function calculateActiveSizes() {
+        let sizeCount = {};
+        activeSelections.forEach(size => {
+            if (size) {
+                sizeCount[size] = (sizeCount[size] || 0) + 1;
+            }
+        });
+        console.log(sizeCount);
+        return sizeCount;
+    }
+
     plus.addEventListener('click', () => {
         a++;
-        a = (a < 10) ? '0' + a : a;
-        num.innerText = a;
+        updateNumDisplay();
     });
 
     minus.addEventListener('click', () => {
         if (a > 1) {
             a--;
-            a = (a < 10) ? '0' + a : a;
-            num.innerText = a;
+            updateNumDisplay();
         }
     });
 
-    var sizeOptions = document.querySelectorAll('.size-option');
+    updateNumDisplay();
 
-    sizeOptions.forEach(function(option) {
-        option.addEventListener('click', function() {
-            sizeOptions.forEach(function(opt) {
-                opt.classList.remove('active');
-            });
-
-            this.classList.add('active');
-        });
-    });
 
     var infoIcon = document.querySelector('.info-icon');
     var modal = document.getElementById('info-modal');
@@ -313,22 +370,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
             const textElement = document.createElement('div');
             textElement.className = 'draggable-text ui-draggable ui-draggable-handle ui-resizable';
-            textElement.style.position = 'relative'; // Ensure position is set
-            textElement.style.left = '0'; // Set left to 0
+            textElement.style.position = 'relative';
+            textElement.style.left = '0';
             textElement.style.top = '0';
             textElement.innerHTML = `<span class="editable-text">${text}</span>`;
             textContainer.appendChild(textElement);
     
-            // Allow browser to render and measure the element
             requestAnimationFrame(() => {
-                // Calculate center position
                 const containerWidth = textContainer.offsetWidth;
                 const containerHeight = textContainer.offsetHeight;
     
                 const textSpan = textElement.querySelector('.editable-text');
                 textSpan.style.fontSize = fontSize;
     
-                // Update width based on text content
                 const textWidth = textSpan.offsetWidth;
                 textElement.style.width = `${textWidth}px`;
     
@@ -338,11 +392,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const centerX = (containerWidth - elementWidth) / 2;
                 const centerY = (containerHeight - elementHeight) / 2;
     
-                // Update position to center
                 textElement.style.left = `${centerX}px`;
                 textElement.style.top = `${centerY}px`;
     
-                // Initialize resizable and draggable
                 addResizableAndDraggable(textElement, currentSide, fontSize);
             });
     
@@ -487,26 +539,20 @@ document.addEventListener('DOMContentLoaded', function() {
         productDiv.style.width = parentWidth + 'px';
         productDiv.style.height = parentHeight + 'px';
     
-        // Izveidojam canvas elementu un iegūstam kontekstu
         var canvas = document.createElement('canvas');
         var context = canvas.getContext('2d');
     
         canvas.width = parentWidth;
         canvas.height = parentHeight;
     
-        // Izmantojam html2canvas, lai zīmētu produktu div uz canvas
         html2canvas(productDiv).then(function(renderedCanvas) {
-            // Dabūjam izveidoto html2canvas renderēto canvas elementu
             context.drawImage(renderedCanvas, 0, 0, parentWidth, parentHeight);
     
-            // Iegūstam pixel datus no canvas
             var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
             var data = imageData.data;
     
-            // Izveidojam objektu, lai skaitītu, cik bieži sastopami ir dažādi pikseļu krāsu kombinācijas
             var pixelCount = {};
     
-            // Aizpildām objektu ar pikseļu krāsu kombināciju skaitītājiem
             for (var i = 0; i < data.length; i += 4) {
                 var r = data[i];
                 var g = data[i + 1];
@@ -520,7 +566,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 pixelCount[key]++;
             }
     
-            // Atrast pikseļu krāsu kombināciju ar maksimālo skaitu (domājam, ka tie ir fona pikseļi)
             var maxCount = 0;
             var backgroundColorKey;
     
@@ -531,37 +576,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
     
-            // Atrodam RGB vērtības no krāsu kombinācijas
             var rgbValues = backgroundColorKey.split(',').map(function(value) {
                 return parseInt(value);
             });
     
-            // Dzēšam fona pikseļus (vērtības, kas atbilst maksimālajam skaitam)
             for (var i = 0; i < data.length; i += 4) {
                 var r = data[i];
                 var g = data[i + 1];
                 var b = data[i + 2];
     
                 if (r === rgbValues[0] && g === rgbValues[1] && b === rgbValues[2]) {
-                    // Iestatam alfa kanālu uz 0, lai padarītu pikseli caurspīdīgu (fons)
                     data[i + 3] = 0;
                 }
             }
     
-            // Nogriežam 15px no apakšas
             var trimHeight = 15;
             context.clearRect(0, canvas.height - trimHeight, canvas.width, trimHeight);
     
-            // Iestatam jaunos pikseļu datus atpakaļ uz canvas
             context.putImageData(imageData, 0, 0);
     
-            // Iegūstam base64 URL no canvas, saglabājot tikai objektu bez fona
             var base64URL = canvas.toDataURL('image/png');
     
-            // Izsaucam callback funkciju ar saglabāto base64 URL
             callback(side, base64URL);
     
-            // Atjaunojam robežu elementu izvietojumu un rādīšanu
             boundaries.forEach(boundary => boundary.style.display = 'block');
         });
     }
@@ -570,32 +607,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     $('#buy-button').click(function() {
         var publishCheckbox = $('#publish-checkbox').is(":checked");
-        var numValue = $('.num').text();
-        var activeSize = $('.size-option.active').attr('data-value');
+        var activeSizes = Array.from(document.querySelectorAll('.size-row')).map(row => {
+            return row.querySelector('.size-option.active')?.getAttribute('data-value');
+        });
         var activeColor = $('.color-select.active-color').attr('data-color-name');
         var productSlug = $('#product-slug').val();
         var title = $('#title-input').val();
         var description = $('#description-input').val();
-
+    
         var errorHtml = '';
-
+    
         if (!activeColor) {
             errorHtml += '<p>' + 'Please select a color' + '</p>';
         }
-
-        if (!activeSize && $('.size-option').length > 0) {
-            errorHtml += '<p>' + 'Please select a size' + '</p>';
+    
+        if (activeSizes.some(size => !size) && $('.size-option').length > 0) {
+            errorHtml += '<p>' + 'Please select all sizes' + '</p>';
         }
-
+    
         if (publishCheckbox) {
             if (!title.trim()) {
                 errorHtml += '<p>' +  'Title is required' + '</p>';
             }
-
+    
             if (!description.trim()) {
                 errorHtml += '<p>' + 'Description is required' + '</p>';
             }
         }
+    
         if (errorHtml) {
             $('#error-messages').html(errorHtml).addClass('show');
             setTimeout(function() {
@@ -629,9 +668,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var formData = new FormData();
         formData.append('publish_product', publishCheckbox);
-        formData.append('num_value', numValue);
         formData.append('product_color', activeColor);
-        formData.append('product_size', activeSize);
         formData.append('product_slug', productSlug);
         formData.append('product_title', title);
         formData.append('product_description', description);
@@ -671,9 +708,30 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function AddToCart(order_id) {
+        let allSizes = [];
+        $('.size-content:first .size-option').each(function() {
+            let sizeValue = $(this).data('value');
+            if (!allSizes.includes(sizeValue)) {
+                allSizes.push(sizeValue);
+            }
+        });
+    
+        let activeSizes = calculateActiveSizes();
+        let numValue = $('.num').text();
+    
+        let productCard = $('.product-card[data-product-id]');
+        let product_id = productCard.data('product-id');
+        
         var formData = new FormData();
-        formData.append('product_id', order_id);
-
+        formData.append('order_id', order_id);
+        formData.append('product_id', product_id);
+        formData.append('quantity', numValue);
+    
+        allSizes.forEach(function(size) {
+            let count = activeSizes[size] || 0;
+            formData.append('sizes[]', JSON.stringify({ size: size, count: count }));
+        });
+    
         $.ajax({
             type: 'POST',
             url: '/cart/add/' + order_id + '/',
@@ -686,16 +744,14 @@ document.addEventListener('DOMContentLoaded', function() {
             success: function(response) {
                 console.log(response);
                 displaySuccessMessage('Product added to cart successfully!');
-                $(document).ready(function() {
-                    var cartCountElement = $('#cart-count');
-                    if (cartCountElement.length === 0) {
-                        var newCartCountElement = $('<span id="cart-count"></span>');
-                        newCartCountElement.text(response.cart_count);
-                        $('#cart').append(newCartCountElement);
-                    } else {
-                        cartCountElement.text(response.cart_count);
-                    }
-                });
+                var cartCountElement = $('#cart-count');
+                if (cartCountElement.length === 0) {
+                    var newCartCountElement = $('<span id="cart-count"></span>');
+                    newCartCountElement.text(response.cart_count);
+                    $('#cart').append(newCartCountElement);
+                } else {
+                    cartCountElement.text(response.cart_count);
+                }
             },
             error: function(xhr, status, error) {
                 console.error(error);

@@ -18,8 +18,8 @@
             {% for product_list in page_obj %}
                 <div class="box" data-order="{{ product_list.average_rating }}">
                     <a href="{% url 'detail' user=user product_title=product_list.product.title order_id=product_list.id %}">
-                        <img src="{{ product_list.front_image }}" alt="" class='front-image'>
-                        <img src="{{ product_list.back_image }}" alt="Back Image" class='back-image'>
+                        <img src="{{ product_list.front_image.url }}" alt="" class='front-image'>
+                        <img src="{{ product_list.back_image.url }}" alt="Back Image" class='back-image'>
                         <div class="star-wrapper" data-rating="{{ product_list.average_rating }}">
                             <a class="fas fa-star s1"></a>
                             <a class="fas fa-star s2"></a>

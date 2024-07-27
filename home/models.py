@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser, Group, Permission, User
+from User_app.models import user
 from django.db import models
 from colorfield.fields import ColorField
 from django.utils.translation import gettext as _
@@ -11,17 +12,6 @@ from django.conf import settings
 from django.db.models import Count, Avg
 from itertools import cycle
 from django.utils.text import slugify
-
-class user(AbstractUser):
-    phone_number = PhoneNumberField(blank=True, null=True)
-
-    def __str__(self):
-        return self.username
-
-    class Meta:
-        verbose_name = _("Lietotājs")
-        verbose_name_plural = _("Lietotāji")
-
 
 class Category(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet kategorijas nosaukumu."))
@@ -110,40 +100,6 @@ class CustomDesign(models.Model):
         verbose_name_plural = _("Pielāgoti dizaini")
 
 
-class ContactMessage(models.Model):
-    first_name = models.CharField(_('Vārds'), max_length=100)
-    last_name = models.CharField(_('Uzvārds'), max_length=100)
-    email = models.EmailField(_('E-pasts'))
-    phone_number = models.CharField(_('Telefona numurs'), max_length=15)
-    message = models.TextField()
-    replied = models.BooleanField(_('Atbildēts'), default=False)
-    admin_subject = models.CharField(_('Administrātora virsraksts'), max_length=255, blank=True, null=True)
-    admin_message = models.TextField(_('Administrātora vēstule'), blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
-
-    class Meta:
-        verbose_name = _("Kontaktziņojums")
-        verbose_name_plural = _("Kontaktziņojumi")
-
-
-class Contact(models.Model):
-    address = models.CharField(_('Adrese'),blank=True, null=True, max_length=255)
-    postal_code = models.CharField(_('Pasta indekss'),blank=True, null=True, max_length=20)
-    phone_number = models.CharField(_('Telefona numurs'),blank=True, null=True, max_length=15)
-    email = models.EmailField(_('E-pasts'), blank=True, null=True,)
-    twitter_link = models.URLField(blank=True, null=True, verbose_name=_('Twitter saite'))
-    facebook_link = models.URLField(blank=True, null=True, verbose_name=_('Facebook saite'))
-    instagram_link = models.URLField(blank=True, null=True, verbose_name=_('Instagram saite'))
-
-    def __str__(self):
-        return f'Kontaktinformācija: {self.address}, {self.postal_code}, {self.phone_number}, {self.email}'
-
-    class Meta:
-        verbose_name = _("Kontakts")
-        verbose_name_plural = _("Kontakti")
-
 class GiftCode(models.Model):
     code = models.CharField(max_length=50, unique=True)
     is_valid = models.BooleanField(default=True)
@@ -175,11 +131,9 @@ class Order(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     publish_product = models.BooleanField(default=False)
     allow_publish = models.BooleanField(default=False)
-    front_image = models.TextField(blank=True)
-    back_image = models.TextField(blank=True)
+    front_image = models.ImageField(upload_to='designs/', blank=True)
+    back_image = models.ImageField(upload_to='designs/', blank=True)
     product_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
-    product_amount = models.IntegerField(default=0)
-    product_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False)
     title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
@@ -207,7 +161,7 @@ class ImageList(models.Model):
 
     def __str__(self):
         return f'Image for Order {self.order_images.id}'
-    
+
 
 class Rating(models.Model):
     user = models.ForeignKey(user, on_delete=models.CASCADE)
@@ -223,13 +177,14 @@ class Rating(models.Model):
         top_rated_popular_products = Order.objects.annotate(
             num_ratings=Count('rating'),
             avg_rating=Avg('rating__stars')
-        ).order_by('-num_ratings', '-avg_rating')
+        ).order_by('-num_ratings', '-avg_rating')[:3]  # Limit the query to top 3 products
 
-        top_three_products = list(top_rated_popular_products[:3])
+        top_three_products = list(top_rated_popular_products)
+        if len(top_three_products) < 3:
+            return top_three_products  # Return as many products as available
+
         product_cycle = cycle(top_three_products)
-
         return [next(product_cycle) for _ in range(3)]
-
 
 @receiver(post_save, sender=Rating)
 def update_product_average_rating(sender, instance, **kwargs):
@@ -252,7 +207,7 @@ class Purchase(models.Model):
 
     def __str__(self):
         return f"Order {self.order_number} by {self.user.username}"
-    
+
 
 class PurchaseProduct(models.Model):
     purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name='purchase_products')

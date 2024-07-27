@@ -6,75 +6,50 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views.i18n import set_language
+from material.frontend import urls as frontend_urls
+from django.contrib.auth.views import PasswordChangeView
 
 from home import views as page
+from shoping_cart import views as cart
 from stripe_integration import views as stripe
+from User_app import views as user
 
 urlpatterns = [
      path('admin/', admin.site.urls),
+     path(r'', include(frontend_urls)),
      path('i18n/', include('django.conf.urls.i18n')),
      path('', page.homepage, name='homepage'),
-     path('login/', page.login_view, name='login'),
-     path('register/', page.register, name='register'),
-     path('logout/', page.logout_view, name='logout'),
-     path('reset_password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
-     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-     path('contact-us/', page.contact_us, name='contact_us'),
      path('creative-corner/', page.creativecorner, name='creativecorner'),
      path('creative-corner/<str:user>/<str:product_title>/<int:order_id>/', page.detail, name='detail'),
      path('save-rating/', page.save_rating, name='save_rating'),
-     path('cart/', page.cart, name='cart'),
-     path('cart/add/<int:id>/', page.cart_add, name='cart_add'),
-     path('cart/item_clear/<int:id>/', page.item_clear, name='item_clear'),
-     path('cart/item_increment/<int:id>/',
-          page.item_increment, name='item_increment'),
-     path('cart/item_decrement/<int:id>/',
-          page.item_decrement, name='item_decrement'),
-     path('cart/cart_clear/', page.cart_clear, name='cart_clear'),
-     path('cart/cart-detail/',page.cart_detail,name='cart_detail'),
      path('check_discount_code/',page.check_discount_code, name='check_discount_code'),
-     path('account/',page.account, name='account'),
-     path('save_user_data/', page.save_user_data, name='save_user_data'),
-     path('account/change_password/', page.change_password, name='change_password'),
-     path('account/delete_account/', page.delete_profile, name='delete_profile'),
      path('design/<slug:slug>/', page.design, name='design_detail'),
-     path('accounts/', include('allauth.urls')),
-     path('accounts/', include('allauth.socialaccount.urls')),
      path('save_order/', page.save_order, name='save_order'),
-     path('set_language/', set_language, name='set_language'),
      path('all-categories/', page.all_categories, name='all_categories'),
      path('category/<slug:category_slug>/', page.category_detail, name='category_detail'),
-
-#     path('<str:slug_url>/create-checkout-session/',
-#          stripe.create_checkout_session),
-#     path('config/', stripe.stripe_config),
-#     path('webhook', stripe.stripe_webhook),
-#     path('create-checkout-session/', stripe.create_checkout_session),
-#     path('success/', stripe.SuccessView.as_view(), name='success'),
-#     path('cancelled/', stripe.CancelledView.as_view(), name='cancel'),
-
+     path('accounts/', include('allauth.urls')),
+     path('cart/', include('shoping_cart.urls')),
+     path('profile/', include('User_app.urls')),
 
 ]
 
 urlpatterns += i18n_patterns(
      path('', page.homepage, name='homepage'),
      path('admin/', admin.site.urls),
-     path('login/', page.login_view, name='login'),
-     path('register/', page.register, name='register'),
+     path('login/', user.LoginView.as_view(), name='login'),
+     path('register/', user.RegisterView.as_view(), name='register'),
      path('reset_password/', auth_views.PasswordResetView.as_view(), name='password_reset'),
      path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
      path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-     path('contact-us/', page.contact_us, name='contact_us'),
-     path('cart/', page.cart, name='cart'),
+     path('contact-us/', user.ContactUsView.as_view(), name='contact_us'),
+     path('cart/', cart.cart, name='cart'),
      path('creative-corner/<str:user>/<int:product_list_id>/', page.detail, name='detail'),
-     path('account/',page.account, name='account'),
-     path('save_user_data/', page.save_user_data, name='save_user_data'),
-     path('account/change_password/', page.change_password, name='change_password'),
+     # path('save_user_data/', user.save_user_data, name='save_user_data'),
+     # path('account/change_password/', user.change_password, name='change_password'),
      path('design/<slug:slug>/', page.design, name='design_detail'),
      path('creative-corner/', page.creativecorner, name='creativecorner'),
      path('creative-corner/<str:user>/<str:product_title>/<int:order_id>/', page.detail, name='detail'),
+     # path('password/change/', user.CustomPasswordChangeView.as_view(), name='change_password'),
      # path('success/', stripe.SuccessView.as_view(), name='success'),
 )
 

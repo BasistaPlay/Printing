@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'modeltranslation',
     'django_recaptcha',
     'jazzmin',
-    'cart',
+    'viewflow',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'ckeditor_uploader',
     'home',
+    'shoping_cart',
+    'User_app',
     'stripe_integration',
     #'django_extensions',
     'allauth',
@@ -83,7 +85,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'cart.context_processor.cart_total_amount',
+                'shoping_cart.context_processor.cart_total_amount',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -130,7 +132,7 @@ PROJECT_ROOT = abspath(os.path.dirname(__file__))
 MEDIA_ROOT = abspath(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
-AUTH_USER_MODEL = 'home.user'
+AUTH_USER_MODEL = 'User_app.user'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -227,9 +229,9 @@ JAZZMIN_SETTINGS = {
         "auth.User": "fas fa-user",
         "home.Product": "fas fa-shopping-bag",
         "home.CustomDesign": "fas fa-cogs",
-        "home.ContactMessage": "fas fa-envelope",
-        "home.Contact": "fas fa-address-book",
-        "home.user": "fas fa-user",
+        "User_app.ContactMessage": "fas fa-envelope",
+        "User_app.Contact": "fas fa-address-book",
+        "User_app.user": "fas fa-user",
         "home.Price": "fas fa-dollar-sign",
         "home.Product_list": "fas fa-list",
         "home.GiftCode": "fas fa-gift",

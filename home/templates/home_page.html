@@ -75,7 +75,7 @@
             {% for product in products_top %}
             <div class="product" id="product{{ forloop.counter }}">
                 <a href="{% url 'detail' user=user product_title=product.product.title order_id=product.id %}">
-                    <img src="{{ product.front_image }}" alt="{{ product.title }}">
+                    <img src="{{ product.front_image.url }}" alt="{{ product.title }}">
                     <h3>{{ product.title }}</h3>
                     <div class="star-wrapper">
                         {% for _ in "54321"|make_list %}

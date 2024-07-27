@@ -122,50 +122,49 @@
         
           
           <div class="product-cards">
-
-            {% for key,value in request.session.cart.items %}
-
-            <div class="product-card" data-product-id="{{value.product_id}}">
-  
-              <div class="card">
-  
-                <div class="img-box">
-                  <img src="{{value.image}}" alt="Cabbage" width="80px" class="product-img">
-                </div>
-  
-                <div class="detail">
-  
-                  <h4 class="product-name">{{value.title}}</h4>
-  
-                  <div class="wrapper">
-  
-                    <div  class="product-qty">
-                      <a href="" class="action-link" data-action="decrement">
-                        <ion-icon name="remove-outline"></ion-icon>
-                      </a>
-                
-                      <span id="quantity" data-product-id="{{ value.product_id }}">{{ value.quantity }}</span>
-                
-                      <a href="" class="action-link" data-action="increment" data-product-id="{{ value.product_id }}">
-                        <ion-icon name="add-outline"></ion-icon>
-                      </a>
+              {% for key, value in request.session.cart.items %}
+                <div class="product-card" data-product-id="{{ value.product_id }}">
+                    <div class="card">
+                        <div class="img-box">
+                            <img src="{{ value.image }}" alt="Product Image" width="80px" class="product-img">
+                        </div>
+                        <div class="detail">
+                            <h4 class="product-name">{{ value.title }}</h4>
+                            <div class="wrapper">
+                                <div class="product-qty">
+                                    <a href="#" class="action-link" data-action="decrement" data-product-id="{{ value.product_id }}">
+                                        <ion-icon name="remove-outline"></ion-icon>
+                                    </a>
+                                    <span id="quantity" data-product-id="{{ value.product_id }}">{{ value.quantity }}</span>
+                                    <a href="#" class="action-link" data-action="increment" data-product-id="{{ value.product_id }}">
+                                        <ion-icon name="add-outline"></ion-icon>
+                                    </a>
+                                </div>
+                                <div class="price">
+                                    <span id="price">{{ value.price }}</span> €
+                                </div>
+                            </div>
+                            {% if value.sizes %}
+                            <div class="size-content">
+                                <b>{% trans 'Izvēlies izmēru' %}</b>
+                                <div class="size-select">
+                                    {% for size_dict in value.sizes %}
+                                    <div class="size-option" data-value="{{ size_dict.size }}" data-max-quantity="{{ value.quantity }}">
+                                        {{ size_dict.size }}
+                                        <input type="number" name="size_quantity_{{ size_dict.size }}" value="{{ size_dict.count }}" min="0" class="size-quantity-input">
+                                    </div>
+                                    {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <a href="#" class="product-close-btn" data-product-id="{{ value.product_id }}">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </a>
                     </div>
-  
-                    <div class="price">
-                      <span id="price">{{value.price}}</span> €
-                    </div>
-  
-                  </div>
-  
+                    
                 </div>
-  
-                <a href="" class="product-close-btn" data-product-id="{{ value.product_id }}">
-                  <ion-icon name="close-outline"></ion-icon>
-                </a>
-              </div>
-            </div>
-            {% endfor %}
         </div>
+        {% endfor %}
 
         <div class="wrapper">
 
@@ -252,5 +251,32 @@
           });
   });
   });
+  $(document).ready(function() {
+    $('.product-cards').on('change', '.size-quantity-input', function() {
+        var $this = $(this);
+        var productId = $this.closest('.product-card').data('product-id');
+        var totalSizeQuantity = calculateTotalSizeQuantity(productId);
+        var maxQuantity = parseInt($('.product-card[data-product-id="' + productId + '"] .product-qty #quantity').text());
+
+        if (totalSizeQuantity > maxQuantity) {
+            $this.val($this.data('previous-value'));
+            alert('Izmēru kopējais daudzums nevar pārsniegt pieejamo daudzumu ' + maxQuantity);
+            return;
+        }
+
+        $this.data('previous-value', $this.val());
+    });
+
+    function calculateTotalSizeQuantity(productId) {
+        var total = 0;
+        $('.product-card[data-product-id="' + productId + '"] .size-quantity-input').each(function() {
+            var quantity = parseInt($(this).val());
+            if (!isNaN(quantity)) {
+                total += quantity;
+            }
+        });
+        return total;
+    }
+});
 </script>
 {% endblock %}

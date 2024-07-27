@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Sazinies ar mums' %}
+{% endblock %}
+
+{% block css %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+    </style>
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-GLhlTQ8i04FJz1MlD03rrnMaVndVMO6b8q5R8+5lZ5L5qFfZJLvea5N2jRR1bH40" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+    {% if messages %}
+        <div id="messages" class="message-container">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                    <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <section>
+        <div class="container">
+            <div class="contactInfo">
+                <div>
+                    <h2>{% trans 'Kontaktinformācija' %}</h2>
+                    <ul class="info">
+                        {% if Contact %}
+                            <li>
+                                {% if Contact.address %}
+                                    <span><i class="fas fa-map-marker-alt" style="color: #000000;"></i></span>
+                                    <span>{{ Contact.address }}<br>
+                                {% endif %}
+                                {% if Contact.postal_code %}
+                                    {{ Contact.postal_code }}<br></span>
+                                {% endif %}
+                            </li>
+                            {% if Contact.email %}
+                            <li>
+                                <span><i class="far fa-envelope" style="color: #000000;"></i></span>
+                                <span><a href="mailto:{{ Contact.email }}">{{ Contact.email }}</a></span>
+                            </li>
+                            {% endif %}
+                            {% if Contact.phone_number %}
+                            <li>
+                                <span><i class="fas fa-phone-alt" style="color: #000000;"></i></span>
+                                <span>{{ Contact.phone_number }}</span>
+                            </li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <ul class="sci">
+                    {% if Contact %}
+                        {% if Contact.facebook_link %}
+                            <li><a href="{{ Contact.facebook_link }}"><i class="fab fa-facebook"></i></a></li>
+                        {% endif %}
+
+                        {% if Contact.instagram_link %}
+                            <li><a href="{{ Contact.instagram_link }}"><i class="fab fa-instagram"></i></a></li>
+                        {% endif %}
+
+                        {% if Contact.twitter_link %}
+                            <li><a href="{{ Contact.twitter_link }}"><i class="fab fa-twitter"></i></a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="contactForm">
+                <h2>{% trans 'Nosūtīt ziņu' %}</h2>
+                <form method="post" action="{% url 'contact_us' %}">
+                    {% csrf_token %}
+                    <div class="formBox">
+                        <div class="inputBox w50">
+                            {{ form.first_name }}
+                            <span>{% trans 'Vārds' %}</span>
+                        </div>
+                        <div class="inputBox w50">
+                            {{ form.last_name }}
+                            <span>{% trans 'Uzvārds' %}</span>
+                        </div>
+                        <div class="inputBox w50">
+                            {{ form.email }}
+                            <span>{% trans 'E-pasts' %}</span>
+                        </div>
+                        <div class="inputBox w50">
+                            {{ form.phone_number }}
+                            <span>{% trans 'Telefona numurs' %}</span>
+                        </div>
+                        <div class="inputBox w100">
+                            {{ form.message }}
+                            <span>{% trans 'Raksti savu ziņu šeit...' %}</span>
+                        </div>
+                        <div class="inputBox w100 button">
+                            <input type="submit" value="{% trans 'Sūtīt' %}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    {% block js %}
+        <script src="{% static 'js/contact.js' %}"></script>
+        <script>
+            // Hide success message after 10 seconds
+            setTimeout(function() {
+                var messages = document.getElementById('messages');
+                if (messages) {
+                    messages.style.opacity = '0';
+                    setTimeout(function() {
+                        messages.style.display = 'none';
+                    }, 1000); // 1 second after opacity change
+                }
+            }, 10000); // 10 seconds
+
+            // Show close button and fade effect
+            document.querySelectorAll('.alert .close').forEach(function(closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    var alert = this.parentElement;
+                    alert.style.opacity = '0';
+                    setTimeout(function() {
+                        alert.style.display = 'none';
+                    }, 1000); // 1 second after opacity change
+                });
+            });
+        </script>
+    {% endblock %}
+{% endblock %}
