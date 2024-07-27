@@ -15,3 +15,4 @@ shoping_cart/migrations/__pycache__/
 shoping_cart/templatetags/__pycache__/
 User_app/__pycache__/
 User_app/migrations/__pycache__/
+ecomerce/settings.py
