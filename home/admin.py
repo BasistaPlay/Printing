@@ -228,17 +228,6 @@ class CustomDesignAdmin(TranslationAdmin):
 #     list_display = ('username', 'email', 'first_name', 'last_name', 'is_active')
 #     list_filter = ('is_active', 'is_staff', 'is_superuser', 'groups')
 
-<<<<<<< HEAD
-    class Media:
-        js = [
-            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',  # Jaunāka jQuery versija
-            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',  # Jaunāka jQuery UI versija
-            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',  # Lokāli glabāts JS fails
-        ]
-        css = {
-            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),  # Lokāli glabāts CSS fails
-        }
-=======
 #     class Media:
 #         js = (
 #             'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
@@ -248,7 +237,6 @@ class CustomDesignAdmin(TranslationAdmin):
 #         css = {
 #             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
 #         }
->>>>>>> d1b24d23e88996b243311ca546aac0d3a67d3404
 
 class RatingInline(admin.TabularInline):
     readonly_fields = ['user', 'stars']

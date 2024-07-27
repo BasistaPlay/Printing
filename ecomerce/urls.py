@@ -6,7 +6,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views.i18n import set_language
-from material.frontend import urls as frontend_urls
 from django.contrib.auth.views import PasswordChangeView
 
 from home import views as page
@@ -16,7 +15,6 @@ from User_app import views as user
 
 urlpatterns = [
      path('admin/', admin.site.urls),
-     path(r'', include(frontend_urls)),
      path('i18n/', include('django.conf.urls.i18n')),
      path('', page.homepage, name='homepage'),
      path('creative-corner/', page.creativecorner, name='creativecorner'),

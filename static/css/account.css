@@ -86,7 +86,7 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    margin-left: 30px 
+    margin-left: 30px
 }
 
 .info-button {
@@ -134,7 +134,7 @@
     pointer-events: none;
 }
 
-.input-container input {
+/* .input-container input {
     font-size: 16px;
     width: calc(100% - 20px);
     padding: 5px 10px;
@@ -148,7 +148,7 @@
     background: #a3a3a342;
     cursor: default;
     margin-bottom: 10px;
-}
+} */
 
 .input-group {
     display: flex;
@@ -270,29 +270,22 @@
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     transform: translateX(100%);
   }
-  
+
   .success-message {
     background-color: #4caf50; /* Zaļa krāsa */
   }
-  
+
   .error-message {
     background-color: #f44336; /* Sarkana krāsa */
   }
-  
+
   .warning-message {
     background-color: #ff9800; /* Oranža krāsa */
   }
-  
+
   .info-message {
     background-color: #2196f3; /* Zila krāsa */
   }
-
-.input-container input[type="text"]:not([readonly]),
-.input-container input[type="email"]:not([readonly]),
-.input-container input[type="password"]:not([readonly]) {
-    background-color: transparent;
-    cursor: text;
-}
 
 @media (max-width: 1800px) {
     .error-message{
@@ -394,7 +387,7 @@
         bottom: 17px;
         right: 8px;
     }
-    
+
 
     .condition-indicator{
         width: 672px;
@@ -456,7 +449,7 @@
     .right-section{
         width: 420px;
     }
-    
+
     .condition-indicator{
         width: 400px;
         margin-right: 0;
@@ -613,4 +606,338 @@
 .order-table-container {
     max-height: 370px;
     overflow-y: auto;
+}
+
+
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    border-color: var(--main-color);
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--input-color);
+    color: var(--text-color);
+}
+
+input:focus {
+    border-color: var(--main-color);
+    outline: none;
+}
+
+/* Stili pogām */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Attālums starp pogām */
+    margin-top: 20px;
+}
+
+.info-button {
+    background-color: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.info-button:hover {
+    background-color: #0056b3;
+}
+
+.message-container {
+    color: #d9534f;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+input[readonly] {
+    background-color: var(--input-readonly-color);
+    border: 1px solid #ccc;
+    cursor: not-allowed;
+}
+
+input:not([readonly]) {
+    background-color: #fff; /* Balts fons rediģējamiem laukiem */
+    color: #333; /* Tumši pelēka teksta krāsa */
+    border: 1px solid #ddd; /* Gaišs pelēks malas krāsa */
+    cursor: text; /* Kursoru maina uz rakstīšanas */
+}
+
+.form-group.error input{
+    border-color: #e3342f;
+    background-color: #fff5f5;
+    color: #e3342f;
+}
+.form-group.error label{
+    color: #e3342f;
+}
+
+.invalid-feedback {
+    color: #e3342f;
+    font-size: 0.875em;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.errorlist li,{
+    color: #b71c1c;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+.messages {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+/* General styling for the section */
+/* #language-container {
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+} */
+
+.language-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
+}
+
+.language-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.language-select-container {
+    margin-bottom: 15px;
+}
+
+.language-label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.language-select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.language-select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.language-submit {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+.language-submit:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.language-submit:active {
+    background-color: #003d7a;
+    transform: translateY(1px);
+}
+
+.language-description {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+}
+
+#userProfileUpdate {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.info-button.button-profile-update {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.info-button.button-profile-update:hover {
+    background-color: #218838;
+}
+
+/* Styles for the password change form */
+#passwordChange {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.info-button.button-password {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.info-button.button-password:hover {
+    background-color: #0056b3;
+}
+
+.input-container {
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+}
+
+.input-container i {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    cursor: pointer;
+}
+
+#passwordChangeForm .form-group {
+    margin-bottom: 15px;
+}
+
+#passwordChangeForm label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#passwordChangeForm input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+#passwordChangeForm .invalid-feedback {
+    color: red;
+    font-size: 0.875em;
+}
+
+/* Poga stili */
+.info-button.button-password {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.info-button.button-password:hover {
+    background-color: #0056b3;
+}
+
+/* Ikonas stili (ja izmantojat ikonas) */
+#passwordChangeForm .fa-eye {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007bff;
 }

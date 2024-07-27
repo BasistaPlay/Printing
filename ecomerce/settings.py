@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'modeltranslation',
     'django_recaptcha',
     'jazzmin',
-    'viewflow',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,9 +51,9 @@ INSTALLED_APPS = [
     'ckeditor',
     "phonenumber_field",
     'ckeditor_uploader',
+    'User_app',
     'home',
     'shoping_cart',
-    'User_app',
     'stripe_integration',
     #'django_extensions',
     'allauth',
@@ -101,12 +100,12 @@ WSGI_APPLICATION = 'ecomerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'urban_prodd',
-        'USER': 'u_urbannn',
-        'PASSWORD': '123',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'printing',
+        'USER': 'printing',
+        'PASSWORD': 'printing',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
