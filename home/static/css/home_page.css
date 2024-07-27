@@ -278,7 +278,7 @@ section{
 .product {
     max-width: 300px;
     padding: 20px;
-    background: #cecece ;
+    background:  var(--second-color);
     border-radius: 8px;
     display: grid;
     justify-items: center;
@@ -292,6 +292,7 @@ section{
 .product img {
     max-width: 100%;
     height: auto;
+    clip-path: inset(5px 5px 5px 5px);
 }
 
 .product h3 {
@@ -413,8 +414,8 @@ section{
 
 
 .card-price p{
-     font-size: 3rem;
-     font-weight: 800;
+    font-size: 3rem;
+    font-weight: 800;
 }
 
 .card-price p sup{

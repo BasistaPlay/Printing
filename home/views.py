@@ -21,10 +21,6 @@ from django.core.paginator import Paginator
 from home.capcha import FormWithCaptcha
 from django.template.loader import render_to_string
 
-
-
-
-
 def homepage(request):
     products = Product.objects.all()
     custom_designs = CustomDesign.objects.first()

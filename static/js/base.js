@@ -32,3 +32,5 @@ menu.onclick = () => {
     menu.classList.toggle('bx-x');
     navlist.classList.toggle('open')
 }
+
+localStorage.setItem('currentSide', 'front');

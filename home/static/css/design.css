@@ -339,7 +339,6 @@ body {
   border: 1px solid #ddd;
 }
 
-/* Papildu resizējamie stila elementi (katrā stūrī) */
 #resize-handle-ne, #resize-handle-se, #resize-handle-sw, #resize-handle-nw {
   width: 10px;
   height: 10px;
@@ -799,17 +798,7 @@ input {
   }
 
   .product {
-    width: 95%;
-    height: auto;
-    position: relative;
     margin-top: 100px;
-    flex-direction: row;
-  }
-
-  .img-1,
-  .img-2 {
-    width: 100%;
-    height: auto;
   }
 
   .pc{
@@ -1166,3 +1155,16 @@ input {
   border: 2px dashed #000;
   pointer-events: none;
 }
+
+#text-container{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.editable-text{
+  cursor: move;
+}
+
