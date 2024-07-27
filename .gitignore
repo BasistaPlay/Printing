@@ -1,17 +1,31 @@
+# Python virtuālās vides mapes
 env/
+venv/
+
+# SQLite datubāzes faili
 ecomerce/db.sqlite3
+db.sqlite3
+
+# Lokālie iestatījumi, kas satur sensitīvu informāciju
 ecomerce/local_settings.py
+
+# Media faili
 ecomerce/media/
+
+# Kompilētie Python faili
 ecomerce/__pycache__/
 home/__pycache__/
-static/img/
-ecomerce/static/
-home/migrations/
-ecomerce/staticfiles/
-static/
-db.sqlite3
 shoping_cart/__pycache__/
 shoping_cart/migrations/__pycache__/
 shoping_cart/templatetags/__pycache__/
 User_app/__pycache__/
 User_app/migrations/__pycache__/
+stripe_integration/__pycache__/
+home/templatetags/__pycache__/
+stripe_integration/migrations/__pycache__/
+home/migrations/__pycache__/
+
+# Statiskie faili
+static/img/
+ecomerce/static/
+ecomerce/staticfiles/
