@@ -1,0 +1,10 @@
+Sveiki, {{ user.first_name }}!
+
+Jūsu verifikācijas kods ir: {{ verification_code }}
+
+Lūdzu, ievadiet šo kodu, lai verificētu savu e-pastu.
+
+Paldies, ka reģistrējies Ericprint.com, mēs esam par to ļoti priecīgi!
+
+Paldies,
+{{ company_name }}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifikācijas kods</title>
+    <style>
+        .email-container {
+            font-family: Arial, sans-serif;
+            color: {{ secondary_color }};
+            padding: 20px;
+        }
+        .email-header {
+            background-color: {{ primary_color }};
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .email-header img {
+            max-width: 150px;
+        }
+        .email-body {
+            margin: 20px 0;
+        }
+        .email-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .verification-code {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: {{ primary_color }};
+            text-align: center;
+            display: block;
+            margin: 20px auto;
+        }
+        .thank-you {
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+        .email-body p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            {% if company_logo_url %}
+                <img src="{{ company_logo_url }}" alt="{{ company_name }} logo">
+            {% endif %}
+            <h1>Verifikācijas kods</h1>
+        </div>
+        <div class="email-body">
+            <p>Sveiki, <strong>{{ user.first_name }}</strong>!</p>
+            <p>Jūsu verifikācijas kods ir:</p>
+            <p class="verification-code">{{ verification_code }}</p>
+            <p>Lūdzu, ievadiet šo kodu, lai verificētu savu e-pastu.</p>
+            <p class="thank-you">Paldies, ka reģistrējies Ericprint.com, mēs esam par to ļoti priecīgi!</p>
+        </div>
+        <div class="email-footer">
+            <p>Paldies,<br><strong>{{ company_name }}</strong></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Reģistrēties' %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}" />
+{% endblock %}
+
+{% block body %}
+    <div class='login-form register'>
+        <div class='container'>
+            <div class='main'>
+                <div class='content'>
+                    <h2>{% trans 'Reģistrēties' %}</h2>
+                    <form method='post'>
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="formBox">
+                            <div class="inputBox w50 {% if form.first_name.errors %}error{% endif %}">
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <p class="error-message">{{ form.first_name.errors }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="inputBox w50 {% if form.last_name.errors %}error{% endif %}">
+                                {{ form.last_name.label_tag }}
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                    <p class="error-message">{{ form.last_name.errors }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="inputBox w50 {% if form.email.errors %}error{% endif %}">
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <p class="error-message">{{ form.email.errors }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="inputBox w50 {% if form.username.errors %}error{% endif %}">
+                                {{ form.username.label_tag }}
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <p class="error-message">{{ form.username.errors }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="inputBox w50">
+                                {{ form.phone_number.label_tag }}
+                                <div class="phone-number-container">
+                                    <div class="country-code-selector">
+                                        <select id="country-code" name="country_code">
+                                            <option value="+371">Latvia (+371)</option>
+                                            <option value="+372">Estonia (+372)</option>
+                                            <option value="+370">Lithuania (+370)</option>
+                                        </select>
+                                    </div>
+                                    <input type="tel" id="phone-number-input"  name="phone_number" style="{% if form.phone_number.errors %}beorder-color: #b71c1c;{% endif %}">
+                                    <input type="hidden" id="phone-number-hidden" name="phone_number">
+                                </div>
+                            {% if form.phone_number.errors %}
+                                <p class="error-message">{{ form.phone_number.errors }}</p>
+                            {% endif %}
+                        </div>
+                            <div class="inputBox w50 {% if form.password1.errors %}error{% endif %}">
+                                {{ form.password1.label_tag }}
+                                {{ form.password1 }}
+                                {% if form.password1.errors %}
+                                    {{ form.password1.errors }}
+                                {% endif %}
+                            </div>
+                            <div class="inputBox w50 {% if form.password2.errors %}error{% endif %}">
+                                {{ form.password2.label_tag }}
+                                {{ form.password2 }}
+                                {% if form.password2.errors %}
+                                    {{ form.password2.errors }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <button class='btn' type='submit'>
+                            {% trans 'Reģistrēties' %}
+                        </button>
+                    </form>
+                    <p class='account'>{% trans 'Vai jums jau ir konts? ' %} <a href='{% url 'login' %}'>{% trans 'Pieslēgties' %}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script src="{% static 'js/phone.js' %}"></script>
+{% endblock %}

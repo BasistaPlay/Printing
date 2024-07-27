@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load socialaccount %}
+
+{% block title %}
+    {% trans 'Pieslēgties' %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock %}
+
+{% block body %}
+<div class='login-form'>
+    <div class='container'>
+        <div class='main'>
+            <div class='content'>
+                <h2>{% trans 'Pieslēgties' %}</h2>
+                <form action='' method='post'>
+                    {% csrf_token %}
+                    <div class="formBox">
+                        <div class="inputBox w50">
+                            <span>{% trans 'Lietotājvārds' %}</span>
+                            {{ form.username }}
+                        </div>
+                        <div class="inputBox w50">
+                            <span>{% trans 'Parole' %}</span>
+                            {{ form.password }}
+                        </div>
+                        {% if form.captcha %}
+                            <div class="inputBox w50">
+                                {{ form.captcha }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <button class='btn' type='submit'>
+                        {% trans 'Pieslēgties' %}
+                    </button>
+                </form>
+                <p class='account'>
+                    {% trans 'Vai jums nav konta? ' %}
+                    <a href='{% url 'register' %}'>{% trans 'Reģistrēties' %}</a>
+                </p>
+                <p class='account'>
+                    {% trans 'Aizmirsāt paroli?' %}
+                    <a href='{% url "password_reset" %}'>{% trans 'Atjaunot to šeit' %}</a>
+                </p>
+                <p class="social-text">
+                    Vai pieslēdzies caur sociālajiem tīkliem
+                </p>
+                <div class="social-media">
+                    <a href="" class="social-icon">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="{% provider_login_url 'google' %}" class="social-icon">
+                        <i class="fab fa-google"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% comment %} {% block js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(event) {
+                const recaptchaResponse = grecaptcha.getResponse();
+                const errorElement = document.querySelector('.error-message .error');
+
+                if (recaptchaResponse.length === 0) {
+                    event.preventDefault();
+                    errorElement.textContent = 'Lūdzu, aizpildiet reCAPTCHA pārbaudi!';
+                    errorElement.parentElement.style.display = 'block';
+                } else {
+                    errorElement.textContent = '';
+                    errorElement.parentElement.style.display = 'none';
+                }
+            });
+        });
+    </script>
+{% endblock %} {% endcomment %}

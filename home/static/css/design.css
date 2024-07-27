@@ -879,6 +879,8 @@ input {
   display: flex;
   flex-wrap: wrap;
   margin-top: 5px;
+  flex-direction: column;
+  
 }
 
 .size-option {
@@ -889,10 +891,12 @@ input {
   background-color: var(--main-color);
   border: 1px solid var(--text-color);
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   cursor: pointer;
   color: white;
+  align-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .size-option:hover {
@@ -1168,3 +1172,17 @@ input {
   cursor: move;
 }
 
+
+.size-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.size-option {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.size-option.active {
+  font-weight: bold;
+}

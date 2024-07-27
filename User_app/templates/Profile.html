@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'User Profile' %}
+{% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" />
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" />
+{% endblock %}
+
+{% block body %}
+<div class="profile-container">
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="{% url 'profile:personal_info' %}"><i class="fas fa-user"></i> {% trans 'Personal Information' %}</a></li>
+                <li><a href="{% url 'profile:change_password' %}"><i class="fas fa-lock"></i> {% trans 'Change Password' %}</a></li>
+                <li><a href="{% url 'profile:delete_account' %}"><i class="fas fa-trash-alt"></i> {% trans 'Delete Account' %}</a></li>
+                <li><a href="{% url 'profile:order_history' %}"><i class="fas fa-history"></i> {% trans 'Order History' %}</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
