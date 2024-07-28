@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
-
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.utils.translation import gettext as _
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from home.models import user as MyUser
 from django.contrib.auth import authenticate, login, logout
@@ -12,8 +11,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import FormView, UpdateView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import PasswordChangeView
-from User_app.forms import (LoginForm, RegistrationForm, ContactForm, PersonalInfoForm, LanguageForm,           CustomPasswordChangeForm, DeleteAccountForm)
+from User_app.forms import (LoginForm, RegistrationForm, ContactForm, PersonalInfoForm, CustomPasswordChangeForm, DeleteAccountForm)
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView, UpdateView
 from User_app.models import ContactMessage, Contact
@@ -21,8 +19,7 @@ from home.models import Order
 from .forms import RegistrationForm
 from .models import EmailVerification
 from .forms import EmailVerificationForm
-from django.utils.crypto import get_random_string
-from home.models import CustomDesign
+from User_app.utils import generate_verification_code, send_verification_email
 
 
 
@@ -49,12 +46,16 @@ class LoginView(View):
 
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
-                return redirect('homepage')
+                if user.is_active:
+                    login(request, user)
+                    return redirect('homepage')
+                else:
+                    messages.error(request, 'Jūsu e-pasts vēl nav verificēts. Lūdzu, pārbaudiet savu e-pastu.', extra_tags='login alert-error' )
+                    return redirect('profile:verify_email')
             else:
-                messages.error(request, 'Nepareizs e-pasts vai parole.')
+                messages.error(request, 'Nepareizs lietotājvārds vai parole.', extra_tags='login alert-error')
         else:
-            messages.error(request, 'Lūdzu, pārbaudiet ievadītos datus.')
+            messages.error(request, 'Lūdzu, pārbaudiet ievadītos datus.', extra_tags='login alert-error')
 
         return render(request, self.template_name, context)
 
@@ -70,40 +71,18 @@ class RegisterView(FormView):
         user.set_password(form.cleaned_data['password1'])
         user.save()
 
-        verification_code = get_random_string(length=5)
+        verification_code = generate_verification_code()
         EmailVerification.objects.create(user=user, verification_code=verification_code)
 
-        context = {
-            'user': user,
-            'verification_code': verification_code,
-            'company_name': 'ericPrint',
-            'primary_color': '#007bff',
-            'secondary_color': '#6c757d',
-        }
+        send_verification_email(user, verification_code)
 
-        custom_design = CustomDesign.objects.first()
-        if custom_design:
-            context['company_logo_url'] = custom_design.image.url
-
-        subject = 'Verifikācijas kods'
-        from_email = 'no-reply@ericprint.com'
-        to_email = user.email
-
-        text_content = render_to_string('emails/verification_email.txt', context)
-        html_content = render_to_string('emails/verification_email.html', context)
-
-        email = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
-        email.attach_alternative(html_content, "text/html")
-        email.send()
-
-        messages.success(self.request, 'Jūsu profils ir veiksmīgi reģistrēts. Verifikācijas kods tika nosūtīts uz jūsu e-pastu.')
-
+        messages.success(self.request, 'Jūsu profils ir veiksmīgi reģistrēts. Verifikācijas kods tika nosūtīts uz jūsu e-pastu.', extra_tags='register alert-success')
         self.request.session['user_email'] = user.email
 
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Lūdzu, pārbaudiet ievadītos datus.')
+        messages.error(self.request, 'Lūdzu, pārbaudiet ievadītos datus.', extra_tags='register alert-error')
         return super().form_invalid(form)
 
 
@@ -114,8 +93,7 @@ class EmailVerificationView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user_email = self.request.session.get('user_email')
-        context['email'] = user_email
+        context['email'] = self.request.session.get('user_email')
         return context
 
     def form_valid(self, form):
@@ -125,10 +103,10 @@ class EmailVerificationView(FormView):
             user = MyUser.objects.get(email=user_email)
             verification = EmailVerification.objects.get(user=user, verification_code=code, is_verified=False)
             verification.is_verified = True
-            verification.user.is_active = True
-            verification.user.save()
+            user.is_active = True
+            user.save()
             verification.save()
-            messages.success(self.request, 'Jūsu e-pasts ir veiksmīgi verificēts.')
+            messages.success(self.request, 'Jūsu e-pasts ir veiksmīgi verificēts.', extra_tags='eresendverf alert-success')
             return super().form_valid(form)
         except EmailVerification.DoesNotExist:
             form.add_error('code', 'Nepareizs verifikācijas kods.')
@@ -142,40 +120,19 @@ class ResendVerificationCodeView(View):
             try:
                 user = MyUser.objects.get(email=user_email)
                 verification = EmailVerification.objects.get(user=user)
-                verification_code = get_random_string(length=5)
+                verification_code = generate_verification_code()
                 verification.verification_code = verification_code
                 verification.save()
 
-                context = {
-                    'user': user,
-                    'verification_code': verification_code,
-                    'company_name': 'ericPrint',
-                    'primary_color': '#007bff',
-                    'secondary_color': '#6c757d',
-                }
+                send_verification_email(user, verification_code)
 
-                custom_design = CustomDesign.objects.first()
-                if custom_design:
-                    context['company_logo_url'] = custom_design.image.url
-
-                subject = 'Verifikācijas kods'
-                from_email = 'no-reply@ericprint.com'
-                to_email = user_email
-
-                text_content = render_to_string('emails/verification_email.txt', context)
-                html_content = render_to_string('emails/verification_email.html', context)
-
-                email = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
-                email.attach_alternative(html_content, "text/html")
-                email.send()
-
-                messages.success(request, 'Jauns verifikācijas kods tika nosūtīts uz jūsu e-pastu.')
+                messages.success(request, 'Jauns verifikācijas kods tika nosūtīts uz jūsu e-pastu.', extra_tags='resendverf alert-error')
             except MyUser.DoesNotExist:
-                messages.error(request, 'Lietotājs ar šo e-pasta adresi neeksistē.')
+                messages.error(request, 'Lietotājs ar šo e-pasta adresi neeksistē.', extra_tags='resendverf alert-error')
             except EmailVerification.DoesNotExist:
-                messages.error(request, 'Verifikācijas informācija nav atrasta.')
+                messages.error(request, 'Verifikācijas informācija nav atrasta.', extra_tags='resendverf alert-error')
         else:
-            messages.error(request, 'Radās kļūda. Lūdzu, mēģiniet vēlreiz.')
+            messages.error(request, 'Radās kļūda. Lūdzu, mēģiniet vēlreiz.', extra_tags='resendverf alert-error')
         return redirect('profile:verify_email')
 
 def logout_view(request):

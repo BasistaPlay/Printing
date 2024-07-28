@@ -133,8 +133,6 @@ class Order(models.Model):
     allow_publish = models.BooleanField(default=False)
     front_image = models.ImageField(upload_to='designs/', blank=True)
     back_image = models.ImageField(upload_to='designs/', blank=True)
-    product_amount = models.BooleanField(default=False)
-    product_size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
     product_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False)
     title = models.CharField(max_length=255, blank=True)

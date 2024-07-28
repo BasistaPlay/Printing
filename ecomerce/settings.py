@@ -26,7 +26,7 @@ RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', 'https://ericprint.com']
 
@@ -145,7 +145,7 @@ USE_I18N = True
 USE_TZ = True
 
 gettext = lambda s: s
-LANGUAGES = ( 
+LANGUAGES = (
     ('lv', gettext('Latvian')),
     ('en', gettext('English')),
 )

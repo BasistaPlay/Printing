@@ -17,7 +17,7 @@
             text-align: center;
         }
         .email-header img {
-            max-width: 150px;
+            width: 150px;
         }
         .email-body {
             margin: 20px 0;
@@ -48,9 +48,7 @@
 <body>
     <div class="email-container">
         <div class="email-header">
-            {% if company_logo_url %}
-                <img src="{{ company_logo_url }}" alt="{{ company_name }} logo">
-            {% endif %}
+            <img src="data:image/png;base64,{{ company_logo_base64 }}" alt="Company Logo" style="max-width: 100%; height: auto;">
             <h1>Verifikācijas kods</h1>
         </div>
         <div class="email-body">
