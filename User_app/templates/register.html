@@ -58,7 +58,7 @@
                                             <option value="+370">Lithuania (+370)</option>
                                         </select>
                                     </div>
-                                    <input type="tel" id="phone-number-input" name="phone_number" style="{% if form.phone_number.errors %}border-color: #b71c1c;{% endif %}">
+                                    <input type="tel" required id="phone-number-input" name="phone_number" style="{% if form.phone_number.errors %}border-color: #b71c1c;{% endif %}">
                                     <input type="hidden" id="phone-number-hidden" name="phone_number">
                                 </div>
                                 {% if form.phone_number.errors %}
