@@ -1,9 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from home.models import user
+from User_app.models import user
 from django.core.exceptions import ValidationError
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.phonenumber import PhoneNumber
+
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -22,10 +23,11 @@ class LoginForm(forms.Form):
 class RegistrationForm(UserCreationForm):
     phone_number = PhoneNumberField()
     country_code = forms.CharField(max_length=5, widget=forms.HiddenInput())
+    agree_to_terms = forms.BooleanField(required=True, label="Piekrītu interneta veikala noteikumiem")
 
     class Meta:
         model = user
-        fields = ['first_name', 'last_name', 'email', 'username', 'phone_number', 'country_code', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'email', 'username', 'phone_number', 'country_code', 'password1', 'password2', 'agree_to_terms']
         widgets = {
             'password1': forms.PasswordInput(attrs={'placeholder': 'Parole'}),
             'password2': forms.PasswordInput(attrs={'placeholder': 'Apstipriniet paroli'}),

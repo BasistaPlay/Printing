@@ -66,9 +66,15 @@ class RegisterView(FormView):
     success_url = reverse_lazy('profile:verify_email')
 
     def form_valid(self, form):
+        if not form.cleaned_data.get('agree_to_terms'):
+            form.add_error('agree_to_terms', 'Lūdzu, piekrītiet noteikumiem.')
+            return self.form_invalid(form)
+
         user = form.save(commit=False)
         user.is_active = False
         user.set_password(form.cleaned_data['password1'])
+        user.agreed_to_terms = True
+        user.wants_promotions = True
         user.save()
 
         verification_code = generate_verification_code()
