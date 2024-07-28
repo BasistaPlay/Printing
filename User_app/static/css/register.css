@@ -161,3 +161,29 @@
 .error-input {
     border-color: #b71c1c;
 }
+
+.CheckBox .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px
+}
+
+.CheckBox .checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
+    accent-color: var(--main-color);
+}
+
+.CheckBox .checkbox-container label {
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.terms-link {
+    color: var(--main-color); /* Mainīt saites krāsu uz galveno krāsu */
+    text-decoration: underline;
+}
+
+.terms-link:hover {
+    text-decoration: none;
+}

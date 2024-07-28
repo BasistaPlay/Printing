@@ -23,8 +23,10 @@ class ContactMessage(models.Model):
 
 
 class user(AbstractUser):
-    phone_number = PhoneNumberField( )
+    phone_number = PhoneNumberField()
     email = models.EmailField(unique=True)
+    agreed_to_terms = models.BooleanField(default=False)
+    wants_promotions = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username

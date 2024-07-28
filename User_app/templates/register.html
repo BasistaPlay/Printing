@@ -58,13 +58,13 @@
                                             <option value="+370">Lithuania (+370)</option>
                                         </select>
                                     </div>
-                                    <input type="tel" id="phone-number-input"  name="phone_number" style="{% if form.phone_number.errors %}beorder-color: #b71c1c;{% endif %}">
+                                    <input type="tel" id="phone-number-input" name="phone_number" style="{% if form.phone_number.errors %}border-color: #b71c1c;{% endif %}">
                                     <input type="hidden" id="phone-number-hidden" name="phone_number">
                                 </div>
-                            {% if form.phone_number.errors %}
-                                <p class="error-message">{{ form.phone_number.errors }}</p>
-                            {% endif %}
-                        </div>
+                                {% if form.phone_number.errors %}
+                                    <p class="error-message">{{ form.phone_number.errors }}</p>
+                                {% endif %}
+                            </div>
                             <div class="inputBox w50 {% if form.password1.errors %}error{% endif %}">
                                 {{ form.password1.label_tag }}
                                 {{ form.password1 }}
@@ -78,6 +78,17 @@
                                 {% if form.password2.errors %}
                                     {{ form.password2.errors }}
                                 {% endif %}
+                            </div>
+                        </div>
+                        <div class="CheckBox w50">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="terms" name="agree_to_terms" required>
+                                    <label for="terms">
+                                        Ar šo es apliecinu, ka esmu iepazinies(-usies) ar
+                                        <a href="{% static 'pdf/terms_of_service.pdf' %}" target="_blank" class="terms-link">
+                                            EricPrint lietošanas noteikumiem
+                                        </a>
+                                    </label>
                             </div>
                         </div>
                         <button class='btn' type='submit'>

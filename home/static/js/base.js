@@ -34,3 +34,15 @@ menu.onclick = () => {
 }
 
 localStorage.setItem('currentSide', 'front');
+
+setTimeout(function() {
+    var messages = document.getElementsByClassName('messages');
+    for (var i = 0; i < messages.length; i++) {
+        (function(message) {
+            message.style.opacity = '0';
+            setTimeout(function() {
+                message.style.display = 'none';
+            }, 1000); // 1 second after opacity change
+        })(messages[i]);
+    }
+}, 5000);

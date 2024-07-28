@@ -1,29 +1,33 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verifikācijas kods</title>
+    <title>{% trans "Verifikācijas kods" %}</title>
     <style>
         .email-container {
             font-family: Arial, sans-serif;
             color: {{ secondary_color }};
             padding: 20px;
+            text-align: center;
         }
         .email-header {
             background-color: {{ primary_color }};
             color: white;
             padding: 10px;
-            text-align: center;
         }
         .email-header img {
             width: 150px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
         .email-body {
             margin: 20px 0;
         }
         .email-footer {
-            text-align: center;
             margin-top: 20px;
             font-size: 0.9em;
             color: #777;
@@ -32,7 +36,7 @@
             font-weight: bold;
             font-size: 1.5em;
             color: {{ primary_color }};
-            text-align: center;
+            cursor: pointer;
             display: block;
             margin: 20px auto;
         }
@@ -45,22 +49,22 @@
         }
     </style>
 </head>
-<body>
-    <div class="email-container">
-        <div class="email-header">
-            <img src="data:image/png;base64,{{ company_logo_base64 }}" alt="Company Logo" style="max-width: 100%; height: auto;">
-            <h1>Verifikācijas kods</h1>
+    <body>
+        <div class="email-container">
+            <div class="email-header">
+                <img src="cid:company_logo" alt="{% trans 'Company Logo' %}">
+                <h1>{% trans 'Verifikācijas kods' %}</h1>
+            </div>
+            <div class="email-body">
+                <p>{% trans 'Sveiki' %}, <strong>{{ user.first_name|slice:":-1" }}</strong>!</p>
+                <p style="text-align: center;">{% trans 'Jūsu verifikācijas kods ir:' %}</p>
+                <p class="verification-code" onclick="copyToClipboard('{{ verification_code }}')">{{ verification_code }}</p>
+                <p>{% trans 'Lūdzu, ievadiet šo kodu, lai verificētu savu e-pasta adresi. Ja jūs neesat pieprasījis šo kodu, ignorējiet šo ziņojumu.' %}</p>
+                <p class="thank-you">{% trans 'Paldies, ka reģistrējāties Ericprint.com! Mēs priecājamies par jūsu pievienošanos.' %}</p>
+            </div>
+            <div class="email-footer">
+                <p>{% trans 'Paldies' %},<br><strong>{{ company_name }}</strong></p>
+            </div>
         </div>
-        <div class="email-body">
-            <p>Sveiki, <strong>{{ user.first_name }}</strong>!</p>
-            <p>Jūsu verifikācijas kods ir:</p>
-            <p class="verification-code">{{ verification_code }}</p>
-            <p>Lūdzu, ievadiet šo kodu, lai verificētu savu e-pastu.</p>
-            <p class="thank-you">Paldies, ka reģistrējies Ericprint.com, mēs esam par to ļoti priecīgi!</p>
-        </div>
-        <div class="email-footer">
-            <p>Paldies,<br><strong>{{ company_name }}</strong></p>
-        </div>
-    </div>
-</body>
+    </body>
 </html>

@@ -93,6 +93,7 @@ class CustomUserAdmin(UserAdmin):
         (_('Personiskā informācija'), {'fields': ('first_name', 'last_name', 'email', 'phone_number')}),
         (_('Atļaujas'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         (_('Svarīgie datumi'), {'fields': ('last_login', 'date_joined')}),
+        (_('Papildu informācija'), {'fields': ('agreed_to_terms', 'wants_promotions')}),
     )
 
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_active')
