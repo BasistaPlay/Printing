@@ -20,15 +20,10 @@ urlpatterns = [
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
     path('contact-us/', user.ContactUsView.as_view(), name='contact_us'),
     path('change_password/', PasswordChangeView.as_view(), name='change_password'),
-    path('set_language/', set_language, name='set_language'),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('allauth.socialaccount.urls')),
-    # path('change-password/', user.ChangePasswordView.as_view(), name='change_password'),
     path('delete-account/', user.DeleteAccountView.as_view(), name='delete_account'),
-    path('order-history/', user.OrderHistoryView.as_view(), name='order_history'),
+    path('order-history/', user.PurchaseHistoryView.as_view(), name='order_history'),
     path('password/change/', user.CustomPasswordChangeView.as_view(), name='change_password'),
-    # path('change_password/', user.change_password, name='change_password'),
-    # path('delete_account/', user.delete_profile, name='delete_profile'),
-    # path('save_user_data/', user.save_user_data, name='save_user_data'),
-    # ]
+    path('extra_info/', user.ExtraInfoView.as_view(), name='extra_info'),
 ]

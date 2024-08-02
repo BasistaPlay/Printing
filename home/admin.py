@@ -143,101 +143,6 @@ class CustomDesignAdmin(TranslationAdmin):
         else:
             super().save_model(request, obj, form, change)
 
-# class ContactMessageAdminForm(forms.ModelForm):
-#     admin_message = forms.CharField(widget=CKEditorWidget())
-#     class Meta:
-#         model = ContactMessage
-#         fields = '__all__'
-
-# @admin.register(ContactMessage)
-# class ContactMessageAdmin(admin.ModelAdmin):
-#     form = ContactMessageAdminForm
-#     list_display = ('first_name', 'last_name', 'email', 'replied')
-#     list_filter = ('replied',)
-#     actions = ['mark_as_replied']
-
-#     def mark_as_replied(self, request, queryset):
-#         queryset.update(replied=True)
-
-#     mark_as_replied.short_description = _('Atzīmēt atlasītās ziņas kā atbildētas')
-
-#     readonly_fields = ('first_name', 'last_name', 'email', 'phone_number', 'message','replied' )
-
-#     fieldsets = (
-#         (_('Lietotāja informācija'), {
-#             'fields': ('first_name', 'last_name', 'email', 'phone_number', 'message', 'replied'),
-#         }),
-#         (_('Administratora ziņojums'), {
-#             'fields': ('admin_subject', 'admin_message'),
-#         }),
-#     )
-
-#     def response_change(self, request, obj):
-#         if "_save" in request.POST:
-#             user_email = [obj.email]  # pārliecināsimies, ka user_email ir saraksts
-#             admin_subject = obj.admin_subject
-#             admin_message = obj.admin_message
-
-#             html_content = render_to_string('e-mail/answer_message.html', {'admin_message': admin_message})
-
-#             subject_user = f"Atbilde uz jūsu jautājumu: {admin_subject}"
-#             email = EmailMultiAlternatives(subject_user, strip_tags(admin_message), settings.DEFAULT_FROM_EMAIL, user_email)
-#             email.attach_alternative(html_content, "text/html")
-#             email.send()
-
-#             obj.replied = True
-#             obj.save()
-
-#             messages.success(request, _('Atbilde nosūtīta lietotājam!'))
-#             return super().response_change(request, obj)
-
-#         return super().response_change(request, obj)
-
-
-# @admin.register(Contact)
-# class ContactAdmin(admin.ModelAdmin):
-#     list_display = ('address', 'postal_code', 'phone_number', 'email')
-
-#     fieldsets = (
-#         (_('Kontaktinformācija'), {
-#             'fields': ('address', 'postal_code', 'phone_number', 'email')
-#         }),
-#         (_('Sociālās saites'), {
-#             'fields': ('twitter_link', 'facebook_link', 'instagram_link'),
-#             'classes': ('collapse',),
-#         }),
-#     )
-
-#     def save_model(self, request, obj, form, change):
-#         existing_records = Contact.objects.exclude(pk=obj.pk).count()
-#         if existing_records >= 1:
-#             error_message = _("You can only add one record.")
-#             self.message_user(request, error_message, level=messages.ERROR)
-#         else:
-#             super().save_model(request, obj, form, change)
-
-# @admin.register(user)
-# class CustomUserAdmin(UserAdmin):
-#     fieldsets = (
-#         (None, {'fields': ('username', 'password')}),
-#         (_('Personiskā informācija'), {'fields': ('first_name', 'last_name', 'email', 'phone_number')}),
-#         (_('Atļaujas'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
-#         (_('Svarīgie datumi'), {'fields': ('last_login', 'date_joined')}),
-#     )
-
-#     list_display = ('username', 'email', 'first_name', 'last_name', 'is_active')
-#     list_filter = ('is_active', 'is_staff', 'is_superuser', 'groups')
-
-#     class Media:
-#         js = (
-#             'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-#             'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js',
-#             'modeltranslation/js/tabbed_translation_fields.js',
-#         )
-#         css = {
-#             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
-#         }
-
 class RatingInline(admin.TabularInline):
     readonly_fields = ['user', 'stars']
     can_delete = False
@@ -357,21 +262,21 @@ class OrderAdmin(admin.ModelAdmin):
         return format_html('<div style="width: 20px; height: 20px; background-color: {};"></div>', obj.product_color.code)
     display_product_color.short_description = 'Product Color'
 
-from django_recaptcha.models import RecaptchaKeys
+# from django_recaptcha.models import RecaptchaKeys
 
-class RecaptchaKeysAdmin(admin.ModelAdmin):
-    list_display = ('public_key', 'private_key')
-    search_fields = ['public_key', 'private_key']
+# class RecaptchaKeysAdmin(admin.ModelAdmin):
+#     list_display = ('public_key', 'private_key')
+#     search_fields = ['public_key', 'private_key']
 
-    def save_model(self, request, obj, form, change):
-        existing_records = RecaptchaKeys.objects.exclude(pk=obj.pk).count()
-        if existing_records >= 1:
-            error_message = _("Varat pievienot tikai vienu ierakstu.")
-            self.message_user(request, error_message, level=messages.ERROR)
-        else:
-            super().save_model(request, obj, form, change)
+#     def save_model(self, request, obj, form, change):
+#         existing_records = RecaptchaKeys.objects.exclude(pk=obj.pk).count()
+#         if existing_records >= 1:
+#             error_message = _("Varat pievienot tikai vienu ierakstu.")
+#             self.message_user(request, error_message, level=messages.ERROR)
+#         else:
+#             super().save_model(request, obj, form, change)
 
-admin.site.register(RecaptchaKeys, RecaptchaKeysAdmin)
+# admin.site.register(RecaptchaKeys, RecaptchaKeysAdmin)
 
 
 admin.site.register(Order, OrderAdmin)

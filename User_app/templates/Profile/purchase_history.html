@@ -1,0 +1,86 @@
+{% extends 'Profile.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Pirkumu vēsture' %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile/purchase_history.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>{% trans 'Pirkumu vēsture' %}</h2>
+    </div>
+    <div class="card-body">
+        {% if purchases %}
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{% trans 'Pasūtījuma numurs' %}</th>
+                            <th>{% trans 'Summa' %}</th>
+                            <th>{% trans 'Statuss' %}</th>
+                            <th>{% trans 'Datums' %}</th>
+                            <th>{% trans 'Produkts' %}</th>
+                            <th>{% trans 'Priekšējā bilde' %}</th>
+                            <th>{% trans 'Aizmugurējā bilde' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in purchases %}
+                            <tr>
+                                <td>{{ purchase.order_number }}</td>
+                                <td>{{ purchase.amount }}</td>
+                                <td>{{ purchase.get_status_display }}</td>
+                                <td>{{ purchase.created_at }}</td>
+                                <td>
+                                    <ul class="product-images">
+                                        {% for item in purchase.purchase_products.all %}
+                                            <li>{{ item.product.title }} - {{ item.quantity }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="product-images">
+                                        {% for item in purchase.purchase_products.all %}
+                                            {% if item.product.front_image %}
+                                                <li>
+                                                    <img src="{{ item.product.front_image.url }}" alt="{{ item.product.title }}" class="product-image" />
+                                                </li>
+                                            {% else %}
+                                                <li>{% trans 'N/A' %}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="product-images">
+                                        {% for item in purchase.purchase_products.all %}
+                                            {% if item.product.back_image %}
+                                                <li>
+                                                    <img src="{{ item.product.back_image.url }}" alt="{{ item.product.title }}" class="product-image" />
+                                                </li>
+                                            {% else %}
+                                                <li>{% trans 'N/A' %}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>{% trans 'Nav neviena pasūtījuma!' %}</p>
+        {% endif %}
+    </div>
+
+
+</div>
+{% endblock %}

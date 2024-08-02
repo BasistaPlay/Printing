@@ -9,18 +9,15 @@ from django.template.loader import render_to_string
 from django.views import View
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import FormView, UpdateView, TemplateView
+from django.views.generic import FormView, UpdateView, TemplateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from User_app.forms import (LoginForm, RegistrationForm, ContactForm, PersonalInfoForm, CustomPasswordChangeForm, DeleteAccountForm)
+from User_app.forms import (LoginForm, RegistrationForm, ContactForm, PersonalInfoForm, CustomPasswordChangeForm, DeleteAccountForm, EmailVerificationForm, ExtraInfoForm)
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView, UpdateView
 from User_app.models import ContactMessage, Contact
-from home.models import Order
-from .forms import RegistrationForm
+from home.models import Order, Purchase
 from .models import EmailVerification
-from .forms import EmailVerificationForm
 from User_app.utils import generate_verification_code, send_verification_email
-
 
 
 class LoginView(View):
@@ -91,6 +88,18 @@ class RegisterView(FormView):
         messages.error(self.request, 'Lūdzu, pārbaudiet ievadītos datus.', extra_tags='register alert-error')
         return super().form_invalid(form)
 
+
+class ExtraInfoView(LoginRequiredMixin, FormView):
+    template_name = 'extra_info.html'
+    form_class = ExtraInfoForm
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.save()
+        redirect_after_login = self.request.session.pop('redirect_after_login', None)
+        if redirect_after_login:
+            return redirect(redirect_after_login)
+        return super().form_valid(form)
 
 class EmailVerificationView(FormView):
     template_name = 'verify_email.html'
@@ -220,7 +229,7 @@ class PersonalInfoView(LoginRequiredMixin, UpdateView):
 
 class CustomPasswordChangeView(FormView):
     form_class = CustomPasswordChangeForm
-    success_url = reverse_lazy('password_change_done')
+    success_url = reverse_lazy('profile:change_password')
     template_name = 'Profile/password_change_form.html'
 
     def get_form_kwargs(self):
@@ -228,10 +237,16 @@ class CustomPasswordChangeView(FormView):
         kwargs['user'] = self.request.user
         return kwargs
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Your password has been changed successfully. &#128578;')
+        return response
+
+
 class DeleteAccountView(LoginRequiredMixin, FormView):
     template_name = 'Profile/delete_account_form.html'
     form_class = DeleteAccountForm
-    success_url = reverse_lazy('')
+    success_url = reverse_lazy('profile:login')
 
     def form_valid(self, form):
         user = self.request.user
@@ -241,10 +256,10 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
             return super().form_valid(form)
         return self.form_invalid(form)
 
-class OrderHistoryView(LoginRequiredMixin, TemplateView):
-    template_name = 'Profile/order_history.html'
+class PurchaseHistoryView(LoginRequiredMixin, ListView):
+    model = Purchase
+    template_name = 'Profile/purchase_history.html'
+    context_object_name = 'purchases'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user_orders'] = Order.objects.filter(user=self.request.user)
-        return context
+    def get_queryset(self):
+        return Purchase.objects.filter(user=self.request.user).order_by('-created_at')

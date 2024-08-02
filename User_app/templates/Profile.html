@@ -2,28 +2,35 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}
-    {% trans 'User Profile' %}
-{% endblock %}
-
-    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" />
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" />
-{% endblock %}
-
 {% block body %}
-<div class="profile-container">
-    <div class="sidebar">
-        <nav>
-            <ul>
-                <li><a href="{% url 'profile:personal_info' %}"><i class="fas fa-user"></i> {% trans 'Personal Information' %}</a></li>
-                <li><a href="{% url 'profile:change_password' %}"><i class="fas fa-lock"></i> {% trans 'Change Password' %}</a></li>
-                <li><a href="{% url 'profile:delete_account' %}"><i class="fas fa-trash-alt"></i> {% trans 'Delete Account' %}</a></li>
-                <li><a href="{% url 'profile:order_history' %}"><i class="fas fa-history"></i> {% trans 'Order History' %}</a></li>
+    <div class="navbar-container">
+        <nav class="navbar">
+            <div class="navbar-brand">Mans Profils</div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:personal_info' %}">
+                        <i class="fas fa-user"></i> Personīgā informācija
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:change_password' %}">
+                        <i class="fas fa-key"></i> Paroles maiņa
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:order_history' %}">
+                        <i class="fas fa-receipt"></i> Pasūtījumu vēsture
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:delete_account' %}">
+                        <i class="fas fa-trash-alt"></i> Dzēst kontu
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
-    <div class="content">
+    <div class="container mt-5">
         {% block content %}
         {% endblock %}
     </div>

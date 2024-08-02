@@ -2,17 +2,28 @@
 {% load static %}
 {% load i18n %}
 
+{% block title %}
+    {% trans 'Dzēst profilu' %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile/delete_account_form.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" />
+{% endblock %}
 
 {% block content %}
 <div class="card">
     <div class="card-header">
-        <h2>{% trans 'Delete Account' %}</h2>
+        <h2>{% trans 'Dzēst profilu' %}</h2>
     </div>
     <div class="card-body">
+        <p class="warning-message">
+            {% trans "Lūdzu, ņemiet vērā, ka jūsu konta dzēšana pastāvīgi izdzēsīs visus jūsu datus, tostarp iepriekšējos pasūtījumus, saglabātos dizainus un virtuālo valūtu. Šī darbība nav atsaucama. Vai tiešām vēlaties turpināt?" %}
+        </p>
         <form method="post" action="{% url 'profile:delete_account' %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-danger">{% trans 'Delete Account' %}</button>
+            <button type="submit" class="btn btn-danger">{% trans 'Dzēst profilu' %}</button>
         </form>
     </div>
 </div>

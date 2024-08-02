@@ -26,13 +26,12 @@ RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', '127.0.0.1', 'localhost']
+
 DEBUG = False
-
-ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', 'https://ericprint.com', 'www.ericprint.com']
-
-CSRF_COOKIE_SECURE = False
 SECURE_SSL_REDIRECT = True
-
+CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = ['https://ericprint.com', 'https://www.ericprint.com']
 
@@ -221,7 +220,7 @@ JAZZMIN_SETTINGS = {
     "navigation_expanded": True,
     "hide_apps": ["'sites'"],
     "show_ui_builder": False,
-    "related_modal_active": True,
+    "related_modal_active": False,
     "topmenu_links": [],
     "usermenu_links": [],
     "theme": "home",
@@ -263,6 +262,8 @@ FILE_CHARSET = 'utf-8'
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_EMAIL_REQUIRED = True
 SOCIALACCOUNT_QUERY_EMAIL = True
+
+SOCIALACCOUNT_ADAPTER = 'User_app.adapters.MySocialAccountAdapter'
 
 
 RECAPTCHA_PUBLIC_KEY = '6LfuiuQpAAAAAEq03FdKts-9bZ6KIcF9T8K7w4KY'

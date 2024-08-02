@@ -26,6 +26,7 @@ body {
     --hover-color: #00000039;
     --input-color: #ffffffa4;
     --input-readonly-color: #f9f9f9;
+    --main-hover-color: #9aab0f;
 }
 
 body.dark{

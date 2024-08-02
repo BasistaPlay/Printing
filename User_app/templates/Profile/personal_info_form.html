@@ -2,6 +2,10 @@
 {% load static %}
 {% load i18n %}
 
+{% block title %}
+    {% trans 'Personīgā informācija' %}
+{% endblock %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/profile/personal_info_form.css' %}" />
     <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" />
@@ -9,7 +13,7 @@
 
 {% block content %}
 <div class="card">
-{% if messages %}
+    {% if messages %}
         <div class="messages">
             {% for message in messages %}
                 <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
@@ -19,7 +23,7 @@
         </div>
     {% endif %}
     <div class="card-header">
-        <h2>{% trans 'Personal Information' %}</h2>
+        <h2>{% trans 'Personīgā informācija' %}</h2>
     </div>
     <div class="card-body">
         <form method="post" action="{% url 'profile:personal_info' %}">
@@ -75,7 +79,15 @@
                     {% endif %}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">{% trans 'Save Changes' %}</button>
+            <div class="form-row">
+                <div class="form-CheckBox">
+                    {{ form.wants_promotions }}
+                    <label for="{{ form.wants_promotions.id_for_label }}">
+                        Vēlos saņemt jaunumus un piedāvājumus
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">{% trans 'Saglabt izmaiņas' %}</button>
         </form>
     </div>
 </div>

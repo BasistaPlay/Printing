@@ -4,7 +4,7 @@ from User_app.models import user
 from django.core.exceptions import ValidationError
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.phonenumber import PhoneNumber
-
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -69,6 +69,11 @@ class RegistrationForm(UserCreationForm):
 
         return phone_number
 
+class ExtraInfoForm(forms.ModelForm):
+    class Meta:
+        model = user
+        fields = ['username', 'phone_number']
+
 class EmailVerificationForm(forms.Form):
     code = forms.CharField(max_length=5, required=True, label='Verification Code')
 
@@ -84,10 +89,11 @@ class ContactForm(forms.Form):
 class PersonalInfoForm(forms.ModelForm):
     class Meta:
         model = user
-        fields = ['first_name', 'last_name', 'username', 'email', 'phone_number']
+        fields = ['first_name', 'last_name', 'username', 'email', 'phone_number', 'wants_promotions']
         widgets = {
             'first_name': forms.TextInput(attrs={'readonly': 'readonly'}),
             'last_name': forms.TextInput(attrs={'readonly': 'readonly'}),
+            'wants_promotions': forms.CheckboxInput(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -97,24 +103,13 @@ class PersonalInfoForm(forms.ModelForm):
                 field.widget.attrs.update({'class': 'is-invalid'})
 
 
-# class PersonalInfoForm(UserChangeForm):
-#     class Meta:
-#         model = user
-#         fields = ('first_name', 'last_name', 'email', 'username', 'phone_number')
-
-#     def __init__(self, *args, **kwargs):
-#         super(PersonalInfoForm, self).__init__(*args, **kwargs)
-#         # Remove password fields
-#         if 'password' in self.fields:
-#             del self.fields['password']
-
-class LanguageForm(forms.Form):
-    language = forms.ChoiceField(choices=[('en', 'English'), ('lv', 'Latvian')])
-
 class CustomPasswordChangeForm(PasswordChangeForm):
     class Meta:
         model = user
         fields = ('old_password', 'new_password1', 'new_password2')
 
 class DeleteAccountForm(forms.Form):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(
+        widget=forms.PasswordInput(),
+        label=_('Parole')
+    )
