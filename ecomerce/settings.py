@@ -28,9 +28,11 @@ RECAPTCHA_REQUIRED_SCORE = 0.85
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', 'https://ericprint.com']
+ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', 'https://ericprint.com', 'www.ericprint.com']
 
 CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = True
+
 
 CSRF_TRUSTED_ORIGINS = ['https://ericprint.com', 'https://www.ericprint.com']
 
