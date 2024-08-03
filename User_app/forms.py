@@ -23,14 +23,17 @@ class LoginForm(forms.Form):
 class RegistrationForm(UserCreationForm):
     phone_number = PhoneNumberField()
     country_code = forms.CharField(max_length=5, widget=forms.HiddenInput())
-    agree_to_terms = forms.BooleanField(required=True, label="Piekrītu interneta veikala noteikumiem")
+    agree_to_terms = forms.BooleanField(required=True, label=_("Piekrītu interneta veikala noteikumiem"))
 
     class Meta:
         model = user
         fields = ['first_name', 'last_name', 'email', 'username', 'phone_number', 'country_code', 'password1', 'password2', 'agree_to_terms']
         widgets = {
-            'password1': forms.PasswordInput(attrs={'placeholder': 'Parole'}),
-            'password2': forms.PasswordInput(attrs={'placeholder': 'Apstipriniet paroli'}),
+            'password1': forms.PasswordInput(attrs={'placeholder': _('Parole')}),
+            'password2': forms.PasswordInput(attrs={'placeholder': _('Apstipriniet paroli')}),
+        }
+        labels = {
+            'phone_number': _('Talruņa numurs'),
         }
 
     def clean_password2(self):
@@ -43,13 +46,13 @@ class RegistrationForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if user.objects.filter(email=email).exists():
-            raise ValidationError("Šī e-pasta adrese jau tiek izmantota.")
+            raise ValidationError(_("Šī e-pasta adrese jau tiek izmantota."))
         return email
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if user.objects.filter(username=username).exists():
-            raise ValidationError("Šis lietotājvārds jau tiek izmantots.")
+            raise ValidationError(_("Šis lietotājvārds jau tiek izmantots."))
         return username
 
     def clean_phone_number(self):
@@ -62,10 +65,10 @@ class RegistrationForm(UserCreationForm):
                 phone_number_obj = PhoneNumber.from_string(full_number)
                 phone_number_obj.as_e164
             except Exception as e:
-                raise ValidationError(f"Nepareizs telefona numurs: {e}")
+                raise ValidationError(_(f"Nepareizs telefona numurs: {e}"))
 
             if user.objects.filter(phone_number=phone_number_obj.as_e164).exists():
-                raise ValidationError("Šis telefona numurs jau tiek izmantots.")
+                raise ValidationError(_("Šis telefona numurs jau tiek izmantots."))
 
         return phone_number
 
@@ -75,7 +78,7 @@ class ExtraInfoForm(forms.ModelForm):
         fields = ['username', 'phone_number']
 
 class EmailVerificationForm(forms.Form):
-    code = forms.CharField(max_length=5, required=True, label='Verification Code')
+    code = forms.CharField(max_length=5, required=True, label=_('Verifikācijas kods'))
 
 
 class ContactForm(forms.Form):
@@ -94,6 +97,9 @@ class PersonalInfoForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'readonly': 'readonly'}),
             'last_name': forms.TextInput(attrs={'readonly': 'readonly'}),
             'wants_promotions': forms.CheckboxInput(),
+        }
+        labels = {
+            'phone_number': _('Talruņa numurs'),
         }
 
     def __init__(self, *args, **kwargs):

@@ -53,9 +53,9 @@
                                 <div class="phone-number-container">
                                     <div class="country-code-selector">
                                         <select id="country-code" name="country_code">
-                                            <option value="+371">Latvia (+371)</option>
-                                            <option value="+372">Estonia (+372)</option>
-                                            <option value="+370">Lithuania (+370)</option>
+                                            <option value="+371">{% trans 'Latvija' %} (+371)</option>
+                                            <option value="+372">{% trans 'Igaunija' %} (+372)</option>
+                                            <option value="+370">{% trans 'Lietuva' %} (+370)</option>
                                         </select>
                                     </div>
                                     <input type="tel" required id="phone-number-input" name="phone_number" style="{% if form.phone_number.errors %}border-color: #b71c1c;{% endif %}">
@@ -84,9 +84,9 @@
                             <div class="checkbox-container">
                                 <input type="checkbox" id="terms" name="agree_to_terms" required>
                                     <label for="terms">
-                                        Ar šo es apliecinu, ka esmu iepazinies(-usies) ar
+                                        {% trans 'Ar šo es apliecinu, ka esmu iepazinies(-usies) ar' %}
                                         <a href="{% static 'pdf/terms_of_service.pdf' %}" target="_blank" class="terms-link">
-                                            EricPrint lietošanas noteikumiem
+                                            {% trans 'EricPrint lietošanas noteikumiem' %}
                                         </a>
                                     </label>
                             </div>

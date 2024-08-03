@@ -47,12 +47,12 @@ class LoginView(View):
                     login(request, user)
                     return redirect('homepage')
                 else:
-                    messages.error(request, 'Jūsu e-pasts vēl nav verificēts. Lūdzu, pārbaudiet savu e-pastu.', extra_tags='login alert-error' )
+                    messages.error(request, _('Jūsu e-pasts vēl nav verificēts. Lūdzu, pārbaudiet savu e-pastu.'), extra_tags='login alert-error' )
                     return redirect('profile:verify_email')
             else:
-                messages.error(request, 'Nepareizs lietotājvārds vai parole.', extra_tags='login alert-error')
+                messages.error(request, _('Nepareizs lietotājvārds vai parole.'), extra_tags='login alert-error')
         else:
-            messages.error(request, 'Lūdzu, pārbaudiet ievadītos datus.', extra_tags='login alert-error')
+            messages.error(request, _('Lūdzu, pārbaudiet ievadītos datus.'), extra_tags='login alert-error')
 
         return render(request, self.template_name, context)
 
@@ -64,7 +64,7 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         if not form.cleaned_data.get('agree_to_terms'):
-            form.add_error('agree_to_terms', 'Lūdzu, piekrītiet noteikumiem.')
+            form.add_error('agree_to_terms', _('Lūdzu, piekrītiet noteikumiem.'))
             return self.form_invalid(form)
 
         user = form.save(commit=False)
@@ -79,13 +79,13 @@ class RegisterView(FormView):
 
         send_verification_email(user, verification_code)
 
-        messages.success(self.request, 'Jūsu profils ir veiksmīgi reģistrēts. Verifikācijas kods tika nosūtīts uz jūsu e-pastu.', extra_tags='register alert-success')
+        messages.success(self.request, _('Jūsu profils ir veiksmīgi reģistrēts. Verifikācijas kods tika nosūtīts uz jūsu e-pastu.'), extra_tags='register alert-success')
         self.request.session['user_email'] = user.email
 
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Lūdzu, pārbaudiet ievadītos datus.', extra_tags='register alert-error')
+        messages.error(self.request, _('Lūdzu, pārbaudiet ievadītos datus.'), extra_tags='register alert-error')
         return super().form_invalid(form)
 
 
@@ -121,10 +121,10 @@ class EmailVerificationView(FormView):
             user.is_active = True
             user.save()
             verification.save()
-            messages.success(self.request, 'Jūsu e-pasts ir veiksmīgi verificēts.', extra_tags='eresendverf alert-success')
+            messages.success(self.request, _('Jūsu e-pasts ir veiksmīgi verificēts.'), extra_tags='eresendverf alert-success')
             return super().form_valid(form)
         except EmailVerification.DoesNotExist:
-            form.add_error('code', 'Nepareizs verifikācijas kods.')
+            form.add_error('code', _('Nepareizs verifikācijas kods.'))
             return self.form_invalid(form)
 
 
@@ -141,13 +141,13 @@ class ResendVerificationCodeView(View):
 
                 send_verification_email(user, verification_code)
 
-                messages.success(request, 'Jauns verifikācijas kods tika nosūtīts uz jūsu e-pastu.', extra_tags='resendverf alert-error')
+                messages.success(request, _('Jauns verifikācijas kods tika nosūtīts uz jūsu e-pastu.'), extra_tags='resendverf alert-error')
             except MyUser.DoesNotExist:
-                messages.error(request, 'Lietotājs ar šo e-pasta adresi neeksistē.', extra_tags='resendverf alert-error')
+                messages.error(request, _('Lietotājs ar šo e-pasta adresi neeksistē.'), extra_tags='resendverf alert-error')
             except EmailVerification.DoesNotExist:
-                messages.error(request, 'Verifikācijas informācija nav atrasta.', extra_tags='resendverf alert-error')
+                messages.error(request, _('Verifikācijas informācija nav atrasta.'), extra_tags='resendverf alert-error')
         else:
-            messages.error(request, 'Radās kļūda. Lūdzu, mēģiniet vēlreiz.', extra_tags='resendverf alert-error')
+            messages.error(request, _('Radās kļūda. Lūdzu, mēģiniet vēlreiz.'), extra_tags='resendverf alert-error')
         return redirect('profile:verify_email')
 
 def logout_view(request):
@@ -202,10 +202,10 @@ class ContactUsView(View):
             email.attach_alternative(email_content, "text/html")
             email.send()
 
-            messages.success(request, 'Ziņojums ir veiksmīgi nosūtīts!')
+            messages.success(request, _('Ziņojums ir veiksmīgi nosūtīts!'))
             return redirect('contact_us')
         else:
-            messages.error(request, 'Radās kļūda. Lūdzu, pārbaudiet ievadītos datus.')
+            messages.error(request, _('Radās kļūda. Lūdzu, pārbaudiet ievadītos datus.'))
 
         context = {
             'form': form,
@@ -223,7 +223,7 @@ class PersonalInfoView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def form_valid(self, form):
-        messages.success(self.request, _('Your personal information has been updated.'))
+        messages.success(self.request, _('Jūsu personiskā informācija ir atjaunināta.'))
         return super().form_valid(form)
 
 
@@ -239,7 +239,7 @@ class CustomPasswordChangeView(FormView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, 'Your password has been changed successfully. &#128578;')
+        messages.success(self.request, _('Jūsu parole ir veiksmīgi nomainīta.'))
         return response
 
 
@@ -252,7 +252,7 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
         user = self.request.user
         if form.cleaned_data['password']:
             user.delete()
-            messages.success(self.request, _('Your account has been deleted successfully.'))
+            messages.success(self.request, _('Jūsu konts ir veiksmīgi izdzēsts.'))
             return super().form_valid(form)
         return self.form_invalid(form)
 

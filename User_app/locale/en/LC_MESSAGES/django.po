@@ -1,0 +1,468 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-03 19:01+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin.py:32
+msgid "Atzīmēt atlasītās ziņas kā atbildētas"
+msgstr "Mark selected messages as answered"
+
+#: admin.py:37
+msgid "Lietotāja informācija"
+msgstr "User Information"
+
+#: admin.py:40
+msgid "Administratora ziņojums"
+msgstr "Administrator's Message"
+
+#: admin.py:61
+msgid "Atbilde nosūtīta lietotājam!"
+msgstr "Response sent to user!"
+
+#: admin.py:72 templates/contact.html:41
+msgid "Kontaktinformācija"
+msgstr "Contact Information"
+
+#: admin.py:75
+msgid "Sociālās saites"
+msgstr "Social Links"
+
+#: admin.py:84
+msgid "You can only add one record."
+msgstr "You can only add one record."
+
+#: admin.py:93
+msgid "Personiskā informācija"
+msgstr "Personal Information"
+
+#: admin.py:94
+msgid "Atļaujas"
+msgstr "Permissions"
+
+#: admin.py:95
+msgid "Svarīgie datumi"
+msgstr "Important Dates"
+
+#: admin.py:96 templates/extra_info.html:6 templates/extra_info.html:18
+msgid "Papildu informācija"
+msgstr "Additional Information"
+
+#: admin.py:121 models.py:35
+msgid "Lietotājs"
+msgstr "User"
+
+#: forms.py:26
+msgid "Piekrītu interneta veikala noteikumiem"
+msgstr "I agree to the online store's terms"
+
+#: forms.py:32 forms.py:120 templates/login.html:37
+msgid "Parole"
+msgstr "Password"
+
+#: forms.py:33
+msgid "Apstipriniet paroli"
+msgstr "Confirm Password"
+
+#: forms.py:36 forms.py:102
+#| msgid "Telefona numurs"
+msgid "Talruņa numurs"
+msgstr "Phone Number"
+
+#: forms.py:49
+msgid "Šī e-pasta adrese jau tiek izmantota."
+msgstr "This email address is already in use."
+
+#: forms.py:55
+msgid "Šis lietotājvārds jau tiek izmantots."
+msgstr "This username is already in use."
+
+#: forms.py:68
+#, python-brace-format
+msgid "Nepareizs telefona numurs: {e}"
+msgstr "Invalid phone number: {e}"
+
+#: forms.py:71
+msgid "Šis telefona numurs jau tiek izmantots."
+msgstr "This phone number is already in use."
+
+#: forms.py:81 templates/emails/verification_email.html:8
+#: templates/emails/verification_email.html:56
+msgid "Verifikācijas kods"
+msgstr "Verification Code"
+
+#: models.py:8 templates/contact.html:92
+msgid "Vārds"
+msgstr "First Name"
+
+#: models.py:9 templates/contact.html:96
+msgid "Uzvārds"
+msgstr "Last Name"
+
+#: models.py:10 models.py:43 templates/contact.html:100
+msgid "E-pasts"
+msgstr "Email"
+
+#: models.py:11 models.py:42 templates/contact.html:104
+msgid "Telefona numurs"
+msgstr "Phone Number"
+
+#: models.py:13
+msgid "Atbildēts"
+msgstr "Answered"
+
+#: models.py:14
+msgid "Administrātora virsraksts"
+msgstr "Administrator Title"
+
+#: models.py:15
+msgid "Administrātora vēstule"
+msgstr "Administrator Letter"
+
+#: models.py:21
+msgid "Kontaktziņojums"
+msgstr "Contact Message"
+
+#: models.py:22
+msgid "Kontaktziņojumi"
+msgstr "Contact Messages"
+
+#: models.py:36
+msgid "Lietotāji"
+msgstr "Users"
+
+#: models.py:40
+msgid "Adrese"
+msgstr "Address"
+
+#: models.py:41
+msgid "Pasta indekss"
+msgstr "Postal Code"
+
+#: models.py:44
+msgid "Twitter saite"
+msgstr "Twitter Link"
+
+#: models.py:45
+msgid "Facebook saite"
+msgstr "Facebook Link"
+
+#: models.py:46
+msgid "Instagram saite"
+msgstr "Instagram Link"
+
+#: models.py:52
+msgid "Kontakts"
+msgstr "Contact"
+
+#: models.py:53
+msgid "Kontakti"
+msgstr "Contacts"
+
+#: templates/Profile.html:8
+msgid "Mans Profils"
+msgstr "My Profile"
+
+#: templates/Profile.html:12 templates/Profile/personal_info_form.html:6
+#: templates/Profile/personal_info_form.html:26
+msgid "Personīgā informācija"
+msgstr "Personal Information"
+
+#: templates/Profile.html:17
+#| msgid "Parole"
+msgid "Paroles maiņa"
+msgstr "Change Password"
+
+#: templates/Profile.html:22
+#| msgid "Pirkumu vēsture"
+msgid "Pasūtījumu vēsture"
+msgstr "Order History"
+
+#: templates/Profile.html:27
+#| msgid "Dzēst profilu"
+msgid "Dzēst kontu"
+msgstr "Delete Account"
+
+#: templates/Profile/delete_account_form.html:6
+#: templates/Profile/delete_account_form.html:17
+#: templates/Profile/delete_account_form.html:26
+msgid "Dzēst profilu"
+msgstr "Delete Account"
+
+#: templates/Profile/delete_account_form.html:21
+msgid ""
+"Lūdzu, ņemiet vērā, ka jūsu konta dzēšana pastāvīgi izdzēsīs visus jūsu "
+"datus, tostarp iepriekšējos pasūtījumus, saglabātos dizainus un virtuālo "
+"valūtu. Šī darbība nav atsaucama. Vai tiešām vēlaties turpināt?"
+msgstr ""
+"Please note that deleting your account will permanently erase all your data, "
+"including previous orders, saved designs, and virtual currency. This action "
+"cannot be undone. Are you sure you want to continue?"
+
+#: templates/Profile/password_change_form.html:6
+#: templates/Profile/password_change_form.html:24
+#: templates/Profile/password_change_form.html:30
+msgid "Change Password"
+msgstr "Change Password"
+
+#: templates/Profile/personal_info_form.html:86
+msgid "Vēlos saņemt jaunumus un piedāvājumus"
+msgstr "I want to receive news and offers"
+
+#: templates/Profile/personal_info_form.html:90
+msgid "Saglabt izmaiņas"
+msgstr "Save Changes"
+
+#: templates/Profile/purchase_history.html:6
+#: templates/Profile/purchase_history.html:17
+msgid "Pirkumu vēsture"
+msgstr "Purchase History"
+
+#: templates/Profile/purchase_history.html:25
+msgid "Pasūtījuma numurs"
+msgstr "Order Number"
+
+#: templates/Profile/purchase_history.html:26
+msgid "Summa"
+msgstr "Amount"
+
+#: templates/Profile/purchase_history.html:27
+msgid "Statuss"
+msgstr "Status"
+
+#: templates/Profile/purchase_history.html:28
+msgid "Datums"
+msgstr "Date"
+
+#: templates/Profile/purchase_history.html:29
+msgid "Produkts"
+msgstr "Product"
+
+#: templates/Profile/purchase_history.html:30
+msgid "Priekšējā bilde"
+msgstr "Front Image"
+
+#: templates/Profile/purchase_history.html:31
+msgid "Aizmugurējā bilde"
+msgstr "Back Image"
+
+#: templates/Profile/purchase_history.html:56
+#: templates/Profile/purchase_history.html:69
+msgid "N/A"
+msgstr "N/A"
+
+#: templates/Profile/purchase_history.html:80
+msgid "Nav neviena pasūtījuma!"
+msgstr "No orders found!"
+
+#: templates/contact.html:6
+msgid "Sazinies ar mums"
+msgstr "Contact Us"
+
+#: templates/contact.html:86
+msgid "Nosūtīt ziņu"
+msgstr "Send Message"
+
+#: templates/contact.html:108
+msgid "Raksti savu ziņu šeit..."
+msgstr "Write your message here..."
+
+#: templates/contact.html:111
+msgid "Sūtīt"
+msgstr "Send"
+
+#: templates/emails/verification_email.html:55
+msgid "Company Logo"
+msgstr "Company Logo"
+
+#: templates/emails/verification_email.html:59
+msgid "Sveiki"
+msgstr "Hello"
+
+#: templates/emails/verification_email.html:60
+msgid "Jūsu verifikācijas kods ir:"
+msgstr "Your verification code is:"
+
+#: templates/emails/verification_email.html:62
+msgid ""
+"Lūdzu, ievadiet šo kodu, lai verificētu savu e-pasta adresi. Ja jūs neesat "
+"pieprasījis šo kodu, ignorējiet šo ziņojumu."
+msgstr ""
+"Please enter this code to verify your email address. If you did not "
+"request this code, please ignore this message."
+
+#: templates/emails/verification_email.html:63
+msgid ""
+"Paldies, ka reģistrējāties Ericprint.com! Mēs priecājamies par jūsu "
+"pievienošanos."
+msgstr ""
+"Thank you for registering at Ericprint.com! We are glad to have you on "
+"board."
+
+#: templates/emails/verification_email.html:66
+msgid "Paldies"
+msgstr "Thank You"
+
+#: templates/extra_info.html:49
+msgid "Saglabāt"
+msgstr "Save"
+
+#: templates/extra_info.html:52 templates/register.html:98
+msgid "Vai jums jau ir konts? "
+msgstr "Do you already have an account? "
+
+#: templates/extra_info.html:52 templates/login.html:7 templates/login.html:19
+#: templates/login.html:47 templates/register.html:98
+msgid "Pieslēgties"
+msgstr "Log In"
+
+#: templates/login.html:33
+msgid "Lietotājvārds"
+msgstr "Username"
+
+#: templates/login.html:51
+msgid "Vai jums nav konta? "
+msgstr "Don't have an account? "
+
+#: templates/login.html:52 templates/register.html:6 templates/register.html:18
+#: templates/register.html:95
+msgid "Reģistrēties"
+msgstr "Register"
+
+#: templates/login.html:55
+msgid "Aizmirsāt paroli?"
+msgstr "Forgot Password?"
+
+#: templates/login.html:56
+msgid "Atjaunot to šeit"
+msgstr "Reset it here"
+
+#: templates/login.html:59
+msgid "Vai pieslēdzies caur sociālajiem tīkliem"
+msgstr "Log in with social media"
+
+#: templates/register.html:56
+msgid "Latvija"
+msgstr "Latvia"
+
+#: templates/register.html:57
+msgid "Igaunija"
+msgstr "Estonia"
+
+#: templates/register.html:58
+msgid "Lietuva"
+msgstr "Lithuania"
+
+#: templates/register.html:87
+msgid "Ar šo es apliecinu, ka esmu iepazinies(-usies) ar"
+msgstr "By this, I confirm that I have read the"
+
+#: templates/register.html:89
+msgid "EricPrint lietošanas noteikumiem"
+msgstr "EricPrint Terms of Service"
+
+#: templates/verify_email.html:19
+msgid "Verificēt e-pastu"
+msgstr "Verify Email"
+
+#: templates/verify_email.html:20
+msgid "Verifikācijas kods tika nosūtīts uz"
+msgstr "Verification code was sent to"
+
+#: templates/verify_email.html:20
+msgid "Lūdzu, ievadiet kodu zemāk, lai verificētu savu e-pastu."
+msgstr "Please enter the code below to verify your email."
+
+#: templates/verify_email.html:33
+msgid "Verificēt"
+msgstr "Verify"
+
+#: templates/verify_email.html:36
+msgid "Nesaņēmāt kodu?"
+msgstr "Did not receive the code?"
+
+#: templates/verify_email.html:36
+msgid "Nosūtīt kodu vēlreiz"
+msgstr "Resend Code"
+
+#: views.py:50
+msgid "Jūsu e-pasts vēl nav verificēts. Lūdzu, pārbaudiet savu e-pastu."
+msgstr "Your email has not been verified. Please check your email."
+
+#: views.py:53
+msgid "Nepareizs lietotājvārds vai parole."
+msgstr "Invalid username or password."
+
+#: views.py:55 views.py:88
+msgid "Lūdzu, pārbaudiet ievadītos datus."
+msgstr "Please check the entered data."
+
+#: views.py:67
+msgid "Lūdzu, piekrītiet noteikumiem."
+msgstr "Please agree to the terms."
+
+#: views.py:82
+msgid ""
+"Jūsu profils ir veiksmīgi reģistrēts. Verifikācijas kods tika nosūtīts uz "
+"jūsu e-pastu."
+msgstr ""
+"Your profile has been successfully registered. A verification code has been "
+"sent to your email."
+
+#: views.py:124
+msgid "Jūsu e-pasts ir veiksmīgi verificēts."
+msgstr "Your email has been successfully verified."
+
+#: views.py:127
+msgid "Nepareizs verifikācijas kods."
+msgstr "Invalid verification code."
+
+#: views.py:144
+msgid "Jauns verifikācijas kods tika nosūtīts uz jūsu e-pastu."
+msgstr "A new verification code has been sent to your email."
+
+#: views.py:146
+msgid "Lietotājs ar šo e-pasta adresi neeksistē."
+msgstr "User with this email address does not exist."
+
+#: views.py:148
+msgid "Verifikācijas informācija nav atrasta."
+msgstr "Verification information not found."
+
+#: views.py:150
+msgid "Radās kļūda. Lūdzu, mēģiniet vēlreiz."
+msgstr "An error occurred. Please try again."
+
+#: views.py:205
+msgid "Ziņojums ir veiksmīgi nosūtīts!"
+msgstr "Message has been successfully sent!"
+
+#: views.py:208
+msgid "Radās kļūda. Lūdzu, pārbaudiet ievadītos datus."
+msgstr "An error occurred. Please check the entered data."
+
+#: views.py:226
+msgid "Jūsu personiskā informācija ir atjaunināta."
+msgstr "Your personal information has been updated."
+
+#: views.py:242
+msgid "Jūsu parole ir veiksmīgi nomainīta."
+msgstr "Your password has been successfully changed."
+
+#: views.py:255
+msgid "Jūsu konts ir veiksmīgi izdzēsts."
+msgstr "Your account has been successfully deleted."
