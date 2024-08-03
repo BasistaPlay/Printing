@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Radošais stūrītis' %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/creativecorner.css' %}" />
+{% endblock %}
+
+{% block body %}
+    <div id="error-messages" class="error-messages"></div>
+    <div id="success-message" class="success-message"></div>
+
+    <section class="shop">
+        <div class="container">
+            <aside class="filter-sidebar">
+                <form id="filter-form">
+                    <div class="filter-content">
+                        <div class="form-group">
+                            <label for="search-input">{% trans 'Meklēt:' %}</label>
+                            <input type="text" id="search-input" name="search" placeholder="{% trans 'Meklēt...' %}">
+                        </div>
+                        <div class="form-group">
+                            <label>{% trans 'Krāsas:' %}</label>
+                            <div class="color-options">
+                                <input type="hidden" name="color" id="selected-colors">
+                                {% for color in all_colors %}
+                                    <div class="color-option" data-color-id="{{ color.id }}" style="background-color: {{ color.code }}"></div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-select">{% trans 'Produktu saraksts:' %}</label>
+                            <select id="product-select" name="product_list">
+                                <option value="">{% trans 'Visi' %}</option>
+                                {% for product in all_products %}
+                                    <option value="{{ product.id }}">{{ product.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>{% trans 'Reitings:' %}</label>
+                            <div id="rating-filter" class="rating-filter">
+                                <span class="star" data-rating="1"><i class="fas fa-star"></i></span>
+                                <span class="star" data-rating="2"><i class="fas fa-star"></i></span>
+                                <span class="star" data-rating="3"><i class="fas fa-star"></i></span>
+                                <span class="star" data-rating="4"><i class="fas fa-star"></i></span>
+                                <span class="star" data-rating="5"><i class="fas fa-star"></i></span>
+                            </div>
+                            <input type="hidden" name="rating" id="selected-rating">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="filter-button" class="btn btn-primary">{% trans 'Filtrēt' %}</button>
+                        </div>
+                    </div>
+                </form>
+            </aside>
+
+
+
+            <main class="product-main">
+                <div id="product-container" class="product-container">
+                    {% for product_list in page_obj %}
+                    <div class="product-box">
+                        <a href="{% url 'product:detail' user=user product_title=product_list.product.title order_id=product_list.id %}">
+                            <div class="product-images">
+                                <img src="{{ product_list.front_image.url }}" alt="{{ product_list.title }}" class="front-image">
+                                <img src="{{ product_list.back_image.url }}" alt="Back Image" class="back-image">
+                            </div>
+                            <div class="product-info">
+                                <h3 class='title-style'>{{ product_list.title }}</h3>
+                                <div class="star-wrapper" data-rating="{{ product_list.average_rating }}">
+                                    {% for star in "12345" %}
+                                        <i class="fas fa-star {% if star|add:0 <= product_list.average_rating|floatformat:0 %}active{% endif %}"></i>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </a>
+                        <div class="cart">
+                            <a href="#" onclick="AddToCart('{{ product_list.id }}')"><i class="bx bx-cart"></i></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="pagination">
+                    <ul>
+                        {% if page_obj.has_previous %}
+                            <li><a href="?page=1">&laquo;&laquo;</a></li>
+                            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&laquo;&laquo;</span></li>
+                            <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if num == page_obj.number %}
+                                <li class="active"><span>{{ num }}</span></li>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <li><a href="?page={{ num }}">{{ num }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                            <li><a href="?page={{ page_obj.paginator.num_pages }}">&raquo;&raquo;</a></li>
+                        {% else %}
+                            <li class="disabled"><span>&raquo;</span></li>
+                            <li class="disabled"><span>&raquo;&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </main>
+        </div>
+    </section>
+{% endblock %}
+
+{% block js %}
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="{% static 'js/creativecorner.js' %}"></script>
+    <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+{% endblock %}

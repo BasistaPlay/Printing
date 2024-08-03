@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.template.loader import render_to_string
 from django.views import View
 from django.urls import reverse_lazy
-from django.views.generic import FormView, UpdateView, TemplateView, ListView
+from django.views.generic import FormView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from User_app.forms import (LoginForm, RegistrationForm, ContactForm, PersonalInfoForm, CustomPasswordChangeForm, DeleteAccountForm, EmailVerificationForm, ExtraInfoForm)
 from django.urls import reverse_lazy

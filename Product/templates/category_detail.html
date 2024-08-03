@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/category_detail.css' %}" />
+{% endblock %}
+
+{% block title %}
+{{ category.title }}
+{% endblock %}
+
+{% block body %}
+<main class="category-detail-container">
+    <h1 class="category-title">{{ category.title }}</h1>
+    <div class="products-container">
+        {% if products %}
+            <div class="product-grid">
+                {% for product in products %}
+                <a class="product-card" href="{% url 'product:design_detail' slug=product.slug %}">
+                    <div class="image-wrapper">
+                        <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">{{ product.title }}</h3>
+                        <p class="product-description">{{ product.description }}</p>
+                        <p class="product-price">{{ product.price }}€</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-products-message">{% trans 'Šajā kategorijā nav produktu' %}</p>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/category_detail.js' %}"></script>
+{% endblock %}

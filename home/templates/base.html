@@ -31,7 +31,7 @@
         </a>
         <ul class="navlist">
             <li><a href='{% url 'homepage' %}' class="Home">{% trans 'Sākumlapa' %}</a></li>
-            <li><a href='{% url 'creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
+            <li><a href='{% url 'product:creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
             <li><a href="{% url 'contact_us' %}" class="contact_us">{% trans 'Sazinies ar mums' %}</a></li>
             {% if user.is_authenticated %}
                 <li class='acc-nav'><a href="{% url 'profile:personal_info' %}" class="contact_us">{% trans 'Profils' %}</a></li>

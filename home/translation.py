@@ -1,6 +1,7 @@
 from modeltranslation.translator import register, TranslationOptions
 
-from .models import Product, CustomDesign, Category
+from .models import Product, CustomDesign
+from Product.models import Category
 
 @register(Product)
 class ProductTranslationOptions(TranslationOptions):

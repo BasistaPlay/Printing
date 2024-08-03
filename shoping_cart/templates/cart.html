@@ -119,8 +119,8 @@
         <div class="cart-item-box">
 
           <h2 class="section-heading">{% trans 'Pasūtījuma kopsavilkums' %}</h2>
-        
-          
+
+
           <div class="product-cards">
               {% for key, value in request.session.cart.items %}
                 <div class="product-card" data-product-id="{{ value.product_id }}">
@@ -161,7 +161,7 @@
                             <ion-icon name="close-outline"></ion-icon>
                         </a>
                     </div>
-                    
+
                 </div>
         </div>
         {% endfor %}
@@ -213,7 +213,7 @@
     </div>
 
   </main>
-  
+
 
 {% endblock %}
 
@@ -235,7 +235,7 @@
             const submitBtn = document.querySelector("#submitBtn");
             submitBtn.addEventListener("click", () => {
               loadingOverlay.style.display = "flex";
-              
+
               fetch("/create-checkout-session/")
                   .then((result) => { return result.json(); })
                   .then((data) => {

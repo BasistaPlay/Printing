@@ -10,15 +10,15 @@
 
 {% block body %}
 <main class="categories-container">
-    <h1 class="animated-title">{% trans "Produktu Kategorijas" %}</h1>
-    <div class="category-cards">
+    <h1 class="page-title">{% trans "Produktu Kategorijas" %}</h1>
+    <div class="category-list">
         {% for category in categories %}
-        <a href="{% url 'category_detail' category.slug %}" class="category-card">
-            <div class="image-container">
+        <a href="{% url 'product:category_detail' category.slug %}" class="category-item">
+            <div class="category-image-wrapper">
                 <img src="{{ category.image.url }}" alt="{{ category.title }}" class="category-image">
             </div>
             <div class="category-info">
-                <h2>{{ category.title }}</h2>
+                <h2 class="category-title">{{ category.title }}</h2>
             </div>
         </a>
         {% endfor %}

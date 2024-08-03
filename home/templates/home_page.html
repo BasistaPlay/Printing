@@ -20,7 +20,7 @@
             <p>{{ custom_designs.additional_notes }}</p>
             <div class="hero-in">
                 {% for product in popular_products %}
-                    <a class="box" href="{% url 'design_detail' slug=product.slug %}">
+                    <a class="box" href="{% url 'product:design_detail' slug=product.slug %}">
                         <h3>{{ product.title }}</h3>
                         <img src="{{ product.image.url }}" alt="Image">
                         <!-- Pievieno ikonu, kas saistīta ar kategoriju -->
@@ -30,7 +30,7 @@
 
                 <!-- Poga ar visām kategorijām -->
                 <div class="categories-button">
-                    <a href="{% url 'all_categories' %}" class="btn">{% trans 'Kategorijas' %}</a>
+                    <a href="{% url 'product:all_categories' %}" class="btn">{% trans 'Kategorijas' %}</a>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <div class="card-price">
                     <p>{{ product.price }}<sup> €</sup></p>
                 </div>
-                <form action="{% url 'design_detail' slug=product.slug %}" method="get">
+                <form action="{% url 'product:design_detail' slug=product.slug %}" method="get">
                     <button type="submit" class="card-button">Izveido dizaunu</button>
                 </form>
             </div>
@@ -67,14 +67,14 @@
         </div>
     </section>
 
-    <section class="top-products">
+    {% comment %} <section class="top-products">
         <div class="top-products-header">
             <h1>{% trans 'Top 3 pirktākie Produkti' %}</h1>
         </div>
         <div class="product-container">
             {% for product in products_top %}
             <div class="product" id="product{{ forloop.counter }}">
-                <a href="{% url 'detail' user=user product_title=product.product.title order_id=product.id %}">
+                <a href="{% url 'product:detail' user=user product_title=product.product.title order_id=product.id %}">
                     <img src="{{ product.front_image.url }}" alt="{{ product.title }}">
                     <h3>{{ product.title }}</h3>
                     <div class="star-wrapper">
@@ -93,7 +93,7 @@
                 <i class="bx bx-up-arrow-alt"></i>
             </div>
         </div>
-    </section>
+    </section> {% endcomment %}
 
 {% endblock %}
 

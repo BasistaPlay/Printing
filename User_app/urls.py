@@ -1,7 +1,5 @@
 from django.urls import path, include
 from User_app import views as user
-from django.conf.urls.i18n import i18n_patterns
-from django.views.i18n import set_language
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth import views as auth_views
 
