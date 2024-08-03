@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ziņojuma apstiprinājums</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: #b6c816;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .header img {
+            max-width: 150px;
+            height: auto;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 1em;
+            color: #b6c816;
+        }
+        a {
+            text-decoration: none;
+            color: #b6c816;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="cid:company_logo" alt="EricPrint Logo">
+            <h1>Paldies, {{ contact_message.first_name|slice:":-1"  }}!</h1>
+        </div>
+        <div class="content">
+            <p>
+                Paldies par ziņojumu! Mēs esam saņēmuši jūsu ziņojumu un centīsimies atbildēt jums pēc iespējas ātrāk. Ja jums ir kādi papildu jautājumi, lūdzu, nekautrējieties sazināties ar mums.
+            </p>
+            <p>
+                Jūsu ziņojuma detaļas:<br>
+                <strong>Vārds:</strong> {{ contact_message.first_name }} {{ contact_message.last_name }}<br>
+                <strong>E-pasts:</strong> {{ contact_message.email }}<br>
+                <strong>Telefona numurs:</strong> {{ contact_message.phone_number }}<br>
+                <strong>Ziņojums:</strong> {{ contact_message.message }}
+            </p>
+            <p>
+                Ja jums ir nepieciešama papildu palīdzība, lūdzu, apmeklējiet mūsu <a href="https://EricPrint.com/contact-us/" class="button">kontaktu lapu</a>.
+            </p>
+        </div>
+        <div class="footer">
+            <p>EricPrint<br>Jūsu uzticamais drukas partneris</p>
+        </div>
+    </div>
+</body>
+</html>

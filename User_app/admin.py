@@ -8,9 +8,11 @@ from ckeditor.widgets import CKEditorWidget
 from User_app.models import ContactMessage, Contact, user, EmailVerification
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-from django.utils.safestring import mark_safe
-from django.utils.html import mark_safe
 from django.template.loader import render_to_string
+from email.mime.image import MIMEImage
+from home.models import CustomDesign
+import mimetypes
+from django.contrib import messages
 
 
 class ContactMessageAdminForm(forms.ModelForm):
@@ -31,7 +33,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
 
     mark_as_replied.short_description = _('Atzīmēt atlasītās ziņas kā atbildētas')
 
-    readonly_fields = ('first_name', 'last_name', 'email', 'phone_number', 'message','replied' )
+    readonly_fields = ('first_name', 'last_name', 'email', 'phone_number', 'message', 'replied')
 
     fieldsets = (
         (_('Lietotāja informācija'), {
@@ -48,21 +50,38 @@ class ContactMessageAdmin(admin.ModelAdmin):
             admin_subject = obj.admin_subject
             admin_message = obj.admin_message
 
-            html_content = render_to_string('e-mail/answer_message.html', {'admin_message': admin_message})
+            # Load the logo
+            custom_design = CustomDesign.objects.first()
+            if custom_design and custom_design.image:
+                with open(custom_design.image.path, 'rb') as img:
+                    mime_type, _ = mimetypes.guess_type(custom_design.image.path)
+                    mime_image = MIMEImage(img.read(), _subtype=mime_type.split('/')[1])
+                    mime_image.add_header('Content-ID', '<company_logo>')
+                    mime_image.add_header('Content-Disposition', 'inline', filename='company_logo.png')
+
+            # Render the email content
+            html_content = render_to_string('emails/answer_message.html', {
+                'contact_message': obj,
+                'admin_message': admin_message
+            })
 
             subject_user = f"Atbilde uz jūsu jautājumu: {admin_subject}"
             email = EmailMultiAlternatives(subject_user, strip_tags(admin_message), settings.DEFAULT_FROM_EMAIL, user_email)
             email.attach_alternative(html_content, "text/html")
+
+            # Attach the logo if it exists
+            if custom_design and custom_design.image:
+                email.attach(mime_image)
+
             email.send()
 
             obj.replied = True
             obj.save()
 
-            messages.success(request, _('Atbilde nosūtīta lietotājam!'))
+            # messages.success(request, _('Atbilde nosūtīta lietotājam!'))
             return super().response_change(request, obj)
 
         return super().response_change(request, obj)
-
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):

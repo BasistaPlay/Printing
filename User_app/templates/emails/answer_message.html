@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atbilde uz jūsu ziņojumu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: #b6c816;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+        .header img {
+            max-width: 150px;
+            height: auto;
+        }
+        .content {
+            padding: 20px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+            color: #b6c816;
+        }
+        .message-header, .response-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .message-content, .response-content {
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .response-content {
+            background: #e9f7f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="cid:company_logo" alt="EricPrint Logo">
+            <h1>Atbilde uz jūsu ziņojumu</h1>
+        </div>
+        <div class="content">
+            <p>
+                Sveicināti, {{ contact_message.first_name|slice:":-1"  }}!
+            </p>
+            <p>
+                Paldies, ka sazinājāties ar mums! Mēs esam saņēmuši jūsu ziņojumu un vēlamies jums sniegt atbildi. Mūsu komanda ir apskatījusi jūsu jautājumu un sniedz zemāk norādīto atbildi:
+            </p>
+            <div class="message">
+                <div class="message-header">Jūsu ziņojums:</div>
+                <div class="message-content">
+                    {{ contact_message.message|safe }}
+                </div>
+            </div>
+            <div class="response">
+                <div class="response-header">Mūsu atbilde:</div>
+                <div class="response-content">
+                    {{ admin_message|safe }}
+                </div>
+            </div>
+            <p>
+                Ja jums ir papildu jautājumi vai nepieciešama papildu palīdzība, lūdzu, nevilcinieties sazināties ar mums. Mēs esam šeit, lai palīdzētu!
+            </p>
+            <p>
+                Jūs varat arī apmeklēt mūsu mājaslapu un iepazīties ar jaunākajiem jaunumiem un pakalpojumiem: <a href="https://www.ericprint.com" style="color: #b6c816;">EricPrint mājaslapa</a>.
+            </p>
+        </div>
+        <div class="footer">
+            <p>EricPrint<br>Jūsu uzticamais drukas partneris</p>
+        </div>
+    </div>
+</body>
+</html>

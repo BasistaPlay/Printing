@@ -7,7 +7,6 @@ from home.models import user as MyUser
 from django.contrib.auth import authenticate, login, logout
 from django.template.loader import render_to_string
 from django.views import View
-from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import FormView, UpdateView, TemplateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,9 +14,11 @@ from User_app.forms import (LoginForm, RegistrationForm, ContactForm, PersonalIn
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView, UpdateView
 from User_app.models import ContactMessage, Contact
-from home.models import Order, Purchase
+from home.models import Purchase, CustomDesign
 from .models import EmailVerification
 from User_app.utils import generate_verification_code, send_verification_email
+from email.mime.image import MIMEImage
+import mimetypes
 
 
 class LoginView(View):
@@ -195,17 +196,28 @@ class ContactUsView(View):
             subject = 'Ziņojums saņemts'
             from_email = settings.DEFAULT_FROM_EMAIL
             to_email = [email]
-            text_content = 'Paldies, par pirkumu.'
+            text_content = 'Paldies par ziņojumu. Mēs centīsimies atbildēt jums pēc iespējas ātrāk.'
 
-            email_content = render_to_string('e-mail/message_received.html', {'contact_message': contact_message})
+            email_content = render_to_string('emails/message_received.html', {'contact_message': contact_message})
             email = EmailMultiAlternatives(subject, text_content, from_email, to_email)
             email.attach_alternative(email_content, "text/html")
+
+            # Pievieno logotipu kā inline attēlu
+            custom_design = CustomDesign.objects.first()
+            if custom_design and custom_design.image:
+                with open(custom_design.image.path, 'rb') as img:
+                    mime_type, _ = mimetypes.guess_type(custom_design.image.path)
+                    mime_image = MIMEImage(img.read(), _subtype=mime_type.split('/')[1])
+                    mime_image.add_header('Content-ID', '<company_logo>')
+                    mime_image.add_header('Content-Disposition', 'inline', filename='company_logo.png')
+                    email.attach(mime_image)
+
             email.send()
 
-            messages.success(request, _('Ziņojums ir veiksmīgi nosūtīts!'))
+            messages.success(request, ('Ziņojums ir veiksmīgi nosūtīts!'))
             return redirect('contact_us')
         else:
-            messages.error(request, _('Radās kļūda. Lūdzu, pārbaudiet ievadītos datus.'))
+            messages.error(request, ('Radās kļūda. Lūdzu, pārbaudiet ievadītos datus.'))
 
         context = {
             'form': form,

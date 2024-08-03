@@ -134,6 +134,7 @@
 @media(max-width: 768px) {
     .main {
         flex-direction: column;
+        margin-top: 90px;
     }
 
     .inputBox {
