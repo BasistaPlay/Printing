@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-from colorfield.fields import ColorField
 from django.utils.translation import gettext as _
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
@@ -40,8 +39,8 @@ class Product(models.Model):
     back_image_with_background = models.ImageField(_('Aizmugurējā bilde ar fonu'), upload_to='products/', blank=True)
     back_image_not_background = models.ImageField(_('Aizmugurējā bilde bez fona'), upload_to='products/', blank=True)
 
-    available_colors = models.ManyToManyField('Color', related_name='products', blank=True)
-    available_sizes = models.ManyToManyField('Size', related_name='products', blank=True)
+    available_colors = models.ManyToManyField('product_details.Color', related_name='products', blank=True)
+    available_sizes = models.ManyToManyField('product_details.Size', related_name='products', blank=True)
 
     front_image_coords = models.JSONField(blank=True, null=True)
     back_image_coords = models.JSONField(blank=True, null=True)
@@ -58,30 +57,6 @@ class Product(models.Model):
     class Meta:
         verbose_name = _("Produkts")
         verbose_name_plural = _("Produkti")
-
-
-class Color(models.Model):
-    name = models.CharField(max_length=100)
-    code = ColorField()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _("Krāsa")
-        verbose_name_plural = _("Krāsas")
-
-
-class Size(models.Model):
-    name = models.CharField(max_length=100)
-    size = models.CharField(max_length=10)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _("Izmērs")
-        verbose_name_plural = _("Izmēri")
 
 
 class Rating(models.Model):

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.utils.html import format_html
 from modeltranslation.admin import TranslationAdmin
-from .models import (Product, Rating, Color, Size, Category)
+from .models import (Product, Rating, Category)
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.html import mark_safe
@@ -95,25 +95,6 @@ class ProductAdmin(TranslationAdmin):
 
         super().save_model(request, obj, form, change)
 
-@admin.register(Color)
-class ColorAdmin(admin.ModelAdmin):
-    list_display = ('name','code')
-
-    fieldsets = (
-        (_('Krāsas'), {
-            'fields': ('name', 'code',),
-        }),
-    )
-
-@admin.register(Size)
-class SizeAdmin(admin.ModelAdmin):
-    list_display = ('name','size')
-
-    fieldsets = (
-        (_('Izmēri'), {
-            'fields': ('name', 'size',),
-        }),
-    )
 
 class RatingInline(admin.TabularInline):
     readonly_fields = ['user', 'stars']

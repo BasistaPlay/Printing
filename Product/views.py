@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from Product.models import Product, Rating, Color, Category
+from Product.models import Product, Rating, Category
+from product_details.models import Color
 from design.models import Designs
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
