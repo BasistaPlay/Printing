@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'User_app',
     'home',
+    'design',
     'Product',
     'shoping_cart',
     'stripe_integration',
@@ -226,10 +227,10 @@ JAZZMIN_SETTINGS = {
     "usermenu_links": [],
     "theme": "home",
     "icons": {
-        "app.Model": "fas fa-icon",
+        "app.Model": "fas fa-tachometer-alt",
         "auth.User": "fas fa-user",
-        "Product.Product": "fas fa-shopping-bag",
-        "home.CustomDesign": "fas fa-cogs",
+        "Product.Product": "fas fa-box",
+        "home.CustomDesign": "fas fa-palette",
         "User_app.ContactMessage": "fas fa-envelope",
         "User_app.Contact": "fas fa-address-book",
         "User_app.user": "fas fa-user",
@@ -238,11 +239,11 @@ JAZZMIN_SETTINGS = {
         "home.GiftCode": "fas fa-gift",
         "Product.Color": "fas fa-paint-brush",
         "Product.Size": "fas fa-ruler",
-        "home.Order": "fas fa-shopping-cart",
+        "design.designs": "fas fa-tshirt",
         "Product.category": "fas fa-tags",
         "home.Purchase": "fas fa-receipt",
-        "stripe_integration.StripeKeys": "fas fa-key",
-        "django_recaptcha.RecaptchaKeys": "fas fa-key"
+        "stripe_integration.StripeKeys": "fas fa-credit-card",
+        "django_recaptcha.RecaptchaKeys": "fas fa-shield-alt"
     }
 }
 

@@ -1,14 +1,25 @@
-# from django.contrib import admin, messages
-# from stripe_integration.models import StripeKeys
-# from django.utils.translation import gettext_lazy as _
+from django.contrib import admin
+from stripe_integration.models import StripeKeys
 
-# @admin.register(StripeKeys)
-# class CustomDesignAdmin(admin.ModelAdmin):
+@admin.register(StripeKeys)
+class StripeKeysAdmin(admin.ModelAdmin):
+    list_display = ('public_key', 'secret_key', 'endpoint_secret')
+    search_fields = ('public_key', 'secret_key', 'endpoint_secret')
 
-#     def save_model(self, request, obj, form, change):
-#         existing_records = StripeKeys.objects.exclude(pk=obj.pk).count()
-#         if existing_records >= 1:
-#             error_message = _("Varat pievienot tikai vienu ierakstu.")
-#             self.message_user(request, error_message, level=messages.ERROR)
-#         else:
-#             super().save_model(request, obj, form, change)
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.filter(pk__in=StripeKeys.objects.values_list('pk', flat=True)[:1])
+
+    def save_model(self, request, obj, form, change):
+        if StripeKeys.objects.exists() and not change:
+            return
+        super().save_model(request, obj, form, change)
+
+    def has_add_permission(self, request):
+        return not StripeKeys.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return StripeKeys.objects.exists()
+
+    def has_change_permission(self, request, obj=None):
+        return StripeKeys.objects.exists()

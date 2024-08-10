@@ -6,29 +6,31 @@ from django.contrib.auth.decorators import login_required
 from shoping_cart.cart import Cart
 from django.views.decorators.csrf import csrf_exempt
 import json
-from home.models import Product, Order
+from Product.models import Product
 from shoping_cart.context_processor import cart_total_amount
+from design.models import Designs
 
 def cart(request):
     cart_items = request.session.get('cart', {})
+    print(cart_items)
     products_with_sizes = []
 
     try:
         for item_key, item_data in cart_items.items():
             if isinstance(item_data, dict):
                 try:
-                    product_id = item_data.get('order_id')
+                    design_id = item_data.get('design_id')
                     order_id = item_data.get('product_id')
-                    product = get_object_or_404(Product, id=product_id)
+                    product = get_object_or_404(Product, id=design_id)
                     sizes = product.available_sizes.all()
 
                     products_with_sizes.append({
                         'product': product,
                         'sizes': sizes,
-                        'order_id': order_id
+                        'Design_id': order_id
                     })
                 except Product.DoesNotExist as e:
-                    print(f"Product with id {product_id} does not exist: {e}")
+                    print(f"Product with id {design_id} does not exist: {e}")
             else:
                 print(f"Invalid item data found in cart session: {item_data}")
 
@@ -42,7 +44,7 @@ def cart(request):
 @csrf_exempt
 def cart_add(request, id):
     cart = Cart(request)
-    product_list = Order.objects.get(id=id)
+    product_list = Designs.objects.get(id=id)
     size_data = request.POST.getlist('sizes[]')
     quantity = request.POST.getlist('quantity')
     product_id = int(request.POST.get('product_id', 1))
@@ -52,8 +54,8 @@ def cart_add(request, id):
     if len(quantity) > 0:
         quantity = int(quantity[0])
     else:
-        quantity = 1 
-    
+        quantity = 1
+
     cart.add(product_list, sizeCount=sizeCount, sizes=sizes, quantity=quantity, product_id=product_id)
     print(request.session.get('cart', {}))
     cart_count = len(request.session.get('cart', {}))
@@ -63,7 +65,7 @@ def cart_add(request, id):
 @login_required(login_url="/login")
 def item_clear(request, id):
     cart = Cart(request)
-    product_list = Order.objects.get(id=id)
+    product_list = Designs.objects.get(id=id)
     cart.remove(product_list)
     cart_total = cart_total_amount(request)
     total_amount = cart_total.get('cart_total_amount', 0)
@@ -73,7 +75,7 @@ def item_clear(request, id):
 @login_required(login_url="/login")
 def item_increment(request, id):
     cart = Cart(request)
-    product_list = Order.objects.get(id=id)
+    product_list = Designs.objects.get(id=id)
     cart.add(product_list)
     cart_items = request.session['cart'][f'{id}']['quantity']
     cart_total = cart_total_amount(request)
@@ -83,7 +85,7 @@ def item_increment(request, id):
 @login_required(login_url="/login")
 def item_decrement(request, id):
     cart = Cart(request)
-    product_list = Order.objects.get(id=id)
+    product_list = Designs.objects.get(id=id)
     cart.decrement(product_list)
     cart_items = request.session['cart'][f'{id}']['quantity']
     cart_total = cart_total_amount(request)

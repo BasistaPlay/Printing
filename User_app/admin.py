@@ -127,26 +127,3 @@ class CustomUserAdmin(UserAdmin):
         css = {
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
-
-
-@admin.register(EmailVerification)
-class EmailVerificationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'verification_code', 'created_at', 'is_verified')
-    list_filter = ('is_verified',)
-
-    readonly_fields = ('user', 'verification_code', 'created_at', 'is_verified')
-
-    fieldsets = (
-        (_('Lietotājs'), {
-            'fields': ('user', 'verification_code', 'created_at', 'is_verified'),
-        }),
-    )
-
-    # def has_add_permission(self, request):
-    #     return False
-
-    # def has_delete_permission(self, request, obj=None):
-    #     return False
-
-    # def has_change_permission(self, request, obj=None):
-    #     return False

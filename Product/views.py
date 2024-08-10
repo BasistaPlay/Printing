@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from Product.models import Product, Rating, Color, Category
-from home.models import Order
+from design.models import Designs
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
@@ -11,7 +11,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from Product.ConvertBase64 import save_base64_image
-from home.models import TextList, ImageList
+from design.models import TextList, ImageList
 import json
 from datetime import datetime
 
@@ -87,7 +87,7 @@ class CreativeCornerView(ListView):
 
         colors_list = [color.strip() for color in colors.split() if color.strip()]
 
-        filtered_products = Order.objects.filter(Q(publish_product=True) & Q(allow_publish=True))
+        filtered_products = Designs.objects.filter(Q(publish_product=True) & Q(allow_publish=True))
 
         if search_query:
             filtered_products = filtered_products.filter(
@@ -114,13 +114,13 @@ class CreativeCornerView(ListView):
 
 
 class ProductDetailView(DetailView):
-    model = Order
+    model = Designs
     template_name = 'detail.html'
     context_object_name = 'product'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        product_title = self.kwargs['product_title']
+        product_title = self.kwargs.get('Design_title')
         product = self.get_object()
         size = get_object_or_404(Product, title=product_title)
 
@@ -129,8 +129,8 @@ class ProductDetailView(DetailView):
         return context
 
     def get_object(self):
-        order_id = self.kwargs['order_id']
-        return get_object_or_404(Order, id=order_id)
+        Designs_id = self.kwargs.get('Designs_id')
+        return get_object_or_404(Designs, id=Designs_id)
 
 
 class SaveRatingView(LoginRequiredMixin, View):
@@ -140,8 +140,8 @@ class SaveRatingView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         product_id = request.POST.get('product_id')
         rating_value = request.POST.get('rating')
-        product = get_object_or_404(Order, id=product_id)
-        rating, created = Rating.objects.get_or_create(user=request.user, order_id=product_id)
+        product = get_object_or_404(Designs, id=product_id)
+        rating, created = Rating.objects.get_or_create(user=request.user, design_id=product_id)
 
         rating.stars = rating_value
         rating.save()
@@ -172,7 +172,7 @@ class SaveDesignView(LoginRequiredMixin, View):
             front_image_file = save_base64_image(front_image_base64, f'{product_slug}_{request.user}_{timestamp}_front.png')
             back_image_file = save_base64_image(back_image_base64, f'{product_slug}_{request.user}_{timestamp}_back.png')
 
-            new_order = Order.objects.create(
+            new_design = Designs.objects.create(
                 author=request.user,
                 product=product,
                 publish_product=publish_product,
@@ -185,7 +185,7 @@ class SaveDesignView(LoginRequiredMixin, View):
 
             for text_data in texts:
                 TextList.objects.create(
-                    order_text=new_order,
+                    design_text=new_design,
                     text=text_data['text'],
                     font=text_data['font_family'],
                     text_size=text_data['font_size'],
@@ -194,8 +194,8 @@ class SaveDesignView(LoginRequiredMixin, View):
 
             images = json.loads(request.POST.get('images'))
             for image_data in images:
-                ImageList.objects.create(order_images=new_order, image=image_data)
+                ImageList.objects.create(design_images=new_design, image=image_data)
 
-            return JsonResponse({'success': True, 'order_id': new_order.id})
+            return JsonResponse({'success': True, 'designs_id': new_design.id})
         else:
             return JsonResponse({'success': False, 'error': 'Invalid request'})

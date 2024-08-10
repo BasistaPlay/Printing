@@ -695,9 +695,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        var orderId = response.order_id;
-                        AddToCart(orderId)
-                        displaySuccessMessage('Your order has been successfully saved!');
+                        var designId = response.design_id;
+                        AddToCart(designId)
+                        displaySuccessMessage('Your design has been successfully saved!');
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
@@ -707,7 +707,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    function AddToCart(order_id) {
+    function AddToCart(design_id) {
         let allSizes = [];
         $('.size-content:first .size-option').each(function() {
             let sizeValue = $(this).data('value');
@@ -723,7 +723,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let product_id = productCard.data('product-id');
 
         var formData = new FormData();
-        formData.append('order_id', order_id);
+        formData.append('design_id', design_id);
         formData.append('product_id', product_id);
         formData.append('quantity', numValue);
 
@@ -734,7 +734,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         $.ajax({
             type: 'POST',
-            url: '/cart/add/' + order_id + '/',
+            url: '/cart/add/' + design_id + '/',
             data: formData,
             contentType: false,
             processData: false,

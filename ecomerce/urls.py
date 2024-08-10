@@ -34,15 +34,6 @@ urlpatterns += i18n_patterns(
      path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
      path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
      path('contact-us/', user.ContactUsView.as_view(), name='contact_us'),
-     path('cart/', cart.cart, name='cart'),
-     # path('creative-corner/<str:user>/<int:product_list_id>/', page.detail, name='detail'),
-     # path('save_user_data/', user.save_user_data, name='save_user_data'),
-     # path('account/change_password/', user.change_password, name='change_password'),
-     # path('design/<slug:slug>/', page.design, name='design_detail'),
-     # path('creative-corner/', page.creativecorner, name='creativecorner'),
-     # path('creative-corner/<str:user>/<str:product_title>/<int:order_id>/', page.detail, name='detail'),
-     # path('password/change/', user.CustomPasswordChangeView.as_view(), name='change_password'),
-     # path('success/', stripe.SuccessView.as_view(), name='success'),
 )
 
 handler404 = page.handler404

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
-from home.models import user as MyUser
+from User_app.models import user as MyUser
 from django.contrib.auth import authenticate, login, logout
 from django.template.loader import render_to_string
 from django.views import View

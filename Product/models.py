@@ -8,9 +8,9 @@ from django.dispatch import receiver
 from django.db.models import Count, Avg
 from itertools import cycle
 from django.utils.text import slugify
-from django.apps import apps  # Pievienots
+from django.apps import apps
 
-# Kategorijas modelis
+
 class Category(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet kategorijas nosaukumu."))
     slug = models.SlugField(_('Slug'), unique=True, help_text=_("Ievadiet URL draudzīgu nosaukumu."), blank=True)
@@ -27,7 +27,7 @@ class Category(models.Model):
         verbose_name = _("Kategorija")
         verbose_name_plural = _("Kategorijas")
 
-# Produkta modelis
+
 class Product(models.Model):
     title = models.CharField(_('Virsraksts'), max_length=100, unique=True, blank=False, help_text=_("Ievadiet produkta nosaukumu."))
     image = models.ImageField(_('Bilde'), upload_to='products/', blank=False)
@@ -59,7 +59,7 @@ class Product(models.Model):
         verbose_name = _("Produkts")
         verbose_name_plural = _("Produkti")
 
-# Krāsas modelis
+
 class Color(models.Model):
     name = models.CharField(max_length=100)
     code = ColorField()
@@ -71,7 +71,7 @@ class Color(models.Model):
         verbose_name = _("Krāsa")
         verbose_name_plural = _("Krāsas")
 
-# Izmēra modelis
+
 class Size(models.Model):
     name = models.CharField(max_length=100)
     size = models.CharField(max_length=10)
@@ -83,10 +83,10 @@ class Size(models.Model):
         verbose_name = _("Izmērs")
         verbose_name_plural = _("Izmēri")
 
-# Reitings modelis
+
 class Rating(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    order = models.ForeignKey('home.Order', on_delete=models.CASCADE)
+    design = models.ForeignKey('design.Designs', on_delete=models.CASCADE)
     stars = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     class Meta:
@@ -95,21 +95,20 @@ class Rating(models.Model):
 
     @staticmethod
     def get_top_rated_popular_products():
-        Order = apps.get_model('home', 'Order')  # Use get_model to avoid circular import
-        top_rated_popular_products = Order.objects.annotate(
+        Designs = apps.get_model('design', 'Designs')
+        top_rated_popular_products = Designs.objects.annotate(
             num_ratings=Count('rating'),
             avg_rating=Avg('rating__stars')
-        ).order_by('-num_ratings', '-avg_rating')[:3]  # Limit the query to top 3 products
+        ).order_by('-num_ratings', '-avg_rating')[:3]
 
         top_three_products = list(top_rated_popular_products)
         if len(top_three_products) < 3:
-            return top_three_products  # Return as many products as available
+            return top_three_products
 
         product_cycle = cycle(top_three_products)
         return [next(product_cycle) for _ in range(3)]
 
 @receiver(post_save, sender=Rating)
 def update_product_average_rating(sender, instance, **kwargs):
-    Order = apps.get_model('home', 'Order')  # Use get_model to avoid circular import
-    product = instance.order
+    product = instance.design
     product.update_average_rating()

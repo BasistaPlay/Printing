@@ -59,7 +59,7 @@
                 <a href='{% url 'login' %}' class='h-btn acc'>{% trans 'Pierakstīties' %}</a>
             {% endif %}
             <div class="bx bx-menu" id="menu-icon"></div>
-            <a class="bx bx-cart" href="{% url 'cart' %}" id="cart">
+            <a class="bx bx-cart" href="{% url 'shopping_cart:cart' %}" id="cart">
                 {% if request.session.cart|length >= 1 %}
                     <span id="cart-count">{{ request.session.cart|length }}</span>
                 {% endif %}

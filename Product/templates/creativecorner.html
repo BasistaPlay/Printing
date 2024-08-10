@@ -65,7 +65,7 @@
                 <div id="product-container" class="product-container">
                     {% for product_list in page_obj %}
                     <div class="product-box">
-                        <a href="{% url 'product:detail' user=user product_title=product_list.product.title order_id=product_list.id %}">
+                        <a href="{% url 'product:detail' user=user product_title=product_list.product.title Designs_id=product_list.id %}">
                             <div class="product-images">
                                 <img src="{{ product_list.front_image.url }}" alt="{{ product_list.title }}" class="front-image">
                                 <img src="{{ product_list.back_image.url }}" alt="Back Image" class="back-image">

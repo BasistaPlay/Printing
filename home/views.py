@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from home.models import Product, CustomDesign, Rating, GiftCode,TextList, ImageList
+from home.models import CustomDesign, GiftCode
+from Product.models import Rating, Product
 from django.utils.translation import gettext as _
 from django.http import JsonResponse
 

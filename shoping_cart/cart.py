@@ -24,27 +24,27 @@ class Cart(object):
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, order, quantity=1, sizeCount=1, sizes=None, product_id=0):
+    def add(self, designs, quantity=1, sizeCount=1, sizes=None, product_id=0):
         """
         Add a product to the cart or update its quantity.
         """
-        id = order.id
+        id = designs.id
         newItem = True
-        
-        if str(order.id) not in self.cart.keys():
-            self.cart[order.id] = {
+
+        if str(designs.id) not in self.cart.keys():
+            self.cart[designs.id] = {
                 'userid': self.request.user.id,
                 'product_id': id,
                 'quantity': int(quantity),
                 'sizeCount': sizeCount,  # Use the sizeCount parameter here
-                'price': str(order.product.price),
-                'image': order.front_image.url if order.front_image else '',
+                'price': str(designs.product.price),
+                'image': designs.front_image.url if designs.front_image else '',
                 'sizes': sizes ,
-                'order_id' : product_id ,
+                'design_id' : product_id ,
             }
         else:
             for key, value in self.cart.items():
-                if key == str(order.id):
+                if key == str(designs.id):
                     value['quantity'] += int(quantity)  # Add the quantity to existing quantity
                     value['sizeCount'] += sizeCount
                     if sizes:
@@ -56,17 +56,17 @@ class Cart(object):
                     newItem = False
                     self.save()
                     break
-            
+
             if newItem:
-                self.cart[order.id] = {
+                self.cart[designs.id] = {
                     'userid': self.request.user.id,
                     'product_id': id,
                     'quantity': int(quantity),
                     'sizeCount': sizeCount,  # Use the sizeCount parameter here
-                    'price': str(order.product.price),
-                    'image': order.front_image.url if order.front_image else '',
-                    'sizes': sizes, 
-                    'order_id' : product_id ,
+                    'price': str(designs.product.price),
+                    'image': designs.front_image.url if designs.front_image else '',
+                    'sizes': sizes,
+                    'design_id' : product_id ,
                 }
 
         self.save()
@@ -80,16 +80,16 @@ class Cart(object):
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
 
-    def remove(self, order):
-        order_id = str(order.id)
-        print(f"rfef{order_id}")
-        if order_id in self.cart:
-            del self.cart[order_id]
+    def remove(self, designs):
+        design_id = str(designs.id)
+        print(f"rfef{design_id}")
+        if design_id in self.cart:
+            del self.cart[design_id]
             self.save()
 
-    def decrement(self, product):
+    def decrement(self, designs):
         for key, value in self.cart.items():
-            if key == str(product.id):
+            if key == str(designs.id):
 
                 value['quantity'] = value['quantity'] - 1
                 if(value['quantity'] < 1):

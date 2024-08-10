@@ -22,13 +22,13 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.color-option').forEach(function(colorOption) {
         colorOption.addEventListener('click', function() {
             this.classList.toggle('active');
-    
+
             var selectedColors = [];
             document.querySelectorAll('.color-option.active').forEach(function(activeColor) {
                 selectedColors.push(activeColor.getAttribute('data-color-id'));
             });
             document.getElementById('selected-colors').value = selectedColors.join(' ');
-    
+
             performAjaxRequest();
             updateColorIcons()
         });
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             icon.style.display = isActive ? 'block' : 'none';
-            
+
             icon.style.color = isActive ? '#23FF0E' : 'transparent';
             icon.style.fontSize  = '10px';
             icon.style.textAlign  = 'center';
@@ -150,15 +150,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var isAddingToCart = false;
 
-    window.AddToCart = function(order_id) {
+    window.AddToCart = function(design_id) {
         if (!isAddingToCart) {
             isAddingToCart = true;
             var formData = new FormData();
-            formData.append('product_id', order_id);
+            formData.append('product_id', design_id);
 
             $.ajax({
                 type: 'POST',
-                url: '/cart/add/' + order_id + '/',
+                url: '/cart/add/' + design_id + '/',
                 data: formData,
                 contentType: false,
                 processData: false,
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function displaySuccessMessage(message) {
         $('#success-message').text(message);
         $('#success-message').fadeIn();
-        
+
         setTimeout(function() {
             $('#success-message').fadeOut();
         }, 5000);
