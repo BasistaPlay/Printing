@@ -38,25 +38,25 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("sizeSelect element not found.");
             return;
         }
-    
+
         sizeSelect.innerHTML = '';
-    
+
         for (let i = 0; i < a; i++) {
             let row = document.createElement('div');
             row.classList.add('size-row');
             row.classList.add(`size-row-${i+1}`);
-    
+
             originalSizes.forEach(size => {
                 let option = document.createElement('div');
                 option.classList.add('size-option');
                 option.setAttribute('data-value', size.getAttribute('data-value'));
                 option.innerText = size.innerText;
-    
+
                 // Atjaunot aktīvo izvēli, ja tā pastāv
                 if (activeSelections[i] === size.getAttribute('data-value')) {
                     option.classList.add('active');
                 }
-    
+
                 option.addEventListener('click', function() {
                     row.querySelectorAll('.size-option').forEach(function(opt) {
                         opt.classList.remove('active');
@@ -65,19 +65,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     activeSelections[i] = size.getAttribute('data-value');
                     calculateActiveSizes();
                 });
-    
+
                 row.appendChild(option);
             });
-    
+
             sizeSelect.appendChild(row);
         }
-        
+
         activeSelections = activeSelections.slice(0, a);
         while (activeSelections.length < a) {
             activeSelections.push(null);
         }
     }
-    
+
     updateSizeOptions();
 
     function calculateActiveSizes() {
@@ -354,20 +354,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const textList = document.getElementById('text-list');
         const fontSize = document.getElementById('font-size').value + 'px';
         const editButton = document.getElementById('addTextButton');
-    
+
         editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
-    
+
         const text = textInput.value.trim();
-    
+
         if (text !== '') {
             const currentSide = getCurrentSide();
             const textContainer = document.getElementById('text-container');
-    
+
             if (!textContainer) {
                 console.error(`Text container not found for side: ${currentSide}`);
                 return;
             }
-    
+
             const textElement = document.createElement('div');
             textElement.className = 'draggable-text ui-draggable ui-draggable-handle ui-resizable';
             textElement.style.position = 'relative';
@@ -375,29 +375,29 @@ document.addEventListener('DOMContentLoaded', function() {
             textElement.style.top = '0';
             textElement.innerHTML = `<span class="editable-text">${text}</span>`;
             textContainer.appendChild(textElement);
-    
+
             requestAnimationFrame(() => {
                 const containerWidth = textContainer.offsetWidth;
                 const containerHeight = textContainer.offsetHeight;
-    
+
                 const textSpan = textElement.querySelector('.editable-text');
                 textSpan.style.fontSize = fontSize;
-    
+
                 const textWidth = textSpan.offsetWidth;
                 textElement.style.width = `${textWidth}px`;
-    
+
                 const elementWidth = textElement.offsetWidth;
                 const elementHeight = textElement.offsetHeight;
-    
+
                 const centerX = (containerWidth - elementWidth) / 2;
                 const centerY = (containerHeight - elementHeight) / 2;
-    
+
                 textElement.style.left = `${centerX}px`;
                 textElement.style.top = `${centerY}px`;
-    
+
                 addResizableAndDraggable(textElement, currentSide, fontSize);
             });
-    
+
             const listItem = document.createElement('li');
             listItem.className = 'text-list-item';
             listItem.innerHTML = `
@@ -405,9 +405,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="edit-button" onclick="editTextInList(this)"><i class="fas fa-edit"></i></button>
                 <button class="delete-button" onclick="deleteText(this)"><i class="fas fa-trash-alt"></i></button>
             `;
-    
+
             textList.appendChild(listItem);
-    
+
             textInput.value = '';
         } else {
             alert('Please enter text before adding to the list.');
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function addResizableAndDraggable(element, currentSide, fontSize) {
         const $element = $(element);
         let currentWidth, currentHeight;
-    
+
         $element.draggable({
             containment: `#boundary-${currentSide}`,
             start: function(event, ui) {
@@ -532,78 +532,78 @@ document.addEventListener('DOMContentLoaded', function() {
         var productDiv = document.querySelector('.product');
         var parentWidth = productDiv.offsetWidth;
         var parentHeight = productDiv.offsetHeight;
-    
+
         var boundaries = document.querySelectorAll('.boundary');
         boundaries.forEach(boundary => boundary.style.display = 'none');
-    
+
         productDiv.style.width = parentWidth + 'px';
         productDiv.style.height = parentHeight + 'px';
-    
+
         var canvas = document.createElement('canvas');
         var context = canvas.getContext('2d');
-    
+
         canvas.width = parentWidth;
         canvas.height = parentHeight;
-    
+
         html2canvas(productDiv).then(function(renderedCanvas) {
             context.drawImage(renderedCanvas, 0, 0, parentWidth, parentHeight);
-    
+
             var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
             var data = imageData.data;
-    
+
             var pixelCount = {};
-    
+
             for (var i = 0; i < data.length; i += 4) {
                 var r = data[i];
                 var g = data[i + 1];
                 var b = data[i + 2];
                 var key = r + ',' + g + ',' + b;
-    
+
                 if (!pixelCount[key]) {
                     pixelCount[key] = 0;
                 }
-    
+
                 pixelCount[key]++;
             }
-    
+
             var maxCount = 0;
             var backgroundColorKey;
-    
+
             for (var key in pixelCount) {
                 if (pixelCount[key] > maxCount) {
                     maxCount = pixelCount[key];
                     backgroundColorKey = key;
                 }
             }
-    
+
             var rgbValues = backgroundColorKey.split(',').map(function(value) {
                 return parseInt(value);
             });
-    
+
             for (var i = 0; i < data.length; i += 4) {
                 var r = data[i];
                 var g = data[i + 1];
                 var b = data[i + 2];
-    
+
                 if (r === rgbValues[0] && g === rgbValues[1] && b === rgbValues[2]) {
                     data[i + 3] = 0;
                 }
             }
-    
+
             var trimHeight = 15;
             context.clearRect(0, canvas.height - trimHeight, canvas.width, trimHeight);
-    
+
             context.putImageData(imageData, 0, 0);
-    
+
             var base64URL = canvas.toDataURL('image/png');
-    
+
             callback(side, base64URL);
-    
+
             boundaries.forEach(boundary => boundary.style.display = 'block');
         });
     }
-    
-    
+
+
 
     $('#buy-button').click(function() {
         var publishCheckbox = $('#publish-checkbox').is(":checked");
@@ -614,27 +614,27 @@ document.addEventListener('DOMContentLoaded', function() {
         var productSlug = $('#product-slug').val();
         var title = $('#title-input').val();
         var description = $('#description-input').val();
-    
+
         var errorHtml = '';
-    
+
         if (!activeColor) {
             errorHtml += '<p>' + 'Please select a color' + '</p>';
         }
-    
+
         if (activeSizes.some(size => !size) && $('.size-option').length > 0) {
             errorHtml += '<p>' + 'Please select all sizes' + '</p>';
         }
-    
+
         if (publishCheckbox) {
             if (!title.trim()) {
                 errorHtml += '<p>' +  'Title is required' + '</p>';
             }
-    
+
             if (!description.trim()) {
                 errorHtml += '<p>' + 'Description is required' + '</p>';
             }
         }
-    
+
         if (errorHtml) {
             $('#error-messages').html(errorHtml).addClass('show');
             setTimeout(function() {
@@ -690,7 +690,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 $.ajax({
                     type: 'POST',
-                    url: '/save_order/',
+                    url: '/product/save_design/',
                     data: formData,
                     contentType: false,
                     processData: false,
@@ -715,23 +715,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 allSizes.push(sizeValue);
             }
         });
-    
+
         let activeSizes = calculateActiveSizes();
         let numValue = $('.num').text();
-    
+
         let productCard = $('.product-card[data-product-id]');
         let product_id = productCard.data('product-id');
-        
+
         var formData = new FormData();
         formData.append('order_id', order_id);
         formData.append('product_id', product_id);
         formData.append('quantity', numValue);
-    
+
         allSizes.forEach(function(size) {
             let count = activeSizes[size] || 0;
             formData.append('sizes[]', JSON.stringify({ size: size, count: count }));
         });
-    
+
         $.ajax({
             type: 'POST',
             url: '/cart/add/' + order_id + '/',

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.utils.html import format_html
 from modeltranslation.admin import TranslationAdmin
 from .models import (CustomDesign,
-                    Rating, GiftCode, TextList, ImageList, Order, Purchase)
+                    Rating, GiftCode, TextList, ImageList, Order, Purchase, PurchaseProduct)
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.html import mark_safe
@@ -165,13 +165,9 @@ class OrderAdmin(admin.ModelAdmin):
 
 # admin.site.register(RecaptchaKeys, RecaptchaKeysAdmin)
 
-admin.site.register(Rating)
 admin.site.register(Order, OrderAdmin)
 
-from django.contrib import admin
-from .models import Purchase, PurchaseProduct
-
-class PurchaseProductInline(admin.TabularInline):  # Inline tabula produktiem pasūtījumā
+class PurchaseProductInline(admin.TabularInline):
     model = PurchaseProduct
     extra = 0
     readonly_fields = ['product', 'quantity']

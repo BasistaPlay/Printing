@@ -77,9 +77,9 @@
 
     </div>
 </div>
-    <div id="success-alert" class="alert alert-success">
+    <div id="success-reiting" class="success-message" style='display:none'>
         <strong>Jūsu reitings ir saglabāts!</strong>
-    </div>
+    </div
 
 {% endblock %}
 
@@ -92,7 +92,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const starWrapper = document.querySelector('.star-wrapper');
             const stars = starWrapper.querySelectorAll('.fas');
-            const successAlert = document.getElementById('success-alert');
+            const successAlert = document.getElementById('success-reiting');
 
             stars.forEach(function (star) {
                 star.addEventListener('click', function () {
@@ -105,7 +105,7 @@
             function saveRating(productId, ratingValue) {
                 $.ajax({
                     type: 'POST',
-                    url: '/save-rating/',
+                    url: '{% url "product:save_rating" %}',
                     data: {
                         'product_id': productId,
                         'rating': ratingValue,
@@ -113,18 +113,13 @@
                     },
                     success: function (response) {
                         successAlert.style.display = 'block';
-                        // Check if action is related to publishing a work
-                        const actionType = 'publishing';
-                        if (actionType === 'publishing') {
-                            successAlert.innerHTML = '<strong>Jūsu darbs ir veiksmīgi publicēts!</strong> Šis dizains Tev varētu patikt.';
-                        } else {
-                            successAlert.innerHTML = '<strong>Jūsu reitings ir saglabāts!</strong>';
-                        }
+                        successAlert.innerHTML = '<strong>Jūsu reitings ir saglabāts!</strong>';
                         successAlert.style.right = '30px';
                         setTimeout(function() {
                             successAlert.style.right = '-400px';
+                            successAlert.style.display = 'none';
                         }, 5000);
-                        updateStarRating(productId, ratingValue);
+                        updateStarRating(ratingValue);
                     },
                     error: function (xhr, status, error) {
                         console.error('Kļūda saglabājot reitingu:', xhr.responseText);
@@ -132,10 +127,7 @@
                 });
             }
 
-            function updateStarRating(productId, ratingValue) {
-                const starWrapper = document.querySelector('.star-wrapper[data-product-id="' + productId + '"]');
-                const stars = starWrapper.querySelectorAll('.fas');
-
+            function updateStarRating(ratingValue) {
                 stars.forEach(function (star, index) {
                     if (index < ratingValue) {
                         star.classList.add('active');
@@ -144,7 +136,7 @@
                     }
                 });
 
-                starWrapper.setAttribute('data-rating', ratingValue.toFixed(1));
+                starWrapper.setAttribute('data-rating', ratingValue);
             }
         });
     </script>

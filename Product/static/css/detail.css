@@ -123,7 +123,7 @@ a {
   background:  var(--second-color);
   border-radius: 50%;
   transition: .5s;
-  
+
 }
 
 .sneaker__img {
@@ -312,7 +312,7 @@ a {
     column-gap: 6rem;
     row-gap: 0;
   }
-  
+
   .sneaker {
     margin-top: 0;
   }

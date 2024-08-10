@@ -1,16 +1,11 @@
-from django.contrib import admin, messages
+from django.contrib import admin
 from django.conf import settings
-from django import forms
-from django.core.mail import send_mail, EmailMultiAlternatives
-from django.utils.html import format_html, strip_tags
-from ckeditor.widgets import CKEditorWidget
+from django.utils.html import format_html
 from modeltranslation.admin import TranslationAdmin
 from .models import (Product, Rating, Color, Size, Category)
-from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.html import mark_safe
-from django.template.loader import render_to_string
 
 @admin.register(Category)
 class CategoryAdmin(TranslationAdmin):

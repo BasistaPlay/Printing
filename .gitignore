@@ -29,3 +29,6 @@ home/migrations/__pycache__/
 static/img/
 ecomerce/static/
 ecomerce/staticfiles/
+
+
+*.pyc
