@@ -1,0 +1,122 @@
+.container {
+    max-width: 800px;
+    margin: 120px auto 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.thread-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.thread-header h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+
+.post-form {
+    margin-bottom: 30px;
+}
+
+.post-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    height: 100px;
+    box-sizing: border-box;
+}
+
+.post-form .btn-submit {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+}
+
+.post-form .btn-submit:hover {
+    background-color: #0056b3;
+}
+
+.post-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.post-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-item:hover {
+    background-color: #f0f8ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-author {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.post-content {
+    margin-top: 5px;
+    color: #555;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .thread-header h1 {
+        font-size: 2em;
+    }
+
+    .post-form textarea {
+        height: 80px;
+    }
+
+    .post-item {
+        padding: 10px;
+    }
+
+    .post-form .btn-submit {
+        width: 100%;
+    }
+}
+
+.emoji-picker {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.emoji-picker.visible {
+    display: block;
+}
+
+.btn-emoji {
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}

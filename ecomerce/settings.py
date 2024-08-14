@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     'Product',
     'shoping_cart',
     'stripe_integration',
+    'forum',
+    'emoji_picker',
     #'django_extensions',
     'allauth',
     'allauth.account',

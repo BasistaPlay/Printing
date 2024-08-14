@@ -1,7 +1,6 @@
 
 * {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'Encode Sans Condensed', sans-serif;
     text-decoration: none;
@@ -46,7 +45,7 @@ header {
     right: 0;
     z-index: 10000;
     display: flex;
-    padding: 27px 9%;
+    padding: 20px 5%;
     align-items: center;
     justify-content: space-between;
     transform: all .55s ease;
