@@ -3,7 +3,7 @@
     height: 100vh;
   }
   
-#notfound .notfound {
+  #notfound .notfound {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -12,21 +12,21 @@
             transform: translate(-50%, -50%);
   }
   
-.notfound {
+  .notfound {
     max-width: 520px;
     width: 100%;
     line-height: 1.4;
     text-align: center;
   }
   
-.notfound .notfound-404 {
+  .notfound .notfound-404 {
     position: relative;
     height: 200px;
     margin: 0px auto 20px;
     z-index: -1;
   }
   
-.notfound .notfound-404 h1 {
+  .notfound .notfound-404 h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 236px;
     font-weight: 200;
@@ -41,7 +41,7 @@
             transform: translate(-50%, -50%);
   }
   
-.notfound .notfound-404 h2 {
+  .notfound .notfound-404 h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 28px;
     font-weight: 400;
@@ -57,7 +57,7 @@
     right: 0;
   }
   
-.notfound a {
+  .notfound a {
     font-family: 'Montserrat', sans-serif;
     display: inline-block;
     font-weight: 700;
@@ -71,22 +71,18 @@
     transition: 0.2s all;
   }
   
-<<<<<<< HEAD
-.notfound a:hover {
-=======
   .notfound a:hover {
->>>>>>> 7d7123e192751df22d8c52896d7c07effda6e9f1
     color: var(--main-color);
     background: var(--text-color);
   }
   
-@media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 767px) {
     .notfound .notfound-404 h1 {
       font-size: 148px;
     }
   }
   
-@media only screen and (max-width: 480px) {
+  @media only screen and (max-width: 480px) {
     .notfound .notfound-404 {
       height: 148px;
       margin: 0px auto 10px;

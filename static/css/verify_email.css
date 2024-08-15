@@ -132,3 +132,7 @@
 .login-form.verify .inputBox.error input {
     border-color: #b71c1c; /* Red border for errors */
 }
+
+.account a{
+    color: var(--main-color);
+}

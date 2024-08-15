@@ -695,9 +695,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        var designId = response.design_id;
-                        AddToCart(designId)
-                        displaySuccessMessage('Your design has been successfully saved!');
+                        var orderId = response.design_id;
+                        AddToCart(orderId)
+                        displaySuccessMessage('Your order has been successfully saved!');
                     },
                     error: function(xhr, status, error) {
                         console.error(error);

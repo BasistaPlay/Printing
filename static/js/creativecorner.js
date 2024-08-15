@@ -19,194 +19,50 @@ function updateStars() {
 document.addEventListener('DOMContentLoaded', function () {
     updateStars();
 
-    document.querySelectorAll('.color-option').forEach(function(colorOption) {
-        colorOption.addEventListener('click', function() {
-            this.classList.toggle('active');
-
-            var selectedColors = [];
-            document.querySelectorAll('.color-option.active').forEach(function(activeColor) {
-                selectedColors.push(activeColor.getAttribute('data-color-id'));
+    $(document).ready(function() {
+        function applyFilters() {
+            $.ajax({
+                url: "{% url 'creativecorner' %}", // URL to your view
+                data: $('#filter-form').serialize(),
+                success: function(data) {
+                    $('#product-list').html(data.html);
+                }
             });
-            document.getElementById('selected-colors').value = selectedColors.join(' ');
+        }
+
+        $('#filter-button').on('click', function() {
+            applyFilters();
+        });
+
+        $('#search-input, #product-select').on('input change', function() {
+            applyFilters();
+        });
+
+        $('.color-option').on('click', function() {
+            var selectedColors = [];
+            $(this).toggleClass('selected');
+            $('.color-option.selected').each(function() {
+                selectedColors.push($(this).data('color-id'));
+            });
+            $('#selected-colors').val(selectedColors.join(' '));
+            applyFilters();
+        });
+    });
+
+    document.querySelectorAll('.rating-filter .star').forEach(function (star) {
+        star.addEventListener('click', function () {
+            const rating = this.getAttribute('data-rating');
+            document.getElementById('selected-rating').value = rating;
+
+            document.querySelectorAll('.rating-filter .star').forEach(function (star) {
+                if (parseInt(star.getAttribute('data-rating')) <= rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
 
             performAjaxRequest();
-            updateColorIcons()
         });
     });
-
-    const filterForm = document.getElementById('filter-form');
-    const filterSidebar = document.querySelector('.filter-sidebar');
-    const filterToggle = document.getElementById('filter-toggle');
-    const filtergroup = document.querySelector('.form-group');
-
-    filterToggle.addEventListener('click', function() {
-        filterSidebar.classList.toggle('closed');
-        filtergroup.classList.toggle('closed');
-    });
-
-    filterForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-    });
-
-    var $form = $('#filter-form');
-    var $searchInput = $('#search-input');
-    var $productSelect = $('#product-select');
-    var $ratingSelect = $('#rating-select');
-
-    $form.on('submit', function(event) {
-        event.preventDefault();
-
-        performAjaxRequest();
-    });
-
-    $searchInput.on('keyup', function() {
-        performAjaxRequest();
-    });
-
-    $productSelect.on('change', function() {
-        performAjaxRequest();
-    });
-
-    $ratingSelect.on('change', function() {
-        performAjaxRequest();
-    });
-
-    $(document).on('click', '.pagination a', function(event) {
-        event.preventDefault();
-        var url = $(this).attr('href');
-        var formData = $form.serialize();
-
-        $.ajax({
-            type: 'GET',
-            url: url,
-            data: formData,
-            success: function(response) {
-                var newContent = $(response);
-                $('.container').html(newContent.find('.container').html());
-                $('.pagination').html(newContent.find('.pagination').html());
-
-                updateStars();
-            },
-            error: function(xhr, errmsg, err) {
-                console.log(xhr.status + ': ' + xhr.responseText);
-            }
-        });
-    });
-
-    function performAjaxRequest() {
-        var formData = $form.serialize();
-
-        $.ajax({
-            type: 'GET',
-            url: '/creative-corner/',
-            data: formData,
-            success: function(response) {
-                var newContent = $(response);
-                $('.container').html(newContent.find('.container').html());
-                $('.pagination').html(newContent.find('.pagination').html());
-
-                updateStars();
-            },
-            error: function(xhr, errmsg, err) {
-                console.log(xhr.status + ': ' + xhr.responseText);
-            }
-        });
-    }
-
-    function updateColorIcons() {
-        document.querySelectorAll('.color-option').forEach(function(colorOption) {
-            var isActive = colorOption.classList.contains('active');
-            var icon = colorOption.querySelector('.check-icon');
-
-            if (!icon) {
-                icon = document.createElement('i');
-                icon.className = 'fas fa-check check-icon';
-                colorOption.appendChild(icon);
-            }
-
-            icon.style.display = isActive ? 'block' : 'none';
-
-            icon.style.color = isActive ? '#23FF0E' : 'transparent';
-            icon.style.fontSize  = '10px';
-            icon.style.textAlign  = 'center';
-            icon.style.marginTop  = '3px';
-        });
-    }
-
-    var previousScrollPosition = 0;
-
-    window.addEventListener('scroll', function() {
-        var currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-        var windowHeight = window.innerHeight;
-
-        if (currentScrollPosition < previousScrollPosition || currentScrollPosition < windowHeight) {
-            document.querySelector('.pagination').style.bottom = '0';
-        } else {
-            document.querySelector('.pagination').style.bottom = '-60px';
-        }
-
-        previousScrollPosition = currentScrollPosition;
-    });
-
-    var isAddingToCart = false;
-
-    window.AddToCart = function(design_id) {
-        if (!isAddingToCart) {
-            isAddingToCart = true;
-            var formData = new FormData();
-            formData.append('product_id', design_id);
-
-            $.ajax({
-                type: 'POST',
-                url: '/cart/add/' + design_id + '/',
-                data: formData,
-                contentType: false,
-                processData: false,
-                beforeSend: function(xhr, settings) {
-                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                },
-                success: function(response) {
-                    console.log(response);
-                    displaySuccessMessage('Product added to cart successfully!');
-                    var cartCountElement = $('#cart-count');
-                    if (cartCountElement.length === 0) {
-                        var newCartCountElement = $('<span id="cart-count"></span>');
-                        newCartCountElement.text(response.cart_count);
-                        $('#cart').append(newCartCountElement);
-                    } else {
-                        cartCountElement.text(response.cart_count);
-                    }
-                    isAddingToCart = false;
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    isAddingToCart = false;
-                }
-            });
-        }
-    };
-
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    function displaySuccessMessage(message) {
-        $('#success-message').text(message);
-        $('#success-message').fadeIn();
-
-        setTimeout(function() {
-            $('#success-message').fadeOut();
-        }, 5000);
-    }
 });

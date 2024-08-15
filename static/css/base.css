@@ -1,6 +1,7 @@
 
 * {
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'Encode Sans Condensed', sans-serif;
     text-decoration: none;
@@ -25,6 +26,7 @@ body {
     --hover-color: #00000039;
     --input-color: #ffffffa4;
     --input-readonly-color: #f9f9f9;
+    --main-hover-color: #9aab0f;
 }
 
 body.dark{
@@ -45,7 +47,7 @@ header {
     right: 0;
     z-index: 10000;
     display: flex;
-    padding: 20px 5%;
+    padding: 27px 9%;
     align-items: center;
     justify-content: space-between;
     transform: all .55s ease;

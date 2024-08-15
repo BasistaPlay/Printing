@@ -26,14 +26,15 @@ RECAPTCHA_PROXY = {'http': 'http://127.0.0.1:8000', 'https': 'https://127.0.0.1:
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
 # SECURITY WARNING: don't run with debug turned on in production!
+ALLOWED_HOSTS = ['ericprint.com', 'www.ericprint.com']
 
-ALLOWED_HOSTS = ['www.ericprint.com', '104.248.195.146', 'ericprint.com', '127.0.0.1', 'localhost']
-
-DEBUG = False
 SECURE_SSL_REDIRECT = True
 CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = ['https://ericprint.com', 'https://www.ericprint.com']
+
+DEBUG = False
+
 
 
 # Application definition
@@ -60,7 +61,6 @@ INSTALLED_APPS = [
     'shoping_cart',
     'stripe_integration',
     'forum',
-    'emoji_picker',
     #'django_extensions',
     'allauth',
     'allauth.account',
@@ -107,9 +107,9 @@ WSGI_APPLICATION = 'ecomerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'printing',
-        'USER': 'printing',
-        'PASSWORD': 'printing',
+        'NAME': 'ericprint',
+        'USER': 'ericprint',
+        'PASSWORD': 'ericprint',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -172,7 +172,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #     os.path.join(BASE_DIR, 'static'),
 # ]
 
-STATIC_ROOT = '/home/urban/Printing/static/'
+STATIC_ROOT = '/home/ericprint/Printing/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -273,3 +273,4 @@ SOCIALACCOUNT_ADAPTER = 'User_app.adapters.MySocialAccountAdapter'
 
 RECAPTCHA_PUBLIC_KEY = '6LfuiuQpAAAAAEq03FdKts-9bZ6KIcF9T8K7w4KY'
 RECAPTCHA_PRIVATE_KEY = '6LfuiuQpAAAAAGFFXYQQ4vaPzyJVuT9tpUJK3THe'
+
