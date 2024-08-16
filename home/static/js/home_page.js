@@ -1,42 +1,3 @@
-const sr = ScrollReveal({
-    distance: '100px',
-    duration: 2700,
-    reset: true,
-});
-
-sr.reveal('.hero-text', {delay:200, origin: 'bottom'});
-sr.reveal('.top-products-header', {delay:200, origin: 'bottom'});
-sr.reveal('.pricing', {delay:200, origin: 'bottom'});
-sr.reveal('#product1', {delay:300, origin: 'bottom'});
-sr.reveal('#product2', {delay:400, origin: 'bottom'});
-sr.reveal('#product3', {delay:500, origin: 'bottom'});
-
-
-$(document).ready(function() {
-    $(".down-arrow").click(function() {
-        $('html, body').animate({
-            scrollTop: 940
-        }, 1000);
-    });
-});
-
-$(document).ready(function() {
-    $(".second").click(function() {
-        $('html, body').animate({
-            scrollTop: 2500 
-        }, 1000);
-    });
-});
-
-
-$(document).ready(function() {
-    $(".third").click(function() {
-        $('html, body').animate({
-            scrollTop: 0 
-        }, 1000);
-    });
-});
-
 document.addEventListener("DOMContentLoaded", function() {
     const particles = document.querySelector(".particles");
 
@@ -52,11 +13,5 @@ document.addEventListener("DOMContentLoaded", function() {
         particle.style.animationDelay = `${Math.random() * 3}s`;
 
         particles.appendChild(particle);
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    if (window.location.href.indexOf("http://127.0.0.1:8000/success/") !== -1) {
-        document.querySelector(".order-confirmation").style.display = "block";
     }
 });

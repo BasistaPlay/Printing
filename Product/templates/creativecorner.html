@@ -44,11 +44,22 @@
                         <div class="form-group">
                             <label>{% trans 'Reitings:' %}</label>
                             <div id="rating-filter" class="rating-filter">
-                                <span class="star" data-rating="1"><i class="fas fa-star"></i></span>
-                                <span class="star" data-rating="2"><i class="fas fa-star"></i></span>
-                                <span class="star" data-rating="3"><i class="fas fa-star"></i></span>
-                                <span class="star" data-rating="4"><i class="fas fa-star"></i></span>
-                                <span class="star" data-rating="5"><i class="fas fa-star"></i></span>
+                                <span class="star" data-rating="1">
+                                    <svg width="30" height="30" style="fill:grey">
+                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                </svg></span>
+                                <span class="star" data-rating="2"><svg width="30" height="30" style="fill:grey">
+                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                </svg></span>
+                                <span class="star" data-rating="3"><svg width="30" height="30" style="fill:grey">
+                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                </svg></span>
+                                <span class="star" data-rating="4"><svg width="30" height="30" style="fill:grey">
+                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                </svg></span>
+                                <span class="star" data-rating="5"><svg width="30" height="30" style="fill:grey">
+                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                </svg></span>
                             </div>
                             <input type="hidden" name="rating" id="selected-rating">
                         </div>
@@ -74,7 +85,12 @@
                                 <h3 class='title-style'>{{ product_list.title }}</h3>
                                 <div class="star-wrapper" data-rating="{{ product_list.average_rating }}">
                                     {% for star in "12345" %}
-                                        <i class="fas fa-star {% if star|add:0 <= product_list.average_rating|floatformat:0 %}active{% endif %}"></i>
+                                        {% comment %} <i class="fas fa-star {% if star|add:0 <= product_list.average_rating|floatformat:0 %}active{% endif %}"></i> {% endcomment %}
+                                        <div class='{% if star|add:0 <= product_list.average_rating|floatformat:0 %}active{% endif %}'>
+                                        <span class="star" data-rating="5"><svg width="30" height="30" style="fill:grey">
+                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                        </svg></span>
+                                        </div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -119,5 +135,4 @@
 {% block js %}
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="{% static 'js/creativecorner.js' %}"></script>
-    <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 {% endblock %}

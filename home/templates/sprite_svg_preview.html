@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Sprite Icon Preview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #777;
+            color: white;
+        }
+        .icon-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .icon-item {
+            text-align: center;
+        }
+        svg {
+            width: 50px;
+            height: 50px;
+            display: block; /* Nodrošina, ka SVG ir redzams */
+        }
+        .icon-id {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .icon-item svg {
+            fill: #fff; /* Iestatiet sākotnējo ikonas krāsu */
+            transition: fill 0.3s ease; /* Pievienojiet vienmērīgu pāreju */
+        }
+
+        .icon-item svg:hover {
+            fill: #f00; /* Izvēlieties vēlamo hover krāsu */
+        }
+    </style>
+</head>
+<body>
+<h1>SVG Sprite Icon Preview</h1>
+<div id="icons" class="icon-container"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const iconPath = "/static/svg/sprite.svg";  // Tiešais ceļš uz jūsu SVG failu
+        console.log('Loading sprite:', iconPath);
+
+        fetch(iconPath)
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(sprite => {
+                console.log('SVG sprite loaded successfully.');
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(sprite, 'image/svg+xml');
+                const symbols = doc.querySelectorAll('symbol');
+
+                const iconContainer = document.getElementById('icons');
+                console.log('Found symbols:', symbols.length);
+
+                symbols.forEach(symbol => {
+                    const id = symbol.id;
+                    console.log('Processing symbol with ID:', id);
+                    const iconItem = document.createElement('div');
+                    iconItem.classList.add('icon-item');
+
+                    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+                    use.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', `${iconPath}#${id}`);
+                    icon.appendChild(use);
+
+                    const iconId = document.createElement('div');
+                    iconId.classList.add('icon-id');
+                    iconId.textContent = id;
+
+                    iconItem.appendChild(icon);
+                    iconItem.appendChild(iconId);
+                    iconContainer.appendChild(iconItem);
+                });
+            })
+            .catch(err => console.error('Error loading sprite:', err));
+    });
+</script>
+
+</body>
+</html>

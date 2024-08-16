@@ -466,6 +466,9 @@ input {
 }
 
 .button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 70%;
   margin: 10px;
   padding: 10px 40px;
@@ -475,9 +478,7 @@ input {
   background-size: 200% auto;
   color: white;
   border-radius: 10px;
-  /* display: flex; */
-  border: 0px;
-  /* font-weight: 700; */
+  border: 0;
   box-shadow: 0px 0px 14px -7px var(--main-color);
   background-image: linear-gradient(
     45deg,
@@ -490,6 +491,7 @@ input {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
+
 
 .button:hover {
   background-position: right center;
@@ -579,7 +581,7 @@ input {
 .text-list-item span{
   font-size: 16px;
   color: #000000;
-  max-width: 500px; 
+  max-width: 500px;
   flex-wrap: wrap;
 }
 
@@ -659,12 +661,16 @@ input {
   touch-action: manipulation;
 }
 
-.addTextbtn{
+.addTextbtn {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+
+.button svg {
+  margin-right: 8px; /* Attālums starp ikonu un tekstu */
+}
 
 .input-container {
   display: flex;
@@ -771,7 +777,7 @@ input {
     left: 110%;
     transform: translateX(-50%);
   }
-  
+
 }
 
 @media screen and (max-width: 1329px) {
@@ -788,7 +794,7 @@ input {
 
   .content-wrapper,
   .content {
-    min-height: 0; 
+    min-height: 0;
     padding-bottom: 30px;
     order: 2;
   }
@@ -853,7 +859,7 @@ input {
   border-radius: 50%;
 }
 
-.ui-resizable-handle.ui-resizable-sw { 
+.ui-resizable-handle.ui-resizable-sw {
   width: 12px;
   height: 12px;
   background-color: var(--main-color);
@@ -880,7 +886,7 @@ input {
   flex-wrap: wrap;
   margin-top: 5px;
   flex-direction: column;
-  
+
 }
 
 .size-option {
@@ -900,12 +906,12 @@ input {
 }
 
 .size-option:hover {
-  background-color: transparent; 
+  background-color: transparent;
   color: var(--text-color);
 }
 
 .size-option.active {
-  background-color: transparent; 
+  background-color: transparent;
   color: var(--text-color);
   border: 1px solid var(--main-color);
 }
@@ -1030,7 +1036,7 @@ input {
 
 #general {
   max-height: 500px;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 #additional-info {
@@ -1068,22 +1074,19 @@ input {
 }
 
 .publish-info {
+  display: flex;
+  align-items: center;
   margin-top: 20px;
 }
 
 .info-icon {
   margin-left: 10px;
 }
-
-.info-icon i {
-  color: var(--main-color);
-  font-size: 16px;
-}
 .loader {
   border: 4px solid #f3f3f3;
   border-top: 4px solid var(--main-color);
   border-radius: 50%;
-  width: 50px; 
+  width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
   display: none;

@@ -331,3 +331,10 @@ input[type="text"], select {
     color: gold;
   }
 }
+
+.star.active svg use {
+  fill: gold; /* Fully fills the icon with gold color */
+  stroke: gold;
+  color: gold;
+  color-text: gold;
+}

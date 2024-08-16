@@ -134,14 +134,15 @@
     margin: 0 5px;
     cursor: pointer;
     transition: color 0.3s, border-color 0.3s, background-color 0.3s;
-    background-color: #fff;
+    background-color: var(--second-color);
 }
 
 .social-icon:hover {
     color: var(--main-color);
     border-color: var(--main-color);
-    background-color: #f0f0f0; /* Gaiša fonu krāsa hover laikā */
 }
+
+
 
 /* Responsīvs dizains */
 @media(max-width: 768px) {

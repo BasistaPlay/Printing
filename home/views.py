@@ -3,6 +3,10 @@ from home.models import CustomDesign, GiftCode
 from Product.models import Rating, Product
 from django.utils.translation import gettext as _
 from django.http import JsonResponse
+import os
+import re
+from django.conf import settings
+
 
 def homepage(request):
     products = Product.objects.all()
@@ -51,3 +55,14 @@ def check_discount_code(request):
                 pass
 
     return JsonResponse({'valid': False})
+
+
+def icons_preview(request):
+    svg_path = os.path.join('home/static/svg/stripe.svg')
+
+    with open(svg_path, 'r', encoding='utf-8') as file:
+        content = file.read()
+
+    icons = re.findall(r'<symbol id="([^"]+)"', content)
+
+    return render(request, 'icons_preview.html', {'icons': icons})

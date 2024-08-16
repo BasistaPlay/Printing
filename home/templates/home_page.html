@@ -35,9 +35,6 @@
         <div class="hero-img">
             <img src="{{ custom_designs.image.url }}" alt="Image">
         </div>
-        <div class="down-arrow first">
-            <i class="bx bx-down-arrow-alt"></i>
-        </div>
     </section>
 
     <section class="pricing">
@@ -49,7 +46,11 @@
                 </div>
                 <div class="card-detail">
                     {% for option in product.get_options_list %}
-                        <p><span class="fas fa-check check"> <b class="text">{{ option }}</b></span></p>
+                        <p>
+                            <svg width="20" height="20" style="color: var(--main-color); position: relative; top:5px;">
+                            <use xlink:href="/static/svg/sprite.svg#check"></use>
+                        </svg>
+                         <b class="text">{{ option }}</b></span></p>
                     {% endfor %}
                 </div>
                 <div class="card-price">
@@ -60,9 +61,6 @@
                 </form>
             </div>
         {% endfor %}
-        <div class="down-arrow second">
-            <i class="bx bx-down-arrow-alt"></i>
-        </div>
     </section>
 
     {% comment %} <section class="top-products">
@@ -87,17 +85,12 @@
                 </a>
             </div>
             {% endfor %}
-            <div class="down-arrow third">
-                <i class="bx bx-up-arrow-alt"></i>
-            </div>
         </div>
     </section> {% endcomment %}
 
 {% endblock %}
 
 {% block js %}
-    <script src="https://unpkg.com/scrollreveal"></script>
     <script src="{% static 'js/home_page.js' %}"></script>
-    <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
 <div class="wraper">
 {% endblock %}

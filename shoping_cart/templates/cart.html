@@ -10,7 +10,6 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha256-VAsJg7xYOuZPO3jVfPnxYSNII9Y8lPQdW5Vl8ozI57w=" crossorigin="anonymous">
 {% endblock %}
 
 {% block body %}
@@ -19,7 +18,11 @@
   <div class='overlay'>
   <div class="container-success">
       <div class="circle">
-          <div class="checkmark-success"><i class="fas fa-check"></i></div>
+          <div class="checkmark-success">
+            <svg width="20" height="20" style="color: var(--text-color);">
+              <use xlink:href="/static/svg/sprite.svg#check-circle"></use>
+            </svg>
+          </div>
           <div class="particles"></div>
       </div>
       <h1>{% trans 'Paldies par pasūtījumu!' %}</h1>
@@ -51,11 +54,17 @@
           <div class="payment-method">
 
             <button class="method selected">
-              <ion-icon name="card"></ion-icon>
+              <svg width="20" height="20" style="color: var(--text-color);">
+                <use xlink:href="/static/svg/sprite.svg#card"></use>
+            </svg>
 
               <span>{% trans 'Kredītkarte' %}</span>
 
-              <ion-icon class="checkmark fill" name="checkmark-circle"></ion-icon>
+              <div class="checkmark">
+                <svg width="20" height="20" style="color: var(--text-color);">
+                  <use xlink:href="/static/svg/sprite.svg#check-circle"></use>
+                </svg>
+              </div>
             </button>
 
             <button class="method">
@@ -63,7 +72,11 @@
 
               <span>Stripe</span>
 
-              <ion-icon class="checkmark" name="checkmark-circle-outline"></ion-icon>
+              <div class="checkmark">
+                <svg width="20" height="20" style="color: var(--text-color);">
+                  <use xlink:href="/static/svg/sprite.svg#check-circle"></use>
+                </svg>
+              </div>
             </button>
 
           </div>
@@ -218,10 +231,7 @@
 {% endblock %}
 
 {% block js %}
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="{% static 'js/cart.js' %}"></script>
-<script src="https://kit.fontawesome.com/77c18eb9f0.js" crossorigin="anonymous"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {

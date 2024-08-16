@@ -35,7 +35,8 @@
             <li><a href='{% url 'product:creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
             <li><a href="{% url 'contact_us' %}" class="contact_us">{% trans 'Sazinies ar mums' %}</a></li>
             {% if user.is_authenticated %}
-                <li class='acc-nav'><a href="{% url 'profile:personal_info' %}" class="contact_us">{% trans 'Profils' %}</a></li>
+                <li class='acc-nav'>
+                    <a href="{% url 'profile:personal_info' %}" class="contact_us">{% trans 'Profils' %}</a></li>
                 <li class='acc-nav'><a href="{% url 'profile:logout' %}">{% trans 'Izrakstīties' %}</a></li>
             {% else %}
                 <li class='acc-nav'><a href='{% url 'login' %}' class="contact_us">{% trans 'Pierakstīties' %}</a></li>
@@ -48,7 +49,9 @@
             {% if user.is_authenticated %}
             <div class="dropdown">
                 <a href="javascript:void(0)" class="h-btn acc">
-                    <i class="fas fa-user"></i>
+                    <svg width="20" height="20" style="color: white;">
+                        <use xlink:href="/static/svg/sprite.svg#user"></use>
+                    </svg>
                     {% trans 'Profils' %}
                 </a>
                 <div class="dropdown-content">
@@ -60,12 +63,19 @@
                 <a href='{% url 'login' %}' class='h-btn acc'>{% trans 'Pierakstīties' %}</a>
             {% endif %}
             <div class="bx bx-menu" id="menu-icon"></div>
-            <a class="bx bx-cart" href="{% url 'shopping_cart:cart' %}" id="cart">
+            <a href="{% url 'shopping_cart:cart' %}" id="cart">
+                <svg width="25" height="25" style="fill: var(--text-color);">
+                    <use xlink:href="/static/svg/sprite.svg#shopping_cart"></use>
+                </svg>
                 {% if request.session.cart|length >= 1 %}
                     <span id="cart-count">{{ request.session.cart|length }}</span>
                 {% endif %}
             </a>
-            <div class="bx bx-moon" id="darkmode"></div>
+            <div id="darkmode">
+                <svg width="25" height="25" style="fill: var(--text-color);">
+                    <use xlink:href="/static/svg/sprite.svg#moon-ico"></use>
+                </svg>
+            </div>
             <div class="language-switcher">
                 <div class="dropdown">
                     <button class="dropbtn">
@@ -91,7 +101,6 @@
     {% block body %}{% endblock %}
 </body>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://kit.fontawesome.com/77c18eb9f0.js" crossorigin="anonymous"></script>
 <script src="{% static 'js/base.js' %}"></script>
 <script>
     // Hide success message after 10 seconds

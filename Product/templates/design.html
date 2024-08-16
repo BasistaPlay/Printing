@@ -8,7 +8,6 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/design.css' %}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock %}
 
@@ -71,7 +70,10 @@
     <div class="publish-info">
         <input type="checkbox" id="publish-checkbox">
         <label for="publish-checkbox">{% trans 'Apstiprinu, ka vēlos publicēt savu darbu' %}</label>
-        <span class="info-icon"><i class="fas fa-info-circle"></i></span>
+        <span class="info-icon">
+            <svg width="20" height="20" style="color: var(--main-color);">
+            <use xlink:href="/static/svg/sprite.svg#info"></use>
+        </svg></span>
     </div>
 
     <div id="additional-info" style="display: none;">
@@ -152,7 +154,11 @@
         </div>
     </div>
     <div class="addTextbtn">
-        <button id="addTextButton" class="button"><i class="fas fa-plus"></i> {% trans 'Pievienot tekstu' %}</button>
+        <button id="addTextButton" class="button">
+            <svg width="20" height="20" style="color: white;">
+                <use xlink:href="/static/svg/sprite.svg#plus"></use>
+            </svg>
+        {% trans 'Pievienot tekstu' %}</button>
     </div>
     <div id="output-text-container">
         <div id="output-text"></div>
@@ -172,23 +178,33 @@
 
 <div class="navbar-wrapper pc">
     <div class="nav-item" id="generalIcon">
-        <i class="fas fa-cogs"></i>
+        <svg width="20" height="20" style="color: var(--text-color);">
+            <use xlink:href="/static/svg/sprite.svg#settings"></use>
+        </svg>
         <div class="tooltip">{% trans 'Vispārīgi' %}</div>
     </div>
     <div class="nav-item" id="imageIcon">
-        <i class="fas fa-image"></i>
+        <svg width="20" height="20" style="color: var(--text-color);">
+            <use xlink:href="/static/svg/sprite.svg#image"></use>
+        </svg>
         <div class="tooltip">{% trans 'Attēls' %}</div>
     </div>
     <div class="nav-item" id="textIcon">
-        <i class="fas fa-font"></i>
+        <svg width="20" height="20" style="color: var(--text-color);">
+            <use xlink:href="/static/svg/sprite.svg#text"></use>
+        </svg>
         <div class="tooltip">{% trans 'Teksts' %}</div>
     </div>
     <div class="nav-item" id="Ai-generatoricon">
-        <i class="fas fa-robot"></i>
+        <svg width="20" height="20" style="fill: var(--text-color);">
+            <use xlink:href="/static/svg/sprite.svg#AI"></use>
+        </svg>
         <div class="tooltip">{% trans 'AI Ģenerators' %}</div>
     </div>
     <div class="nav-item" id="roatateicon">
-        <i class="fa-solid fa-arrow-rotate-left"></i>
+        <svg width="20" height="20" style="color: var(--text-color);">
+            <use xlink:href="/static/svg/sprite.svg#rotate"></use>
+        </svg>
         <div class="tooltip">{% trans 'Pagriezt' %}</div>
     </div>
 </div>

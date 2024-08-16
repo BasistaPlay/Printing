@@ -95,8 +95,10 @@ header {
     align-items: center;
 }
 
-.h-btn{
-    display: inline-block;
+.h-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px 25px;
     color: #fff;
     background: var(--main-color);
@@ -107,9 +109,15 @@ header {
     margin-right: 20px;
     transition: all ease .55;
 }
+
+.h-btn svg {
+    margin-right: 10px;
+    fill: var(--text-color);
+}
+
 .h-btn i {
     position: relative;
-    right: 10px;
+    right: 0;
 }
 
 #menu-icon{

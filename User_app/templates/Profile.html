@@ -9,22 +9,33 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile:personal_info' %}">
-                        <i class="fas fa-user"></i> {% trans "Personīgā informācija" %}
+                        <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
+                            <use xlink:href="/static/svg/sprite.svg#user"></use>
+                        </svg>
+                        {% trans "Personīgā informācija" %}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile:change_password' %}">
-                        <i class="fas fa-key"></i> {% trans "Paroles maiņa" %}
+                        <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
+                            <use xlink:href="/static/svg/sprite.svg#key"></use>
+                        </svg> {% trans "Paroles maiņa" %}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile:order_history' %}">
-                        <i class="fas fa-receipt"></i> {% trans "Pasūtījumu vēsture" %}
+                        <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
+                            <use xlink:href="/static/svg/sprite.svg#order"></use>
+                        </svg>
+                        {% trans "Pasūtījumu vēsture" %}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile:delete_account' %}">
-                        <i class="fas fa-trash-alt"></i> {% trans "Dzēst kontu" %}a
+                        <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
+                            <use xlink:href="/static/svg/sprite.svg#trash"></use>
+                        </svg>
+                        {% trans "Dzēst kontu" %}a
                     </a>
                 </li>
             </ul>
