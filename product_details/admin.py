@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product_details.models import Color, Size
+from product_details.models import Color, Size, ProductInventory
 from django.utils.translation import gettext as _
 
 
@@ -22,3 +22,7 @@ class SizeAdmin(admin.ModelAdmin):
             'fields': ('name', 'size',),
         }),
     )
+
+class ProductInventoryInline(admin.TabularInline):
+    model = ProductInventory
+    extra = 1

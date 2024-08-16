@@ -6,6 +6,8 @@ from .models import (Product, Rating, Category)
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.utils.html import mark_safe
+from product_details.admin import ProductInventoryInline
+
 
 @admin.register(Category)
 class CategoryAdmin(TranslationAdmin):
@@ -42,6 +44,7 @@ class CategoryAdmin(TranslationAdmin):
 @admin.register(Product)
 class ProductAdmin(TranslationAdmin):
     list_display = ('title',)
+    inlines = [ProductInventoryInline]
 
     fieldsets = (
         (_('Produkts'), {
@@ -52,12 +55,6 @@ class ProductAdmin(TranslationAdmin):
         }),
         (_('Bildes'), {
             'fields': ('front_image_with_background', 'front_image_not_background', 'back_image_with_background', 'back_image_not_background', 'front_image_coords', 'back_image_coords'),
-        }),
-        (_('Krāsas'), {
-            'fields': ('available_colors',),
-        }),
-        (_('Izmēri'), {
-            'fields': ('available_sizes',),
         }),
     )
 

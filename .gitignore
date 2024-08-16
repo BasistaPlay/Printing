@@ -13,7 +13,7 @@ ecomerce/local_settings.py
 ecomerce/media/
 
 # Kompilētie Python faili
-*/__pycache__/
+*/__pycache__/*
 
 # Statiskie faili
 static/
@@ -23,3 +23,4 @@ ecomerce/staticfiles/
 
 
 *.pyc
+

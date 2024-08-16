@@ -39,9 +39,6 @@ class Product(models.Model):
     back_image_with_background = models.ImageField(_('Aizmugurējā bilde ar fonu'), upload_to='products/', blank=True)
     back_image_not_background = models.ImageField(_('Aizmugurējā bilde bez fona'), upload_to='products/', blank=True)
 
-    available_colors = models.ManyToManyField('product_details.Color', related_name='products', blank=True)
-    available_sizes = models.ManyToManyField('product_details.Size', related_name='products', blank=True)
-
     front_image_coords = models.JSONField(blank=True, null=True)
     back_image_coords = models.JSONField(blank=True, null=True)
 
