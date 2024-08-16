@@ -15,6 +15,7 @@ from Product.ConvertBase64 import save_base64_image
 from design.models import TextList, ImageList
 import json
 from datetime import datetime
+from django.http import Http404
 
 
 class CategoryListView(ListView):
@@ -33,7 +34,12 @@ class CategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category = self.get_object()
-        products = Product.objects.filter(categories=category)
+
+        if self.request.user.is_staff:
+            products = Product.objects.filter(categories=category)
+        else:
+            products = Product.objects.filter(categories=category, is_public=True)
+
         context['products'] = products
         return context
 
@@ -45,7 +51,12 @@ class DesignView(LoginRequiredMixin, DetailView):
     login_url = '/login/'
 
     def get_object(self, queryset=None):
-        return get_object_or_404(Product, slug=self.kwargs['slug'])
+        product = get_object_or_404(Product, slug=self.kwargs['slug'])
+
+        if not product.is_public and not self.request.user.is_staff:
+            raise Http404("Product not found")
+
+        return product
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

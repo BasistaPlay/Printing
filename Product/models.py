@@ -45,6 +45,8 @@ class Product(models.Model):
     views = models.PositiveIntegerField(default=0)
     categories = models.ManyToManyField(Category, related_name='products')
 
+    is_public = models.BooleanField(_('Publisks'), default=True, help_text=_("Norādiet, vai produkts ir publisks."))
+
     def __str__(self):
         return self.title
 

@@ -8,7 +8,7 @@ def homepage(request):
     products = Product.objects.all()
     custom_designs = CustomDesign.objects.first()
     top_rated_popular_products = Rating.get_top_rated_popular_products()
-    popular_products = Product.objects.order_by('-views')[:2]
+    popular_products = Product.objects.filter(is_public=True).order_by('-views')[:2]
 
     context = {
         'custom_designs': custom_designs,

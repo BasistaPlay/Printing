@@ -23,12 +23,10 @@
                     <a class="box" href="{% url 'product:design_detail' slug=product.slug %}">
                         <h3>{{ product.title }}</h3>
                         <img src="{{ product.image.url }}" alt="Image">
-                        <!-- Pievieno ikonu, kas saistīta ar kategoriju -->
                         <i class="{{ product.category_icon }}"></i>
                     </a>
                 {% endfor %}
 
-                <!-- Poga ar visām kategorijām -->
                 <div class="categories-button">
                     <a href="{% url 'product:all_categories' %}" class="btn">{% trans 'Kategorijas' %}</a>
                 </div>

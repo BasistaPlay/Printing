@@ -32,12 +32,12 @@ class CategoryAdmin(TranslationAdmin):
 
     class Media:
         js = [
-            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',  # Jaunāka jQuery versija
-            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',  # Jaunāka jQuery UI versija
-            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',  # Lokāli glabāts JS fails
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
+            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',
+            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',
         ]
         css = {
-            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),  # Lokāli glabāts CSS fails
+            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),
         }
 
 
@@ -45,10 +45,11 @@ class CategoryAdmin(TranslationAdmin):
 class ProductAdmin(TranslationAdmin):
     list_display = ('title',)
     inlines = [ProductInventoryInline]
+    prepopulated_fields = {'slug': ('title_en',)}
 
     fieldsets = (
         (_('Produkts'), {
-            'fields': ('title', 'categories', 'image', 'slug', 'views'),
+            'fields': ('title', 'categories', 'image', 'slug', 'is_public', 'views'),
         }),
         (_('Cena'), {
             'fields': ('price', 'options'),
@@ -63,12 +64,12 @@ class ProductAdmin(TranslationAdmin):
 
     class Media:
         js = [
-            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',  # Jaunāka jQuery versija
-            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',  # Jaunāka jQuery UI versija
-            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',  # Lokāli glabāts JS fails
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
+            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',
+            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',
         ]
         css = {
-            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),  # Lokāli glabāts CSS fails
+            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),
         }
 
         js = (
@@ -84,7 +85,6 @@ class ProductAdmin(TranslationAdmin):
         }
 
     def save_model(self, request, obj, form, change):
-        # Ensure front_image_coords and back_image_coords are saved properly
         if 'front_image_coords' in form.cleaned_data:
             obj.front_image_coords = form.cleaned_data['front_image_coords']
         if 'back_image_coords' in form.cleaned_data:
