@@ -13,20 +13,11 @@ ecomerce/local_settings.py
 ecomerce/media/
 
 # Kompilētie Python faili
-ecomerce/__pycache__/
-home/__pycache__/
-shoping_cart/__pycache__/
-shoping_cart/migrations/__pycache__/
-shoping_cart/templatetags/__pycache__/
-User_app/__pycache__/
-User_app/migrations/__pycache__/
-stripe_integration/__pycache__/
-home/templatetags/__pycache__/
-stripe_integration/migrations/__pycache__/
-home/migrations/__pycache__/
+*/__pycache__/
 
-# Statiskie faili°
+# Statiskie faili
 static/
+static/*
 ecomerce/static/
 ecomerce/staticfiles/
 
