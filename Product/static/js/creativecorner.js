@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $(document).ready(function() {
         function applyFilters() {
             $.ajax({
-                url: "{% url 'creativecorner' %}", // URL to your view
+                url: "{% url 'creativecorner' %}",
                 data: $('#filter-form').serialize(),
                 success: function(data) {
                     $('#product-list').html(data.html);

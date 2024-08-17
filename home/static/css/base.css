@@ -34,14 +34,17 @@ body {
     --main-hover-color: #9aab0f;
 }
 
-body.dark{
-    --text-color: #fff;
-    --bg-color: #061b09;
-    --bg2-color: #252725;
-    --second-color: #0b1e38;
+body.dark {
+    --bg2-color: #2e2e2e;
+    --text-color: #e5e5e5;
+    --bg-color: #1a1a1a;
+    --main-color: #a4c800;
+    --second-color: #2b2b2b;
+    --other-color: #888888;
     --hover-color: #ffffff39;
-    --input-color: #192f4d;
-    --input-readonly-color: #2c3e50;
+    --input-color: #333333a4;
+    --input-readonly-color: #2a2a2a;
+    --main-hover-color: #819c0d;
 }
 
 
