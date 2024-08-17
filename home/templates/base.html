@@ -10,14 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Condensed:wght@600&display=swap" rel="stylesheet">
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="dd464516-7e9e-4977-a678-2eee349bb2b8" data-blockingmode="auto" type="text/javascript"></script>
     <link rel="icon" href="{% display_icon %}" type="image/png">
     {% block css %}
@@ -100,7 +93,6 @@
 
     {% block body %}{% endblock %}
 </body>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'js/base.js' %}"></script>
 <script>
     // Hide success message after 10 seconds

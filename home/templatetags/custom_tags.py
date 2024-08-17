@@ -10,10 +10,9 @@ def display_icon():
         if icon and icon.image:
             return '{}'.format(icon.image.url)
         else:
-            return ''  # Return a default value or empty string if no image
+            return ''
     except CustomDesign.DoesNotExist:
-        return ''  # Handle the case where no CustomDesign records are found
+        return ''
     except Exception as e:
-        # Log the error for further inspection or return a default value
-        # You might use Django's logging framework here
-        return ''  # Handle unexpected exceptions gracefully
+
+        return ''

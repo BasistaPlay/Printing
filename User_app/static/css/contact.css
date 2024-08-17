@@ -190,7 +190,7 @@ section {
 }
 
 .container .contactForm .formBox .inputBox input[type="submit"]:hover {
-    background: #e97878;
+    background: var(--main-hover-color);
 }
 
 /* make the form responsive */

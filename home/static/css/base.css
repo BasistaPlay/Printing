@@ -1,9 +1,14 @@
-
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('/static/fonts/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Encode Sans Condensed', sans-serif;
+    font-family: 'MyCustomFont', sans-serif;
     text-decoration: none;
     list-style: none;
 
