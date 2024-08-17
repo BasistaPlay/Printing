@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from Product.models import Product, Rating, Category
-from product_details.models import Color
+from product_details.models import Color, ProductInventory
 from design.models import Designs
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
@@ -13,6 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from Product.ConvertBase64 import save_base64_image
 from design.models import TextList, ImageList
+from django.db.models import Sum
 import json
 from datetime import datetime
 from django.http import Http404
@@ -43,7 +44,6 @@ class CategoryDetailView(DetailView):
         context['products'] = products
         return context
 
-
 class DesignView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'design.html'
@@ -52,10 +52,8 @@ class DesignView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         product = get_object_or_404(Product, slug=self.kwargs['slug'])
-
         if not product.is_public and not self.request.user.is_staff:
             raise Http404("Product not found")
-
         return product
 
     def get_context_data(self, **kwargs):
@@ -81,10 +79,30 @@ class DesignView(LoginRequiredMixin, DetailView):
             'height': '{:.2f}'.format(back_image_coords['height'] + 20)
         }
 
+        available_colors = product.inventory.values('color__id', 'color__name', 'color__code').annotate(total_quantity=Sum('quantity')).filter(total_quantity__gt=0)
+        context['available_colors'] = available_colors
+
+        context['available_sizes'] = product.inventory.values('size__size').distinct()
+
         context['adjusted_front_image_coords'] = adjusted_front_image_coords
         context['adjusted_back_image_coords'] = adjusted_back_image_coords
 
         return context
+
+    def get(self, request, *args, **kwargs):
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            color_id = request.GET.get('color_id')
+            if color_id:
+                product = self.get_object()
+                sizes = ProductInventory.objects.filter(
+                    product=product, color_id=color_id
+                ).values('size__size', 'quantity').distinct()
+
+                return JsonResponse({'sizes': list(sizes)})
+            else:
+                return JsonResponse({'error': 'color_id not provided'}, status=400)
+        return super().get(request, *args, **kwargs)
+
 
 class CreativeCornerView(ListView):
     template_name = 'creativecorner.html'

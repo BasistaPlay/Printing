@@ -492,6 +492,11 @@ input {
   touch-action: manipulation;
 }
 
+.size-option.readonly {
+  color: #aaa; /* Gray out the text */
+  cursor: not-allowed;
+  opacity: 0.6; /* Make it look disabled */
+}
 
 .button:hover {
   background-position: right center;
@@ -817,12 +822,17 @@ input {
   .color-content{
     text-align: center;
   }
+  .quantity-content-text{
+    text-align: center;
+    aligin-item:center;
+}
   .color-groups{
     justify-content: center;
   }
 
   .size-content{
     text-align: center;
+
   }
   .size-select{
     justify-content: center;
@@ -885,9 +895,10 @@ input {
   display: flex;
   flex-wrap: wrap;
   margin-top: 5px;
-  flex-direction: column;
+  flex-direction: row;
 
 }
+
 
 .size-option {
   width: 30px;
@@ -949,10 +960,6 @@ input {
   color: inherit;
 }
 
-.publish-info{
-  margin: 10px 0 10px 0;
-}
-
 .modal {
   display: none;
   position: fixed;
@@ -988,16 +995,64 @@ input {
   text-decoration: none;
   cursor: pointer;
 }
-
-.info-icon{
-  cursor: pointer;
+.publish-info {
+  display: flex;
+  align-items: center;
+  margin: 20px 0; /* Vienots marginu augšā un apakšā */
+  font-size: 14px; /* Fonta lielums */
 }
 
 #publish-checkbox {
+  display: none; /* Paslēpj standarta čeksboksu */
+}
+
+.publish-info label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 10px; /* Atstarpe starp čeksboksu un tekstu */
+}
+
+.publish-info label::before {
+  content: '';
+  display: inline-block;
   width: 20px;
   height: 20px;
-  cursor: pointer;
+  border: 2px solid var(--main-color);
+  border-radius: 4px; /* Noapaļotas malas */
+  background-color: #fff; /* Balts fons */
+  margin-right: 10px; /* Atstarpe starp čeksboksu un tekstu */
+  position: relative;
+  top: 0;
+  transition: background-color 0.3s, border-color 0.3s;
+  background-image: url('/static/svg/sprite.svg#check'); /* SVG ikonas URL */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px; /* Izmēri atbilstoši jūsu SVG ikonas izmēram */
 }
+
+#publish-checkbox:checked + label::before {
+  background-color: var(--main-color); /* Fons, kad čeksboks ir atzīmēts */
+  border-color: var(--main-color); /* Mala, kad čeksboks ir atzīmēts */
+  background-image: url('/static/svg/sprite.svg#check'); /* Ikona, kad čeksboks ir atzīmēts */
+}
+
+.info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 10px;
+  color: var(--main-color); /* Ikonas krāsa */
+}
+
+.info-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+
 
 .error-messages {
   position: fixed;
@@ -1071,12 +1126,6 @@ input {
   outline: none;
   border-color: var(--main-color);
   box-shadow: 0 0 5px var(--main-color);
-}
-
-.publish-info {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
 }
 
 .info-icon {

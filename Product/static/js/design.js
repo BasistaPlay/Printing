@@ -2,127 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSide = localStorage.getItem('currentSide') || 'front';
     localStorage.setItem('currentSide', currentSide);
 
-    const colorElements = document.querySelectorAll('.color-select');
-    const colorContainer = document.querySelector('.color');
-
-    colorElements.forEach(function(colorElement) {
-        colorElement.addEventListener('click', function() {
-            const selectedColor = colorElement.style.backgroundColor;
-            colorContainer.style.backgroundColor = selectedColor;
-
-            colorElements.forEach(function(element) {
-                element.classList.remove('active-color');
-            });
-            colorElement.classList.add('active-color');
-        });
-    });
-
-    const plus = document.querySelector(".plus"),
-    minus = document.querySelector(".minus"),
-    num = document.querySelector(".num"),
-    sizeSelect = document.querySelector(".size-select"),
-    originalSizes = [...document.querySelectorAll(".size-option")];
-
-    let a = 1;
-
-    let activeSelections = Array.from({ length: a }, () => null);
-
-    function updateNumDisplay() {
-        num.innerText = a < 10 ? '0' + a : a;
-        updateSizeOptions();
-    }
-
-    function updateSizeOptions() {
-        const sizeSelect = document.querySelector('.size-select');
-        if (!sizeSelect) {
-            console.error("sizeSelect element not found.");
-            return;
-        }
-
-        sizeSelect.innerHTML = '';
-
-        for (let i = 0; i < a; i++) {
-            let row = document.createElement('div');
-            row.classList.add('size-row');
-            row.classList.add(`size-row-${i+1}`);
-
-            originalSizes.forEach(size => {
-                let option = document.createElement('div');
-                option.classList.add('size-option');
-                option.setAttribute('data-value', size.getAttribute('data-value'));
-                option.innerText = size.innerText;
-
-                // Atjaunot aktīvo izvēli, ja tā pastāv
-                if (activeSelections[i] === size.getAttribute('data-value')) {
-                    option.classList.add('active');
-                }
-
-                option.addEventListener('click', function() {
-                    row.querySelectorAll('.size-option').forEach(function(opt) {
-                        opt.classList.remove('active');
-                    });
-                    option.classList.add('active');
-                    activeSelections[i] = size.getAttribute('data-value');
-                    calculateActiveSizes();
-                });
-
-                row.appendChild(option);
-            });
-
-            sizeSelect.appendChild(row);
-        }
-
-        activeSelections = activeSelections.slice(0, a);
-        while (activeSelections.length < a) {
-            activeSelections.push(null);
-        }
-    }
-
-    updateSizeOptions();
-
-    function calculateActiveSizes() {
-        let sizeCount = {};
-        activeSelections.forEach(size => {
-            if (size) {
-                sizeCount[size] = (sizeCount[size] || 0) + 1;
-            }
-        });
-        console.log(sizeCount);
-        return sizeCount;
-    }
-
-    plus.addEventListener('click', () => {
-        a++;
-        updateNumDisplay();
-    });
-
-    minus.addEventListener('click', () => {
-        if (a > 1) {
-            a--;
-            updateNumDisplay();
-        }
-    });
-
-    updateNumDisplay();
-
-
-    var infoIcon = document.querySelector('.info-icon');
-    var modal = document.getElementById('info-modal');
-    var closeBtn = document.querySelector('.close');
-
-    infoIcon.addEventListener('click', function() {
-        modal.style.display = 'block';
-    });
-
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    });
 
     $('.upload-area').click(function() {
         $('#upload-input').trigger('click');
@@ -607,9 +486,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     $('#buy-button').click(function() {
         var publishCheckbox = $('#publish-checkbox').is(":checked");
-        var activeSizes = Array.from(document.querySelectorAll('.size-row')).map(row => {
-            return row.querySelector('.size-option.active')?.getAttribute('data-value');
-        });
+        // var activeSizes = Array.from(document.querySelectorAll('.size-row')).map(row => {
+        //     return row.querySelector('.size-option.active')?.getAttribute('data-value');
+        // });
         var activeColor = $('.color-select.active-color').attr('data-color-name');
         var productSlug = $('#product-slug').val();
         var title = $('#title-input').val();
@@ -621,9 +500,9 @@ document.addEventListener('DOMContentLoaded', function() {
             errorHtml += '<p>' + 'Please select a color' + '</p>';
         }
 
-        if (activeSizes.some(size => !size) && $('.size-option').length > 0) {
-            errorHtml += '<p>' + 'Please select all sizes' + '</p>';
-        }
+        // if (activeSizes.some(size => !size) && $('.size-option').length > 0) {
+        //     errorHtml += '<p>' + 'Please select all sizes' + '</p>';
+        // }
 
         if (publishCheckbox) {
             if (!title.trim()) {
@@ -695,8 +574,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        var orderId = response.design_id;
-                        AddToCart(orderId)
+                        var design_id = response.designs_id;
+                        AddToCart(design_id)
                         displaySuccessMessage('Your order has been successfully saved!');
                     },
                     error: function(xhr, status, error) {
@@ -708,15 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function AddToCart(design_id) {
-        let allSizes = [];
-        $('.size-content:first .size-option').each(function() {
-            let sizeValue = $(this).data('value');
-            if (!allSizes.includes(sizeValue)) {
-                allSizes.push(sizeValue);
-            }
-        });
 
-        let activeSizes = calculateActiveSizes();
         let numValue = $('.num').text();
 
         let productCard = $('.product-card[data-product-id]');
@@ -727,10 +598,10 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('product_id', product_id);
         formData.append('quantity', numValue);
 
-        allSizes.forEach(function(size) {
-            let count = activeSizes[size] || 0;
-            formData.append('sizes[]', JSON.stringify({ size: size, count: count }));
-        });
+        // allSizes.forEach(function(size) {
+        //     let count = activeSizes[size] || 0;
+        //     formData.append('sizes[]', JSON.stringify({ size: size, count: count }));
+        // });
 
         $.ajax({
             type: 'POST',

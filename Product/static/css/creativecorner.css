@@ -338,3 +338,9 @@ input[type="text"], select {
   color: gold;
   color-text: gold;
 }
+
+.star-wrapper{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}

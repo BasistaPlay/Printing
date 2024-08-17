@@ -2,18 +2,18 @@
   display: flex;
   justify-content: center;
   max-width: 1400px;
-  margin: 50px auto;
+  margin: 120px auto 50px; /* Izmanto margin-top, lai nodrošinātu pietiekamu attālumu no augšas */
   padding: 20px;
-  margin-top:120px;
   gap: 30px;
 }
 
 .cart-items {
+  flex: 2;
   width: 100%;
   background-color: var(--second-color);
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+  padding: 20px;
 }
 
 .cart-item {
@@ -23,10 +23,17 @@
   padding-bottom: 15px;
   border-bottom: 1px solid var(--text-color);
   transition: all 0.3s ease;
+  background-color: #fff; /* Nodrošina, ka kartes izskatās atsevišķi */
+  border-radius: 8px; /* Pievieno noapaļotus stūrus */
+}
+
+.cart-item:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Pievieno efektu, kad peles kursoru virza virs preces */
 }
 
 .cart-item img {
-  max-width: 80px;
+  max-width: 100px; /* Palielina attēla izmēru */
+  height: auto;
   border-radius: 8px;
 }
 
@@ -34,29 +41,27 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
-  margin-left: 15px;
+  flex: 1;
+  margin-left: 20px;
 }
 
 .top-details {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-.item-details h2 {
-  font-size: 16px;
+.item-title {
+  font-size: 18px;
   font-weight: 600;
   color: var(--text-color);
 }
 
 .price {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--primary-color);
-  margin-right: 15px;
 }
 
 .size-quantity {
@@ -73,14 +78,14 @@
 }
 
 .size-section label, .quantity-section label {
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 5px;
   color: var(--text-color);
 }
 
 .item-details select, .item-details input {
-  padding: 5px;
-  border-radius: 6px;
+  padding: 8px;
+  border-radius: 8px;
   border: 1px solid var(--text-color);
   font-size: 14px;
   width: 60px;
@@ -90,6 +95,7 @@
 .quantity-controls {
   display: flex;
   align-items: center;
+  gap: 5px;
 }
 
 .quantity-btn {
@@ -98,12 +104,17 @@
   color: white;
   padding: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   border-radius: 6px;
-  width: 24px;
-  height: 24px;
-  line-height: 14px;
-  text-align: center;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-btn:hover {
+  background-color: var(--primary-dark-color); /* Tumšāka krāsa hover efekta gadījumā */
 }
 
 .remove-btn {
@@ -112,11 +123,12 @@
   background-color: #ff6b6b;
   color: white;
   border: none;
-  padding: 6px 10px;
+  padding: 8px 12px;
   cursor: pointer;
   border-radius: 6px;
   transition: background-color 0.3s ease;
   margin-top: auto;
+  font-size: 14px;
 }
 
 .remove-btn svg {

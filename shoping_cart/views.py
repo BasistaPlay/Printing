@@ -22,11 +22,11 @@ def cart(request):
                     design_id = item_data.get('design_id')
                     order_id = item_data.get('product_id')
                     product = get_object_or_404(Product, id=design_id)
-                    sizes = product.available_sizes.all()
+                    # sizes = product.available_sizes.all()
 
                     products_with_sizes.append({
                         'product': product,
-                        'sizes': sizes,
+                        # 'sizes': sizes,
                         'Design_id': order_id
                     })
                 except Product.DoesNotExist as e:

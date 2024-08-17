@@ -14,113 +14,43 @@
 {% block body %}
 
 <div class="cart-container">
-  <section class="cart-items">
-      <!-- Produkts 1 -->
-      <div class="cart-item">
-          <img src="{% static 'images/product1.jpg' %}" alt="Produkts 1">
-          <div class="item-details">
-              <div class="top-details">
-                  <h2>Produkta Nosaukums 1</h2>
-                  <p class="price">€25.00</p>
-              </div>
-              <div class="size-quantity">
-                  <div class="size-section">
-                      <label for="size-1">Izmērs:</label>
-                      <select id="size-1">
-                          <option value="S">S</option>
-                          <option value="M">M</option>
-                          <option value="L">L</option>
-                      </select>
-                  </div>
-                  <div class="quantity-section">
-                      <label for="quantity-1">Daudzums:</label>
-                      <div class="quantity-controls">
-                          <button class="quantity-btn minus">-</button>
-                          <input type="number" id="quantity-1" value="1" min="1">
-                          <button class="quantity-btn plus">+</button>
-                      </div>
-                  </div>
-              </div>
-              <button class="remove-btn">
-                  <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
-                      <use xlink:href="/static/svg/sprite.svg#trash"></use>
-                  </svg>
-                  Noņemt
-              </button>
-          </div>
-      </div>
-
-      <!-- Produkts 2 -->
-      <div class="cart-item">
-          <img src="{% static 'images/product2.jpg' %}" alt="Produkts 2">
-          <div class="item-details">
-              <div class="top-details">
-                  <h2>Produkta Nosaukums 2</h2>
-                  <p class="price">€15.00</p>
-              </div>
-              <div class="size-quantity">
-                  <div class="size-section">
-                      <label for="size-2">Izmērs:</label>
-                      <select id="size-2">
-                          <option value="S">S</option>
-                          <option value="M">M</option>
-                          <option value="L">L</option>
-                      </select>
-                  </div>
-                  <div class="quantity-section">
-                      <label for="quantity-2">Daudzums:</label>
-                      <div class="quantity-controls">
-                          <button class="quantity-btn minus">-</button>
-                          <input type="number" id="quantity-2" value="1" min="1">
-                          <button class="quantity-btn plus">+</button>
-                      </div>
-                  </div>
-              </div>
-              <button class="remove-btn">
-                  <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
-                      <use xlink:href="/static/svg/sprite.svg#trash"></use>
-                  </svg>
-                  Noņemt
-              </button>
-          </div>
-      </div>
-
-      <!-- Produkts 3 -->
-      <div class="cart-item">
-          <img src="{% static 'images/product3.jpg' %}" alt="Produkts 3">
-          <div class="item-details">
-              <div class="top-details">
-                  <h2>Produkta Nosaukums 3</h2>
-                  <p class="price">€30.00</p>
-              </div>
-              <div class="size-quantity">
-                  <div class="size-section">
-                      <label for="size-3">Izmērs:</label>
-                      <select id="size-3">
-                          <option value="S">S</option>
-                          <option value="M">M</option>
-                          <option value="L">L</option>
-                      </select>
-                  </div>
-                  <div class="quantity-section">
-                      <label for="quantity-3">Daudzums:</label>
-                      <div class="quantity-controls">
-                          <button class="quantity-btn minus">-</button>
-                          <input type="number" id="quantity-3" value="1" min="1">
-                          <button class="quantity-btn plus">+</button>
-                      </div>
-                  </div>
-              </div>
-              <button class="remove-btn">
-                  <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
-                      <use xlink:href="/static/svg/sprite.svg#trash"></use>
-                  </svg>
-                  Noņemt
-              </button>
-          </div>
-      </div>
-  </section>
-
+    <section class="cart-items">
+        {% for key, value in request.session.cart.items %}
+        <div class="cart-item" data-product-id="{{ value.product_id }}">
+            <img src="{{ value.image }}" alt="Product Image">
+            <div class="item-details">
+                <div class="top-details">
+                    <h2 class="item-title">{{ value.title }}</h2>
+                    <p class="price">{{ value.price }}€</p>
+                </div>
+                <div class="size-quantity">
+                    <div class="size-section">
+                        <label for="size-{{ forloop.counter }}">Izmērs:</label>
+                        <select id="size-{{ forloop.counter }}">
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                        </select>
+                    </div>
+                    <div class="quantity-section">
+                        <label for="quantity-{{ forloop.counter }}">Daudzums:</label>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus">-</button>
+                            <input type="number" id="quantity-{{ forloop.counter }}" value="1" min="1">
+                            <button class="quantity-btn plus">+</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="remove-btn">
+                    <svg width="20" height="20" style="fill: var(--text-color);">
+                        <use xlink:href="/static/svg/sprite.svg#trash"></use>
+                    </svg>
+                    Noņemt
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
 
     <aside class="cart-summary">
         <div class="summary-content">
@@ -135,26 +65,33 @@
                 <p>Pirms atlaides: €70.00</p>
                 <p>Nodoklis: €7.00</p>
                 <p>Piegāde: €4.00</p>
-                <p class="total">Kopā: €81.00</p>
+                <p class="total">Kopā: {{ cart_total_amount|floatformat:2 }}€</p>
             </div>
             <div class="payment-options">
                 <p>Maksājuma opcijas:</p>
-                <button class="payment-btn internet-bank">
-                  <svg width="20" height="20" style="fill: white; ">
-                    <use xlink:href="/static/svg/sprite.svg#laptop"></use>
-                </svg>
-                  Interneta banka</button>
-                  <button class="payment-btn bank-transfer">
-                    <svg width="20" height="20" style="fill: white; ">
-                      <use xlink:href="/static/svg/sprite.svg#bank"></use>
-                  </svg>
-                  Bankas pārskaitījums</button>
-                <button class="payment-btn apple-pay">
-                  <svg width="20" height="20" style="fill: white; ">
-                    <use xlink:href="/static/svg/sprite.svg#apple"></use>
-                </svg>
-                  Apple Pay</button>
-                <button class="payment-btn stripe">Stripe</button>
+                <div class="payment-btns">
+                    <button class="payment-btn internet-bank">
+                      <svg width="20" height="20" style="fill: white;">
+                        <use xlink:href="/static/svg/sprite.svg#laptop"></use>
+                    </svg>
+                      Interneta banka
+                    </button>
+                    <button class="payment-btn bank-transfer">
+                      <svg width="20" height="20" style="fill: white;">
+                        <use xlink:href="/static/svg/sprite.svg#bank"></use>
+                    </svg>
+                      Bankas pārskaitījums
+                    </button>
+                    <button class="payment-btn apple-pay">
+                      <svg width="20" height="20" style="fill: white;">
+                        <use xlink:href="/static/svg/sprite.svg#apple"></use>
+                    </svg>
+                      Apple Pay
+                    </button>
+                    <button class="payment-btn stripe">
+                      Stripe
+                    </button>
+                </div>
             </div>
         </div>
     </aside>

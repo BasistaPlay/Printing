@@ -34,13 +34,14 @@
     <div class="color" style="background-color: {{product.available_colors.first.code}}"></div>
 </div>
 
-    <div id="general" class="content">
+<div id="general" class="content">
     <h1>{% trans 'Izveido savu' %} {{ product.title }}</h1>
     <div class="color-content">
         <b>{% trans 'Pielāgot krāsu' %}</b>
         <div class="color-groups">
-            {% for color in product.available_colors.all %}
-            <div class="color-select {% if color == active_color %}active-color{% endif %}" data-color-name="{{ color.name }}" style="background-color: {{ color.code }};"></div>
+            {% for color in available_colors %}
+
+            <div class="color-select" data-color-id="{{ color.color__id }}" data-color-name='{{color.color__name}}' style="background-color: {{ color.color__code }};"></div>
             {% endfor %}
         </div>
     </div>
@@ -55,16 +56,14 @@
     </div>
 
     <div class="size-content">
-        {% if product.available_sizes.exists %}
-            <b>{% trans 'Izvēlies izmēru' %}</b>
-            <div class="size-select">
-                {% for size in product.available_sizes.all %}
-                    <div class="size-option" data-value="{{ size.size }}">
-                        {{ size.size }}
-                    </div>
-                {% endfor %}
+        <b>{% trans 'Izvēlies izmēru' %}</b>
+        <div class="size-select">
+            {% for size in available_sizes %}
+            <div class="size-option readonly" data-size="{{ size.size__size }}">
+                {{ size.size__size }}
             </div>
-        {% endif %}
+            {% endfor %}
+        </div>
     </div>
 
     <div class="publish-info">
@@ -72,8 +71,9 @@
         <label for="publish-checkbox">{% trans 'Apstiprinu, ka vēlos publicēt savu darbu' %}</label>
         <span class="info-icon">
             <svg width="20" height="20" style="color: var(--main-color);">
-            <use xlink:href="/static/svg/sprite.svg#info"></use>
-        </svg></span>
+                <use xlink:href="/static/svg/sprite.svg#info"></use>
+            </svg>
+        </span>
     </div>
 
     <div id="additional-info" style="display: none;">
@@ -212,10 +212,14 @@
 
 {% block js %}
     <script src="{% static 'js/design.js' %}"></script>
+    <script src="{% static 'js/general_design.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock %}

@@ -252,22 +252,24 @@ header {
     border-radius: 41px;
     border: 58px solid var(--main-color);
 }
+#cart {
+    position: relative; /* Pievieno relatīvo pozicionēšanu konteineram */
+}
 
-#cart-count{
-    position: relative;
-    border-radius: 60%;
-    /* height: 20px;
-    width: 20px; */
+#cart-count {
+    position: absolute; /* Pievieno absolūto pozicionēšanu uz skaitītāja */
+    top: -10px; /* Izvieto skaitītāju virs ikonas */
+    right: -10px; /* Izvieto skaitītāju labajā pusē no ikonas */
+    border-radius: 50%; /* Padara skaitītāju apaļu */
     background-color: var(--main-color);
     color: #fff;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    width: 20px; /* Pielāgo izmēru pēc nepieciešamības */
+    height: 20px; /* Pielāgo izmēru pēc nepieciešamības */
+    font-size: 12px; /* Izmaina fonta lielumu pēc nepieciešamības */
     text-align: center;
-    font-size: 16px;
-    bottom: 20px;
-    right: 20px;
-    padding: 0 5px 0 5px;
-    margin-top: 3px;
-    margin-left: 5px;
 }
 
 .language-switcher {
