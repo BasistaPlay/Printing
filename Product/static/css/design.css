@@ -138,9 +138,9 @@ body {
 .remove-btn {
   width: 22px;
   height: 22px;
-  background-color: var(--second-color);
+  background-color: transparent;
   border: 1px solid var(--main-color);
-  border-radius: 50%;
+  border: none;
   color: var(--main-color);
   position: relative;
   top: -81px;
@@ -149,8 +149,7 @@ body {
   transition: all 300ms ease-in-out;
 }
 
-.remove-btn:hover {
-  border: 1px solid red;
+.remove-btn:hover svg use {
   color: red;
 }
 
@@ -607,10 +606,15 @@ input {
   background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 5px;
+  padding: 8px;
   cursor: pointer;
   border-radius: 3px;
   margin-left: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .edit-button {
@@ -1237,4 +1241,33 @@ input {
 
 .size-option.active {
   font-weight: bold;
+}
+
+.spinner {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid var(--main-color);
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  z-index: 9999;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(185, 185, 185, 0.54);
+  z-index: 9998;
 }

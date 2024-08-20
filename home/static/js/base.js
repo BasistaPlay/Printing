@@ -25,14 +25,25 @@ darkmode.onclick = () => {
     }
 }
 
-let menu = document.querySelector('#menu-icon')
 let navlist = document.querySelector('.navlist')
 
-menu.onclick = () => {
-    menu.classList.toggle('bx-x');
-    navlist.classList.toggle('open')
-}
+const menuIconSvg = document.getElementById('menu-icon-svg');
+const closeIconSvg = document.getElementById('close-icon-svg');
+const menuIconDiv = document.getElementById('menu-icon');
 
+menuIconDiv.addEventListener('click', () => {
+
+    if (menuIconSvg.style.display !== 'none') {
+
+        menuIconSvg.style.display = 'none';
+        closeIconSvg.style.display = 'block';
+    } else {
+
+        menuIconSvg.style.display = 'block';
+        closeIconSvg.style.display = 'none';
+    }
+    navlist.classList.toggle('open')
+});
 localStorage.setItem('currentSide', 'front');
 
 setTimeout(function() {

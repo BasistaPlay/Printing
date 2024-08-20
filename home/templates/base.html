@@ -55,7 +55,14 @@
             {% else %}
                 <a href='{% url 'login' %}' class='h-btn acc'>{% trans 'Pierakstīties' %}</a>
             {% endif %}
-            <div class="bx bx-menu" id="menu-icon"></div>
+            <div id="menu-icon">
+                <svg id="menu-icon-svg" width="25" height="25" style="fill: var(--text-color);">
+                    <use xlink:href="/static/svg/sprite.svg#menu"></use>
+                </svg>
+                <svg id="close-icon-svg" width="25" height="25" style="fill: var(--text-color); display: none;">
+                    <use xlink:href="/static/svg/sprite.svg#close"></use>
+                </svg>
+            </div>
             <a href="{% url 'shopping_cart:cart' %}" id="cart">
                 <svg width="25" height="25" style="fill: var(--text-color);">
                     <use xlink:href="/static/svg/sprite.svg#shopping_cart"></use>

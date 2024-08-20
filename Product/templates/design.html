@@ -12,6 +12,8 @@
 {% endblock %}
 
 {% block body %}
+<div class="loading-overlay"></div>
+<div class="spinner"></div>
 {% csrf_token %}
     <div class="product-card" data-product-id="{{ product.id }}"></div>
     <div id="error-messages" class="error-messages"></div>
@@ -211,15 +213,29 @@
 {% endblock %}
 
 {% block js %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/addtocart.js' %}"></script>
+    <script src="{% static 'js/SaveDesign.js' %}"></script>
+    <script src="{% static 'js/aiimagegenerate.js' %}"></script>
     <script src="{% static 'js/design.js' %}"></script>
     <script src="{% static 'js/general_design.js' %}"></script>
+    <script src="{% static 'js/addimage.js' %}"></script>
+    <script src="{% static 'js/addtext.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script>
+        $(window).on('load', function() {
+            $('.spinner').fadeOut();
+            $('.loading-overlay').fadeOut();
+        });
+    </script>
+
 {% endblock %}
