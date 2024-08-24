@@ -57,6 +57,9 @@ class ProductAdmin(TranslationAdmin):
         (_('Bildes'), {
             'fields': ('front_image_with_background', 'front_image_not_background', 'back_image_with_background', 'back_image_not_background', 'front_image_coords', 'back_image_coords'),
         }),
+        (_('Papildu iespējas'), {
+            'fields': ('can_have_image', 'can_have_text', 'can_have_ai_image', 'can_be_rotate'),
+        }),
     )
 
     readonly_fields = ('views', )

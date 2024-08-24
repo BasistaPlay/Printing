@@ -47,6 +47,11 @@ class Product(models.Model):
 
     is_public = models.BooleanField(_('Publisks'), default=True, help_text=_("Norādiet, vai produkts ir publisks."))
 
+    can_have_image = models.BooleanField(_('Var ietvert attēlu'), default=False, help_text=_("Norādiet, vai produktā var būt attēls."))
+    can_have_text = models.BooleanField(_('Var ietvert tekstu'), default=False, help_text=_("Norādiet, vai produktā var būt teksts."))
+    can_have_ai_image = models.BooleanField(_('Var ietvert attēlu ar AI palīdzību'), default=False, help_text=_("Norādiet, vai produktā var būt attēls ar AI palīdzību."))
+    can_be_rotate = models.BooleanField(_('Var tikt grozīts'), default=False, help_text=_("Norādiet, vai produktu var apgriezt."))
+
     def __str__(self):
         return self.title
 

@@ -28,7 +28,6 @@ $(document).ready(function () {
         localStorage.setItem('currentSide', currentSide);
     });
 
-
     $('.upload-area').click(function() {
         $('#upload-input').trigger('click');
     });
@@ -37,7 +36,7 @@ $(document).ready(function () {
         if (event.target.files) {
             handleFiles(event.target.files);
         }
-    });
+    });de
 
     $('.upload-area').on('drop', function(event) {
         event.preventDefault();
@@ -52,7 +51,7 @@ $(document).ready(function () {
     let resizableElement = null;
     let previousImageWidth = 0;
 
-    $(document).on('mousedown', '.editable-image', function(event) {
+    $(document).on('mousedown touchstart', '.editable-image', function(event) {
         if (resizableElement && !$(this).is(resizableElement)) {
             resizableElement.resizable("destroy");
         }
@@ -88,6 +87,39 @@ $(document).ready(function () {
                 });
             }
         });
+
+        // Support for touch events
+        $(this).on('touchmove', function(event) {
+            event.preventDefault();
+            let touch = event.originalEvent.touches[0];
+            let wrapper = $(this).parent();
+            let newLeft = touch.pageX - wrapper.width() / 2;
+            let newTop = touch.pageY - wrapper.height() / 2;
+
+            // Check boundaries
+            let boundary = $(`#boundary-${currentSide}`);
+            let boundaryOffset = boundary.offset();
+            let boundaryWidth = boundary.width();
+            let boundaryHeight = boundary.height();
+
+            if (newLeft < boundaryOffset.left) {
+                newLeft = boundaryOffset.left;
+            }
+            if (newTop < boundaryOffset.top) {
+                newTop = boundaryOffset.top;
+            }
+            if (newLeft + wrapper.width() > boundaryOffset.left + boundaryWidth) {
+                newLeft = boundaryOffset.left + boundaryWidth - wrapper.width();
+            }
+            if (newTop + wrapper.height() > boundaryOffset.top + boundaryHeight) {
+                newTop = boundaryOffset.top + boundaryHeight - wrapper.height();
+            }
+
+            wrapper.css({
+                top: newTop,
+                left: newLeft
+            });
+        });
     });
 
     $(document).on('click', '.remove-btn', function() {
@@ -95,7 +127,7 @@ $(document).ready(function () {
         $('[data-image-id="' + imageIdToRemove + '"]').remove();
     });
 
-    $(document).on('mousedown', function(event) {
+    $(document).on('mousedown touchstart', function(event) {
         if (!$(event.target).is('.editable-image')) {
             let newImageWidth = resizableElement.width();
 
@@ -134,56 +166,89 @@ $(document).ready(function () {
                         <img src='${event.target.result}' class='editable-image resizable-image' draggable='true' style='background: transparent;'>
                     </div>
                 `;
-                    let selectedContainer;
-                    if (currentSide === 'front') {
-                        selectedContainer = $('#front');
-                    } else {
-                        selectedContainer = $('#back');
+                let selectedContainer;
+                if (currentSide === 'front') {
+                    selectedContainer = $('#front');
+                } else {
+                    selectedContainer = $('#back');
+                }
+                selectedContainer.prepend(htmlKrekls);
+
+                $('.remove-btn').click(function() {
+                    let imageIdToRemove = $(this).parent().data('image-id');
+                    $('[data-image-id="' + imageIdToRemove + '"]').remove();
+                });
+
+                $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).resizable({
+                    containment: `#boundary-${currentSide}`,
+                    handles: 'ne, se, sw, nw, n, e, s, w',
+                    ghost: false,
+                    stop: function(event, ui) {
+                        let parent = ui.element.parent();
+                        let position = parent.position();
+                        let width = parent.width();
+                        let height = parent.height();
+                        parent.css({
+                            top: position.top,
+                            left: position.left,
+                            width: width,
+                            height: height
+                        });
                     }
-                    selectedContainer.prepend(htmlKrekls);
+                }).parent().draggable({
+                    containment: `#boundary-${currentSide}`,
+                    ghost: false,
+                    stop: function(event, ui) {
+                        let wrapper = ui.helper;
+                        wrapper.css({
+                            top: ui.position.top,
+                            left: ui.position.left,
+                        });
+                    }
+                });
 
-                    $('.remove-btn').click(function() {
-                        let imageIdToRemove = $(this).parent().data('image-id');
-                        $('[data-image-id="' + imageIdToRemove + '"]').remove();
+                // Support for touch events on new images
+                $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).on('touchmove', function(event) {
+                    event.preventDefault();
+                    let touch = event.originalEvent.touches[0];
+                    let wrapper = $(this).parent();
+                    let newLeft = touch.pageX - wrapper.width() / 2;
+                    let newTop = touch.pageY - wrapper.height() / 2;
+
+                    // Check boundaries
+                    let boundary = $(`#boundary-${currentSide}`);
+                    let boundaryOffset = boundary.offset();
+                    let boundaryWidth = boundary.width();
+                    let boundaryHeight = boundary.height();
+
+                    if (newLeft < boundaryOffset.left) {
+                        newLeft = boundaryOffset.left;
+                    }
+                    if (newTop < boundaryOffset.top) {
+                        newTop = boundaryOffset.top;
+                    }
+                    if (newLeft + wrapper.width() > boundaryOffset.left + boundaryWidth) {
+                        newLeft = boundaryOffset.left + boundaryWidth - wrapper.width();
+                    }
+                    if (newTop + wrapper.height() > boundaryOffset.top + boundaryHeight) {
+                        newTop = boundaryOffset.top + boundaryHeight - wrapper.height();
+                    }
+
+                    wrapper.css({
+                        top: newTop,
+                        left: newLeft
                     });
-
-                    $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).resizable({
-                        containment: `#boundary-${currentSide}`,
-                        handles: 'ne, se, sw, nw, n, e, s, w',
-                        ghost: false,
-                        stop: function(event, ui) {
-                            let parent = ui.element.parent();
-                            let position = parent.position();
-                            let width = parent.width();
-                            let height = parent.height();
-                            parent.css({
-                                top: position.top,
-                                left: position.left,
-                                width: width,
-                                height: height
-                            });
-                        }
-                    }).parent().draggable({
-                        containment: `#boundary-${currentSide}`,
-                        ghost: false,
-                        stop: function(event, ui) {
-                            let wrapper = ui.helper;
-                            wrapper.css({
-                                top: ui.position.top,
-                                left: ui.position.left,
-                            });
-                        }
-                    });
-                };
-                reader.readAsDataURL(files[i]);
-            }
-
-            $('.upload-img').css('padding', '20px');
+                });
+            };
+            reader.readAsDataURL(files[i]);
         }
+
+        $('.upload-img').css('padding', '20px');
     }
 
     $('.remove-btn').click(function() {
         let imageIdToRemove = $(this).parent().data('image-id');
         $('[data-image-id="' + imageIdToRemove + '"]').remove();
     });
+}
 });

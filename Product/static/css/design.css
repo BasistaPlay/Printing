@@ -814,6 +814,7 @@ input {
 
   .product {
     margin-top: 100px;
+    /* width: 95%; */
   }
 
   .pc{
@@ -850,7 +851,7 @@ input {
   #upload,
   #Text,
   #Ai-generator{
-    width: 100%;
+    width: 95%;
   }
 
 }
