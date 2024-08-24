@@ -113,8 +113,10 @@
 <div id="upload" class="content" style="display: none;">
     <div class="upload-wrapper">
         <div class="upload-area">
-            <div class="upload-area-img">
-                <img src="{% static '/img/upload.png' %}" alt="">
+            <div class="upload-area-svg">
+                <svg width="60" height="60" style="color: var(--text-color);">
+                    <use xlink:href="/static/svg/sprite.svg#upload"></use>
+                </svg>
             </div>
             <p class="upload-area-text">{% trans 'Nometiet attēlus vai' %}<span> {% trans ' Pārlūkot' %}</span></p>
         </div>

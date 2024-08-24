@@ -152,9 +152,7 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         product_title = self.kwargs.get('Design_title')
         product = self.get_object()
-        size = get_object_or_404(Product, title=product_title)
 
-        context['size'] = size
 
         return context
 

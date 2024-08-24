@@ -8,14 +8,13 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/detail.css' %}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
-    <div id="error-messages" class="error-messages"></div>
-    <div id="success-message" class="success-message"></div>
+    <div id="messages">
+        <div id="error-messages" class="error-messages"></div>
+        <div id="success-message" class="success-message"></div>
+    </div>
     <div class="home">
         <div class="sneaker">
             <div class="sneaker__figure"></div>
@@ -33,108 +32,86 @@
         </div>
     </div>
 
-    <div class="info">
-        <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-            <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-            <a class="a2a_button_facebook"></a>
-            <a class="a2a_button_x"></a>
-            <a class="a2a_button_email"></a>
-            <a class="a2a_button_copy_link"></a>
-        </div>
-        <div class="star-wrapper" data-product-id="{{ product.id }}" data-rating="{{ product.average_rating }}">
-            <a class="fas fa-star s1" data-rating-value="1"></a>
-            <a class="fas fa-star s2" data-rating-value="2"></a>
-            <a class="fas fa-star s3" data-rating-value="3"></a>
-            <a class="fas fa-star s4" data-rating-value="4"></a>
-            <a class="fas fa-star s5" data-rating-value="5"></a>
-        </div>
-        <div class="data">
-            <span class="data__subtitle">{% trans 'Autors: ' %}  {{product.author.username}}</span>
-            <h1 class="data__title">{{product.title}}</h1>
-            <p class="data__description">{{product.description}}</p>
-        </div>
-        <div class="actions">
-            {% if size.available_sizes.all %}
-                <div class="size">
-                    <h3 class="size__title">{% trans 'Izmērs' %}</h3>
-                    <div class="size__content">
-                        {% for size in size.available_sizes.all %}
-                            <span class="size__tallas">{{ size.size }}</span>
-                        {% endfor %}
+        <div class="info">
+            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                <a class="a2a_button_facebook"></a>
+                <a class="a2a_button_x"></a>
+                <a class="a2a_button_email"></a>
+                <a class="a2a_button_copy_link"></a>
+            </div>
+
+            <div class="star-wrapper" data-product-id="{{ product.id }}" data-rating="{{ product.average_rating }}">
+                {% for i in "12345" %}
+                    <a class="fas fa-star s{{ i }}" data-rating-value="{{ i }}"></a>
+                {% endfor %}
+            </div>
+
+            <div class="data">
+                <span class="data__subtitle">{% trans 'Autors: ' %}  {{product.author.username}}</span>
+                <h1 class="data__title">{{product.title}}</h1>
+                <p class="data__description">{{product.description}}</p>
+            </div>
+
+            <div class="actions">
+                {% if size.available_sizes.all %}
+                    <div class="size">
+                        <h3 class="size__title">{% trans 'Izmērs' %}</h3>
+                        <div class="size__content">
+                            {% for size in size.available_sizes.all %}
+                                <span class="size__tallas">{{ size.size }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
+
+            <div class="price">
+                <span class="price__title">{{ product.product.price }} €</span>
+                <a href="#" onclick="AddToCart('{{ product.id }}')" class="price__button">
+                    <i class="fa-solid fa-cart-shopping"></i>{% trans 'Pievienot grozā' %}
+                </a>
+            </div>
         </div>
-
-
-        <div class="price">
-            <span class="price__title">{{ product.product.price }} €</span>
-            <a href="#" onclick="AddToCart('{{ product.id }}')" class="price__button">
-                <i class="fa-solid fa-cart-shopping"></i>{% trans 'Pievienot grozā' %}
-            </a>
-        </div>
-
     </div>
-</div>
-    <div id="success-reiting" class="success-message" style='display:none'>
-        <strong>Jūsu reitings ir saglabāts!</strong>
-    </div
-
+    <div id="success-reiting" class="success-message" style="display:none">
+        <strong>{% trans 'Jūsu reitings ir saglabāts!' %}</strong>
+    </div>
 {% endblock %}
 
 {% block js %}
-    <script src="https://unpkg.com/scrollreveal"></script>
     <script src="{% static 'js/detail.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const starWrapper = document.querySelector('.star-wrapper');
-            const stars = starWrapper.querySelectorAll('.fas');
+            const stars = document.querySelectorAll('.star-wrapper .fas');
             const successAlert = document.getElementById('success-reiting');
 
             stars.forEach(function (star) {
                 star.addEventListener('click', function () {
-                    const ratingValue = parseInt(star.getAttribute('data-rating-value'));
-                    const productId = starWrapper.getAttribute('data-product-id');
-                    saveRating(productId, ratingValue);
+                    const ratingValue = this.getAttribute('data-rating-value');
+                    saveRating('{{ product.id }}', ratingValue);
                 });
             });
 
             function saveRating(productId, ratingValue) {
-                $.ajax({
-                    type: 'POST',
-                    url: '{% url "product:save_rating" %}',
-                    data: {
-                        'product_id': productId,
-                        'rating': ratingValue,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}',
-                    },
-                    success: function (response) {
-                        successAlert.style.display = 'block';
-                        successAlert.innerHTML = '<strong>Jūsu reitings ir saglabāts!</strong>';
-                        successAlert.style.right = '30px';
-                        setTimeout(function() {
-                            successAlert.style.right = '-400px';
-                            successAlert.style.display = 'none';
-                        }, 5000);
-                        updateStarRating(ratingValue);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Kļūda saglabājot reitingu:', xhr.responseText);
-                    },
+                $.post('{% url "product:save_rating" %}', {
+                    'product_id': productId,
+                    'rating': ratingValue,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                }).done(function () {
+                    successAlert.style.display = 'block';
+                    setTimeout(() => successAlert.style.display = 'none', 5000);
+                    updateStarRating(ratingValue);
+                }).fail(function (xhr) {
+                    console.error('Kļūda saglabājot reitingu:', xhr.responseText);
                 });
             }
 
             function updateStarRating(ratingValue) {
-                stars.forEach(function (star, index) {
-                    if (index < ratingValue) {
-                        star.classList.add('active');
-                    } else {
-                        star.classList.remove('active');
-                    }
+                stars.forEach((star, index) => {
+                    star.classList.toggle('active', index < ratingValue);
                 });
-
-                starWrapper.setAttribute('data-rating', ratingValue);
             }
         });
     </script>

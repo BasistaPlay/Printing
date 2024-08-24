@@ -106,7 +106,7 @@ body {
   background-color: rgba(176, 196, 246, 0.1);
 }
 
-.upload-area-img img {
+.upload-area-svg svg {
   max-width: 80px;
 }
 
@@ -1268,6 +1268,7 @@ input {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(185, 185, 185, 0.54);
+  background: rgba(185, 185, 185, 0.54)
+  ;
   z-index: 9998;
 }
