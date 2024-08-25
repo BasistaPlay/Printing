@@ -93,16 +93,16 @@ $(document).ready(function () {
         });
 
         // Handle touch events
+        let wrapper = $(this).parent(); // Add this line to define wrapper
         $(this).on('touchmove', function(event) {
             event.preventDefault();
-            let wrapper = $(this).parent();
+            let boundary = $(`#boundary-${currentSide}`);
+            let boundaryOffset = boundary.offset();
+            let boundaryWidth = boundary.width();
+            let boundaryHeight = boundary.height();
 
             if (event.originalEvent.touches.length === 1) {
                 let touch = event.originalEvent.touches[0];
-                let boundary = $(`#boundary-${currentSide}`);
-                let boundaryOffset = boundary.offset();
-                let boundaryWidth = boundary.width();
-                let boundaryHeight = boundary.height();
 
                 let newLeft = touch.pageX - wrapper.outerWidth() / 2;
                 let newTop = touch.pageY - wrapper.outerHeight() / 2;
@@ -246,18 +246,20 @@ $(document).ready(function () {
                 });
 
                 // Support for touch events on new images
+                let wrapper = $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).parent(); // Ensure wrapper is defined
                 $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).on('touchmove', function(event) {
                     event.preventDefault();
-                    let wrapper = $(this).parent();
-                    let newLeft = touch.pageX - wrapper.width() / 2;
-                    let newTop = touch.pageY - wrapper.height() / 2;
 
-                    // Check boundaries
                     let boundary = $(`#boundary-${currentSide}`);
                     let boundaryOffset = boundary.offset();
                     let boundaryWidth = boundary.width();
                     let boundaryHeight = boundary.height();
 
+                    let touch = event.originalEvent.touches[0];
+                    let newLeft = touch.pageX - wrapper.width() / 2;
+                    let newTop = touch.pageY - wrapper.height() / 2;
+
+                    // Check boundaries
                     if (newLeft < boundaryOffset.left) {
                         newLeft = boundaryOffset.left;
                     }
@@ -277,15 +279,10 @@ $(document).ready(function () {
                     });
                 });
             };
+
             reader.readAsDataURL(files[i]);
         }
-
         $('.upload-img').css('padding', '20px');
     }
+}});
 
-    $('.remove-btn').click(function() {
-        let imageIdToRemove = $(this).parent().data('image-id');
-        $('[data-image-id="' + imageIdToRemove + '"]').remove();
-    });
-}
-});
