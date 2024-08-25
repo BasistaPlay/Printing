@@ -36,7 +36,7 @@ $(document).ready(function () {
         if (event.target.files) {
             handleFiles(event.target.files);
         }
-    });de
+    });
 
     $('.upload-area').on('drop', function(event) {
         event.preventDefault();
@@ -50,12 +50,15 @@ $(document).ready(function () {
 
     let resizableElement = null;
     let previousImageWidth = 0;
+    let initialDistance = 0;
+    let initialScale = 1;
 
     $(document).on('mousedown touchstart', '.editable-image', function(event) {
         if (resizableElement && !$(this).is(resizableElement)) {
             resizableElement.resizable("destroy");
         }
 
+        // Make image resizable
         $(this).resizable({
             containment: `#boundary-${currentSide}`,
             handles: 'ne, se, sw, nw',
@@ -75,8 +78,9 @@ $(document).ready(function () {
         });
 
         resizableElement = $(this);
-
         previousImageWidth = resizableElement.width();
+
+        // Make image draggable
         $('.ui-wrapper').draggable({
             containment: `#boundary-${currentSide}`,
             stop: function(event, ui) {
@@ -88,36 +92,70 @@ $(document).ready(function () {
             }
         });
 
-        // Support for touch events
+        // Handle touch events
         $(this).on('touchmove', function(event) {
             event.preventDefault();
-            let touch = event.originalEvent.touches[0];
             let wrapper = $(this).parent();
-            let newLeft = touch.pageX - wrapper.width() / 2;
-            let newTop = touch.pageY - wrapper.height() / 2;
 
-            // Check boundaries
-            let boundary = $(`#boundary-${currentSide}`);
-            let boundaryOffset = boundary.offset();
-            let boundaryWidth = boundary.width();
-            let boundaryHeight = boundary.height();
+            if (event.originalEvent.touches.length === 1) {
+                let touch = event.originalEvent.touches[0];
+                let boundary = $(`#boundary-${currentSide}`);
+                let boundaryOffset = boundary.offset();
+                let boundaryWidth = boundary.width();
+                let boundaryHeight = boundary.height();
 
-            if (newLeft < boundaryOffset.left) {
-                newLeft = boundaryOffset.left;
-            }
-            if (newTop < boundaryOffset.top) {
-                newTop = boundaryOffset.top;
-            }
-            if (newLeft + wrapper.width() > boundaryOffset.left + boundaryWidth) {
-                newLeft = boundaryOffset.left + boundaryWidth - wrapper.width();
-            }
-            if (newTop + wrapper.height() > boundaryOffset.top + boundaryHeight) {
-                newTop = boundaryOffset.top + boundaryHeight - wrapper.height();
+                let newLeft = touch.pageX - wrapper.outerWidth() / 2;
+                let newTop = touch.pageY - wrapper.outerHeight() / 2;
+
+                if (newLeft < boundaryOffset.left) {
+                    newLeft = boundaryOffset.left;
+                }
+                if (newTop < boundaryOffset.top) {
+                    newTop = boundaryOffset.top;
+                }
+                if (newLeft + wrapper.outerWidth() > boundaryOffset.left + boundaryWidth) {
+                    newLeft = boundaryOffset.left + boundaryWidth - wrapper.outerWidth();
+                }
+                if (newTop + wrapper.outerHeight() > boundaryOffset.top + boundaryHeight) {
+                    newTop = boundaryOffset.top + boundaryHeight - wrapper.outerHeight();
+                }
+
+                wrapper.css({
+                    top: newTop,
+                    left: newLeft
+                });
             }
 
+            // Handle pinch-to-zoom gesture
+            if (event.originalEvent.touches.length === 2) {
+                let touch1 = event.originalEvent.touches[0];
+                let touch2 = event.originalEvent.touches[1];
+
+                let currentDistance = Math.hypot(
+                    touch2.pageX - touch1.pageX,
+                    touch2.pageY - touch1.pageY
+                );
+
+                if (initialDistance === 0) {
+                    initialDistance = currentDistance;
+                }
+
+                let scale = currentDistance / initialDistance;
+
+                wrapper.css({
+                    transform: `scale(${scale * initialScale})`
+                });
+
+                event.stopPropagation();
+            }
+        });
+
+        // Reset initial variables on touch end
+        $(this).on('touchend', function(event) {
+            initialScale *= parseFloat(wrapper.css('transform').split('(')[1]);
+            initialDistance = 0;
             wrapper.css({
-                top: newTop,
-                left: newLeft
+                transform: `scale(1)` // Reset the transform
             });
         });
     });
@@ -210,7 +248,6 @@ $(document).ready(function () {
                 // Support for touch events on new images
                 $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).on('touchmove', function(event) {
                     event.preventDefault();
-                    let touch = event.originalEvent.touches[0];
                     let wrapper = $(this).parent();
                     let newLeft = touch.pageX - wrapper.width() / 2;
                     let newTop = touch.pageY - wrapper.height() / 2;
