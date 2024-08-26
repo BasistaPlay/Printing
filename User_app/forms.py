@@ -7,6 +7,7 @@ from phonenumber_field.phonenumber import PhoneNumber
 from django.utils.translation import gettext_lazy as _
 
 
+
 class CustomUserCreationForm(UserCreationForm):
     phone_number = forms.CharField(max_length=15, required=False)
 
@@ -79,7 +80,6 @@ class ExtraInfoForm(forms.ModelForm):
 
 class EmailVerificationForm(forms.Form):
     code = forms.CharField(max_length=5, required=True, label=_('Verifikācijas kods'))
-
 
 class ContactForm(forms.Form):
     first_name = forms.CharField(max_length=100)

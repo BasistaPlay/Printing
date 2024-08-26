@@ -16,7 +16,6 @@
 .main {
     display: flex;
     flex-direction: column; /* Forma uz vertikālās ass */
-    background-color: #fff;
     border-radius: 12px; /* Noapaļotas malas */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;

@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'shoping_cart',
     'stripe_integration',
     'forum',
+    'honeypot',
     #'django_extensions',
     'allauth',
     'allauth.account',
@@ -79,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'honeypot.middleware.HoneypotMiddleware',
 ]
 
 ROOT_URLCONF = 'ecomerce.urls'
@@ -274,3 +276,4 @@ SOCIALACCOUNT_ADAPTER = 'User_app.adapters.MySocialAccountAdapter'
 RECAPTCHA_PUBLIC_KEY = '6LfuiuQpAAAAAEq03FdKts-9bZ6KIcF9T8K7w4KY'
 RECAPTCHA_PRIVATE_KEY = '6LfuiuQpAAAAAGFFXYQQ4vaPzyJVuT9tpUJK3THe'
 
+HONEYPOT_FIELD_NAME = 'email2'

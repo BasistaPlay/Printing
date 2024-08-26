@@ -19,6 +19,8 @@ from .models import EmailVerification
 from User_app.utils import generate_verification_code, send_verification_email
 from email.mime.image import MIMEImage
 import mimetypes
+from django.utils.decorators import method_decorator
+from honeypot.decorators import check_honeypot
 
 
 class LoginView(View):
@@ -155,6 +157,7 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+@method_decorator(check_honeypot, name='post')
 class ContactUsView(View):
     template_name = 'contact.html'
 
