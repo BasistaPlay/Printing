@@ -248,9 +248,10 @@ header {
   } */
 
   *::-webkit-scrollbar-thumb {
-    background-color: var(--main-color);
+    /* background-color: var(--main-color); */
     border-radius: 41px;
     border: 58px solid var(--main-color);
+    background-color: red;
 }
 #cart {
     position: relative; /* Pievieno relatīvo pozicionēšanu konteineram */
