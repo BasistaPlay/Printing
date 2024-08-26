@@ -66,3 +66,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const starWrapper = document.querySelector('.star-wrapper');
+    if (!starWrapper) return;
+
+    const rating = parseFloat(starWrapper.getAttribute('data-rating'));
+    const stars = starWrapper.querySelectorAll('.star-container');
+
+    stars.forEach(star => {
+        const starValue = parseFloat(star.getAttribute('data-rating'));
+        if (starValue <= rating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+});

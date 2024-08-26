@@ -344,3 +344,7 @@ input[type="text"], select {
   justify-content: center;
   flex-direction: row;
 }
+
+.star-wrapper .active svg use{
+  fill: gold;
+}

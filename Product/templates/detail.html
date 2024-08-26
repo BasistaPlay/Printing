@@ -11,109 +11,148 @@
 {% endblock %}
 
 {% block body %}
-    <div id="messages">
-        <div id="error-messages" class="error-messages"></div>
-        <div id="success-message" class="success-message"></div>
-    </div>
-    <div class="home">
-        <div class="sneaker">
-            <div class="sneaker__figure"></div>
+<div class="container-wrapper">
+    <div class="product-container">
+        <div id="success-reiting" class='alert-success' style="display: none;">Reitings veiksmīgi saglabāts!</div>
+        <div class="product-image">
+            <img id="headphoneImage1" class="product-image-item active" src="{{ product.front_image.url }}" alt="Headphones Image 1">
+            <img id="headphoneImage2" class="product-image-item" src="{{ product.back_image.url }}" alt="Headphones Image 2">
 
-        <div>
-            <img id="sneakerImg" src="{{ product.front_image.url }}" style="display: none;">
-            <canvas id="outputCanvas" class="sneaker__img shows" color="#A29596"></canvas>
-            <img id="sneakerImg2" src="{{ product.back_image.url }}" style="display: none;">
-            <canvas id="outputCanvas2" class="sneaker__img" color="#111111"></canvas>
-        </div>
-
-        <div class="sneaker__colors">
-            <span class="sneaker__color sneaker__colors-one active" primary="#A29596" color="#A29596"></span>
-            <span class="sneaker__color sneaker__colors-two " primary="#111111" color="#111111"></span>
-        </div>
-    </div>
-
-        <div class="info">
-            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-                <a class="a2a_button_facebook"></a>
-                <a class="a2a_button_x"></a>
-                <a class="a2a_button_email"></a>
-                <a class="a2a_button_copy_link"></a>
+            <div class="arrows">
+                <svg id='prevBtn' width="30" height="30" style="color: var(--main-color);">
+                    <use xlink:href="/static/svg/sprite.svg#left"></use>
+                </svg>
+                <svg id='nextBtn' width="30" height="30" style="color: var(--main-color);">
+                    <use xlink:href="/static/svg/sprite.svg#right"></use>
+                </svg>
             </div>
 
-            <div class="star-wrapper" data-product-id="{{ product.id }}" data-rating="{{ product.average_rating }}">
-                {% for i in "12345" %}
-                    <a class="fas fa-star s{{ i }}" data-rating-value="{{ i }}"></a>
+            <div class="thumbnails">
+                <img class="thumbnail active" data-index="0" src="{{ product.front_image.url }}" alt="Thumbnail 1">
+                <img class="thumbnail" data-index="1" src="{{ product.back_image.url }}" alt="Thumbnail 2">
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h1>{{ product.title }}</h1>
+            <p class="price">{{ product.product.price }} €</p>
+            <div class="rating" data-rating="{{ product.average_rating }}">
+                {% for star in "12345" %}
+                    <span class="star" data-rating="{{ star }}">
+                        <svg width="30" height="30" style="fill: {% if product.rating >= star %}gold{% else %}grey{% endif %}; cursor: pointer;">
+                            <use xlink:href="/static/svg/sprite.svg#star"></use>
+                        </svg>
+                    </span>
                 {% endfor %}
             </div>
-
-            <div class="data">
-                <span class="data__subtitle">{% trans 'Autors: ' %}  {{product.author.username}}</span>
-                <h1 class="data__title">{{product.title}}</h1>
-                <p class="data__description">{{product.description}}</p>
-            </div>
-
-            <div class="actions">
-                {% if size.available_sizes.all %}
-                    <div class="size">
-                        <h3 class="size__title">{% trans 'Izmērs' %}</h3>
-                        <div class="size__content">
-                            {% for size in size.available_sizes.all %}
-                                <span class="size__tallas">{{ size.size }}</span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-
-            <div class="price">
-                <span class="price__title">{{ product.product.price }} €</span>
-                <a href="#" onclick="AddToCart('{{ product.id }}')" class="price__button">
-                    <i class="fa-solid fa-cart-shopping"></i>{% trans 'Pievienot grozā' %}
-                </a>
-            </div>
+            <p class="description">{{ product.description }}</p>
+            <button class="add-to-cart">Add to Cart</button>
         </div>
     </div>
-    <div id="success-reiting" class="success-message" style="display:none">
-        <strong>{% trans 'Jūsu reitings ir saglabāts!' %}</strong>
-    </div>
+</div>
 {% endblock %}
 
 {% block js %}
-    <script src="{% static 'js/detail.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const stars = document.querySelectorAll('.star-wrapper .fas');
-            const successAlert = document.getElementById('success-reiting');
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const images = document.querySelectorAll('.product-image-item');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const dots = document.querySelectorAll('.indicator-dot');
+        let currentIndex = 0;
 
-            stars.forEach(function (star) {
-                star.addEventListener('click', function () {
-                    const ratingValue = this.getAttribute('data-rating-value');
-                    saveRating('{{ product.id }}', ratingValue);
-                });
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const successAlert = document.getElementById('success-reiting');
+
+        function updateImage(index) {
+            if (!images.length || !thumbnails.length || !dots.length) return;
+
+            images.forEach(img => img.classList.remove('active'));
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            images[index].classList.add('active');
+            thumbnails[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+            updateImage(currentIndex);
+            resetSlideshow();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+            updateImage(currentIndex);
+            resetSlideshow();
+        });
+
+        thumbnails.forEach((thumbnail, index) => {
+            thumbnail.addEventListener('click', () => {
+                currentIndex = index;
+                updateImage(currentIndex);
+                resetSlideshow();
             });
+        });
 
-            function saveRating(productId, ratingValue) {
-                $.post('{% url "product:save_rating" %}', {
-                    'product_id': productId,
-                    'rating': ratingValue,
-                    'csrfmiddlewaretoken': '{{ csrf_token }}'
-                }).done(function () {
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateImage(currentIndex);
+                resetSlideshow();
+            });
+        });
+
+        let slideshowInterval = setInterval(() => {
+            currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+            updateImage(currentIndex);
+        }, 5000);
+
+        function resetSlideshow() {
+            clearInterval(slideshowInterval);
+            slideshowInterval = setInterval(() => {
+                currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+                updateImage(currentIndex);
+            }, 5000);
+        }
+
+        const stars = document.querySelectorAll('.star');
+        const ratingElement = document.querySelector('.rating');
+
+        function updateStarRating(ratingValue) {
+            stars.forEach((star, index) => {
+                star.querySelector('svg').style.fill = (index < ratingValue) ? 'gold' : 'grey';
+            });
+        }
+
+        function saveRating(productId, ratingValue) {
+            $.post('{% url "product:save_rating" %}', {
+                'product_id': productId,
+                'rating': ratingValue,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            }).done(function (response) {
+                if (successAlert) {
                     successAlert.style.display = 'block';
                     setTimeout(() => successAlert.style.display = 'none', 5000);
-                    updateStarRating(ratingValue);
-                }).fail(function (xhr) {
-                    console.error('Kļūda saglabājot reitingu:', xhr.responseText);
-                });
-            }
+                }
+                updateStarRating(response.average_rating);
+            }).fail(function (xhr) {
+                console.error('Kļūda saglabājot reitingu:', xhr.responseText);
+            });
+        }
 
-            function updateStarRating(ratingValue) {
-                stars.forEach((star, index) => {
-                    star.classList.toggle('active', index < ratingValue);
-                });
-            }
+        stars.forEach(function (star) {
+            star.addEventListener('click', function () {
+                const ratingValue = this.getAttribute('data-rating');
+                saveRating('{{ product.id }}', ratingValue);
+            });
         });
-    </script>
-    <script async src="https://static.addtoany.com/menu/page.js"></script>
+
+        const initialRating = parseFloat(ratingElement.getAttribute('data-rating'));
+        updateStarRating(initialRating);
+    });
+
+</script>
 {% endblock %}

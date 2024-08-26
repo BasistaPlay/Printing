@@ -14,7 +14,7 @@ $(document).ready(function () {
     const Front = document.getElementById('front');
 
     const rotate = document.getElementById('roatateicon');
-    rotate.addEventListener('click', function() {
+    rotate.addEventListener('click', function () {
         if (currentSide === 'front') {
             showContent(Back);
             hideContent(Front);
@@ -28,7 +28,7 @@ $(document).ready(function () {
         localStorage.setItem('currentSide', currentSide);
     });
 
-    $('.upload-area').click(function() {
+    $('.upload-area').click(function () {
         $('#upload-input').trigger('click');
     });
 
@@ -38,134 +38,59 @@ $(document).ready(function () {
         }
     });
 
-    $('.upload-area').on('drop', function(event) {
+    $('.upload-area').on('drop', function (event) {
         event.preventDefault();
         let files = event.originalEvent.dataTransfer.files;
         handleFiles(files);
     });
 
-    $('.upload-area').on('dragover', function(event) {
+    $('.upload-area').on('dragover', function (event) {
         event.preventDefault();
     });
 
     let resizableElement = null;
     let previousImageWidth = 0;
-    let initialDistance = 0;
-    let initialScale = 1;
 
-    $(document).on('mousedown touchstart', '.editable-image', function(event) {
-        if (resizableElement && !$(this).is(resizableElement)) {
-            resizableElement.resizable("destroy");
-        }
+    if (resizableElement && !$(this).is(resizableElement)) {
+        resizableElement.resizable("destroy");
+    }
 
-        // Make image resizable
-        $(this).resizable({
-            containment: `#boundary-${currentSide}`,
-            handles: 'ne, se, sw, nw',
-            ghost: false,
-            stop: function(event, ui) {
-                let parent = ui.element.parent();
-                let position = parent.position();
-                let width = parent.width();
-                let height = parent.height();
-                parent.css({
-                    top: position.top,
-                    left: position.left,
-                    width: width,
-                    height: height
-                });
-            }
-        });
-
-        resizableElement = $(this);
-        previousImageWidth = resizableElement.width();
-
-        // Make image draggable
-        $('.ui-wrapper').draggable({
-            containment: `#boundary-${currentSide}`,
-            stop: function(event, ui) {
-                let wrapper = ui.helper;
-                wrapper.css({
-                    top: ui.position.top,
-                    left: ui.position.left,
-                });
-            }
-        });
-
-        // Handle touch events
-        let wrapper = $(this).parent(); // Add this line to define wrapper
-        $(this).on('touchmove', function(event) {
-            event.preventDefault();
-            let boundary = $(`#boundary-${currentSide}`);
-            let boundaryOffset = boundary.offset();
-            let boundaryWidth = boundary.width();
-            let boundaryHeight = boundary.height();
-
-            if (event.originalEvent.touches.length === 1) {
-                let touch = event.originalEvent.touches[0];
-
-                let newLeft = touch.pageX - wrapper.outerWidth() / 2;
-                let newTop = touch.pageY - wrapper.outerHeight() / 2;
-
-                if (newLeft < boundaryOffset.left) {
-                    newLeft = boundaryOffset.left;
-                }
-                if (newTop < boundaryOffset.top) {
-                    newTop = boundaryOffset.top;
-                }
-                if (newLeft + wrapper.outerWidth() > boundaryOffset.left + boundaryWidth) {
-                    newLeft = boundaryOffset.left + boundaryWidth - wrapper.outerWidth();
-                }
-                if (newTop + wrapper.outerHeight() > boundaryOffset.top + boundaryHeight) {
-                    newTop = boundaryOffset.top + boundaryHeight - wrapper.outerHeight();
-                }
-
-                wrapper.css({
-                    top: newTop,
-                    left: newLeft
-                });
-            }
-
-            // Handle pinch-to-zoom gesture
-            if (event.originalEvent.touches.length === 2) {
-                let touch1 = event.originalEvent.touches[0];
-                let touch2 = event.originalEvent.touches[1];
-
-                let currentDistance = Math.hypot(
-                    touch2.pageX - touch1.pageX,
-                    touch2.pageY - touch1.pageY
-                );
-
-                if (initialDistance === 0) {
-                    initialDistance = currentDistance;
-                }
-
-                let scale = currentDistance / initialDistance;
-
-                wrapper.css({
-                    transform: `scale(${scale * initialScale})`
-                });
-
-                event.stopPropagation();
-            }
-        });
-
-        // Reset initial variables on touch end
-        $(this).on('touchend', function(event) {
-            initialScale *= parseFloat(wrapper.css('transform').split('(')[1]);
-            initialDistance = 0;
-            wrapper.css({
-                transform: `scale(1)` // Reset the transform
+    $(this).resizable({
+        handles: 'ne, se, sw, nw',
+        ghost: false,
+        stop: function (event, ui) {
+            let parent = ui.element.parent();
+            let position = parent.position();
+            let width = parent.width();
+            let height = parent.height();
+            parent.css({
+                top: position.top,
+                left: position.left,
+                width: width,
+                height: height
             });
-        });
+        }
     });
 
-    $(document).on('click', '.remove-btn', function() {
+    resizableElement = $(this);
+    previousImageWidth = resizableElement.width();
+
+    $('.ui-wrapper').draggable({
+        stop: function (event, ui) {
+            let wrapper = ui.helper;
+            wrapper.css({
+                top: ui.position.top,
+                left: ui.position.left,
+            });
+        }
+    });
+
+    $(document).on('click', '.remove-btn', function () {
         let imageIdToRemove = $(this).parent().data('image-id');
         $('[data-image-id="' + imageIdToRemove + '"]').remove();
     });
 
-    $(document).on('mousedown touchstart', function(event) {
+    $(document).on('mousedown touchstart', function (event) {
         if (!$(event.target).is('.editable-image')) {
             let newImageWidth = resizableElement.width();
 
@@ -184,12 +109,12 @@ $(document).ready(function () {
 
             for (let i = 0; i < filesAmount; i++) {
                 let reader = new FileReader();
-                reader.onload = function(event) {
+                reader.onload = function (event) {
                     let imageId = Date.now();
 
                     let htmlList = `
                     <div class='uploaded-img ${currentSide}' data-image-id='${imageId}' id='save-img'>
-                        <img src='${event.target.result}' draggable='true' style='background: transparent;'>
+                        <img src='${event.target.result}' draggable='true' style='background: transparent; object-fit: contain;'>
                         <button type='button' class='remove-btn'>
                             <svg width="20" height="20" style="color: var(--main-color);">
                                 <use xlink:href="/static/svg/sprite.svg#x-circle"></use>
@@ -201,88 +126,57 @@ $(document).ready(function () {
 
                     let htmlKrekls = `
                     <div class='uploaded-img element-image ${currentSide}' data-image-id='${imageId}' style='z-index:2; top:100px; background: transparent;'>
-                        <img src='${event.target.result}' class='editable-image resizable-image' draggable='true' style='background: transparent;'>
+                        <img src='${event.target.result}' class='editable-image resizable-image' draggable='true' style='background: transparent; object-fit: contain;'>
                     </div>
                 `;
-                let selectedContainer;
-                if (currentSide === 'front') {
-                    selectedContainer = $('#front');
-                } else {
-                    selectedContainer = $('#back');
-                }
-                selectedContainer.prepend(htmlKrekls);
-
-                $('.remove-btn').click(function() {
-                    let imageIdToRemove = $(this).parent().data('image-id');
-                    $('[data-image-id="' + imageIdToRemove + '"]').remove();
-                });
-
-                $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).resizable({
-                    containment: `#boundary-${currentSide}`,
-                    handles: 'ne, se, sw, nw, n, e, s, w',
-                    ghost: false,
-                    stop: function(event, ui) {
-                        let parent = ui.element.parent();
-                        let position = parent.position();
-                        let width = parent.width();
-                        let height = parent.height();
-                        parent.css({
-                            top: position.top,
-                            left: position.left,
-                            width: width,
-                            height: height
-                        });
+                    let selectedContainer;
+                    if (currentSide === 'front') {
+                        selectedContainer = $('#front');
+                    } else {
+                        selectedContainer = $('#back');
                     }
-                }).parent().draggable({
-                    containment: `#boundary-${currentSide}`,
-                    ghost: false,
-                    stop: function(event, ui) {
-                        let wrapper = ui.helper;
-                        wrapper.css({
-                            top: ui.position.top,
-                            left: ui.position.left,
-                        });
-                    }
-                });
+                    selectedContainer.prepend(htmlKrekls);
 
-                // Support for touch events on new images
-                let wrapper = $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).parent(); // Ensure wrapper is defined
-                $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).on('touchmove', function(event) {
-                    event.preventDefault();
-
-                    let boundary = $(`#boundary-${currentSide}`);
-                    let boundaryOffset = boundary.offset();
-                    let boundaryWidth = boundary.width();
-                    let boundaryHeight = boundary.height();
-
-                    let touch = event.originalEvent.touches[0];
-                    let newLeft = touch.pageX - wrapper.width() / 2;
-                    let newTop = touch.pageY - wrapper.height() / 2;
-
-                    // Check boundaries
-                    if (newLeft < boundaryOffset.left) {
-                        newLeft = boundaryOffset.left;
-                    }
-                    if (newTop < boundaryOffset.top) {
-                        newTop = boundaryOffset.top;
-                    }
-                    if (newLeft + wrapper.width() > boundaryOffset.left + boundaryWidth) {
-                        newLeft = boundaryOffset.left + boundaryWidth - wrapper.width();
-                    }
-                    if (newTop + wrapper.height() > boundaryOffset.top + boundaryHeight) {
-                        newTop = boundaryOffset.top + boundaryHeight - wrapper.height();
-                    }
-
-                    wrapper.css({
-                        top: newTop,
-                        left: newLeft
+                    $('.remove-btn').click(function () {
+                        let imageIdToRemove = $(this).parent().data('image-id');
+                        $('[data-image-id="' + imageIdToRemove + '"]').remove();
                     });
-                });
-            };
 
-            reader.readAsDataURL(files[i]);
+                    // Resizable and Draggable properties with touch support and max size constraints
+                    $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).resizable({
+                        handles: 'ne, se, sw, nw, n, e, s, w',
+                        ghost: false,
+                        containment: `#boundary-${currentSide}`,  // Ensures it stays within the container
+                        maxWidth: selectedContainer.width(),
+                        maxHeight: selectedContainer.height(),
+                        stop: function (event, ui) {
+                            let parent = ui.element.parent();
+                            let position = parent.position();
+                            let width = parent.width();
+                            let height = parent.height();
+                            parent.css({
+                                top: position.top,
+                                left: position.left,
+                                width: width,
+                                height: height
+                            });
+                        }
+                    }).parent().draggable({
+                        containment: `#boundary-${currentSide}`,
+                        ghost: false,
+                        stop: function (event, ui) {
+                            let wrapper = ui.helper;
+                            wrapper.css({
+                                top: ui.position.top,
+                                left: ui.position.left,
+                            });
+                        }
+                    });
+                };
+
+                reader.readAsDataURL(files[i]);
+            }
+            $('.upload-img').css('padding', '20px');
         }
-        $('.upload-img').css('padding', '20px');
     }
-}});
-
+});

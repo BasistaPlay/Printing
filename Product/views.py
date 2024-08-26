@@ -139,7 +139,7 @@ class CreativeCornerView(ListView):
         context = super().get_context_data(**kwargs)
         context['all_colors'] = Color.objects.all()
         context['all_products'] = Product.objects.all()
-        context['ratings'] = range(1, 6)
+        context['star_range'] = range(1, 6)
         return context
 
 
@@ -168,15 +168,21 @@ class SaveRatingView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         product_id = request.POST.get('product_id')
         rating_value = request.POST.get('rating')
-        product = get_object_or_404(Designs, id=product_id)
-        rating, created = Rating.objects.get_or_create(user=request.user, design_id=product_id)
 
-        rating.stars = rating_value
-        rating.save()
+        try:
+            product = get_object_or_404(Designs, id=product_id)
+            rating, created = Rating.objects.get_or_create(user=request.user, design=product)
+            rating.stars = rating_value
+            rating.save()
 
-        return JsonResponse({'message': 'Reitings saglabāts datubāzē!'})
+            product.update_average_rating()
 
-
+            return JsonResponse({
+                'message': 'Reitings saglabāts datubāzē!',
+                'average_rating': product.average_rating
+            })
+        except Exception as e:
+            return JsonResponse({'message': f'Kļūda saglabājot reitingu: {str(e)}'}, status=400)
 
 class SaveDesignView(LoginRequiredMixin, View):
     login_url = '/login/'
