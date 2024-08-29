@@ -50,6 +50,37 @@ $(document).ready(function () {
 
     let resizableElement = null;
     let previousImageWidth = 0;
+    let activeImage = null;
+
+    function hideHandles() {
+        $('.ui-resizable-handle').hide();
+    }
+
+    function showHandles(imageElement) {
+        imageElement.find('.ui-resizable-handle').show();
+    }
+
+    $(document).on('mousedown touchstart', function (event) {
+        let clickedImage = $(event.target).closest('.uploaded-img');
+
+        if (clickedImage.length) {
+            hideHandles();
+            showHandles(clickedImage);
+            activeImage = clickedImage;
+        } else {
+            hideHandles();
+            activeImage = null;
+        }
+    });
+
+    $(document).on('keydown', function (event) {
+        if (event.key === 'Delete' && activeImage) {
+            let imageIdToRemove = activeImage.data('image-id');
+            $('[data-image-id="' + imageIdToRemove + '"]').remove();
+            activeImage.remove();
+            activeImage = null;
+        }
+    });
 
     if (resizableElement && !$(this).is(resizableElement)) {
         resizableElement.resizable("destroy");
@@ -83,11 +114,6 @@ $(document).ready(function () {
                 left: ui.position.left,
             });
         }
-    });
-
-    $(document).on('click', '.remove-btn', function () {
-        let imageIdToRemove = $(this).parent().data('image-id');
-        $('[data-image-id="' + imageIdToRemove + '"]').remove();
     });
 
     $(document).on('mousedown touchstart', function (event) {
@@ -142,13 +168,19 @@ $(document).ready(function () {
                         $('[data-image-id="' + imageIdToRemove + '"]').remove();
                     });
 
-                    // Resizable and Draggable properties with touch support and max size constraints
                     $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).resizable({
                         handles: 'ne, se, sw, nw, n, e, s, w',
                         ghost: false,
                         containment: `#boundary-${currentSide}`,  // Ensures it stays within the container
                         maxWidth: selectedContainer.width(),
                         maxHeight: selectedContainer.height(),
+                        resize: function (event, ui) {
+                            ui.element.css({
+                                position: 'absolute',
+                                top: ui.originalPosition.top,
+                                left: ui.originalPosition.left
+                            });
+                        },
                         stop: function (event, ui) {
                             let parent = ui.element.parent();
                             let position = parent.position();
@@ -163,12 +195,11 @@ $(document).ready(function () {
                         }
                     }).parent().draggable({
                         containment: `#boundary-${currentSide}`,
-                        ghost: false,
                         stop: function (event, ui) {
                             let wrapper = ui.helper;
                             wrapper.css({
                                 top: ui.position.top,
-                                left: ui.position.left,
+                                left: ui.position.left
                             });
                         }
                     });
