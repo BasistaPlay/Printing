@@ -209,9 +209,9 @@ msgid ""
 "datus, tostarp iepriekšējos pasūtījumus, saglabātos dizainus un virtuālo "
 "valūtu. Šī darbība nav atsaucama. Vai tiešām vēlaties turpināt?"
 msgstr ""
-"Please note that deleting your account will permanently erase all your data, "
-"including previous orders, saved designs, and virtual currency. This action "
-"cannot be undone. Are you sure you want to continue?"
+"Please note that deleting your account will permanently erase all your data,"
+" including previous orders, saved designs, and virtual currency. This action"
+" cannot be undone. Are you sure you want to continue?"
 
 #: templates/Profile/password_change_form.html:6
 #: templates/Profile/password_change_form.html:24
@@ -302,8 +302,8 @@ msgid ""
 "Lūdzu, ievadiet šo kodu, lai verificētu savu e-pasta adresi. Ja jūs neesat "
 "pieprasījis šo kodu, ignorējiet šo ziņojumu."
 msgstr ""
-"Please enter this code to verify your email address. If you did not "
-"request this code, please ignore this message."
+"Please enter this code to verify your email address. If you did not request "
+"this code, please ignore this message."
 
 #: templates/emails/verification_email.html:63
 msgid ""
@@ -338,8 +338,8 @@ msgstr "Username"
 msgid "Vai jums nav konta? "
 msgstr "Don't have an account? "
 
-#: templates/login.html:52 templates/register.html:6 templates/register.html:18
-#: templates/register.html:95
+#: templates/login.html:52 templates/register.html:6
+#: templates/register.html:18 templates/register.html:95
 msgid "Reģistrēties"
 msgstr "Register"
 

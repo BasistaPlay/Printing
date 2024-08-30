@@ -356,9 +356,9 @@ msgstr ""
 
 #: .\home\templates\account.html:124
 msgid ""
-"Lai turpinātu, lūdzu, ievadiet savu konta paroli un noklikšķiniet uz \"Dzēst "
-"profilu\". Šo darbību nevar atsaukt, tāpēc, lūdzu, pārliecinieties, ka esat "
-"pilnīgi pārliecināti par šo izvēli."
+"Lai turpinātu, lūdzu, ievadiet savu konta paroli un noklikšķiniet uz \"Dzēst"
+" profilu\". Šo darbību nevar atsaukt, tāpēc, lūdzu, pārliecinieties, ka esat"
+" pilnīgi pārliecināti par šo izvēli."
 msgstr ""
 "To proceed, please enter your account password and click 'Delete Profile'. "
 "This action cannot be undone, so please ensure that you are completely "
@@ -581,10 +581,12 @@ msgstr "Uncensored or inappropriate content is not allowed."
 #: .\home\templates\design.html:92
 msgid "Necenzēti vai nepiemēroti teksti nav atļauti virsrakstos un aprakstos."
 msgstr ""
-"Uncensored or inappropriate texts are not allowed in titles and descriptions."
+"Uncensored or inappropriate texts are not allowed in titles and "
+"descriptions."
 
 #: .\home\templates\design.html:93
-msgid "Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības."
+msgid ""
+"Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības."
 msgstr "Your work must be original and respect intellectual property rights."
 
 #: .\home\templates\design.html:94
@@ -601,16 +603,16 @@ msgid ""
 "informāciju darbu reklamēšanai vai promocijai mūsu vietnē vai sociālajos "
 "tīklos."
 msgstr ""
-"You agree that we may use your username or other information for advertising "
-"or promotion of your work on our website or social networks."
+"You agree that we may use your username or other information for advertising"
+" or promotion of your work on our website or social networks."
 
 #: .\home\templates\design.html:96
 msgid ""
 "Jūs esat atbildīgs par visu saturu, ko publicējat, un mēs paturam tiesības "
 "noņemt vai rediģēt saturu pēc saviem ieskatiem."
 msgstr ""
-"You are responsible for all content you publish, and we reserve the right to "
-"remove or edit content at our discretion."
+"You are responsible for all content you publish, and we reserve the right to"
+" remove or edit content at our discretion."
 
 #: .\home\templates\design.html:97
 msgid ""
@@ -710,7 +712,7 @@ msgstr "Add to cart"
 
 #: .\home\templates\home_page.html:65
 msgid "Top 3 pirktākie Produkti"
-msgstr "Top 3 most purchased shirts"
+msgstr "Top 3 leneds"
 
 #: .\home\templates\login.html:7 .\home\templates\login.html:20
 #: .\home\templates\login.html:37 .\home\templates\register.html:69
@@ -867,7 +869,6 @@ msgstr "Incorrect password."
 #~ msgid "Nepareizs e-pasts vai parole."
 #~ msgstr "Incorrect email or password."
 
-#~| msgid "Admin"
 #~ msgid "Admin Info"
 #~ msgstr "Admin"
 

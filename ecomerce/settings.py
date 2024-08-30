@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'shoping_cart',
     'stripe_integration',
     'forum',
+    'translations',
     'honeypot',
     #'django_extensions',
     'allauth',
