@@ -9,7 +9,7 @@ class Command(BaseCommand):
     help = 'Import PO files from all apps and store translations in the database.'
 
     def handle(self, *args, **kwargs):
-        exclude_dirs = {'venv', '__pycache__'}
+        exclude_dirs = {'venv', 'env', '.env', '__pycache__', 'site-packages'}
 
         for app in settings.INSTALLED_APPS:
             app_module = importlib.util.find_spec(app)
@@ -24,8 +24,8 @@ class Command(BaseCommand):
             if os.path.exists(locale_dir):
                 self.stdout.write(self.style.NOTICE(f"Directory exists: {locale_dir}"))
                 for root, dirs, files in os.walk(locale_dir):
-                    dirs[:] = [d for d in dirs if d not in exclude_dirs]
-                    if 'venv' in root:
+                    # Skip directories named 'venv', 'env', '.env', '__pycache__', or 'site-packages'
+                    if any(exclude_dir in root for exclude_dir in exclude_dirs):
                         self.stdout.write(self.style.WARNING(f"Skipping directory: {root}"))
                         continue
 
