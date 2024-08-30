@@ -5,9 +5,29 @@ from django.contrib import messages
 from django.core.management import call_command
 from .models import Translation
 
+class EmptyMsgstrFilter(admin.SimpleListFilter):
+    title = 'msgstr status'
+    parameter_name = 'msgstr_empty'
+
+    def lookups(self, request, model_admin):
+        return [
+            ('empty', 'Empty msgstr'),
+            ('not_empty', 'Not empty msgstr')
+        ]
+
+    def queryset(self, request, queryset):
+        if self.value() == 'empty':
+            return queryset.filter(msgstr='')
+        if self.value() == 'not_empty':
+            return queryset.exclude(msgstr='')
+        return queryset
+
 class TranslationAdmin(admin.ModelAdmin):
     list_display = ['msgid', 'msgstr', 'fuzzy']
     search_fields = ['msgid', 'msgstr', 'source_file']
+    list_filter = [EmptyMsgstrFilter]
+
+    readonly_fields = ['msgid', 'locations', 'source_file']
 
     def get_urls(self):
         urls = super().get_urls()
@@ -24,7 +44,7 @@ class TranslationAdmin(admin.ModelAdmin):
         except Exception as e:
             self.message_user(request, f"Kļūda importējot PO failus: {str(e)}", messages.ERROR)
 
-        return redirect('admin:translations_translation_changelist')  # Pareizais nosaukums
+        return redirect('admin:translations_translation_changelist')
 
     def export_po_action(self, request):
         try:
@@ -33,6 +53,6 @@ class TranslationAdmin(admin.ModelAdmin):
         except Exception as e:
             self.message_user(request, f"Kļūda eksportējot PO failus: {str(e)}", messages.ERROR)
 
-        return redirect('admin:translations_translation_changelist')  # Pareizais nosaukums
+        return redirect('admin:translations_translation_changelist')
 
 admin.site.register(Translation, TranslationAdmin)

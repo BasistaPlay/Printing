@@ -59,7 +59,6 @@ class Command(BaseCommand):
             except Exception as e:
                 self.stdout.write(self.style.ERROR(f'Error saving PO file: {str(e)}'))
 
-        # Pēc tam, kad visi faili ir saglabāti, izsauc `compilemessages`
         try:
             call_command('compilemessages')
             self.stdout.write(self.style.SUCCESS('Successfully compiled MO files.'))
