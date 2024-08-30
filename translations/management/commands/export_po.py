@@ -1,5 +1,6 @@
 import os
 import polib
+import subprocess
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from translations.models import Translation
@@ -64,3 +65,15 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('Successfully compiled MO files.'))
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Error compiling MO files: {str(e)}'))
+            return
+
+        # Restart Supervisor service
+        try:
+            result = subprocess.run(['sudo', 'supervisorctl', 'restart', 'Printing'], check=True, text=True, capture_output=True)
+            self.stdout.write(self.style.SUCCESS('Successfully restarted Supervisor service.'))
+            self.stdout.write(self.style.NOTICE(f'Output: {result.stdout}'))
+        except subprocess.CalledProcessError as e:
+            self.stdout.write(self.style.ERROR(f'Error restarting Supervisor service: {str(e)}'))
+            self.stdout.write(self.style.NOTICE(f'Stderr: {e.stderr}'))
+        except Exception as e:
+            self.stdout.write(self.style.ERROR(f'Unexpected error: {str(e)}'))

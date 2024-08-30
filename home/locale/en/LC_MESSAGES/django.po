@@ -23,7 +23,7 @@ msgstr "Product"
 
 #: .\home\admin.py:24
 msgid "Cena"
-msgstr "The price"
+msgstr "The price | hello"
 
 #: .\home\admin.py:27
 msgid "Bildes"
@@ -712,7 +712,7 @@ msgstr "Add to cart"
 
 #: .\home\templates\home_page.html:65
 msgid "Top 3 pirktākie Produkti"
-msgstr "Top 3 leneds"
+msgstr "Top 3 Products"
 
 #: .\home\templates\login.html:7 .\home\templates\login.html:20
 #: .\home\templates\login.html:37 .\home\templates\register.html:69

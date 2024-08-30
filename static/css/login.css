@@ -1,0 +1,173 @@
+/* Vispārīgais stils */
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px;
+}
+
+.container {
+    max-width: 500px; /* Samazināts platums */
+    width: 100%;
+
+}
+
+.main {
+    display: flex;
+    flex-direction: column; /* Forma uz vertikālās ass */
+    border-radius: 12px; /* Noapaļotas malas */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+}
+
+.content {
+    padding: 2em;
+    background-color: var(--second-color);
+    border-radius: 12px;
+}
+
+.content h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem; /* Mazāks fonts */
+    color: var(--main-color);
+    text-align: center;
+}
+
+.formBox {
+    display: flex;
+    flex-direction: column; /* Izkārtojums tikai ar formu */
+    gap: 15px;
+    padding-bottom: 32px;
+}
+
+.inputBox {
+    position: relative;
+    width: 100%; /* Aizņem visu platumu */
+}
+
+.inputBox span {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: var(--main-color);
+    padding-bottom: 8px
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: var(--input-color);
+    color: var(--text-color);
+}
+
+.inputBox input:focus {
+    border-color: var(--main-color);
+    outline: none;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--main-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: scale(1.02);
+}
+
+.btn:active {
+    background-color: darken(var(--main-color), 20%);
+    transform: scale(0.98);
+}
+
+.account {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.account a {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+.account a:hover {
+    text-decoration: underline;
+}
+
+.social-text {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.social-icon {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+    background-color: var(--second-color);
+}
+
+.social-icon:hover {
+    color: var(--main-color);
+    border-color: var(--main-color);
+}
+
+
+
+/* Responsīvs dizains */
+@media(max-width: 768px) {
+    .inputBox {
+        width: 100%;
+    }
+}
+
+/* Error message */
+.error-message {
+    background-color: #f8e0e0;
+    color: #b71c1c;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-left: 6px solid #b71c1c;
+    transition: background-color 0.3s ease;
+}
+
+.error-message:hover {
+    background-color: #fafafa;
+}
+
+.error-message  {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+}

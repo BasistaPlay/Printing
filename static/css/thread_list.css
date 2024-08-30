@@ -1,0 +1,112 @@
+.thread-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    margin-top: 125px;
+}
+
+.thread-list-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: var(--text-color);
+}
+
+.create-button {
+    display: inline-block;
+    background-color: var(--main-color);
+    color: #fff;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.create-button:hover {
+    background-color: #b6c814;
+    transform: scale(1.05);
+}
+
+/* Saraksts */
+.thread-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    list-style-type: none;
+}
+
+.thread-item {
+    margin-bottom: 10px;
+}
+
+.thread-link {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid var(--main-color);
+    border-radius: 8px;
+    background: #fafafa;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.thread-link:hover {
+    background-color: #f0f8ff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+.thread-author {
+    font-size: 0.9em;
+    color: var(--main-color);
+    margin-top: 5px;
+}
+
+.thread-list-container {
+    background: var(--second-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thread-link {
+    background: var(--input-color);
+    border: 1px solid #e1e1e1;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.thread-link:hover {
+    background: var(--hover-color);
+    border-color: var(--main-color);
+}
+
+@media (max-width: 768px) {
+    .thread-list {
+        grid-template-columns: 1fr;
+    }
+
+    .thread-link {
+        padding: 15px;
+        font-size: 1em;
+    }
+
+    .thread-list-container h1 {
+        font-size: 2em;
+    }
+
+    .create-button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
