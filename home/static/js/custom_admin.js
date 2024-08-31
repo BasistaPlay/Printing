@@ -17,7 +17,42 @@ document.addEventListener('DOMContentLoaded', function() {
         const coordsField = document.getElementById(coordsFieldId);
         let activeRect = null;
 
-        // Function to load image onto the canvas
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove Frame';
+        removeButton.type = 'button';
+        removeButton.style.marginTop = '10px';
+        removeButton.style.display = 'none';
+
+        // Stils pogai ar JS
+        removeButton.style.backgroundColor = '#f44336';  // Sarkans fons
+        removeButton.style.color = 'white';              // Balts teksts
+        removeButton.style.border = 'none';              // Nav robežas
+        removeButton.style.padding = '10px 20px';        // Iekšējais atkāpes
+        removeButton.style.borderRadius = '5px';         // Apaļi stūri
+        removeButton.style.cursor = 'pointer';           // Rādītājs peles ikona
+        removeButton.style.fontSize = '14px';            // Teksta lielums
+        removeButton.style.fontWeight = 'bold';          // Trekns teksts
+        removeButton.style.transition = 'background-color 0.3s'; // Pāreja fona krāsai
+
+        // Hover efekts
+        removeButton.addEventListener('mouseenter', function() {
+            removeButton.style.backgroundColor = '#d32f2f';  // Tumšāks sarkanais uz hover
+        });
+        removeButton.addEventListener('mouseleave', function() {
+            removeButton.style.backgroundColor = '#f44336';  // Atpakaļ uz sākotnējo krāsu
+        });
+
+        canvasContainer.appendChild(removeButton);
+
+        removeButton.addEventListener('click', function() {
+            if (activeRect) {
+                fabricCanvas.remove(activeRect);
+                activeRect = null;
+                coordsField.value = '';
+                removeButton.style.display = 'none';
+            }
+        })
+
         function loadImage(imageUrl) {
             const image = new Image();
             image.src = imageUrl;
@@ -31,13 +66,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 fabricCanvas.setBackgroundImage(fabricImage, fabricCanvas.renderAll.bind(fabricCanvas));
 
-                // Remove the active rectangle if it exists
                 if (activeRect) {
                     fabricCanvas.remove(activeRect);
                     activeRect = null;
                 }
 
-                // Restore existing coordinates if present
                 if (coordsField.value && coordsField.value !== 'null') {
                     const coords = JSON.parse(coordsField.value);
                     activeRect = new fabric.Rect({
@@ -46,20 +79,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         width: coords.width,
                         height: coords.height,
                         fill: 'rgba(255, 0, 0, 0.5)',
-                        selectable: false
+                        selectable: true
                     });
                     fabricCanvas.add(activeRect);
+                    removeButton.style.display = 'inline-block';
                 }
             };
         }
 
-        // Load the initial image if it exists
         const initialImageUrl = imageField.parentNode.querySelector('a')?.href;
         if (initialImageUrl) {
             loadImage(initialImageUrl);
         }
 
-        // Event listener for image field change
         imageField.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -73,11 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Drawing functionality
         fabricCanvas.on('mouse:down', function(opt) {
-            const pointer = fabricCanvas.getPointer(opt.e);
+            if (activeRect) return;
 
-            if (activeRect) {
-                fabricCanvas.remove(activeRect);
-            }
+            const pointer = fabricCanvas.getPointer(opt.e);
 
             const rect = new fabric.Rect({
                 left: pointer.x,
@@ -85,12 +115,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 width: 0,
                 height: 0,
                 fill: 'rgba(255, 0, 0, 0.5)',
-                selectable: false
+                selectable: true
             });
 
             fabricCanvas.add(rect);
             fabricCanvas.setActiveObject(rect);
             activeRect = rect;
+
+            removeButton.style.display = 'inline-block';
 
             fabricCanvas.on('mouse:move', function(opt) {
                 const pointer = fabricCanvas.getPointer(opt.e);
@@ -115,8 +147,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const coords = {
                     left: rect.left,
                     top: rect.top,
-                    width: rect.width,
-                    height: rect.height
+                    width: rect.getScaledWidth(),
+                    height: rect.getScaledHeight()
                 };
                 coordsField.value = JSON.stringify(coords);
             });
@@ -128,8 +160,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const coords = {
                     left: rect.left,
                     top: rect.top,
-                    width: rect.width,
-                    height: rect.height
+                    width: rect.getScaledWidth(),
+                    height: rect.getScaledHeight()
                 };
                 coordsField.value = JSON.stringify(coords);
             }
