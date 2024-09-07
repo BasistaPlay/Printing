@@ -25,6 +25,7 @@ def admin_required(function):
 urlpatterns = [
      path('admin/', admin.site.urls),
      path('i18n/', include('django.conf.urls.i18n')),
+     path("__reload__/", include("django_browser_reload.urls")),
      path('', page.homepage, name='homepage'),
      path('sprite-svg/', admin_required(TemplateView.as_view(template_name='sprite_svg_preview.html'))),
      path('check_discount_code/',page.check_discount_code, name='check_discount_code'),

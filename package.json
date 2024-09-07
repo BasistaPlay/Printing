@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "dev": "npx tailwindcss -i ./ecomerce/static/src/input.css -o .ecomerce/static/src/styles.css --watch"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.45",
+    "tailwindcss": "^3.4.10"
+  },
+  "dependencies": {
+    "alpha-js": "^0.0.1",
+    "htmx.org": "^1.9.12"
+  }
+}

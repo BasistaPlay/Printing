@@ -1,10 +1,10 @@
-section {
+/* section {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background-color: var(--bg-color);
-}
+} */
 
 .container {
     position: relative;
@@ -223,17 +223,17 @@ section {
 }
 
 @media (max-width: 991px) {
-    section {
+    /* section {
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
         background: var(--bg-color);
-    }
+    } */
 
-    section::before {
+    /* section::before {
         display: none;
-    }
+    } */
 
     .container {
         display: flex;
