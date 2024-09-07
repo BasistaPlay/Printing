@@ -46,7 +46,7 @@
                 {% endfor %}
             </div>
             <p class="description">{{ product.description }}</p>
-            <button class="add-to-cart">Add to Cart</button>
+            <a class="add-to-cart" onclick="AddToCart('{{ product.id|safe }}')">Add to Cart</a>
         </div>
     </div>
 </div>
@@ -54,6 +54,7 @@
 
 {% block js %}
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="{% static 'js/addtocart.js' %}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const images = document.querySelectorAll('.product-image-item');

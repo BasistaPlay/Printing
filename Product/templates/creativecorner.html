@@ -11,11 +11,21 @@
 {% endblock %}
 
 {% block body %}
-    <div id="error-messages" class="error-messages"></div>
-    <div id="success-message" class="success-message"></div>
-
+{% if messages %}
+<div class="message-container">
+  {% for message in messages %}
+    <div class="message {{ message.tags }}">
+      {{ message }}
+      <button onclick="this.parentElement.remove();">&times;</button>
+    </div>
+  {% endfor %}
+</div>
+{% endif %}
     <section class="shop">
-        <div class="container">
+            <div class="container">
+        <div>
+            <div id="message-container"></div>
+        </div>
             <aside class="filter-sidebar">
                 <form id="filter-form">
                     <div class="filter-content">
@@ -97,7 +107,7 @@
                             </div>
                         </a>
                         <div class="cart">
-                            <a href="#" onclick="AddToCart('{{ product_list.id }}')"><i class="bx bx-cart"></i></a>
+                            <a href="#" onclick="AddToCart('{{ product_list.id|safe }}')"><i class="bx bx-cart"></i></a>
                         </div>
                     </div>
                     {% endfor %}
@@ -136,4 +146,5 @@
 {% block js %}
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{% static 'js/creativecorner.js' %}"></script>
+    <script src="{% static 'js/addtocart.js' %}"></script>
 {% endblock %}

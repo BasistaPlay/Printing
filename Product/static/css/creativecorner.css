@@ -348,3 +348,47 @@ input[type="text"], select {
 .star-wrapper .active svg use{
   fill: gold;
 }
+
+#message-container {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top:100px;
+}
+
+.alert {
+  max-width: 800px;
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  background-color: #48bb78;
+}
+
+.message.success { background-color: #48bb78; }
+.message.error { background-color: #f56565; }
+.message.warning { background-color: #ecc94b; }
+.message.info { background-color: #4299e1; }
+
+.message button {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.message button:hover { color: #ddd; }

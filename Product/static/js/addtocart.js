@@ -1,5 +1,5 @@
-// Eksportējiet addToCart funkciju
 function AddToCart(design_id) {
+    console.log(design_id);
     let numValue = $('.num').text();
     let productCard = $('.product-card[data-product-id]');
     let product_id = productCard.data('product-id');
@@ -20,19 +20,44 @@ function AddToCart(design_id) {
         },
         success: function(response) {
             console.log(response);
-            displaySuccessMessage('Product added to cart successfully!');
-            var cartCountElement = $('#cart-count');
-            if (cartCountElement.length === 0) {
-                var newCartCountElement = $('<span id="cart-count"></span>');
-                newCartCountElement.text(response.cart_count);
-                $('#cart').append(newCartCountElement);
+            if (response.success) {
+                showMessages(response.messages);
+                var cartCountElement = $('#cart-count');
+                if (cartCountElement.length === 0) {
+                    var newCartCountElement = $('<span id="cart-count"></span>');
+                    newCartCountElement.text(response.cart_count);
+                    $('#cart').append(newCartCountElement);
+                } else {
+                    cartCountElement.text(response.cart_count);
+                }
             } else {
-                cartCountElement.text(response.cart_count);
+                showMessages(response.messages);
             }
         },
         error: function(xhr, status, error) {
             console.error(error);
+            showMessages(['Radās kļūda, mēģinot pievienot preci.']);
         }
+    });
+}
+
+function showMessages(messages) {
+    const messageContainer = $('#message-container');
+
+    // Tīra iepriekšējos ziņojumus
+    messageContainer.empty();
+
+    messages.forEach(message => {
+        // Izveido ziņojuma elementu
+        const div = $('<div></div>').addClass('alert').text(message);
+
+        // Pievieno ziņojumu lapai
+        messageContainer.append(div);
+
+        // Noņem ziņojumu pēc noteikta laika (piemēram, 3 sekundes)
+        // setTimeout(() => {
+        //     div.remove();
+        // }, 3000);
     });
 }
 
@@ -50,4 +75,3 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-

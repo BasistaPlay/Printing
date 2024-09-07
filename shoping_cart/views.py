@@ -9,33 +9,14 @@ import json
 from Product.models import Product
 from shoping_cart.context_processor import cart_total_amount
 from design.models import Designs
+from django.contrib import messages
 
 def cart(request):
     cart_items = request.session.get('cart', {})
     print(cart_items)
     products_with_sizes = []
-
-    try:
-        for item_key, item_data in cart_items.items():
-            if isinstance(item_data, dict):
-                try:
-                    design_id = item_data.get('design_id')
-                    order_id = item_data.get('product_id')
-                    product = get_object_or_404(Product, id=design_id)
-                    # sizes = product.available_sizes.all()
-
-                    products_with_sizes.append({
-                        'product': product,
-                        # 'sizes': sizes,
-                        'Design_id': order_id
-                    })
-                except Product.DoesNotExist as e:
-                    print(f"Product with id {design_id} does not exist: {e}")
-            else:
-                print(f"Invalid item data found in cart session: {item_data}")
-
-    except TypeError as e:
-        print(f"Error processing cart items: {e}")
+    cart = Cart(request)
+    cart.clear()
 
     return render(request, 'cart.html', {
         'products_with_sizes': products_with_sizes
@@ -43,24 +24,28 @@ def cart(request):
 
 @csrf_exempt
 def cart_add(request, id):
-    cart = Cart(request)
-    product_list = Designs.objects.get(id=id)
-    size_data = request.POST.getlist('sizes[]')
-    quantity = request.POST.getlist('quantity')
-    product_id = int(request.POST.get('product_id', 1))
-    sizeCount = int(request.POST.get('sizeCount', 1))
-    sizes = [json.loads(size) for size in size_data]
+    if request.method == 'POST':
+        try:
+            product_list = Designs.objects.get(id=id)
+            cart = Cart(request)
+            cart.add(product_list)
 
-    if len(quantity) > 0:
-        quantity = int(quantity[0])
-    else:
-        quantity = 1
+            messages.success(request, _('Prece veiksmīgi pievienota grozam.'))
+            return JsonResponse({
+                'success': True,
+                'messages': [m.message for m in messages.get_messages(request)]
+            })
+        except Designs.DoesNotExist:
+            messages.error(request, _('Prece nav atrasta.'))
+            return JsonResponse({
+                'success': False,
+                'messages': [m.message for m in messages.get_messages(request)]
+            })
 
-    cart.add(product_list, sizeCount=sizeCount, sizes=sizes, quantity=quantity, product_id=product_id)
-    print(request.session.get('cart', {}))
-    cart_count = len(request.session.get('cart', {}))
-    return JsonResponse({'success': True, 'cart_count': cart_count, 'message': 'Product added to cart successfully'})
-
+    return JsonResponse({
+        'success': False,
+        'messages': [_('Nederīgs pieprasījums.')]
+    })
 
 @login_required(login_url="/login")
 def item_clear(request, id):
