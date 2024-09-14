@@ -21,15 +21,16 @@
 </head>
 
 <body class='text-text-color bg-bg-color'>
-    <header class='fixed w-full top-0 right-0 z-[100000] flex p-7 items-center justify-between transform bg-bg-color max-2xl:px-4 max-2xl:py-3.5 max-lg:px-2 max-xl:bg-white'>
+    <header class='fixed w-full top-0 right-0 z-[100000] flex p-7 items-center justify-between transform bg-bg-white max-2xl:px-4 max-2xl:py-3.5 max-lg:px-2 max-xl:bg-second-color bg-bg-color'>
         <a href='{% url 'homepage' %}' class="flex items-center color-text-color text-3xl font-bold">
             <img class='align-middle text-main-color h-14 w-14 mr-1' src='{% display_icon %}' alt="EricPrint Logo">
             <span>EricPrint</span>
         </a>
         <ul class="navlist">
-            <li><a href='{% url 'homepage' %}' class="Home">{% trans 'Sākumlapa' %}</a></li>
-            <li><a href='{% url 'product:creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
-            <li><a href="{% url 'contact_us' %}">{% trans 'Sazinies ar mums' %}</a></li>
+            <li><a href='{% url "homepage" %}' class="Home">{% trans 'Sākumlapa' %}</a></li>
+            <li><a href='{% url "product:creativecorner" %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
+            <li><a href='{% url "contact_us" %}'>{% trans 'Sazinies ar mums' %}</a></li>
+            <li class='hidden max-md:block'><a href='{% url "shopping_cart:cart" %}'>{% trans 'Grozs' %}</a></li>
             {% if user.is_authenticated %}
                 <li class='nav-content-second'>
                     <a href="{% url 'profile:personal_info' %}">{% trans 'Profils' %}</a></li>
@@ -50,9 +51,9 @@
                     </svg>
                     {% trans 'Profils' %}
                 </a>
-                <div id="dropdownMenu" class="dropdown-content absolute bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-10 hidden">
-                    <a href="{% url 'profile:personal_info' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">{% trans 'Profils' %}</a>
-                    <a href="{% url 'profile:logout' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">{% trans 'Izrakstīties' %}</a>
+                <div id="dropdownMenu" class="dropdown-content absolute bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-10 hidden group">
+                    <a href="{% url 'profile:personal_info' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">{% trans 'Profils' %}</a>
+                    <a href="{% url 'profile:logout' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">{% trans 'Izrakstīties' %}</a>
                 </div>
             </div>
             {% else %}
@@ -66,7 +67,7 @@
                     <use xlink:href="/static/svg/sprite.svg#close"></use>
                 </svg>
             </div>
-            <a href="{% url 'shopping_cart:cart' %}" class="text-4xl text-text-color z-[10001] cursor-pointer m-4 ">
+            <a href="{% url 'shopping_cart:cart' %}" class="text-4xl text-text-color z-[10001] cursor-pointer m-4 max-md:hidden">
                 <svg width="25" height="25" style="fill: var(--text-color);">
                     <use xlink:href="/static/svg/sprite.svg#shopping_cart"></use>
                 </svg>
@@ -81,11 +82,11 @@
             </div>
             <div class="relative inline-block">
                 <div class="dropdown">
-                    <button class="bg-transparent text-text-color p-3 text-base cursor-pointer">
-                        <img class='h-5 align-middle' src="{% if LANGUAGE_CODE == 'lv' %}{% static 'img/lv-flag.png' %}{% else %}{% static 'img/en-flag.png' %}{% endif %}" alt="{% if LANGUAGE_CODE == 'lv' %}Latvian{% else %}English{% endif %}">
+                    <button class="bg-transparent text-text-color p-3 text-base cursor-pointer flex items-center space-x-2">
+                        <img class='h-5' src="{% if LANGUAGE_CODE == 'lv' %}{% static 'img/lv-flag.png' %}{% else %}{% static 'img/en-flag.png' %}{% endif %}" alt="{% if LANGUAGE_CODE == 'lv' %}Latvian{% else %}English{% endif %}">
                         <i class="fa fa-caret-down"></i>
                     </button>
-                    <div class="dropdown-content hidden absolute bg-[#f9f9f9] rounded-lg shadow-lg top-full -left-20">
+                    <div class="dropdown-content hidden absolute bg-[#f9f9f9] border border-gray-300 rounded-lg shadow-lg top-full left-0 mt-1 w-48 z-10">
                         <form id="language-form" class="flex flex-col" action="{% url 'set_language' %}" method="post">
                             {% csrf_token %}
                             <button class="bg-[#e2e2e2] text-[#333] px-4 py-3 text-left w-full border-none cursor-pointer hover:bg-[#d0d0d0] flex items-center" type="submit" name="language" value="lv">

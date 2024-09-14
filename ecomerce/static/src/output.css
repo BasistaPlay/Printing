@@ -626,13 +626,13 @@ video {
 }
 
 .inputBox input,
-  .inputBox textarea{
+.inputBox textarea{
   width: 100%;
   resize: none;
   border-bottom-width: 1px;
   background-color: var(--second-color);
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   font-size: 1.125rem;
   line-height: 1.75rem;
   color: var(--text-color);
@@ -644,29 +644,34 @@ video {
   height: 9rem;
 }
 
-.inputBox span{
+.inputBox .label-text{
   position: absolute;
-  left: 0px;
-  margin-left: 0.5rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  left: 0.5rem;
+  top: 0.5rem;
+  cursor: pointer;
   font-size: 1.125rem;
   line-height: 1.75rem;
+  color: var(--text-color);
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
+  /* Ensure the label is placed correctly and clickable */
+  pointer-events: none;
+  /* Makes the label not block clicks */
 }
 
-.inputBox input:focus ~ span,
-  .inputBox input:valid ~ span,
-  .inputBox textarea:focus ~ span,
-  .inputBox textarea:valid ~ span{
-  --tw-translate-y: -1.25rem;
+.inputBox input:focus ~ .label-text,
+.inputBox input:valid ~ .label-text,
+.inputBox textarea:focus ~ .label-text,
+.inputBox textarea:valid ~ .label-text{
+  --tw-translate-y: -1.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   font-size: 0.75rem;
   line-height: 1rem;
-  font-weight: 400;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  pointer-events: auto;
+  background-color: transparent;
+  color: #333;
 }
 
 .inputBox input[type="submit"]{
@@ -743,6 +748,64 @@ video {
 .star.active svg use {
   fill: gold;
   stroke: gold;
+}
+
+.main-btn{
+  display: flex;
+  height: 3rem;
+  width: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: var(--main-color);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-btn:hover{
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.main-btn:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-color: var(--main-color);
+  --tw-ring-opacity: 0.5;
+}
+
+.main-btn:hover{
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-from: var(--main-hover-color) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.main-btn:active{
+  background-color: var(--main-color);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 .alert{
@@ -1360,6 +1423,10 @@ video {
   left: 2.75rem;
 }
 
+.left-2{
+  left: 0.5rem;
+}
+
 .left-5{
   left: 1.25rem;
 }
@@ -1394,6 +1461,10 @@ video {
 
 .top-10{
   top: 2.5rem;
+}
+
+.top-2{
+  top: 0.5rem;
 }
 
 .top-20{
@@ -1884,6 +1955,10 @@ video {
   width: 2.5rem;
 }
 
+.w-11{
+  width: 2.75rem;
+}
+
 .w-12{
   width: 3rem;
 }
@@ -1916,16 +1991,16 @@ video {
   width: 0.75rem;
 }
 
+.w-3\/5{
+  width: 60%;
+}
+
 .w-32{
   width: 8rem;
 }
 
 .w-4{
   width: 1rem;
-}
-
-.w-4\/5{
-  width: 80%;
 }
 
 .w-48{
@@ -2069,6 +2144,17 @@ video {
 
 .-translate-y-5{
   --tw-translate-y: -1.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-y-6{
+  --tw-translate-y: -1.5rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.scale-95{
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -2537,8 +2623,24 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-main-color{
+  --tw-gradient-from: var(--main-color) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-main-hover-color{
+  --tw-gradient-from: var(--main-hover-color) var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .to-gray-300{
   --tw-gradient-to: #d1d5db var(--tw-gradient-to-position);
+}
+
+.to-second-color{
+  --tw-gradient-to: var(--second-color) var(--tw-gradient-to-position);
 }
 
 .fill-\[var\(--text-color\)\]{
@@ -3092,6 +3194,10 @@ video {
   transition-duration: 150ms;
 }
 
+.duration-150{
+  transition-duration: 150ms;
+}
+
 .duration-200{
   transition-duration: 200ms;
 }
@@ -3278,8 +3384,18 @@ video {
   outline-offset: 2px;
 }
 
+.focus\:ring-2:focus{
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
 .focus\:ring-main-color:focus{
   --tw-ring-color: var(--main-color);
+}
+
+.focus\:ring-opacity-50:focus{
+  --tw-ring-opacity: 0.5;
 }
 
 .active\:scale-95:active{
@@ -3371,9 +3487,8 @@ video {
     border-radius: 0px;
   }
 
-  .max-xl\:bg-white{
-    --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  .max-xl\:bg-second-color{
+    background-color: var(--second-color);
   }
 
   .max-xl\:p-10{
@@ -3388,10 +3503,6 @@ video {
 }
 
 @media not all and (min-width: 1024px){
-  .max-lg\:mt-32{
-    margin-top: 8rem;
-  }
-
   .max-lg\:flex{
     display: flex;
   }
@@ -3435,6 +3546,18 @@ video {
     margin-top: 2rem;
   }
 
+  .max-md\:block{
+    display: block;
+  }
+
+  .max-md\:hidden{
+    display: none;
+  }
+
+  .max-md\:w-11\/12{
+    width: 91.666667%;
+  }
+
   .max-md\:w-full{
     width: 100%;
   }
@@ -3449,6 +3572,10 @@ video {
 
   .max-md\:items-start{
     align-items: flex-start;
+  }
+
+  .max-md\:p-0{
+    padding: 0px;
   }
 
   .max-md\:text-2xl{

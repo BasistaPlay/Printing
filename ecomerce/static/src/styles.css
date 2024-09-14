@@ -5,35 +5,41 @@
 @layer components {
   .inputBox {
     @apply relative mb-9 px-2;
-  }
+}
 
-  .inputBox input,
-  .inputBox textarea {
-    @apply w-full resize-none py-1 border-b bg-second-color text-lg text-text-color outline-none;
-  }
+.inputBox input,
+.inputBox textarea {
+    @apply w-full resize-none py-2 border-b bg-second-color text-lg text-text-color outline-none;
+}
 
-  .inputBox textarea {
+.inputBox textarea {
     @apply h-36;
-  }
+}
 
-  .inputBox span {
-    @apply absolute left-0 py-1 transition-transform text-lg ml-2;
-  }
+.inputBox .label-text {
+    @apply absolute left-2 top-2 transition-transform text-lg text-text-color cursor-pointer;
+    /* Ensure the label is placed correctly and clickable */
+    pointer-events: none; /* Makes the label not block clicks */
+}
 
-  .inputBox input:focus ~ span,
-  .inputBox input:valid ~ span,
-  .inputBox textarea:focus ~ span,
-  .inputBox textarea:valid ~ span {
-    @apply transform -translate-y-5 font-bold text-xs font-normal tracking-tight;
-  }
+.inputBox input:focus ~ .label-text,
+.inputBox input:valid ~ .label-text,
+.inputBox textarea:focus ~ .label-text,
+.inputBox textarea:valid ~ .label-text {
+    @apply transform -translate-y-6 text-xs font-bold;
+    pointer-events: auto;
+    background-color: transparent;
+    color: #333;
+}
 
-  .inputBox input[type="submit"] {
-    @apply relative cursor-pointer bg-main-color rounded-3xl p-3 text-white ;
-  }
 
-  .inputBox input[type="submit"]:hover {
-    @apply bg-main-hover-color;
-  }
+.inputBox input[type="submit"] {
+  @apply relative cursor-pointer bg-main-color rounded-3xl p-3 text-white ;
+}
+
+.inputBox input[type="submit"]:hover {
+  @apply bg-main-hover-color;
+}
 
   .calc{
     width: calc(100% - 350px);
@@ -67,5 +73,17 @@
   .star.active svg use {
     fill: gold;
     stroke: gold;
+  }
+
+  .main-btn {
+    @apply bg-main-color text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-main-color focus:ring-opacity-50 flex justify-center items-center cursor-pointer w-full h-12;
+  }
+
+  .main-btn:hover {
+    @apply bg-gradient-to-r from-main-hover-color;
+  }
+
+  .main-btn:active {
+    @apply bg-main-color transition-all duration-150 ease-out;
   }
 }

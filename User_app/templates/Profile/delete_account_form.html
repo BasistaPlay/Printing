@@ -22,7 +22,7 @@
         <form class='pass-change' method="post" action="{% url 'profile:delete_account' %}">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn bg-red-800">{% trans 'Dzēst profilu' %}</button>
+            <button type="submit" class="main-btn bg-red-800">{% trans 'Dzēst profilu' %}</button>
         </form>
     </div>
 </div>
