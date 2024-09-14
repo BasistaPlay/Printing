@@ -7,94 +7,90 @@
     {% trans 'Grozs' %}
 {% endblock %}
 
-{% block css %}
-  <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
-{% endblock %}
-
 {% block body %}
-
-<div class="cart-container">
-    <section class="cart-items">
-        {% for key, value in request.session.cart.items %}
-        <div class="cart-item" data-product-id="{{ value.product_id }}">
-            <img src="{{ value.image }}" alt="Product Image">
-            <div class="item-details">
-                <div class="top-details">
-                    <h2 class="item-title">{{ value.title }}</h2>
-                    <p class="price">{{ value.price }}€</p>
-                </div>
-                <div class="size-quantity">
-                    <div class="size-section">
-                        <label for="size-{{ forloop.counter }}">Izmērs:</label>
-                        <select id="size-{{ forloop.counter }}">
-                            <option value="S">S</option>
-                            <option value="M">M</option>
-                            <option value="L">L</option>
-                        </select>
+<div class="flex flex-col lg:flex-row justify-between max-w-7xl mx-auto my-8 p-6 gap-8">
+    <section class="flex-1 bg-white rounded-2xl p-8 shadow-xl">
+        {% if request.session.cart.items %}
+            {% for key, value in request.session.cart.items %}
+            <div class="flex flex-col md:flex-row items-start mb-6 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200" data-product-id="{{ value.product_id }}">
+                <img class="w-32 h-auto rounded-lg" src="{{ value.image }}" alt="Product Image">
+                <div class="flex-1 ml-0 md:ml-8 mt-4 md:mt-0">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-xl font-semibold text-gray-900">{{ value.title }}</h2>
+                        <p class="text-xl font-semibold text-main-color">{{ value.price }}€</p>
                     </div>
-                    <div class="quantity-section">
-                        <label for="quantity-{{ forloop.counter }}">Daudzums:</label>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn minus">-</button>
-                            <input type="number" id="quantity-{{ forloop.counter }}" value="1" min="1">
-                            <button class="quantity-btn plus">+</button>
+                    <div class="flex gap-8 mb-4">
+                        <div>
+                            <label for="size-{{ forloop.counter }}" class="block text-sm font-medium text-gray-600 mb-2">Izmērs:</label>
+                            <select id="size-{{ forloop.counter }}" class="border border-gray-300 rounded-md px-3 py-2 focus:ring-main-color focus:border-main-color">
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="quantity-{{ forloop.counter }}" class="block text-sm font-medium text-gray-600 mb-2">Daudzums:</label>
+                            <div class="flex items-center space-x-2">
+                                <button class="bg-main-color text-white w-8 h-8 rounded flex items-center justify-center hover:bg-bmain-color transition duration-200">-</button>
+                                <input type="number" id="quantity-{{ forloop.counter }}" value="1" min="1" class="w-12 text-center border border-gray-300 rounded-md">
+                                <button class="bg-main-color text-white w-8 h-8 rounded flex items-center justify-center hover:bg-main-color transition duration-200">+</button>
+                            </div>
                         </div>
                     </div>
+                    <button class="mt-4 flex items-center bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
+                        <svg width="20" height="20" class="mr-2" fill="currentColor">
+                            <use xlink:href="/static/svg/sprite.svg#trash"></use>
+                        </svg>
+                        Noņemt
+                    </button>
                 </div>
-                <button class="remove-btn">
-                    <svg width="20" height="20" style="fill: var(--text-color);">
-                        <use xlink:href="/static/svg/sprite.svg#trash"></use>
-                    </svg>
-                    Noņemt
-                </button>
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+        <p class="text-center text-gray-600">Jūsu grozs ir tukšs.</p>
+        {% endif %}
     </section>
 
-    <aside class="cart-summary">
-        <div class="summary-content">
-            <div class="coupon">
-                <label for="coupon-code">Ievadiet kupona kodu:</label>
-                <div class="coupon-input-container">
-                    <input type="text" id="coupon-code" placeholder="Kupona kods">
-                    <button class="apply-coupon">Piemērot kuponu</button>
+    <aside class="flex-1 sticky top-8 bg-white rounded-2xl p-8 shadow-xl">
+        <div class="space-y-6">
+            <div class="border-b border-gray-200 pb-6">
+                <label for="coupon-code" class="block text-sm font-medium text-gray-600 mb-2">Ievadiet kupona kodu:</label>
+                <div class="flex gap-4">
+                    <input type="text" id="coupon-code" class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:bg-main-color focus:bg-main-color" placeholder="Kupona kods">
+                    <button class="bg-main-color text-white px-6 py-2 rounded-lg hover:bg-main-color transition-all">Piemērot kuponu</button>
                 </div>
             </div>
-            <div class="pricing">
-                <p>Pirms atlaides: €70.00</p>
-                <p>Nodoklis: €7.00</p>
-                <p>Piegāde: €4.00</p>
-                <p class="total">Kopā: {{ cart_total_amount|floatformat:2 }}€</p>
+            <div class="border-b border-gray-200 pb-6">
+                <p class="text-lg font-semibold text-gray-700">Pirms atlaides: <span class="text-gray-900">€70.00</span></p>
+                <p class="text-lg font-semibold text-gray-700">Nodoklis: <span class="text-gray-900">€7.00</span></p>
+                <p class="text-lg font-semibold text-gray-700">Piegāde: <span class="text-gray-900">€4.00</span></p>
+                <p class="text-2xl font-bold text-gray-900">Kopā: {{ cart_total_amount|floatformat:2 }}€</p>
             </div>
-            <div class="payment-options">
-                <p>Maksājuma opcijas:</p>
-                <div class="payment-btns">
-                    <button class="payment-btn internet-bank">
-                      <svg width="20" height="20" style="fill: white;">
-                        <use xlink:href="/static/svg/sprite.svg#laptop"></use>
-                    </svg>
-                      Interneta banka
+            <div>
+                <p class="text-lg font-medium text-gray-700 mb-4">Maksājuma opcijas:</p>
+                <div class="space-y-4">
+                    <button class="flex items-center justify-center w-full bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-all">
+                        <svg width="20" height="20" fill="currentColor" class="mr-2">
+                            <use xlink:href="/static/svg/sprite.svg#laptop"></use>
+                        </svg>
+                        Interneta banka
                     </button>
-                    <button class="payment-btn bank-transfer">
-                      <svg width="20" height="20" style="fill: white;">
-                        <use xlink:href="/static/svg/sprite.svg#bank"></use>
-                    </svg>
-                      Bankas pārskaitījums
+                    <button class="flex items-center justify-center w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all">
+                        <svg width="20" height="20" fill="currentColor" class="mr-2">
+                            <use xlink:href="/static/svg/sprite.svg#bank"></use>
+                        </svg>
+                        Bankas pārskaitījums
                     </button>
-                    <button class="payment-btn apple-pay">
-                      <svg width="20" height="20" style="fill: white;">
-                        <use xlink:href="/static/svg/sprite.svg#apple"></use>
-                    </svg>
-                      Apple Pay
+                    <button class="flex items-center justify-center w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-all">
+                        <svg width="20" height="20" fill="currentColor" class="mr-2">
+                            <use xlink:href="/static/svg/sprite.svg#apple"></use>
+                        </svg>
+                        Apple Pay
                     </button>
-                    <button class="payment-btn stripe">
-                      Stripe
-                    </button>
+                    <button class="flex items-center justify-center w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all">Stripe</button>
                 </div>
             </div>
         </div>
     </aside>
 </div>
-
 {% endblock %}

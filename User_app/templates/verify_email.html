@@ -3,39 +3,50 @@
 {% load i18n %}
 {% load static %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/verify_email.css' %}" />
-{% endblock %}
-
 {% block title %}
-    Verify Email
+    {% trans "Verify Email" %}
 {% endblock %}
 
 {% block body %}
-    <div class='login-form verify'>
-        <div class='container'>
-            <div class='main'>
-                <div class='content'>
-                    <h2>{% trans 'Verificēt e-pastu' %}</h2>
-                    <p>{% trans 'Verifikācijas kods tika nosūtīts uz' %} {{ email }}. {% trans 'Lūdzu, ievadiet kodu zemāk, lai verificētu savu e-pastu.' %}</p>
-                    <form method='post'>
-                        {% csrf_token %}
-                        <div class="formBox">
-                            <div class="inputBox w100 {% if form.code.errors %}error{% endif %}">
-                                {{ form.code.label_tag }}
-                                {{ form.code }}
-                                {% if form.code.errors %}
-                                    <p class="error-message">{{ form.code.errors }}</p>
-                                {% endif %}
+
+    <div class='flex flex-col justify-center items-center min-h-[80vh]'>
+        <div class='max-w-[500px] w-full'>
+            {% if messages %}
+                <div class='mb-4'>
+                    {% for message in messages %}
+                        {% if 'register' in message.tags %}
+                            {% include 'partials/alert.html' with message=message message_tags=message.tags class='' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        <div class='flex justify-center items-center p-8'>
+            <div class='max-w-lg w-full'>
+                <div class='flex flex-col overflow-hidden w-full rounded-lg'>
+                    <div class='flex-1 p-8 bg-second-color'>
+                        <h2 class='mb-5 text-4xl text-text-color text-center'>{% trans 'Verificēt e-pastu' %}</h2>
+                        <p class='mb-7 text-base text-text-color text-center'>{% trans 'Verifikācijas kods tika nosūtīts uz' %} <span class='text-main-color font-black'>{{ email }}</span>. {% trans 'Lūdzu, ievadiet kodu zemāk, lai verificētu savu e-pastu.' %}</p>
+                        <form method='post'>
+                            {% csrf_token %}
+                            <div class="flex flex-wrap gap-5 pb-6">
+                                <div class="inputBoxRegister {% if form.code.errors %}error{% endif %} w-full">
+                                    {{ form.code.label_tag }}
+                                    {{ form.code }}
+                                    {% if form.code.errors %}
+                                        <p class="error-message">{{ form.code.errors }}</p>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                        <button class='btn' type='submit'>
-                            {% trans 'Verificēt' %}
-                        </button>
-                    </form>
-                    <p class='account'>{% trans 'Nesaņēmāt kodu?' %} <a href='{% url 'profile:resend_verification_code' %}'>{% trans 'Nosūtīt kodu vēlreiz' %}</a></p>
+                            <button class='w-full p-3 bg-main-color text-white rounded-md border-none text-xl font-semibold cursor-pointer transition hover:scale-105 active:scale-95 active:bg-main-color-dark' type='submit'>
+                                {% trans 'Verificēt' %}
+                            </button>
+                        </form>
+                        <p class='mt-4 text-center'>{% trans 'Nesaņēmāt kodu?' %} <a class='text-main-color hover:underline' href='{% url 'profile:resend_verification_code' %}'>{% trans 'Nosūtīt kodu vēlreiz' %}</a></p>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}

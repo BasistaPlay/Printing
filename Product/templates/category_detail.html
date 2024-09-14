@@ -2,40 +2,38 @@
 {% load static %}
 {% load i18n %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/category_detail.css' %}" />
-{% endblock %}
-
 {% block title %}
-{{ category.title }}
+    {{ category.title }}
 {% endblock %}
 
 {% block body %}
-<main class="category-detail-container">
-    <h1 class="category-title">{{ category.title }}</h1>
-    <div class="products-container">
-        {% if products %}
-            <div class="product-grid">
-                {% for product in products %}
-                <a class="product-card" href="{% url 'product:design_detail' slug=product.slug %}">
-                    <div class="image-wrapper">
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}" class="product-image">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">{{ product.title }}</h3>
-                        <p class="product-description">{{ product.description }}</p>
-                        <p class="product-price">{{ product.price }}€</p>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p class="no-products-message">{% trans 'Šajā kategorijā nav produktu' %}</p>
-        {% endif %}
-    </div>
-</main>
+    <main class="py-16 px-5 max-w-[1200px] my-0 mx-auto mt-24">
+        <h1 class="text-4xl text-center mb-12 text-text-color font-bold relative after:content-[''] after:block after:w-[70px] after:h-[8px] after:bg-gradient-to-r after:from-[var(--main-color)] after:to-[var(--main-hover-color)] after:mt-5 after:mx-auto after:rounded-[5px]">
+            {{ category.title }}
+        </h1>
+        <div class="grid gap-8 sm:gap-6 [grid-template-columns:repeat(auto-fill,minmax(250px,1fr))]">
+            {% if products %}
+                <div class="grid gap-5 w-full [grid-template-columns:repeat(auto-fill,minmax(250px,1fr))]">
+                    {% for product in products %}
+                    <a class="flex flex-col bg-second-color rounded-xl" href="{% url 'product:design_detail' slug=product.slug %}">
+                        <div class="relative w-full h-0 pb-[100%] overflow-hidden">
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}" class="absolute top-0 left-0 w-full h-full object-cover">
+                        </div>
+                        <div class="p-5 text-center">
+                            <h3 class="text-2xl text-text-color font-semibold mb-3">{{ product.title }}</h3>
+                            <p class="text-base text-gray-400 mb-3">{{ product.description }}</p>
+                            <p class="text-xl text-main-color font-bold">{{ product.price }}€</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-xl text-gray-400 text-center">{% trans 'Šajā kategorijā nav produktu' %}</p>
+            {% endif %}
+        </div>
+    </main>
 {% endblock %}
 
 {% block js %}
-<script src="{% static 'js/category_detail.js' %}"></script>
+    <script src="{% static 'js/category_detail.js' %}"></script>
 {% endblock %}

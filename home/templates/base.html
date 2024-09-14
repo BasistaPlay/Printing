@@ -11,51 +11,54 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link href="{% static 'src/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'src/output.css' %}" rel="stylesheet">
+    <link href="{% static 'src/input.css' %}" rel="stylesheet">
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="dd464516-7e9e-4977-a678-2eee349bb2b8" data-blockingmode="auto" type="text/javascript"></script>
     <link rel="icon" href="{% display_icon %}" type="image/png">
     {% block css %}
     {% endblock %}
 </head>
 
-<body>
-    <header>
-        <a href='{% url 'homepage' %}' class="logo">
-            <img src='{% display_icon %}' alt="EricPrint Logo">
+<body class='text-text-color bg-bg-color'>
+    <header class='fixed w-full top-0 right-0 z-[100000] flex p-7 items-center justify-between transform bg-bg-color max-2xl:px-4 max-2xl:py-3.5 max-lg:px-2 max-xl:bg-white'>
+        <a href='{% url 'homepage' %}' class="flex items-center color-text-color text-3xl font-bold">
+            <img class='align-middle text-main-color h-14 w-14 mr-1' src='{% display_icon %}' alt="EricPrint Logo">
             <span>EricPrint</span>
         </a>
         <ul class="navlist">
             <li><a href='{% url 'homepage' %}' class="Home">{% trans 'Sākumlapa' %}</a></li>
             <li><a href='{% url 'product:creativecorner' %}' class="creative_corner">{% trans 'Radošais stūrītis' %}</a></li>
-            <li><a href="{% url 'contact_us' %}" class="contact_us">{% trans 'Sazinies ar mums' %}</a></li>
+            <li><a href="{% url 'contact_us' %}">{% trans 'Sazinies ar mums' %}</a></li>
             {% if user.is_authenticated %}
-                <li class='acc-nav'>
-                    <a href="{% url 'profile:personal_info' %}" class="contact_us">{% trans 'Profils' %}</a></li>
-                <li class='acc-nav'><a href="{% url 'profile:logout' %}">{% trans 'Izrakstīties' %}</a></li>
+                <li class='nav-content-second'>
+                    <a href="{% url 'profile:personal_info' %}">{% trans 'Profils' %}</a></li>
+                <li class='nav-content-second'><a href="{% url 'profile:logout' %}">{% trans 'Izrakstīties' %}</a></li>
             {% else %}
-                <li class='acc-nav'><a href='{% url 'login' %}' class="contact_us">{% trans 'Pierakstīties' %}</a></li>
+                <li class='nav-content-second'><a href='{% url 'login' %}'>{% trans 'Pierakstīties' %}</a></li>
             {% endif %}
             {% if user.is_staff %}
                 <li><a href="{% url 'admin:index' %}" class="Admin">{% trans 'Admin' %}</a></li>
             {% endif %}
         </ul>
-        <div class="h-main">
+        <div class="flex items-center">
             {% if user.is_authenticated %}
-            <div class="dropdown">
-                <a href="javascript:void(0)" class="h-btn acc">
+            <div class="relative dropdown nav-content">
+                <a href="javascript:void(0)" class="base-page-btn" id="dropdownButton">
                     <svg width="20" height="20" style="color: white;">
                         <use xlink:href="/static/svg/sprite.svg#user"></use>
                     </svg>
                     {% trans 'Profils' %}
                 </a>
-                <div class="dropdown-content">
-                    <a href="{% url 'profile:personal_info' %}">{% trans 'Profils' %}</a>
-                    <a href="{% url 'profile:logout' %}">{% trans 'Izrakstīties' %}</a>
+                <div id="dropdownMenu" class="dropdown-content absolute bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-10 hidden">
+                    <a href="{% url 'profile:personal_info' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">{% trans 'Profils' %}</a>
+                    <a href="{% url 'profile:logout' %}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">{% trans 'Izrakstīties' %}</a>
                 </div>
             </div>
             {% else %}
-                <a href='{% url 'login' %}' class='h-btn acc'>{% trans 'Pierakstīties' %}</a>
+                <a href='{% url 'login' %}' class='base-page-btn nav-content'>{% trans 'Pierakstīties' %}</a>
             {% endif %}
-            <div id="menu-icon">
+            <div id="menu-icon" class='text-4xl text-text-color z-[10001] cursor-pointer m-4 nav-content-second'>
                 <svg id="menu-icon-svg" width="25" height="25" style="fill: var(--text-color);">
                     <use xlink:href="/static/svg/sprite.svg#menu"></use>
                 </svg>
@@ -63,7 +66,7 @@
                     <use xlink:href="/static/svg/sprite.svg#close"></use>
                 </svg>
             </div>
-            <a href="{% url 'shopping_cart:cart' %}" id="cart">
+            <a href="{% url 'shopping_cart:cart' %}" class="text-4xl text-text-color z-[10001] cursor-pointer m-4 ">
                 <svg width="25" height="25" style="fill: var(--text-color);">
                     <use xlink:href="/static/svg/sprite.svg#shopping_cart"></use>
                 </svg>
@@ -71,25 +74,27 @@
                     <span id="cart-count">{{ request.session.cart|length }}</span>
                 {% endif %}
             </a>
-            <div id="darkmode">
+            <div id="darkmode" class='text-4xl text-text-color z-[10001] cursor-pointer m-4 '>
                 <svg width="25" height="25" style="fill: var(--text-color);">
                     <use xlink:href="/static/svg/sprite.svg#moon-ico"></use>
                 </svg>
             </div>
-            <div class="language-switcher">
+            <div class="relative inline-block">
                 <div class="dropdown">
-                    <button class="dropbtn">
-                        <img src="{% if LANGUAGE_CODE == 'lv' %}{% static 'img/lv-flag.png' %}{% else %}{% static 'img/en-flag.png' %}{% endif %}" alt="{% if LANGUAGE_CODE == 'lv' %}Latvian{% else %}English{% endif %}">
+                    <button class="bg-transparent text-text-color p-3 text-base cursor-pointer">
+                        <img class='h-5 align-middle' src="{% if LANGUAGE_CODE == 'lv' %}{% static 'img/lv-flag.png' %}{% else %}{% static 'img/en-flag.png' %}{% endif %}" alt="{% if LANGUAGE_CODE == 'lv' %}Latvian{% else %}English{% endif %}">
                         <i class="fa fa-caret-down"></i>
                     </button>
-                    <div class="dropdown-content">
-                        <form id="language-form" action="{% url 'set_language' %}" method="post">
+                    <div class="dropdown-content hidden absolute bg-[#f9f9f9] rounded-lg shadow-lg top-full -left-20">
+                        <form id="language-form" class="flex flex-col" action="{% url 'set_language' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" name="language" value="lv">
-                                <img src="{% static 'img/lv-flag.png' %}" alt="Latvian"> Latviešu
+                            <button class="bg-[#e2e2e2] text-[#333] px-4 py-3 text-left w-full border-none cursor-pointer hover:bg-[#d0d0d0] flex items-center" type="submit" name="language" value="lv">
+                                <img class="h-5 mr-3" src="{% static 'img/lv-flag.png' %}" alt="Latvian">
+                                Latviešu
                             </button>
-                            <button type="submit" name="language" value="en">
-                                <img src="{% static 'img/en-flag.png' %}" alt="English"> English
+                            <button class="bg-[#e2e2e2] text-[#333] px-4 py-3 text-left w-full border-none cursor-pointer hover:bg-[#d0d0d0] flex items-center" type="submit" name="language" value="en">
+                                <img class="h-5 mr-3" src="{% static 'img/en-flag.png' %}" alt="English">
+                                English
                             </button>
                         </form>
                     </div>
@@ -98,24 +103,13 @@
         </div>
     </header>
 
-    {% block body %}{% endblock %}
+    <div class="mt-32">
+        {% block body %}{% endblock %}
+    </div>
+
+    {% block body_design %}{% endblock %}
 </body>
 <script src="{% static 'js/darkmode.js' %}"></script>
 <script src="{% static 'js/base.js' %}"></script>
-
-<script>
-    // Hide success message after 10 seconds
-    setTimeout(function() {
-        var messages = document.getElementsByClassName('messages');
-        for (var i = 0; i < messages.length; i++) {
-            (function(message) {
-                message.style.opacity = '0';
-                setTimeout(function() {
-                    message.style.display = 'none';
-                }, 1000); // 1 second after opacity change
-            })(messages[i]);
-        }
-    }, 5000);
-</script>
 {% block js %}{% endblock %}
 </html>

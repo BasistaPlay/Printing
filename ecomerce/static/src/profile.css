@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    .nav-link {
+        @apply text-white font-medium flex items-center transition-colors duration-300 ease-in-out;
+    }
+
+    .nav-link:hover {
+        @apply text-gray-300;
+    }
+
+    .nav-link i {
+        @apply mr-2;
+    }
+
+    @media (max-width: 600px) {
+        .nav-link {
+            @apply w-full py-2 px-4 rounded;
+        }
+    }
+
+    .profile-input {
+        @apply flex-1 min-w-[48%] mr-[2%] mb-4;
+    }
+
+    .profile-input label {
+        @apply block mb-2 font-bold;
+    }
+
+    .profile-input input[type="text"],
+    .profile-input input[type="tel"],
+    .profile-input input[type="email"]{
+        @apply border border-gray-300 rounded-lg w-full p-3 text-base bg-input-color text-text-color;
+    }
+
+    .profile-input input[readonly] {
+        @apply bg-input-readonly-color text-text-color cursor-not-allowed;
+    }
+
+    .profile-input input[readonly]:focus{
+        @apply border border-gray-300;
+    }
+
+    .profile-input input[type="text"]:focus,
+    .profile-input input[type="tel"]:focus,
+    .profile-input input[type="email"]:focus{
+        @apply border-main-color outline-none;
+    }
+
+    .profile-checkbox  input[type="checkbox"]{
+        @apply mr-2 cursor-pointer;
+        accent-color: var(--main-color);
+    }
+
+    .profile-input:focus {
+        @apply border-main-color shadow-md;
+    }
+
+    .pass-change p{
+        @apply mb-4;
+    }
+
+    .pass-change p label {
+        @apply block mb-2 font-bold;
+    }
+
+    .pass-change p input[type="password"]{
+        @apply border border-gray-300 rounded-lg w-full p-3 text-base bg-input-color text-text-color;
+    }
+
+    .pass-change p input[type="password"]:focus{
+        @apply border-main-color outline-none;
+    }
+}
