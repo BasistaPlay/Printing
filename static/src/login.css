@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .inputBoxLogin {
+        @apply relative w-full;
+    }
+
+    .inputBoxLogin span {
+        @apply block mt-1 text-sm text-main-color pb-2;
+    }
+
+    .inputBoxLogin input {
+        @apply w-full px-3 py-3 text-base border border-gray-300 rounded-lg bg-input-color text-[var(--text-color)];
+    }
+
+    .inputBoxLogin input:focus {
+        @apply border-[var(--main-color)] outline-none;
+    }
+
+    .social-icon {
+        @apply h-12 w-12 flex items-center justify-center text-gray-600 border-2 border-gray-300 rounded-full mx-1 cursor-pointer transition duration-300 bg-second-color hover:text-gray-800 hover:border-gray-500 hover:bg-gray-100 border-2 border-gray-300
+    }
+
+    .inputBoxRegister {
+        @apply relative w-full sm:w-[calc(50%-20px)];
+    }
+
+    .inputBoxRegister label {
+        @apply block mb-1 text-sm text-text-color;
+    }
+
+    .inputBoxRegister input {
+        @apply w-full p-3 text-base border border-gray-300 rounded-lg bg-input-color text-text-color;
+    }
+
+    .inputBoxRegister.error input {
+        @apply border-red-600; /* Adjust the color as needed */
+    }
+
+    .inputBoxRegister input:focus {
+        @apply border-main-color outline-none;
+    }
+
+    .error-message {
+        @apply text-red-700 text-sm mt-1;
+    }
+
+    .errorlist li {
+        @apply text-red-700 text-sm mt-1;
+    }
+
+    .checkbox-container {
+        @apply flex items-center mb-5;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+        @apply mr-2 cursor-pointer;
+        accent-color: var(--main-color);
+    }
+
+    .checkbox-container label {
+        @apply cursor-pointer text-sm;
+    }
+}

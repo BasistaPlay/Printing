@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .navlist{
+        @apply flex;
+    }
+
+    .navlist a{
+        @apply text-base text-text-color transition mx-9 font-semibold
+    }
+
+    .navlist a:hover{
+        @apply text-main-color;
+    }
+
+    .base-page-btn {
+        @apply inline-flex items-center justify-center px-6 py-2.5 text-white bg-[var(--main-color)] text-sm font-medium rounded-lg border-2 border-[var(--main-color)] mr-5 transition-all duration-500 ease-in-out;
+    }
+
+    .base-page-btn svg {
+        @apply mr-2.5 fill-[var(--text-color)];
+    }
+
+    .base-page-btn i {
+        @apply relative -right-0;
+    }
+
+    .navlist.open{
+        @apply top-full bg-second-color
+    }
+
+    .navlist.open li a{
+        @apply text-text-color
+    }
+
+    #cart-count {
+        @apply absolute -top-4 -right-4 rounded-full bg-[var(--main-color)] text-white flex items-center justify-center w-5 h-5 text-xs text-center;
+    }
+
+
+    .nav-content-second{
+        display: none;
+    }
+
+    @media (max-width: 1236px) {
+        .navlist {
+            @apply absolute flex flex-col text-left bg-white;
+            top: -700px;
+            left: 0;
+            right: 0;
+            background: #000;
+            transition: all ease 0.55s;
+
+        }
+
+        .navlist a {
+            @apply block text-xl font-normal mt-2.5 mb-4 text-second-color;
+        }
+
+        .nav-content{
+            display: none;
+        }
+
+        .nav-content-second{
+            display: block;
+        }
+
+    }
+}

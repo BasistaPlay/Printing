@@ -30,3 +30,20 @@ setTimeout(function() {
         })(messages[i]);
     }
 }, 5000);
+
+document.addEventListener('DOMContentLoaded', function () {
+    const button = document.getElementById('dropdownButton');
+    const menu = document.getElementById('dropdownMenu');
+
+    button.addEventListener('click', function () {
+        // Toggle the visibility of the dropdown menu
+        menu.classList.toggle('hidden');
+    });
+
+    // Close the dropdown menu if clicked outside of it
+    window.addEventListener('click', function (event) {
+        if (!button.contains(event.target) && !menu.contains(event.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+});
