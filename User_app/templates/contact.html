@@ -17,9 +17,10 @@
                     {% endfor %}
                 </div>
             {% endif %}
+        </div>
 
     <section class="flex justify-center items-center bg-bg-color">
-        <div class="relative min-w-[1100px] min-h-[550px] flex z-50 max-xl:w-[90%] max-xl:min-w-auto max-xl:m-5 max-lg:flex max-lg:flex-col-reverse max-lg:mt-32">
+        <div class="relative min-w-[1100px] min-h-[550px] flex z-50 max-xl:w-[90%] max-xl:min-w-auto max-xl:m-5 max-lg:flex max-lg:flex-col-reverse">
             <div class="absolute h-[calc(100%-80px)] top-10 w-96 bg-main-color z-10 p-10 flex justify-center flex-col justify-between rounded-3xl max-xl:top-0 max-xl:h-[550px] max-xl:relative max-xl:rounded-none max-lg:w-full max-lg:h-auto max-lg:flex-row" style="box-shadow: 0 20px 25px rgba(0,0,0,0.15);">
                 <div>
                     <h2 class='text-white text-2xl font-medium'>{% trans 'Kontaktinformācija' %}</h2>
@@ -55,35 +56,34 @@
                             {% endif %}
                         {% endif %}
                     </ul>
+                    <ul class="relative flex ">
+                        {% if Contact %}
+                            {% if Contact.facebook_link %}
+                                <li class='list-none mr-4'><a class='underline-none' href="{{ Contact.facebook_link }}">
+                                    <svg width="15" height="15" fill="white" style='color:white'>
+                                        <use xlink:href="/static/svg/sprite.svg#facebook"></use>
+                                    </svg>
+                                </a></li>
+                            {% endif %}
+
+                            {% if Contact.instagram_link %}
+                                <li class='list-none mr-4'><a href="{{ Contact.instagram_link }}">
+                                    <svg width="15" height="15" fill="white">
+                                        <use xlink:href="/static/svg/sprite.svg#instagram"></use>
+                                    </svg>
+                                </a></li>
+                            {% endif %}
+
+                            {% if Contact.twitter_link %}
+                                <li class='list-none mr-4'><a href="{{ Contact.twitter_link }}">
+                                    <svg width="15" height="15" fill="white">
+                                        <use xlink:href="/static/svg/sprite.svg#twitter"></use>
+                                    </svg>
+                                </a></li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
                 </div>
-
-                <ul class="relative flex ">
-                    {% if Contact %}
-                        {% if Contact.facebook_link %}
-                            <li class='list-none mr-4'><a class='underline-none' href="{{ Contact.facebook_link }}">
-                                <svg width="15" height="15" fill="white" style='color:white'>
-                                    <use xlink:href="/static/svg/sprite.svg#facebook"></use>
-                                </svg>
-                            </a></li>
-                        {% endif %}
-
-                        {% if Contact.instagram_link %}
-                            <li class='list-none mr-4'><a href="{{ Contact.instagram_link }}">
-                                <svg width="15" height="15" fill="white">
-                                    <use xlink:href="/static/svg/sprite.svg#instagram"></use>
-                                </svg>
-                            </a></li>
-                        {% endif %}
-
-                        {% if Contact.twitter_link %}
-                            <li class='list-none mr-4'><a href="{{ Contact.twitter_link }}">
-                                <svg width="15" height="15" fill="white">
-                                    <use xlink:href="/static/svg/sprite.svg#twitter"></use>
-                                </svg>
-                            </a></li>
-                        {% endif %}
-                    {% endif %}
-                </ul>
             </div>
             <div  class='absolute w-[calc(100%-150px)] pt-18 pb-18 pl-64 pr-12 ml-40 h-full bg-second-color rounded-3xl max-xl:rounded-none max-xl:relative max-xl:w-[calc(100%-350px)] max-xl:ml-0 max-xl:p-10 max-xl:shadow-none max-xl:calc max-xl:h-[550px] max-lg:w-full max-lg:h-auto ' style='box-shadow: 0 50px 50px rgba(0,0,0,0.25);'>
                 <h2 class='text-main-color text-2xl font-medium mt-12'>{% trans 'Nosūtīt ziņu' %}</h2>
@@ -93,27 +93,25 @@
                     <div class="relative flex flex-wrap pt-8">
                         <div class="inputBox w-1/2 max-sm:w-full">
                             {{ form.first_name }}
-                            <span>{% trans 'Vārds' %}</span>
+                            <span class='label-text'>{% trans 'Vārds' %}</span>
                         </div>
                         <div class="inputBox w-1/2 max-sm:w-full">
                             {{ form.last_name }}
-                            <span>{% trans 'Uzvārds' %}</span>
+                            <span class='label-text'>{% trans 'Uzvārds' %}</span>
                         </div>
                         <div class="inputBox w-1/2 max-sm:w-full">
                             {{ form.email }}
-                            <span>{% trans 'E-pasts' %}</span>
+                            <span class='label-text'>{% trans 'E-pasts' %}</span>
                         </div>
                         <div class="inputBox w-1/2 max-sm:w-full">
                             {{ form.phone_number }}
-                            <span>{% trans 'Telefona numurs' %}</span>
+                            <span class='label-text'>{% trans 'Telefona numurs' %}</span>
                         </div>
                         <div class="inputBox w-full h-32">
                             {{ form.message }}
-                            <span>{% trans 'Raksti savu ziņu šeit...' %}</span>
+                            <span class='label-text'>{% trans 'Raksti savu ziņu šeit...' %}</span>
                         </div>
-                        <div class="inputBox w-full">
-                            <input type="submit" value="{% trans 'Sūtīt' %}">
-                        </div>
+                        <input class='main-btn w-full' type="submit" value="{% trans 'Sūtīt' %}">
                     </div>
                 </form>
             </div>
