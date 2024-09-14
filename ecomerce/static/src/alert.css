@@ -1,0 +1,33 @@
+@layer components {
+  .alert {
+    @apply flex items-center justify-between p-6 mb-6 text-base border rounded-lg dark:bg-gray-800 dark:text-gray-300 w-full sm:w-[90%] mx-auto;
+  }
+
+  .alert-info {
+    @apply text-blue-800 border-blue-300 bg-blue-50 dark:text-blue-400 dark:border-blue-800;
+  }
+
+  .alert-danger {
+    @apply text-red-800 border-red-300 bg-red-50 dark:text-red-400 dark:border-red-800;
+  }
+
+  .alert-success {
+    @apply text-green-800 border-green-300 bg-green-50 dark:text-green-400 dark:border-green-800;
+  }
+
+  .alert-warning {
+    @apply text-yellow-800 border-yellow-300 bg-yellow-50 dark:text-yellow-300 dark:border-yellow-800;
+  }
+
+  .alert-dark {
+    @apply text-gray-800 border-gray-300 bg-gray-50 dark:text-gray-300 dark:border-gray-600;
+  }
+
+  .alert svg {
+    @apply w-5 h-5 flex-shrink-0 mr-2;
+  }
+
+  .alert div {
+    @apply flex-1 text-center;
+  }
+}

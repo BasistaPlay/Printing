@@ -16,7 +16,7 @@ ecomerce/media/
 */__pycache__/*
 
 # Statiskie faili
-ecomerce/static/
+# ecomerce/static/
 ecomerce/staticfiles/
 
 

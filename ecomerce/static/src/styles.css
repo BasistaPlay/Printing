@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .inputBox {
+    @apply relative mb-9 px-2;
+  }
+
+  .inputBox input,
+  .inputBox textarea {
+    @apply w-full resize-none py-1 border-b bg-second-color text-lg text-text-color outline-none;
+  }
+
+  .inputBox textarea {
+    @apply h-36;
+  }
+
+  .inputBox span {
+    @apply absolute left-0 py-1 transition-transform text-lg ml-2;
+  }
+
+  .inputBox input:focus ~ span,
+  .inputBox input:valid ~ span,
+  .inputBox textarea:focus ~ span,
+  .inputBox textarea:valid ~ span {
+    @apply transform -translate-y-5 font-bold text-xs font-normal tracking-tight;
+  }
+
+  .inputBox input[type="submit"] {
+    @apply relative cursor-pointer bg-main-color rounded-3xl p-3 text-white ;
+  }
+
+  .inputBox input[type="submit"]:hover {
+    @apply bg-main-hover-color;
+  }
+
+  .calc{
+    width: calc(100% - 350px);
+  }
+
+  .min-w-auto{
+    min-width: auto;
+  }
+
+  .btn {
+    @apply w-full p-3 bg-main-color text-white rounded-md border-none text-xl font-semibold cursor-pointer transition-transform duration-300 ease-in-out transform;
+
+    /* Papildu stili */
+    @apply shadow-md; /* Pievieno standarta ēnu pogai */
+
+    /* Hover efekti */
+    &:hover {
+      @apply bg-opacity-90 shadow-lg; /* Samazina fona opacitāti un pievieno lielāku ēnu hover laikā */
+    }
+
+    /* Active efekti */
+    &:active {
+      @apply scale-95; /* Samazina pogas izmēru, kad tā ir aktīva */
+    }
+  }
+
+  .star-wrapper {
+    @apply flex justify-center;
+  }
+
+  .star.active svg use {
+    fill: gold;
+    stroke: gold;
+  }
+}

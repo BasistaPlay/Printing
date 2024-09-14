@@ -19,7 +19,7 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 {% endblock %}
 
-{% block body %}
+{% block body_design %}
 <div class="loading-overlay"></div>
 <div class="spinner"></div>
 {% csrf_token %}
@@ -122,7 +122,7 @@
     <div id="upload" class="content" style="display: none;">
         <div class="upload-wrapper">
             <div class="upload-area">
-                <div class="upload-area-svg">
+                <div class="upload-area-svg flex justify-center">
                     <svg width="60" height="60" style="color: var(--text-color);">
                         <use xlink:href="/static/svg/sprite.svg#upload"></use>
                     </svg>

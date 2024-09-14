@@ -6,78 +6,68 @@
     {% trans 'Radošais stūrītis' %}
 {% endblock %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/creativecorner.css' %}" />
-{% endblock %}
-
 {% block body %}
-{% if messages %}
-<div class="message-container">
-  {% for message in messages %}
-    <div class="message {{ message.tags }}">
-      {{ message }}
-      <button onclick="this.parentElement.remove();">&times;</button>
-    </div>
-  {% endfor %}
-</div>
-{% endif %}
+    <div class="message-container"></div>
     <section class="shop w-full">
-            <div class="container">
-        <div>
-            <div id="message-container"></div>
-        </div>
-        <div class="flex justify-center items-center min-h-[100vh]">
-            This is a Tailwind styled boox.fwef
-        </div>
-            <aside class="filter-sidebar">
+        <div class="flex gap-5 p-5 max-md:flex-col">
+            <aside class="w-64 bg-second-color rounded-lg p-5 sticky top-5 z-50 max-md:w-full max-md:mb-5 max-md:relative">
                 <form id="filter-form">
-                    <div class="filter-content">
-                        <div class="form-group">
-                            <label for="search-input">{% trans 'Meklēt:' %}</label>
-                            <input type="text" id="search-input" name="search" placeholder="{% trans 'Meklēt...' %}">
+                    <div class="flex flex-col gap-4">
+                        <div class="mb-4">
+                            <label class='block mb-1 font-bold' for="search-input">{% trans 'Meklēt:' %}</label>
+                            <input class='w-full p-2 rounded box-border bg-input-color text-text-color border border-gray-300 focus:border-main-color focus:outline-none' type="text" id="search-input" name="search" placeholder="{% trans 'Meklēt...' %}">
                         </div>
-                        <div class="form-group">
-                            <label>{% trans 'Krāsas:' %}</label>
-                            <div class="color-options">
+                        <div class="mb-4">
+                            <label class='block mb-1 font-bold'>{% trans 'Krāsas:' %}</label>
+                            <div class="flex gap-3">
                                 <input type="hidden" name="color" id="selected-colors">
                                 {% for color in all_colors %}
-                                    <div class="color-option" data-color-id="{{ color.id }}" style="background-color: {{ color.code }}"></div>
+                                    <div class="w-8 h-8 rounded-full border border-gray-300 cursor-pointer" data-color-id="{{ color.id }}" style="background-color: {{ color.code }}"></div>
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="product-select">{% trans 'Produktu saraksts:' %}</label>
-                            <select id="product-select" name="product_list">
+                        <div class="mb-4">
+                            <label class='block mb-1 font-bold' for="product-select">{% trans 'Produktu saraksts:' %}</label>
+                            <select class='w-full p-2 rounded box-border bg-input-color text-text-color border border-gray-300 focus:border-main-color focus:outline-none' id="product-select" name="product_list">
                                 <option value="">{% trans 'Visi' %}</option>
                                 {% for product in all_products %}
                                     <option value="{{ product.id }}">{{ product.title }}</option>
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>{% trans 'Reitings:' %}</label>
-                            <div id="rating-filter" class="rating-filter">
-                                <span class="star" data-rating="1">
-                                    <svg width="30" height="30" style="fill:grey">
-                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                </svg></span>
-                                <span class="star" data-rating="2"><svg width="30" height="30" style="fill:grey">
-                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                </svg></span>
-                                <span class="star" data-rating="3"><svg width="30" height="30" style="fill:grey">
-                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                </svg></span>
-                                <span class="star" data-rating="4"><svg width="30" height="30" style="fill:grey">
-                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                </svg></span>
-                                <span class="star" data-rating="5"><svg width="30" height="30" style="fill:grey">
-                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                </svg></span>
-                            </div>
+                        <div class="mb-4">
+                            <label class="block mb-1 font-bold">{% trans 'Reitings:' %}</label>
+                                <div id="rating-filter" class="rating-filter flex justify-center">
+                                    <span class="star cursor-pointer" data-rating="1">
+                                        <svg width="30" height="30" class="fill-current text-gray-400">
+                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="star cursor-pointer" data-rating="2">
+                                        <svg width="30" height="30" class="fill-current text-gray-400">
+                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="star cursor-pointer" data-rating="3">
+                                        <svg width="30" height="30" class="fill-current text-gray-400">
+                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="star cursor-pointer" data-rating="4">
+                                        <svg width="30" height="30" class="fill-current text-gray-400">
+                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                        </svg>
+                                    </span>
+                                    <span class="star cursor-pointer" data-rating="5">
+                                        <svg width="30" height="30" class="fill-current text-gray-400">
+                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                        </svg>
+                                    </span>
+                                </div>
                             <input type="hidden" name="rating" id="selected-rating">
                         </div>
-                        <div class="form-group">
-                            <button type="submit" id="filter-button" class="btn btn-primary">{% trans 'Filtrēt' %}</button>
+                        <div class="mb-4">
+                            <button type="submit" id="filter-button" class="btn">{% trans 'Filtrēt' %}</button>
                         </div>
                     </div>
                 </form>
@@ -85,20 +75,20 @@
 
 
 
-            <main class="product-main">
-                <div id="product-container" class="product-container">
+            <main class="flex-1 max-md:ml-0">
+                <div id="product-container" class="grid gap-4 ml-0 grid-cols-[repeat(auto-fill,minmax(200px,1fr))] max-md:grid-cols-[repeat(auto-fill,minmax(100%,1fr))] ">
                     {% for product_list in page_obj %}
-                    <div class="product-box">
+                    <div class="bg-second-color rounded-lg overflow-hidden relative text-center p-3 group">
                         <a href="{% url 'product:detail' user=user product_title=product_list.product.title Designs_id=product_list.id %}">
-                            <div class="product-images">
-                                <img src="{{ product_list.front_image.url }}" alt="{{ product_list.title }}" class="front-image">
-                                <img src="{{ product_list.back_image.url }}" alt="Back Image" class="back-image">
+                            <div class="relative">
+                                <img src="{{ product_list.front_image.url }}" alt="{{ product_list.title }}" class="w-full h-auto transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0">
+                                <img src="{{ product_list.back_image.url }}" alt="Back Image" class="w-full h-auto transition-opacity duration-500 ease-in-out opacity-0 absolute inset-0 group-hover:opacity-100">
                             </div>
-                            <div class="product-info">
-                                <h3 class='title-style'>{{ product_list.title }}</h3>
-                                <div class="star-wrapper">
+                            <div class="p-3">
+                                <h3 class='text-text-color'>{{ product_list.title }}</h3>
+                                <div class="my-3 mx-0 flex justify-center">
                                     {% for starreiting in star_range %}
-                                        <div class='{% if starreiting <= product_list.average_rating %}active{% endif %}'>
+                                        <div class='star {% if starreiting <= product_list.average_rating %}active{% endif %}'>
                                             <span class="star" data-rating="{{ starreiting }}">
                                                 <svg width="30" height="30" style="fill:grey">
                                                     <use xlink:href="/static/svg/sprite.svg#star"></use>
@@ -109,35 +99,35 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="cart">
-                            <a href="#" onclick="AddToCart('{{ product_list.id|safe }}')"><i class="bx bx-cart"></i></a>
+                        <div class="absolute bottom-3 right-3">
+                            <a class='text-main-color text-2xl' href="#" onclick="AddToCart('{{ product_list.id|safe }}')"><i class="bx bx-cart"></i></a>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
 
-                <div class="pagination">
-                    <ul>
+                <div class="my-5 mx-0 text-center">
+                    <ul class='list-none p-0 m-0'>
                         {% if page_obj.has_previous %}
-                            <li><a href="?page=1">&laquo;&laquo;</a></li>
-                            <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                            <li class='inline-block my-0 mx-1'><a class='text-main-color text-lg' href="?page=1">&laquo;&laquo;</a></li>
+                            <li class='inline-block my-0 mx-1'><a class='text-main-color text-lg' href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
                         {% else %}
-                            <li class="disabled"><span>&laquo;&laquo;</span></li>
-                            <li class="disabled"><span>&laquo;</span></li>
+                            <li class="inline-block my-0 mx-1 disabled"><span class='text-text-color'>&laquo;&laquo;</span></li>
+                            <li class="inline-block my-0 mx-1 disabled"><span class='text-text-color'>&laquo;</span></li>
                         {% endif %}
                         {% for num in page_obj.paginator.page_range %}
                             {% if num == page_obj.number %}
-                                <li class="active"><span>{{ num }}</span></li>
+                                <li class="inline-block my-0 mx-1 active"><span class='font-bold'>{{ num }}</span></li>
                             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                                <li><a href="?page={{ num }}">{{ num }}</a></li>
+                                <li class='inline-block my-0 mx-1'><a class='text-main-color text-lg' href="?page={{ num }}">{{ num }}</a></li>
                             {% endif %}
                         {% endfor %}
                         {% if page_obj.has_next %}
-                            <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-                            <li><a href="?page={{ page_obj.paginator.num_pages }}">&raquo;&raquo;</a></li>
+                            <li class='inline-block my-0 mx-1'><a class='text-main-color text-lg' href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                            <li class='inline-block my-0 mx-1'><a class='text-main-color text-lg' href="?page={{ page_obj.paginator.num_pages }}">&raquo;&raquo;</a></li>
                         {% else %}
-                            <li class="disabled"><span>&raquo;</span></li>
-                            <li class="disabled"><span>&raquo;&raquo;</span></li>
+                            <li class="inline-block my-0 mx-1 disabled"><span class='text-text-color'>&raquo;</span></li>
+                            <li class="inline-block my-0 mx-1 disabled"><span class='text-text-color'>&raquo;&raquo;</span></li>
                         {% endif %}
                     </ul>
                 </div>

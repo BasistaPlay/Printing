@@ -1,0 +1,10 @@
+@import './styles.css';
+@import './alert.css';
+@import './base.css';
+@import './login.css';
+@import './profile.css';
+@import './design.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

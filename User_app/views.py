@@ -50,12 +50,12 @@ class LoginView(View):
                     login(request, user)
                     return redirect('homepage')
                 else:
-                    messages.error(request, _('Jūsu e-pasts vēl nav verificēts. Lūdzu, pārbaudiet savu e-pastu.'), extra_tags='login alert-error' )
+                    messages.error(request, _('Jūsu e-pasts vēl nav verificēts. Lūdzu, pārbaudiet savu e-pastu.'), extra_tags='danger login' )
                     return redirect('profile:verify_email')
             else:
-                messages.error(request, _('Nepareizs lietotājvārds vai parole.'), extra_tags='login alert-error')
+                messages.error(request, _('Nepareizs lietotājvārds vai parole.'), extra_tags='danger login')
         else:
-            messages.error(request, _('Lūdzu, pārbaudiet ievadītos datus.'), extra_tags='login alert-error')
+            messages.error(request, _('Lūdzu, pārbaudiet ievadītos datus.'), extra_tags='danger login')
 
         return render(request, self.template_name, context)
 
@@ -86,10 +86,6 @@ class RegisterView(FormView):
         self.request.session['user_email'] = user.email
 
         return super().form_valid(form)
-
-    def form_invalid(self, form):
-        messages.error(self.request, _('Lūdzu, pārbaudiet ievadītos datus.'), extra_tags='register alert-error')
-        return super().form_invalid(form)
 
 
 class ExtraInfoView(LoginRequiredMixin, FormView):
@@ -124,7 +120,7 @@ class EmailVerificationView(FormView):
             user.is_active = True
             user.save()
             verification.save()
-            messages.success(self.request, _('Jūsu e-pasts ir veiksmīgi verificēts.'), extra_tags='eresendverf alert-success')
+            messages.success(self.request, _('Jūsu e-pasts ir veiksmīgi verificēts.'), extra_tags='login alert-success')
             return super().form_valid(form)
         except EmailVerification.DoesNotExist:
             form.add_error('code', _('Nepareizs verifikācijas kods.'))
@@ -238,7 +234,7 @@ class PersonalInfoView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def form_valid(self, form):
-        messages.success(self.request, _('Jūsu personiskā informācija ir atjaunināta.'))
+        messages.success(self.request, _('Jūsu personiskā informācija ir atjaunināta.') , extra_tags='info alert-success')
         return super().form_valid(form)
 
 
@@ -254,7 +250,7 @@ class CustomPasswordChangeView(FormView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, _('Jūsu parole ir veiksmīgi nomainīta.'))
+        messages.success(self.request, _('Jūsu parole ir veiksmīgi nomainīta.'), extra_tags='pass-change alert-success')
         return response
 
 
@@ -267,7 +263,7 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
         user = self.request.user
         if form.cleaned_data['password']:
             user.delete()
-            messages.success(self.request, _('Jūsu konts ir veiksmīgi izdzēsts.'))
+            messages.success(self.request, _('Jūsu konts ir veiksmīgi izdzēsts.'), extra_tags='success login')
             return super().form_valid(form)
         return self.form_invalid(form)
 

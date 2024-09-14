@@ -1,9 +1,14 @@
 {
-  "scripts": {
-    "dev": "npx tailwindcss -i ./ecomerce/static/src/input.css -o .ecomerce/static/src/styles.css --watch"
-  },
+"scripts": {
+  "build:css": "npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css",
+  "build:css:prod": "cross-env NODE_ENV=production npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css",
+  "watch:css": "npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css --watch",
+  "start": "npm run build:css && npm run watch:css",
+  "build": "npm run build:css:prod"
+},
   "devDependencies": {
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10"
   },

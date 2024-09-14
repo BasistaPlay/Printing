@@ -6,30 +6,25 @@
     {% trans 'Personīgā informācija' %}
 {% endblock %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/profile/personal_info_form.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/profile/profile.css' %}" />
-{% endblock %}
-
 {% block content %}
-<div class="card">
+<div class="rounded-lg my-8 mx-auto max-w-[900px] overflow-hidden p-6">
     {% if messages %}
-        <div class="messages">
+        <div class='mb-4'>
             {% for message in messages %}
-                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
-                    {{ message }}
-                </div>
+                {% if 'pass-change' in message.tags %}
+                    {% include 'partials/alert.html' with message=message message_tags=message.tags class='' %}
+                {% endif %}
             {% endfor %}
         </div>
     {% endif %}
-    <div class="card-header">
-        <h2>{% trans 'Personīgā informācija' %}</h2>
+    <div class="mb-4 pb-2 border-b border-gray-200">
+        <h2 class='text-2xl m-0 text-main-color'>{% trans 'Personīgā informācija' %}</h2>
     </div>
-    <div class="card-body">
+    <div class="mt-4">
         <form method="post" action="{% url 'profile:personal_info' %}">
             {% csrf_token %}
-            <div class="form-row">
-                <div class="form-group">
+            <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+                <div class="profile-input flex-1">
                     {{ form.first_name.label_tag }}
                     {{ form.first_name }}
                     {% if form.first_name.errors %}
@@ -38,7 +33,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="profile-input flex-1">
                     {{ form.last_name.label_tag }}
                     {{ form.last_name }}
                     {% if form.last_name.errors %}
@@ -48,8 +43,8 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group {% if form.email.errors %}error{% endif %}">
+            <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+                <div class="profile-input flex-1 {% if form.email.errors %}error{% endif %}">
                     {{ form.email.label_tag }}
                     {{ form.email }}
                     {% if form.email.errors %}
@@ -58,7 +53,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <div class="form-group {% if form.username.errors %}error{% endif %}">
+                <div class="profile-input flex-1 {% if form.username.errors %}error{% endif %}">
                     {{ form.username.label_tag }}
                     {{ form.username }}
                     {% if form.username.errors %}
@@ -68,8 +63,8 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group {% if form.phone_number.errors %}error{% endif %}">
+            <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+                <div class="profile-input flex-1 {% if form.phone_number.errors %}error{% endif %}">
                     {{ form.phone_number.label_tag }}
                     {{ form.phone_number }}
                     {% if form.phone_number.errors %}
@@ -79,10 +74,10 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-CheckBox">
+            <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+                <div class="flex items-center gap-2">
                     {{ form.wants_promotions }}
-                    <label for="{{ form.wants_promotions.id_for_label }}">
+                    <label class='profile-checkbox m-0 text-base cursor-pointer' for="{{ form.wants_promotions.id_for_label }}">
                         {% trans 'Vēlos saņemt jaunumus un piedāvājumus' %}
                     </label>
                 </div>

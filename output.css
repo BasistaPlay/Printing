@@ -624,9 +624,9 @@ video {
   display: table;
 }
 
-.contents {
+/* .contents {
   display: contents;
-}
+} */
 
 .hidden {
   display: none;

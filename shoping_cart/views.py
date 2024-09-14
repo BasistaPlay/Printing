@@ -15,8 +15,8 @@ def cart(request):
     cart_items = request.session.get('cart', {})
     print(cart_items)
     products_with_sizes = []
-    cart = Cart(request)
-    cart.clear()
+    # cart = Cart(request)
+    # cart.clear()
 
     return render(request, 'cart.html', {
         'products_with_sizes': products_with_sizes
@@ -30,7 +30,7 @@ def cart_add(request, id):
             cart = Cart(request)
             cart.add(product_list)
 
-            messages.success(request, _('Prece veiksmīgi pievienota grozam.'))
+            messages.success(request, _('Prece veiksmīgi pievienota grozam.'), extra_tags='success cart')
             return JsonResponse({
                 'success': True,
                 'messages': [m.message for m in messages.get_messages(request)]

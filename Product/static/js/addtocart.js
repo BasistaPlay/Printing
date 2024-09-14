@@ -42,22 +42,24 @@ function AddToCart(design_id) {
 }
 
 function showMessages(messages) {
-    const messageContainer = $('#message-container');
+    const messageContainer = $('.message-container');
 
-    // Tīra iepriekšējos ziņojumus
     messageContainer.empty();
 
     messages.forEach(message => {
-        // Izveido ziņojuma elementu
-        const div = $('<div></div>').addClass('alert').text(message);
+        const div = $('<div></div>').addClass('alert alert-success').text(message);
 
-        // Pievieno ziņojumu lapai
+        if (message.includes('Prece veiksmīgi pievienota grozam')) {
+            div.addClass('alert-success');
+        } else if (message.includes('Prece nav atrasta')) {
+            div.addClass('alert-danger');
+        }
+
         messageContainer.append(div);
 
-        // Noņem ziņojumu pēc noteikta laika (piemēram, 3 sekundes)
-        // setTimeout(() => {
-        //     div.remove();
-        // }, 3000);
+        setTimeout(() => {
+            div.fadeOut(300, function() { $(this).remove(); });
+        }, 3000);
     });
 }
 

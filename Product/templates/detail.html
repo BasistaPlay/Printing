@@ -6,154 +6,150 @@
     {% trans 'Detail' %}
 {% endblock %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/detail.css' %}" />
-{% endblock %}
-
 {% block body %}
-<div class="container-wrapper">
-    <div class="product-container">
-        <div id="success-reiting" class='alert-success' style="display: none;">Reitings veiksmīgi saglabāts!</div>
-        <div class="product-image">
-            <img id="headphoneImage1" class="product-image-item active" src="{{ product.front_image.url }}" alt="Headphones Image 1">
-            <img id="headphoneImage2" class="product-image-item" src="{{ product.back_image.url }}" alt="Headphones Image 2">
+    <div class="relative flex flex-col lg:flex-row bg-second-color p-8 rounded-xl max-w-[1000px] mx-auto mt-36 lg:space-x-8 max-md:mt-8">
+        <div id="success-reiting" class="alert alert-success" style="display: none;">Reitings veiksmīgi saglabāts!</div>
 
-            <div class="arrows">
-                <svg id='prevBtn' width="30" height="30" style="color: var(--main-color);">
-                    <use xlink:href="/static/svg/sprite.svg#left"></use>
-                </svg>
-                <svg id='nextBtn' width="30" height="30" style="color: var(--main-color);">
-                    <use xlink:href="/static/svg/sprite.svg#right"></use>
-                </svg>
+        <div class="relative max-w-[400px] w-full mx-auto lg:mx-0">
+            <div class="relative w-full">
+                <img id="headphoneImage1" class="h-auto rounded-xl w-full shadow-lg active" src="{{ product.front_image.url }}" alt="Headphones Image 1">
+
+                <div class="absolute top-1/2 w-full flex justify-between transform -translate-y-1/2 px-3">
+                    <svg class="cursor-pointer text-gray-600 hover:text-gray-800 transition-colors duration-300" id="prevBtn" width="36" height="36">
+                        <use xlink:href="/static/svg/sprite.svg#left"></use>
+                    </svg>
+                    <svg class="cursor-pointer text-gray-600 hover:text-gray-800 transition-colors duration-300" id="nextBtn" width="36" height="36">
+                        <use xlink:href="/static/svg/sprite.svg#right"></use>
+                    </svg>
+                </div>
             </div>
 
-            <div class="thumbnails">
-                <img class="thumbnail active" data-index="0" src="{{ product.front_image.url }}" alt="Thumbnail 1">
-                <img class="thumbnail" data-index="1" src="{{ product.back_image.url }}" alt="Thumbnail 2">
+            <div class="flex justify-center mt-5 space-x-2">
+                <img class="w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300 active" data-index="0" src="{{ product.front_image.url }}" alt="Thumbnail 1">
+                <img class="w-16 h-16 cursor-pointer opacity-0 transition-opacity duration-300" data-index="1" src="{{ product.back_image.url }}" alt="Thumbnail 2" style="display: none;">
             </div>
         </div>
 
-        <div class="product-info">
-            <h1>{{ product.title }}</h1>
-            <p class="price">{{ product.product.price }} €</p>
-            <div class="rating" data-rating="{{ product.average_rating }}">
+        <div class="mt-12 lg:mt-0 text-center lg:text-left max-w-[600px] w-full mx-auto">
+            <h1 class="text-3xl font-bold text-gray-800 text-text-color mb-4 max-md:text-2xl">{{ product.title }}</h1>
+            <p class="text-2xl text-main-color font-semibold flex items-center justify-center lg:justify-start max-md:text-xl">{{ product.product.price }} €</p>
+            <div class="flex justify-center lg:justify-start items-center mt-2 mb-5 space-x-1" data-rating="{{ product.average_rating }}">
                 {% for star in "12345" %}
                     <span class="star" data-rating="{{ star }}">
-                        <svg width="30" height="30" style="fill: {% if product.rating >= star %}gold{% else %}grey{% endif %}; cursor: pointer;">
+                        <svg width="30" height="30" class="transition-all duration-300" style="fill: {% if product.rating >= star %}gold{% else %}lightgray{% endif %}; cursor: pointer;">
                             <use xlink:href="/static/svg/sprite.svg#star"></use>
                         </svg>
                     </span>
                 {% endfor %}
             </div>
-            <p class="description">{{ product.description }}</p>
-            <a class="add-to-cart" onclick="AddToCart('{{ product.id|safe }}')">Add to Cart</a>
+            <p class="text-base text-gray-600 leading-relaxed mb-6 max-md:text-sm text-text-color">{{ product.description }}</p>
+            <a class="btn" onclick="AddToCart('{{ product.id|safe }}')">Add to Cart</a>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block js %}
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="{% static 'js/addtocart.js' %}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const images = document.querySelectorAll('.product-image-item');
-        const thumbnails = document.querySelectorAll('.thumbnail');
-        const dots = document.querySelectorAll('.indicator-dot');
-        let currentIndex = 0;
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{% static 'js/addtocart.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('.product-image-item');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const dots = document.querySelectorAll('.indicator-dot');
+            let currentIndex = 0;
 
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const successAlert = document.getElementById('success-reiting');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const successAlert = document.getElementById('success-reiting');
 
-        function updateImage(index) {
-            if (!images.length || !thumbnails.length || !dots.length) return;
+            function updateImage(index) {
+                if (!images.length || !thumbnails.length || !dots.length) return;
 
-            images.forEach(img => img.classList.remove('active'));
-            thumbnails.forEach(thumb => thumb.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
+                images.forEach(img => img.classList.remove('active'));
+                thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
 
-            images[index].classList.add('active');
-            thumbnails[index].classList.add('active');
-            dots[index].classList.add('active');
-        }
+                images[index].classList.add('active');
+                thumbnails[index].classList.add('active');
+                dots[index].classList.add('active');
+            }
 
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
-            updateImage(currentIndex);
-            resetSlideshow();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-            updateImage(currentIndex);
-            resetSlideshow();
-        });
-
-        thumbnails.forEach((thumbnail, index) => {
-            thumbnail.addEventListener('click', () => {
-                currentIndex = index;
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
                 updateImage(currentIndex);
                 resetSlideshow();
             });
-        });
 
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentIndex = index;
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
                 updateImage(currentIndex);
                 resetSlideshow();
             });
-        });
 
-        let slideshowInterval = setInterval(() => {
-            currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
-            updateImage(currentIndex);
-        }, 5000);
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateImage(currentIndex);
+                    resetSlideshow();
+                });
+            });
 
-        function resetSlideshow() {
-            clearInterval(slideshowInterval);
-            slideshowInterval = setInterval(() => {
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentIndex = index;
+                    updateImage(currentIndex);
+                    resetSlideshow();
+                });
+            });
+
+            let slideshowInterval = setInterval(() => {
                 currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
                 updateImage(currentIndex);
             }, 5000);
-        }
 
-        const stars = document.querySelectorAll('.star');
-        const ratingElement = document.querySelector('.rating');
+            function resetSlideshow() {
+                clearInterval(slideshowInterval);
+                slideshowInterval = setInterval(() => {
+                    currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+                    updateImage(currentIndex);
+                }, 5000);
+            }
 
-        function updateStarRating(ratingValue) {
-            stars.forEach((star, index) => {
-                star.querySelector('svg').style.fill = (index < ratingValue) ? 'gold' : 'grey';
+            const stars = document.querySelectorAll('.star');
+            const ratingElement = document.querySelector('.rating');
+
+            function updateStarRating(ratingValue) {
+                stars.forEach((star, index) => {
+                    star.querySelector('svg').style.fill = (index < ratingValue) ? 'gold' : 'grey';
+                });
+            }
+
+            function saveRating(productId, ratingValue) {
+                $.post('{% url "product:save_rating" %}', {
+                    'product_id': productId,
+                    'rating': ratingValue,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                }).done(function (response) {
+                    if (successAlert) {
+                        successAlert.style.display = 'block';
+                        setTimeout(() => successAlert.style.display = 'none', 5000);
+                    }
+                    updateStarRating(response.average_rating);
+                }).fail(function (xhr) {
+                    console.error('Kļūda saglabājot reitingu:', xhr.responseText);
+                });
+            }
+
+            stars.forEach(function (star) {
+                star.addEventListener('click', function () {
+                    const ratingValue = this.getAttribute('data-rating');
+                    saveRating('{{ product.id }}', ratingValue);
+                });
             });
-        }
 
-        function saveRating(productId, ratingValue) {
-            $.post('{% url "product:save_rating" %}', {
-                'product_id': productId,
-                'rating': ratingValue,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            }).done(function (response) {
-                if (successAlert) {
-                    successAlert.style.display = 'block';
-                    setTimeout(() => successAlert.style.display = 'none', 5000);
-                }
-                updateStarRating(response.average_rating);
-            }).fail(function (xhr) {
-                console.error('Kļūda saglabājot reitingu:', xhr.responseText);
-            });
-        }
-
-        stars.forEach(function (star) {
-            star.addEventListener('click', function () {
-                const ratingValue = this.getAttribute('data-rating');
-                saveRating('{{ product.id }}', ratingValue);
-            });
+            const initialRating = parseFloat(ratingElement.getAttribute('data-rating'));
+            updateStarRating(initialRating);
         });
 
-        const initialRating = parseFloat(ratingElement.getAttribute('data-rating'));
-        updateStarRating(initialRating);
-    });
-
-</script>
+    </script>
 {% endblock %}
