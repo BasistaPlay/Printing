@@ -20,12 +20,12 @@
 {% endblock %}
 
 {% block body_design %}
+<div class="message-container"></div>
 <div class="loading-overlay"></div>
 <div class="spinner"></div>
 {% csrf_token %}
     <div class="product-card" data-product-id="{{ product.id }}"></div>
     <div id="error-messages" class="error-messages"></div>
-    <div id="success-message" class="success-message"></div>
     <div class="product">
     <div class="image-container" id="front" style="display: block;">
         <div class="boundary" id="boundary-front" style="top: {{ adjusted_front_image_coords.top }}px; margin-left: {{ adjusted_front_image_coords.left }}px; width: {{ adjusted_front_image_coords.width }}px; height: {{ adjusted_front_image_coords.height }}px;"></div>

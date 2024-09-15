@@ -5,7 +5,7 @@ from django import forms
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from ckeditor.widgets import CKEditorWidget
-from User_app.models import ContactMessage, Contact, user, EmailVerification
+from User_app.models import ContactMessage, Contact, user, EmailVerification, FAQ
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 from django.template.loader import render_to_string
@@ -13,6 +13,7 @@ from email.mime.image import MIMEImage
 from home.models import CustomDesign
 import mimetypes
 from django.contrib import messages
+from modeltranslation.admin import TranslationAdmin
 
 
 class ContactMessageAdminForm(forms.ModelForm):
@@ -127,3 +128,22 @@ class CustomUserAdmin(UserAdmin):
         css = {
             'screen': ('modeltranslation/css/tabbed_translation_fields.css',),
         }
+
+
+class FAQAdmin(TranslationAdmin):
+    list_display = ('question', 'created_at', 'updated_at')
+    search_fields = ('question', 'answer')
+    list_filter = ('created_at', 'updated_at')
+    ordering = ('-created_at',)
+
+    class Media:
+        js = [
+            'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js',
+            'https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js',
+            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',
+        ]
+        css = {
+            'all': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+admin.site.register(FAQ, FAQAdmin)

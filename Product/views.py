@@ -221,7 +221,7 @@ class SaveDesignView(LoginRequiredMixin, View):
 
             for text_data in texts:
                 TextList.objects.create(
-                    design_text=new_design,
+                    designs_text=new_design,
                     text=text_data['text'],
                     font=text_data['font_family'],
                     text_size=text_data['font_size'],
@@ -230,7 +230,7 @@ class SaveDesignView(LoginRequiredMixin, View):
 
             images = json.loads(request.POST.get('images'))
             for image_data in images:
-                ImageList.objects.create(design_images=new_design, image=image_data)
+                ImageList.objects.create(designs_images=new_design, image=image_data)
 
             return JsonResponse({'success': True, 'designs_id': new_design.id})
         else:

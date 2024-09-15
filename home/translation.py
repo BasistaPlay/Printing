@@ -3,6 +3,7 @@ from modeltranslation.translator import register, TranslationOptions
 from home.models import CustomDesign
 from Product.models import Product
 from Product.models import Category
+from User_app.models import FAQ
 
 
 @register(Product)
@@ -16,3 +17,7 @@ class CustomDesignTranslationOptions(TranslationOptions):
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):
     fields = ('title',)
+
+@register(FAQ)
+class FAQTranslationOptions(TranslationOptions):
+    fields = ('question', 'answer')

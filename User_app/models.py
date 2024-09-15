@@ -60,3 +60,17 @@ class EmailVerification(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class FAQ(models.Model):
+    question = models.CharField(max_length=255, verbose_name=_("Jautājums"))
+    answer = models.TextField(verbose_name=_("Atbilde"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Izveidots"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Atjaunots"))
+
+    class Meta:
+        ordering = ['created_at']
+        verbose_name = _("Biežāk uzdoto jautājumu")
+        verbose_name_plural = _("Biežāk uzdoto jautājumi")
+
+    def __str__(self):
+        return self.question

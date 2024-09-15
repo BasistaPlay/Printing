@@ -67,9 +67,9 @@ body.dark {
     display: block;
 }
 
-.dropdown:hover .dropbtn {
+/* .dropdown:hover .dropbtn {
     background-color: #38383842;
-}
+} */
 
 .profile-dropdown.show {
     display: block;

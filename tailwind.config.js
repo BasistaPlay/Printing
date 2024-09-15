@@ -34,6 +34,15 @@ module.exports = {
         'input-readonly-color': 'var(--input-readonly-color)',
         'main-hover-color': 'var(--main-hover-color)',
       },
+      animation: {
+        'infinite-scroll': 'infinite-scroll 25s linear infinite',
+      },
+      keyframes: {
+        'infinite-scroll': {
+          from: { transform: 'translateX(-100%)' },
+          to: { transform: 'translateX(0)' },
+        },
+      },
     },
   },
   plugins: [],
