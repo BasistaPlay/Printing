@@ -78,14 +78,14 @@ class Rating(models.Model):
         top_rated_popular_products = Designs.objects.annotate(
             num_ratings=Count('rating'),
             avg_rating=Avg('rating__stars')
-        ).order_by('-num_ratings', '-avg_rating')[:3]
+        ).order_by('-num_ratings', '-avg_rating')[:20]
 
         top_three_products = list(top_rated_popular_products)
-        if len(top_three_products) < 3:
+        if len(top_three_products) < 20:
             return top_three_products
 
         product_cycle = cycle(top_three_products)
-        return [next(product_cycle) for _ in range(3)]
+        return [next(product_cycle) for _ in range(20)]
 
 @receiver(post_save, sender=Rating)
 def update_product_average_rating(sender, instance, **kwargs):

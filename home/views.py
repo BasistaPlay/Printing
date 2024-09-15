@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from home.models import CustomDesign, GiftCode
 from Product.models import Rating, Product
+from User_app.models import FAQ
 from django.utils.translation import gettext as _
 from django.http import JsonResponse
 import os
@@ -10,15 +11,17 @@ from django.conf import settings
 
 def homepage(request):
     products = Product.objects.all()
+    faqs = FAQ.objects.all()
     custom_designs = CustomDesign.objects.first()
     top_rated_popular_products = Rating.get_top_rated_popular_products()
-    popular_products = Product.objects.filter(is_public=True).order_by('-views')[:2]
+    popular_products = Product.objects.filter(is_public=True).order_by('-views')[:20]
 
     context = {
         'custom_designs': custom_designs,
         'popular_products': popular_products,
         'products' : products,
         'products_top': top_rated_popular_products,
+        'faqs': faqs,
     }
 
     return render(request, 'home_page.html', context)

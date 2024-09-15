@@ -160,7 +160,6 @@ $('#buy-button').click(function() {
                     var response = JSON.parse(xhr.responseText);
                     var design_id = response.designs_id;
                     AddToCart(design_id);
-                    displaySuccessMessage('Your order has been successfully saved!');
                 }
             };
             xhr.onerror = function () {
