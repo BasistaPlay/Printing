@@ -104,7 +104,7 @@
 
 <section class="overflow-hidden mt-10">
     <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-main-color">Mūsu produkti!</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Mūsu produkti!" %}</h2>
     </div>
     <div
         x-data="{}"
@@ -135,41 +135,41 @@
                     </svg>
                 </div>
                 <div class="mt-4 text-center">
-                    <h3 class="text-lg md:text-xl font-semibold text-main-color">Kategorija</h3>
+                    <h3 class="text-lg md:text-xl font-semibold text-main-color">{% trans "Kategorija" %}</h3>
                 </div>
             </a>
         </ul>
     </div>
-    <h2 class="text-lg md:text-xl font-bold text-text-color text-center mt-10">Vai meklē savu vēlamo produktu <a href="{% url 'product:all_categories' %}" class='text-main-color text-lg md:text-xl font-extrabold'> kategorija </a></h2>
+    <h2 class="text-lg md:text-xl font-bold text-text-color text-center mt-10">{% trans "Vai meklē savu vēlamo produktu" %} <a href="{% url 'product:all_categories' %}" class='text-main-color text-lg md:text-xl font-extrabold'> {% trans "kategorija" %} </a></h2>
 </section>
 
 <section class="mt-10 md:mt-52">
     <div class="flex flex-col md:flex-row">
         <div class="w-full md:w-1/2 px-6 md:px-8 mb-8 md:mb-0 sticky top-32 self-start max-md:relative">
             <div class="text-center md:text-left mb-8 md:mb-10">
-                <h2 class="text-3xl md:text-4xl lg:text-6xl font-bold text-main-color">Kā izveidot dizainu:</h2>
+                <h2 class="text-3xl md:text-4xl lg:text-6xl font-bold text-main-color">{% trans "Kā izveidot dizainu:" %}</h2>
                 <p class="text-base md:text-lg mt-4 text-text-color">
-                    Izmantojot mūsu rīku, jūs varat ātri un viegli izveidot savu personalizēto dizainu. Sekojiet šiem soļiem, lai iegūtu unikālu dizainu, kas atbilst jūsu vajadzībām.
+                    {% trans "Izmantojot mūsu rīku, jūs varat ātri un viegli izveidot savu personalizēto dizainu. Sekojiet šiem soļiem, lai iegūtu unikālu dizainu, kas atbilst jūsu vajadzībām." %}
                 </p>
             </div>
         </div>
 
         <div class="w-full md:w-1/2 px-6 md:px-8 flex flex-col gap-6 relative">
             <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-10 max-md:relative">
-                <h3 class="text-xl md:text-2xl font-semibold text-main-color">1. Izvēlies produktu</h3>
-                <p class="mt-2 text-text-color">Izvēlieties produktu, kuru vēlaties pielāgot no mūsu plašā klāsta.</p>
+                <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "1. Izvēlies produktu" %}</h3>
+                <p class="mt-2 text-text-color">{% trans "Izvēlieties produktu, kuru vēlaties pielāgot no mūsu plašā klāsta." %}</p>
             </div>
             <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-20 max-md:relative">
-                <h3 class="text-xl md:text-2xl font-semibold text-main-color">2. Izveido savu personālo dizainu</h3>
-                <p class="mt-2 text-text-color">Izmantojiet mūsu dizaina rīku, lai izveidotu savu unikālo dizainu.</p>
+                <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "2. Izveido savu personālo dizainu" %}</h3>
+                <p class="mt-2 text-text-color">{% trans "Izmantojiet mūsu dizaina rīku, lai izveidotu savu unikālo dizainu." %}</p>
             </div>
             <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-30 max-md:relative">
-                <h3 class="text-xl md:text-2xl font-semibold text-main-color">3. Pasūti šo personalu dizainu</h3>
-                <p class="mt-2 text-text-color">Pabeidziet pasūtījumu, un mēs apstrādāsim jūsu personalizēto dizainu.</p>
+                <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "3. Pasūti šo personalu dizainu" %}</h3>
+                <p class="mt-2 text-text-color">{% trans "Pabeidziet pasūtījumu, un mēs apstrādāsim jūsu personalizēto dizainu." %}</p>
             </div>
             <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-40 max-md:relative">
-                <h3 class="text-xl md:text-2xl font-semibold text-main-color">4. Saņem dizainu</h3>
-                <p class="mt-2 text-text-color">Saņemiet savu unikālo dizainu un izbaudiet to.</p>
+                <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "4. Saņem dizainu" %}</h3>
+                <p class="mt-2 text-text-color">{% trans "Saņemiet savu unikālo dizainu un izbaudiet to." %}</p>
             </div>
         </div>
     </div>
@@ -178,9 +178,9 @@
 <section class="py-16 md:py-52 max-md:mt-36">
     <div class="container mx-auto">
         <div class="mb-10 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-main-color">Ieguvumi no savu darbu publicēšanas</h1>
+            <h1 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Ieguvumi no savu darbu publicēšanas" %}</h1>
             <p class="mt-4 text-base md:text-lg text-text-color">
-                Publicējot savu darbu, jūs veidojat iespēju iedvesmot citus un gūt arī praktiskus ieguvumus!
+                {% trans "Publicējot savu darbu, jūs veidojat iespēju iedvesmot citus un gūt arī praktiskus ieguvumus!" %}
             </p>
         </div>
 
@@ -193,9 +193,9 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">Kāpēc publicēt savu darbu?</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Kāpēc publicēt savu darbu?" %}</h2>
                 <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
-                    Daloties ar savu darbu, jūs varat sniegt iedvesmu citiem un veidot saikni ar līdzīgiem radošiem cilvēkiem.
+                    {% trans " Daloties ar savu darbu, jūs varat sniegt iedvesmu citiem un veidot saikni ar līdzīgiem radošiem cilvēkiem." %}
                 </p>
             </div>
 
@@ -207,9 +207,9 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">Mazliet nopelnīt</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Mazliet nopelnīt" %}</h2>
                 <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
-                    Jūs saņemsiet 1 euro digitālajā makā par katru pārdoto preci ar jūsu dizainu, ko varat iztērēt veikalā.
+                    {% trans "  Jūs saņemsiet 1 euro digitālajā makā par katru pārdoto preci ar jūsu dizainu, ko varat iztērēt veikalā." %}
                 </p>
             </div>
 
@@ -221,9 +221,9 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">Digitālais maks</h2>
+                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Digitālais maks" %}</h2>
                 <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
-                    Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai iegādātos citus produktus šajā veikalā.
+                    {% trans "Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai iegādātos citus produktus šajā veikalā." %}
                 </p>
             </div>
         </div>
@@ -232,7 +232,7 @@
 
 <section class="overflow-hidden w-full relative py-10 md:py-16">
     <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-main-color">Lietotāju populārākie dizaini!</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Lietotāju populārākie dizaini!" %}</h2>
     </div>
     <div
         x-data="{}"
@@ -277,7 +277,7 @@
 
 <section class="py-16">
     <div class="container mx-auto p-6 md:p-12 bg-second-color rounded-xl">
-        <h1 class="text-3xl md:text-4xl font-bold text-center text-main-color mb-8 md:mb-12">Biežāk Uzdotie Jautājumi</h1>
+        <h1 class="text-3xl md:text-4xl font-bold text-center text-main-color mb-8 md:mb-12">{% trans "Biežāk Uzdotie Jautājumi" %}</h1>
 
         {% for faq in faqs %}
             <div x-data="{ open: false }" class="border-b border-gray-300 py-4">
