@@ -70,6 +70,12 @@
     @apply flex justify-center;
   }
 
+  .star svg use {
+    fill: grey;
+    stroke: grey;
+  }
+
+
   .star.active svg use {
     fill: gold;
     stroke: gold;
