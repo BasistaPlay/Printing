@@ -93,52 +93,56 @@
     @apply bg-main-color border-main-color
 }
 
+:root {
+  --marquee-width: 80vw;
+  --marquee-height: 20vh;
+  --marquee-elements-displayed: 5;
+  --marquee-element-width: calc(var(--marquee-width) / var(--marquee-elements-displayed));
+  --marquee-animation-duration: calc(var(--marquee-elements) * 3s);
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
   :root {
-    --marquee-width: 80vw;
-    --marquee-height: 20vh;
-    --marquee-elements-displayed: 5;
+    --marquee-width: 95vw;
+    --marquee-elements-displayed: 2; /* Show fewer elements */
     --marquee-element-width: calc(var(--marquee-width) / var(--marquee-elements-displayed));
-    --marquee-animation-duration: calc(var(--marquee-elements) * 3s);
+    --marquee-animation-duration: calc(var(--marquee-elements) * 4s); /* Slow down animation */
   }
+}
 
-  /* Mobile adjustments */
-  @media (max-width: 640px) {
-    :root {
-      --marquee-width: 90vw;
-      --marquee-elements-displayed: 2;
-      --marquee-element-width: calc(var(--marquee-width) / var(--marquee-elements-displayed));
-      --marquee-animation-duration: calc(var(--marquee-elements) * 4s);
-    }
-  }
+.marquee {
+  @apply overflow-hidden relative;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 64px, var(--bg-color) calc(100% - 100px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 64px, var(--bg-color) calc(100% - 100px), transparent 100%);
+}
 
+/* For mobile version of the mask */
+@media (max-width: 640px) {
   .marquee {
-    @apply overflow-hidden relative;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 64px, var(--bg-color) calc(100% - 100px), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 64px, var(--bg-color) calc(100% - 100px), transparent 100%);
-  }
-
-  /* For mobile version of the mask */
-  @media (max-width: 640px) {
-    .marquee {
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 32px, var(--bg-color) calc(100% - 32px), transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 32px, var(--bg-color) calc(100% - 32px), transparent 100%);
-    }
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 16px, var(--bg-color) calc(100% - 16px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 16px, var(--bg-color) calc(100% - 16px), transparent 100%);
   }
 
   .marquee-content {
-    @apply list-none h-full flex;
-    animation: scrolling var(--marquee-animation-duration) linear infinite;
+    @apply flex ml-5;
   }
+}
 
-  .marquee-content li {
-    @apply flex justify-center items-center flex-shrink-0 max-h-full whitespace-nowrap;
-    width: var(--marquee-element-width);
-  }
+.marquee-content {
+  @apply list-none h-full flex;
+  animation: scrolling var(--marquee-animation-duration) linear infinite;
+}
 
-  /* Keyframes remain the same */
-  @keyframes scrolling {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-1 * var(--marquee-element-width) * var(--marquee-elements))); }
-  }
+.marquee-content li {
+  @apply flex justify-center items-center flex-shrink-0 max-h-full whitespace-nowrap;
+  width: var(--marquee-element-width);
+}
+
+@keyframes scrolling {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--marquee-element-width) * var(--marquee-elements))); }
+}
+
 
 }
