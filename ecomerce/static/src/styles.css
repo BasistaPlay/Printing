@@ -92,4 +92,8 @@
   .main-btn:active {
     @apply bg-main-color transition-all duration-150 ease-out;
   }
+
+  .copied {
+    @apply bg-main-color border-main-color
+}
 }

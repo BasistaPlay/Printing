@@ -87,7 +87,7 @@
             {% endfor %}
         </div>
     </section> {% endcomment %}
-    <section class="relative h-auto flex flex-col md:flex-row text-white">
+    <section class="relative h-auto flex flex-col md:flex-row text-white md:pb-16">
         <div class="absolute inset-0 bg-opacity-50 backdrop-blur-sm md:bg-opacity-10 md:backdrop-blur-none z-10"></div>
         <div class="absolute inset-0 w-full h-64 md:relative md:w-1/2 md:h-auto md:order-2  max-md:mb-3">
             <img src="{{ custom_designs.image.url }}" alt="Background Image" class="w-full h-full object-cover md:object-cover md:static opacity-20 filter blur-md md:blur-none md:opacity-100 z-0">
@@ -188,8 +188,8 @@
             <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                 <div class="flex justify-center mb-6">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                        <svg width="20" height="20" class="text-white md:w-25 md:h-25">
-                            <use xlink:href="/static/svg/sprite.svg#facebook"></use>
+                        <svg width="40" height="40" class="text-white md:w-25 md:h-25">
+                            <use xlink:href="/static/svg/sprite.svg#question"></use>
                         </svg>
                     </div>
                 </div>
@@ -202,8 +202,8 @@
             <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                 <div class="flex justify-center mb-6">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                        <svg width="20" height="20" class="text-white md:w-25 md:h-25">
-                            <use xlink:href="/static/svg/sprite.svg#facebook"></use>
+                        <svg width="40" height="40" class="text-white md:w-25 md:h-25">
+                            <use xlink:href="/static/svg/sprite.svg#money"></use>
                         </svg>
                     </div>
                 </div>
@@ -216,8 +216,8 @@
             <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                 <div class="flex justify-center mb-6">
                     <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                        <svg width="20" height="20" class="text-white md:w-25 md:h-25">
-                            <use xlink:href="/static/svg/sprite.svg#facebook"></use>
+                        <svg width="40" height="40" class="text-white md:w-25 md:h-25">
+                            <use xlink:href="/static/svg/sprite.svg#wallet"></use>
                         </svg>
                     </div>
                 </div>
@@ -283,8 +283,8 @@
             <div x-data="{ open: false }" class="border-b border-gray-300 py-4">
                 <h2 @click="open = !open" class="text-lg md:text-xl font-semibold text-main-color cursor-pointer flex justify-between items-center">
                     {{ faq.question }}
-                    <svg x-bind:class="{ 'rotate-180': open }" class="transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    <svg width="25" height="25" x-bind:class="{ 'rotate-180': open }" class="transform transition-transform duration-300" fill="none" >
+                        <use xlink:href="/static/svg/sprite.svg#arrow"></use>
                     </svg>
                 </h2>
                 <p x-show="open" x-transition class="mt-2 text-text-color text-base md:text-lg">

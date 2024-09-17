@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block body %}
+    <div class="max-w-3xl mx-auto p-8 bg-second-color rounded-lg shadow-lg border border-gray-200 max-sm:mx-5">
+        <div class="text-center mb-8">
+            <svg width="100" height="100" class="mx-auto mb-4 text-green-500">
+                <use xlink:href="/static/svg/sprite.svg#succesful"></use>
+            </svg>
+
+            <h2 class="text-3xl font-semibold text-text-color mb-4">{% trans "Paldies par jūsu pasūtījumu!" %}</h2>
+            <p class="text-lg text-text-color">{% trans "Jūsu maksājuma procesa apstiprinājums ir saņemts. Kad mēs apstiprināsim jūsu apmaksu, mēs nosūtīsim apstiprinājuma e-pastu uz jūsu norādīto adresi." %}</p>
+        </div>
+
+        <div class="bg-input-color p-6 rounded-lg border border-gray-300 mb-6">
+            <h3 class="text-xl font-semibold text-text-color mb-4">{% trans "Ko darīt tālāk?" %}</h3>
+            <p class="text-text-color">{% trans "Lūdzu, pārliecinieties, ka jūsu e-pasta adrese ir pareiza un sekojiet līdzi mūsu e-pastiem, lai saņemtu jaunāko informāciju par jūsu pasūtījumu. Ja jums ir jautājumi vai nepieciešama palīdzība, lūdzu, sazinieties ar mūsu klientu atbalsta dienestu." %}</p>
+            <p class="text-text-color mt-4">{% trans "Svarīgi! Jūs nevarēsiet veikt turpmākus pasūtījumus ar šo maksājuma metodi, kamēr mēs neapstiprināsim jūsu pašreizējo maksājumu." %}</p>
+        </div>
+
+        <div class="text-center">
+            <a href="{% url 'homepage' %}" class="inline-block bg-main-color hover:bg-main-color-dark text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105">{% trans "Atgriezties sākumlapā" %}</a>
+        </div>
+    </div>
+{% endblock %}

@@ -14,7 +14,8 @@ from User_app.forms import (LoginForm, RegistrationForm, ContactForm, PersonalIn
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView, UpdateView
 from User_app.models import ContactMessage, Contact
-from home.models import Purchase, CustomDesign
+from home.models import CustomDesign
+from payments.models import Purchase
 from .models import EmailVerification
 from User_app.utils import generate_verification_code, send_verification_email
 from email.mime.image import MIMEImage
