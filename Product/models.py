@@ -4,10 +4,11 @@ from django.utils.translation import gettext as _
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Q
 from itertools import cycle
 from django.utils.text import slugify
 from django.apps import apps
+from datetime import datetime
 
 
 class Category(models.Model):
@@ -75,17 +76,38 @@ class Rating(models.Model):
     @staticmethod
     def get_top_rated_popular_products():
         Designs = apps.get_model('design', 'Designs')
-        top_rated_popular_products = Designs.objects.annotate(
+        Product = apps.get_model('Product', 'Product')
+
+        first_day_of_month = datetime.now().replace(day=1)
+
+        recent_public_products = Designs.objects.filter(
+            publish_product=True,
+            product__is_public=True,
+            created_at__gte=first_day_of_month
+        ).annotate(
             num_ratings=Count('rating'),
             avg_rating=Avg('rating__stars')
         ).order_by('-num_ratings', '-avg_rating')[:20]
 
-        top_three_products = list(top_rated_popular_products)
-        if len(top_three_products) < 20:
-            return top_three_products
+        if len(recent_public_products) < 20:
+            older_public_products = Designs.objects.filter(
+                publish_product=True,
+                product__is_public=True,
+                created_at__lt=first_day_of_month
+            ).annotate(
+                num_ratings=Count('rating'),
+                avg_rating=Avg('rating__stars')
+            ).order_by('-num_ratings', '-avg_rating')
 
-        product_cycle = cycle(top_three_products)
-        return [next(product_cycle) for _ in range(20)]
+            remaining_slots = 20 - len(recent_public_products)
+            recent_public_products = list(recent_public_products) + list(older_public_products[:remaining_slots])
+
+        top_products = list(recent_public_products)
+        if len(top_products) < 20:
+            product_cycle = cycle(top_products)
+            return [next(product_cycle) for _ in range(20)]
+
+        return top_products
 
 @receiver(post_save, sender=Rating)
 def update_product_average_rating(sender, instance, **kwargs):

@@ -195,7 +195,6 @@ class SaveDesignView(LoginRequiredMixin, View):
             publish_product = request.POST.get('publish_product') == 'true'
             product_color_name = request.POST.get('product_color')
             product_title = request.POST.get('product_title')
-            product_description = request.POST.get('product_description')
             front_image_base64 = request.POST.get('front_image')
             back_image_base64 = request.POST.get('back_image')
 
@@ -212,7 +211,6 @@ class SaveDesignView(LoginRequiredMixin, View):
                 publish_product=publish_product,
                 product_color=product_color,
                 title=product_title,
-                description=product_description,
                 front_image=front_image_file,
                 back_image=back_image_file,
             )

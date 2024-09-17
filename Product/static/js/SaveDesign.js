@@ -79,8 +79,7 @@ $('#buy-button').click(function() {
     var publishCheckbox = $('#publish-checkbox').is(":checked");
     var activeColor = $('.color-select.active-color').attr('data-color-name');
     var productSlug = $('#product-slug').val();
-    var title = $('#title-input').val();
-    var description = $('#description-input').val();
+    var title = $('#title-input').val() || '';
 
     var errorHtml = '';
 
@@ -91,10 +90,6 @@ $('#buy-button').click(function() {
     if (publishCheckbox) {
         if (!title.trim()) {
             errorHtml += '<p>' + 'Title is required' + '</p>';
-        }
-
-        if (!description.trim()) {
-            errorHtml += '<p>' + 'Description is required' + '</p>';
         }
     }
 
@@ -135,7 +130,6 @@ $('#buy-button').click(function() {
     formData.append('product_color', activeColor);
     formData.append('product_slug', productSlug);
     formData.append('product_title', title);
-    formData.append('product_description', description);
     formData.append('images', JSON.stringify(images));
     formData.append('texts', JSON.stringify(texts));
 

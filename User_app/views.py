@@ -202,7 +202,6 @@ class ContactUsView(View):
             email = EmailMultiAlternatives(subject, text_content, from_email, to_email)
             email.attach_alternative(email_content, "text/html")
 
-            # Pievieno logotipu kā inline attēlu
             custom_design = CustomDesign.objects.first()
             if custom_design and custom_design.image:
                 with open(custom_design.image.path, 'rb') as img:
