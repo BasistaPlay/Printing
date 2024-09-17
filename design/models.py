@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext as _
 from django.conf import settings
 from django.apps import apps
+from django.utils import timezone
 
 class Designs(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -12,8 +13,8 @@ class Designs(models.Model):
     product_color = models.ForeignKey('product_details.Color', on_delete=models.CASCADE, null=True)
     product = models.ForeignKey('Product.Product', on_delete=models.CASCADE, null=False)
     title = models.CharField(max_length=255, blank=True)
-    description = models.TextField(blank=True)
     average_rating = models.FloatField(default=0)
+    created_at = models.DateTimeField(default=timezone.now)
 
     def update_average_rating(self):
         Rating = apps.get_model('Product', 'Rating')

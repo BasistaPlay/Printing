@@ -82,25 +82,29 @@
             </div>
             <div class="relative inline-block">
                 <div class="dropdown">
-                    <button class="bg-transparent text-text-color p-3 text-base cursor-pointer flex items-center space-x-2">
+                    <button class="bg-transparent text-text-color p-3 text-base cursor-pointer flex items-center space-x-2 transition-all duration-200">
                         <img class='h-5' src="{% if LANGUAGE_CODE == 'lv' %}{% static 'img/lv-flag.png' %}{% else %}{% static 'img/en-flag.png' %}{% endif %}" alt="{% if LANGUAGE_CODE == 'lv' %}Latvian{% else %}English{% endif %}">
                         <i class="fa fa-caret-down"></i>
                     </button>
-                    <div class="dropdown-content hidden absolute bg-[#f9f9f9] border border-gray-300 rounded-lg shadow-lg top-full left-0 mt-1 w-48 z-10">
-                        <form id="language-form" class="flex flex-col" action="{% url 'set_language' %}" method="post">
+
+                    <div class="dropdown-content absolute bg-second-color rounded-lg shadow-lg w-48 z-10 hidden group origin-top-right right-0">
+                        <form id="language-form" class="flex flex-col bg-second-color rounded-lg shadow-lg" action="{% url 'set_language' %}" method="post">
                             {% csrf_token %}
-                            <button class="bg-[#e2e2e2] text-[#333] px-4 py-3 text-left w-full border-none cursor-pointer hover:bg-[#d0d0d0] flex items-center" type="submit" name="language" value="lv">
+                            <button class="flex items-center space-x-2 px-4 py-2 text-left w-full rounded-lg border-none cursor-pointer hover:bg-hover-color transition-colors duration-200" type="submit" name="language" value="lv">
                                 <img class="h-5 mr-3" src="{% static 'img/lv-flag.png' %}" alt="Latvian">
-                                Latviešu
+                                <span>Latviešu</span>
                             </button>
-                            <button class="bg-[#e2e2e2] text-[#333] px-4 py-3 text-left w-full border-none cursor-pointer hover:bg-[#d0d0d0] flex items-center" type="submit" name="language" value="en">
+                            <button class="flex items-center space-x-2 px-4 py-2 text-left rounded-lg w-full border-none cursor-pointer hover:bg-hover-color transition-colors duration-200" type="submit" name="language" value="en">
                                 <img class="h-5 mr-3" src="{% static 'img/en-flag.png' %}" alt="English">
-                                English
+                                <span>English</span>
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
     </header>
 

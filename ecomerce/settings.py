@@ -150,7 +150,7 @@ AUTH_USER_MODEL = 'User_app.user'
 
 LANGUAGE_CODE = 'lv-lv'
 
-TIME_ZONE = 'Etc/GMT+2'
+TIME_ZONE = 'Europe/Riga'
 
 USE_I18N = True
 

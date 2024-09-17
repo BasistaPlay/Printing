@@ -12,82 +12,7 @@
 {% endblock %}
 
 {% block body %}
-{% comment %}
-    <section class="hero">
-        <div class="hero-text">
-            <h1>{{ custom_designs.title }}</h1>
-            <h4>{{ custom_designs.description }}</h4>
-            <p>{{ custom_designs.additional_notes }}</p>
-            <div class="hero-in">
-                {% for product in popular_products %}
-                    <a class="box" href="{% url 'product:design_detail' slug=product.slug %}">
-                        <h3>{{ product.title }}</h3>
-                        <img src="{{ product.image.url }}" alt="Image">
-                        <i class="{{ product.category_icon }}"></i>
-                    </a>
-                {% endfor %}
-
-                <div class="categories-button">
-                    <a href="{% url 'product:all_categories' %}" class="btn">{% trans 'Kategorijas' %}</a>
-                </div>
-            </div>
-        </div>
-        <div class="hero-img">
-            <img src="{{ custom_designs.image.url }}" alt="Image">
-        </div>
-    </section>
-
-    <section class="pricing">
-        {% for product in products %}
-            <div class="card-wrapper">
-                <div class="card-header">
-                    <img src="{{ product.image.url }}" alt="">
-                    <h2>{{ product.title }}</h2>
-                </div>
-                <div class="card-detail">
-                    {% for option in product.get_options_list %}
-                        <p>
-                            <svg width="20" height="20" style="color: var(--main-color); position: relative; top:5px;">
-                                <use xlink:href="/static/svg/sprite.svg#check"></use>
-                            </svg>
-                        <b class="text">{{ option }}</b></span></p>
-                    {% endfor %}
-                </div>
-                <div class="card-price">
-                    <p>{{ product.price }}<sup> €</sup></p>
-                </div>
-                <form action="{% url 'product:design_detail' slug=product.slug %}" method="get">
-                    <button type="submit" class="card-button">Izveido dizaunu</button>
-                </form>
-            </div>
-        {% endfor %}
-    </section>
-
-    <section class="top-products">
-        <div class="top-products-header">
-            <h1>{% trans 'Top 3 pirktākie Produkti' %}</h1>
-        </div>
-        <div class="product-container">
-            {% for product in products_top %}
-            <div class="product" id="product{{ forloop.counter }}">
-                <a href="">
-                    <img src="{{ product.front_image.url }}" alt="{{ product.title }}">
-                    <h3>{{ product.title }}</h3>
-                    <div class="star-wrapper">
-                        {% for _ in "54321"|make_list %}
-                            {% if forloop.counter <= product.average_rating %}
-                                <a class="fas fa-star s{{ forloop.counter }} active"></a>
-                            {% else %}
-                                <a class="fas fa-star s{{ forloop.counter }}"></a>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-    </section> {% endcomment %}
-    <section class="relative h-auto flex flex-col md:flex-row text-white md:pb-16">
+    <section class="relative h-auto flex flex-col md:flex-row text-white md:pb-16 px-[12%]">
         <div class="absolute inset-0 bg-opacity-50 backdrop-blur-sm md:bg-opacity-10 md:backdrop-blur-none z-10"></div>
         <div class="absolute inset-0 w-full h-64 md:relative md:w-1/2 md:h-auto md:order-2  max-md:mb-3">
             <img src="{{ custom_designs.image.url }}" alt="Background Image" class="w-full h-full object-cover md:object-cover md:static opacity-20 filter blur-md md:blur-none md:opacity-100 z-0">
@@ -102,48 +27,43 @@
     </section>
 
 
-<section class="overflow-hidden mt-10">
+<section class="overflow-hidden mt-10 px-[12%]">
     <div class="text-center mb-10">
         <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Mūsu produkti!" %}</h2>
     </div>
-    <div
-        x-data="{}"
-        x-init="$nextTick(() => {
-            let ul = $refs.logos;
-            ul.insertAdjacentHTML('afterend', ul.outerHTML);
-            ul.nextSibling.setAttribute('aria-hidden', 'true');
-        })"
-        class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
-    >
-        <ul x-ref="logos" class="flex items-center animate-infinite-scroll gap-4 md:gap-5">
+    <div class="marquee">
+        <ul class="marquee-content">
             {% for product in products %}
-                <a href="{% url 'product:design_detail' slug=product.slug %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <li>
+                    <a href="{% url 'product:design_detail' slug=product.slug %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                        <div class="relative w-full h-40 md:h-48 overflow-hidden flex justify-center items-center">
+                            <img src="{{ product.image.url }}" alt="{{ product.title }}" class="object-cover h-full transition-transform duration-300 hover:scale-110">
+                        </div>
+                        <div class="mt-4 text-center">
+                            <h3 class="text-lg md:text-xl font-semibold text-main-color">{{ product.title }}</h3>
+                            <p class="text-text-color font-bold mt-2">{{ product.price }}€</p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+            <li>
+                <a href="{% url 'product:all_categories' %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                     <div class="relative w-full h-40 md:h-48 overflow-hidden flex justify-center items-center">
-                        <img src="{{ product.image.url }}" alt="{{ product.title }}" class="object-cover h-full transition-transform duration-300 hover:scale-110">
+                        <svg id="menu-icon-svg" width="40" height="40" style="fill: var(--text-color);">
+                            <use xlink:href="/static/svg/sprite.svg#menu"></use>
+                        </svg>
                     </div>
                     <div class="mt-4 text-center">
-                        <h3 class="text-lg md:text-xl font-semibold text-main-color">{{ product.title }}</h3>
-                        <p class="text-text-color font-bold mt-2">{{ product.price }}€</p>
+                        <h3 class="text-lg md:text-xl font-semibold text-main-color">{% trans "Kategorija" %}</h3>
                     </div>
                 </a>
-            {% endfor %}
-
-            <a href="{% url 'product:all_categories' %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <div class="relative w-full h-40 md:h-48 overflow-hidden flex justify-center items-center">
-                    <svg id="menu-icon-svg" width="40" height="40" style="fill: var(--text-color);">
-                        <use xlink:href="/static/svg/sprite.svg#menu"></use>
-                    </svg>
-                </div>
-                <div class="mt-4 text-center">
-                    <h3 class="text-lg md:text-xl font-semibold text-main-color">{% trans "Kategorija" %}</h3>
-                </div>
-            </a>
+            </li>
         </ul>
     </div>
     <h2 class="text-lg md:text-xl font-bold text-text-color text-center mt-10">{% trans "Vai meklē savu vēlamo produktu" %} <a href="{% url 'product:all_categories' %}" class='text-main-color text-lg md:text-xl font-extrabold'> {% trans "kategorija" %} </a></h2>
 </section>
 
-<section class="mt-10 md:mt-52">
+<section class="mt-10 md:mt-52 px-[12%]">
     <div class="flex flex-col md:flex-row">
         <div class="w-full md:w-1/2 px-6 md:px-8 mb-8 md:mb-0 sticky top-32 self-start max-md:relative">
             <div class="text-center md:text-left mb-8 md:mb-10">
@@ -175,7 +95,7 @@
     </div>
 </section>
 
-<section class="py-16 md:py-52 max-md:mt-36">
+<section class="py-16 md:py-52 max-md:mt-36 px-[12%]">
     <div class="container mx-auto">
         <div class="mb-10 text-center">
             <h1 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Ieguvumi no savu darbu publicēšanas" %}</h1>
@@ -230,7 +150,7 @@
     </div>
 </section>
 
-<section class="overflow-hidden w-full relative py-10 md:py-16">
+<section class="overflow-hidden w-full relative py-10 md:py-16 px-[12%]">
     <div class="text-center mb-10">
         <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Lietotāju populārākie dizaini!" %}</h2>
     </div>
@@ -245,7 +165,7 @@
     >
         <ul x-ref="logos" class="flex items-center justify-center md:justify-start [&_li]:mx-4 md:[&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
         {% for product in products_top %}
-            <a class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl mr-4 md:mr-5">
+            <a href="{% url 'product:detail' user='user_value' product_title=product.title Designs_id=product.id %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl mr-4 md:mr-5">
                 <div class="relative w-full h-36 md:h-48 overflow-hidden flex justify-center items-center">
                     <img src="{{ product.front_image.url }}" alt="{{ product.title }}" class="object-cover h-full transition-transform duration-300 hover:scale-110">
                 </div>
@@ -275,7 +195,7 @@
     </div>
 </section>
 
-<section class="py-16">
+<section class="py-16 px-[12%]">
     <div class="container mx-auto p-6 md:p-12 bg-second-color rounded-xl">
         <h1 class="text-3xl md:text-4xl font-bold text-center text-main-color mb-8 md:mb-12">{% trans "Biežāk Uzdotie Jautājumi" %}</h1>
 

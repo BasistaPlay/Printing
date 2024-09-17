@@ -79,15 +79,15 @@ class ImageListInline(admin.TabularInline):
 
 class DesignsAdmin(admin.ModelAdmin):
     list_display = ['id', 'product', 'author', 'publish_product', 'allow_publish', 'average_rating']
-    readonly_fields = ['product', 'author', 'publish_product', 'back_image', 'product_color', 'display_product_color', 'average_rating', 'display_front_image', 'display_back_image', 'download_button_front', 'download_button_back']
+    readonly_fields = ['product', 'author', 'publish_product', 'back_image', 'product_color', 'display_product_color', 'average_rating', 'display_front_image', 'display_back_image', 'download_button_front', 'download_button_back', 'created_at']
     search_fields = ['author__username', 'id']
     list_filter = ['product', 'publish_product']
     fieldsets = (
         (None, {
-            'fields': ('product', 'author', 'publish_product', 'allow_publish')
+            'fields': ('product', 'author', 'publish_product', 'allow_publish', 'created_at')
         }),
         ('Product Information', {
-            'fields': ('title', 'description', 'product_color', 'display_product_color', 'average_rating')
+            'fields': ('title', 'product_color', 'display_product_color', 'average_rating')
         }),
         ('Product Images', {
             'fields': ('display_front_image','download_button_front', 'display_back_image', 'download_button_back'),
