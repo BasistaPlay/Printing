@@ -12,8 +12,6 @@ from design.models import Designs
 from django.contrib import messages
 
 def cart(request):
-    cart_items = request.session.get('cart', {})
-    print(cart_items)
     products_with_sizes = []
     # cart = Cart(request)
     # cart.clear()

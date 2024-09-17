@@ -10,6 +10,8 @@ module.exports = {
     './shoping_cart/templates/**/*.html',
     './User_app/templates/**/*.html',
     './User_app/templates/*.html',
+    './payments/templates/**/*.html',
+    './payments/templates/*.html',
     './ecommerce/static/src/**/*.js',
     './static/**/*.js', // Only your own JavaScript files
     './static/**/*.css',

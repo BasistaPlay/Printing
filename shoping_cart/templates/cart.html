@@ -75,12 +75,12 @@
                         </svg>
                         Interneta banka
                     </button>
-                    <button class="flex items-center justify-center w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all">
+                    <a href="{% url 'payments:bank_details' %}" class="flex items-center justify-center w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all">
                         <svg width="20" height="20" fill="currentColor" class="mr-2">
                             <use xlink:href="/static/svg/sprite.svg#bank"></use>
                         </svg>
                         Bankas pārskaitījums
-                    </button>
+                    </a>
                     <button class="flex items-center justify-center w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-all">
                         <svg width="20" height="20" fill="currentColor" class="mr-2">
                             <use xlink:href="/static/svg/sprite.svg#apple"></use>

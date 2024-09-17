@@ -17,11 +17,11 @@
     }
 
     .base-page-btn {
-        @apply inline-flex items-center justify-center px-6 py-2.5 text-white bg-[var(--main-color)] text-sm font-medium rounded-lg border-2 border-[var(--main-color)] mr-5 transition-all duration-500 ease-in-out;
+        @apply inline-flex items-center justify-center px-6 py-2.5 text-white bg-main-color text-sm font-medium rounded-lg border-2 border-main-color mr-5 transition-all duration-500 ease-in-out;
     }
 
     .base-page-btn svg {
-        @apply mr-2.5 fill-[var(--text-color)];
+        @apply mr-2.5 fill-text-color;
     }
 
     .base-page-btn i {
@@ -37,7 +37,7 @@
     }
 
     #cart-count {
-        @apply absolute -top-4 -right-4 rounded-full bg-[var(--main-color)] text-white flex items-center justify-center w-5 h-5 text-xs text-center;
+        @apply absolute top-7 right-36 rounded-full bg-main-color text-white flex items-center justify-center w-5 h-5 text-xs text-center;
     }
 
 
