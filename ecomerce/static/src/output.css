@@ -818,10 +818,12 @@ video {
 
 @media (max-width: 640px) {
   :root {
-    --marquee-width: 90vw;
+    --marquee-width: 95vw;
     --marquee-elements-displayed: 2;
+    /* Show fewer elements */
     --marquee-element-width: calc(var(--marquee-width) / var(--marquee-elements-displayed));
     --marquee-animation-duration: calc(var(--marquee-elements) * 4s);
+    /* Slow down animation */
   }
 }
 
@@ -836,8 +838,13 @@ video {
 
 @media (max-width: 640px) {
   .marquee {
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 32px, var(--bg-color) calc(100% - 32px), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 32px, var(--bg-color) calc(100% - 32px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 16px, var(--bg-color) calc(100% - 16px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, var(--bg-color) 16px, var(--bg-color) calc(100% - 16px), transparent 100%);
+  }
+
+  .marquee-content{
+    margin-left: 1.25rem;
+    display: flex;
   }
 }
 
@@ -857,8 +864,6 @@ video {
   white-space: nowrap;
   width: var(--marquee-element-width);
 }
-
-/* Keyframes remain the same */
 
 @keyframes scrolling {
   0% {
