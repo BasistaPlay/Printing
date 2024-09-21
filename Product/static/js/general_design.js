@@ -110,4 +110,27 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
         }
     });
+
+    window.onload = function() {
+        const frontImg = document.getElementById('front-img');
+        const boundary = document.getElementById('boundary-front');
+
+        // Funkcija, lai atjauninātu boundary
+        function updateBoundary() {
+            const imgRect = frontImg.getBoundingClientRect();
+
+            // Iestata boundary izmērus un pozīciju
+            boundary.style.top = `${imgRect.top}px`;
+            boundary.style.left = `${imgRect.left}px`;
+            boundary.style.width = `${imgRect.width}px`;
+            boundary.style.height = `${imgRect.height}px`;
+            boundary.style.position = 'absolute'; // Fiksēto pozīciju
+        }
+
+        // Atjaunina boundary, kad logs tiek pārslogots
+        window.addEventListener('resize', updateBoundary);
+
+        // Pirmā inicializācija
+        updateBoundary();
+    };
 });

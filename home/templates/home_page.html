@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block body %}
+<div class='mt-32'>
     <section class="relative h-auto flex flex-col md:flex-row text-white md:pb-16 px-[12%]">
         <div class="absolute inset-0 bg-opacity-50 backdrop-blur-sm md:bg-opacity-10 md:backdrop-blur-none z-10"></div>
         <div class="absolute inset-0 w-full h-64 md:relative md:w-1/2 md:h-auto md:order-2  max-md:mb-3">
@@ -27,194 +28,194 @@
     </section>
 
 
-<section class="overflow-hidden mt-10 px-[12%]">
-    <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Mūsu produkti!" %}</h2>
-    </div>
-    <div class="marquee">
-        <ul class="marquee-content">
-            {% for product in products %}
+    <section class="overflow-hidden mt-10 px-[12%]">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Mūsu produkti!" %}</h2>
+        </div>
+        <div class="marquee">
+            <ul class="marquee-content">
+                {% for product in products %}
+                    <li>
+                        <a href="{% url 'product:design_detail' slug=product.slug %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                            <div class="relative w-full h-40 md:h-48 overflow-hidden flex justify-center items-center">
+                                <img src="{{ product.image.url }}" alt="{{ product.title }}" class="object-cover h-full transition-transform duration-300 hover:scale-110">
+                            </div>
+                            <div class="mt-4 text-center">
+                                <h3 class="text-lg md:text-xl font-semibold text-main-color">{{ product.title }}</h3>
+                                <p class="text-text-color font-bold mt-2">{{ product.price }}€</p>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
                 <li>
-                    <a href="{% url 'product:design_detail' slug=product.slug %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                    <a href="{% url 'product:all_categories' %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                         <div class="relative w-full h-40 md:h-48 overflow-hidden flex justify-center items-center">
-                            <img src="{{ product.image.url }}" alt="{{ product.title }}" class="object-cover h-full transition-transform duration-300 hover:scale-110">
+                            <svg id="menu-icon-svg" width="40" height="40" style="fill: var(--text-color);">
+                                <use xlink:href="/static/svg/sprite.svg#menu"></use>
+                            </svg>
                         </div>
                         <div class="mt-4 text-center">
-                            <h3 class="text-lg md:text-xl font-semibold text-main-color">{{ product.title }}</h3>
-                            <p class="text-text-color font-bold mt-2">{{ product.price }}€</p>
+                            <h3 class="text-lg md:text-xl font-semibold text-main-color">{% trans "Kategorija" %}</h3>
                         </div>
                     </a>
                 </li>
-            {% endfor %}
-            <li>
-                <a href="{% url 'product:all_categories' %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                    <div class="relative w-full h-40 md:h-48 overflow-hidden flex justify-center items-center">
-                        <svg id="menu-icon-svg" width="40" height="40" style="fill: var(--text-color);">
-                            <use xlink:href="/static/svg/sprite.svg#menu"></use>
-                        </svg>
+            </ul>
+        </div>
+        <h2 class="text-lg md:text-xl font-bold text-text-color text-center mt-10">{% trans "Vai meklē savu vēlamo produktu" %} <a href="{% url 'product:all_categories' %}" class='text-main-color text-lg md:text-xl font-extrabold'> {% trans "kategorija" %} </a></h2>
+    </section>
+
+    <section class="mt-10 md:mt-52 px-[12%]">
+        <div class="flex flex-col md:flex-row">
+            <div class="w-full md:w-1/2 px-6 md:px-8 mb-8 md:mb-0 sticky top-32 self-start max-md:relative">
+                <div class="text-center md:text-left mb-8 md:mb-10">
+                    <h2 class="text-3xl md:text-4xl lg:text-6xl font-bold text-main-color">{% trans "Kā izveidot dizainu:" %}</h2>
+                    <p class="text-base md:text-lg mt-4 text-text-color">
+                        {% trans "Izmantojot mūsu rīku, jūs varat ātri un viegli izveidot savu personalizēto dizainu. Sekojiet šiem soļiem, lai iegūtu unikālu dizainu, kas atbilst jūsu vajadzībām." %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="w-full md:w-1/2 px-6 md:px-8 flex flex-col gap-6 relative">
+                <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-10 max-md:relative">
+                    <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "1. Izvēlies produktu" %}</h3>
+                    <p class="mt-2 text-text-color">{% trans "Izvēlieties produktu, kuru vēlaties pielāgot no mūsu plašā klāsta." %}</p>
+                </div>
+                <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-20 max-md:relative">
+                    <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "2. Izveido savu personālo dizainu" %}</h3>
+                    <p class="mt-2 text-text-color">{% trans "Izmantojiet mūsu dizaina rīku, lai izveidotu savu unikālo dizainu." %}</p>
+                </div>
+                <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-30 max-md:relative">
+                    <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "3. Pasūti šo personalu dizainu" %}</h3>
+                    <p class="mt-2 text-text-color">{% trans "Pabeidziet pasūtījumu, un mēs apstrādāsim jūsu personalizēto dizainu." %}</p>
+                </div>
+                <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-40 max-md:relative">
+                    <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "4. Saņem dizainu" %}</h3>
+                    <p class="mt-2 text-text-color">{% trans "Saņemiet savu unikālo dizainu un izbaudiet to." %}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-52 max-md:mt-36 px-[12%]">
+        <div class="container mx-auto">
+            <div class="mb-10 text-center">
+                <h1 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Ieguvumi no savu darbu publicēšanas" %}</h1>
+                <p class="mt-4 text-base md:text-lg text-text-color">
+                    {% trans "Publicējot savu darbu, jūs veidojat iespēju iedvesmot citus un gūt arī praktiskus ieguvumus!" %}
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                            <svg width="40" height="40" class="text-white md:w-25 md:h-25">
+                                <use xlink:href="/static/svg/sprite.svg#question"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Kāpēc publicēt savu darbu?" %}</h2>
+                    <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
+                        {% trans " Daloties ar savu darbu, jūs varat sniegt iedvesmu citiem un veidot saikni ar līdzīgiem radošiem cilvēkiem." %}
+                    </p>
+                </div>
+
+                <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                            <svg width="40" height="40" class="text-white md:w-25 md:h-25">
+                                <use xlink:href="/static/svg/sprite.svg#money"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Mazliet nopelnīt" %}</h2>
+                    <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
+                        {% trans "  Jūs saņemsiet 1 euro digitālajā makā par katru pārdoto preci ar jūsu dizainu, ko varat iztērēt veikalā." %}
+                    </p>
+                </div>
+
+                <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex justify-center mb-6">
+                        <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+                            <svg width="40" height="40" class="text-white md:w-25 md:h-25">
+                                <use xlink:href="/static/svg/sprite.svg#wallet"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Digitālais maks" %}</h2>
+                    <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
+                        {% trans "Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai iegādātos citus produktus šajā veikalā." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overflow-hidden w-full relative py-10 md:py-16 px-[12%]">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Lietotāju populārākie dizaini!" %}</h2>
+        </div>
+        <div
+            x-data="{}"
+            x-init="$nextTick(() => {
+                let ul = $refs.logos;
+                ul.insertAdjacentHTML('afterend', ul.outerHTML);
+                ul.nextSibling.setAttribute('aria-hidden', 'true');
+            })"
+            class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
+        >
+            <ul x-ref="logos" class="flex items-center justify-center md:justify-start [&_li]:mx-4 md:[&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+            {% for product in products_top %}
+                <a href="{% url 'product:detail' user='user_value' product_title=product.title Designs_id=product.id %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl mr-4 md:mr-5">
+                    <div class="relative w-full h-36 md:h-48 overflow-hidden flex justify-center items-center">
+                        <img src="{{ product.front_image.url }}" alt="{{ product.title }}" class="object-cover h-full transition-transform duration-300 hover:scale-110">
                     </div>
                     <div class="mt-4 text-center">
-                        <h3 class="text-lg md:text-xl font-semibold text-main-color">{% trans "Kategorija" %}</h3>
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <h2 class="text-lg md:text-xl font-bold text-text-color text-center mt-10">{% trans "Vai meklē savu vēlamo produktu" %} <a href="{% url 'product:all_categories' %}" class='text-main-color text-lg md:text-xl font-extrabold'> {% trans "kategorija" %} </a></h2>
-</section>
-
-<section class="mt-10 md:mt-52 px-[12%]">
-    <div class="flex flex-col md:flex-row">
-        <div class="w-full md:w-1/2 px-6 md:px-8 mb-8 md:mb-0 sticky top-32 self-start max-md:relative">
-            <div class="text-center md:text-left mb-8 md:mb-10">
-                <h2 class="text-3xl md:text-4xl lg:text-6xl font-bold text-main-color">{% trans "Kā izveidot dizainu:" %}</h2>
-                <p class="text-base md:text-lg mt-4 text-text-color">
-                    {% trans "Izmantojot mūsu rīku, jūs varat ātri un viegli izveidot savu personalizēto dizainu. Sekojiet šiem soļiem, lai iegūtu unikālu dizainu, kas atbilst jūsu vajadzībām." %}
-                </p>
-            </div>
-        </div>
-
-        <div class="w-full md:w-1/2 px-6 md:px-8 flex flex-col gap-6 relative">
-            <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-10 max-md:relative">
-                <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "1. Izvēlies produktu" %}</h3>
-                <p class="mt-2 text-text-color">{% trans "Izvēlieties produktu, kuru vēlaties pielāgot no mūsu plašā klāsta." %}</p>
-            </div>
-            <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-20 max-md:relative">
-                <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "2. Izveido savu personālo dizainu" %}</h3>
-                <p class="mt-2 text-text-color">{% trans "Izmantojiet mūsu dizaina rīku, lai izveidotu savu unikālo dizainu." %}</p>
-            </div>
-            <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-30 max-md:relative">
-                <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "3. Pasūti šo personalu dizainu" %}</h3>
-                <p class="mt-2 text-text-color">{% trans "Pabeidziet pasūtījumu, un mēs apstrādāsim jūsu personalizēto dizainu." %}</p>
-            </div>
-            <div class="card bg-second-color shadow-lg rounded-lg p-4 md:p-6 transform transition-transform duration-500 ease-in-out hover:scale-105 sticky top-32 z-40 max-md:relative">
-                <h3 class="text-xl md:text-2xl font-semibold text-main-color">{% trans "4. Saņem dizainu" %}</h3>
-                <p class="mt-2 text-text-color">{% trans "Saņemiet savu unikālo dizainu un izbaudiet to." %}</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-16 md:py-52 max-md:mt-36 px-[12%]">
-    <div class="container mx-auto">
-        <div class="mb-10 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Ieguvumi no savu darbu publicēšanas" %}</h1>
-            <p class="mt-4 text-base md:text-lg text-text-color">
-                {% trans "Publicējot savu darbu, jūs veidojat iespēju iedvesmot citus un gūt arī praktiskus ieguvumus!" %}
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <div class="flex justify-center mb-6">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                        <svg width="40" height="40" class="text-white md:w-25 md:h-25">
-                            <use xlink:href="/static/svg/sprite.svg#question"></use>
-                        </svg>
-                    </div>
-                </div>
-                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Kāpēc publicēt savu darbu?" %}</h2>
-                <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
-                    {% trans " Daloties ar savu darbu, jūs varat sniegt iedvesmu citiem un veidot saikni ar līdzīgiem radošiem cilvēkiem." %}
-                </p>
-            </div>
-
-            <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <div class="flex justify-center mb-6">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                        <svg width="40" height="40" class="text-white md:w-25 md:h-25">
-                            <use xlink:href="/static/svg/sprite.svg#money"></use>
-                        </svg>
-                    </div>
-                </div>
-                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Mazliet nopelnīt" %}</h2>
-                <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
-                    {% trans "  Jūs saņemsiet 1 euro digitālajā makā par katru pārdoto preci ar jūsu dizainu, ko varat iztērēt veikalā." %}
-                </p>
-            </div>
-
-            <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                <div class="flex justify-center mb-6">
-                    <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                        <svg width="40" height="40" class="text-white md:w-25 md:h-25">
-                            <use xlink:href="/static/svg/sprite.svg#wallet"></use>
-                        </svg>
-                    </div>
-                </div>
-                <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Digitālais maks" %}</h2>
-                <p class="mt-4 text-center text-text-color text-base md:text-lg group-hover:text-opacity-80">
-                    {% trans "Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai iegādātos citus produktus šajā veikalā." %}
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="overflow-hidden w-full relative py-10 md:py-16 px-[12%]">
-    <div class="text-center mb-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Lietotāju populārākie dizaini!" %}</h2>
-    </div>
-    <div
-        x-data="{}"
-        x-init="$nextTick(() => {
-            let ul = $refs.logos;
-            ul.insertAdjacentHTML('afterend', ul.outerHTML);
-            ul.nextSibling.setAttribute('aria-hidden', 'true');
-        })"
-        class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
-    >
-        <ul x-ref="logos" class="flex items-center justify-center md:justify-start [&_li]:mx-4 md:[&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-        {% for product in products_top %}
-            <a href="{% url 'product:detail' user='user_value' product_title=product.title Designs_id=product.id %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl mr-4 md:mr-5">
-                <div class="relative w-full h-36 md:h-48 overflow-hidden flex justify-center items-center">
-                    <img src="{{ product.front_image.url }}" alt="{{ product.title }}" class="object-cover h-full transition-transform duration-300 hover:scale-110">
-                </div>
-                <div class="mt-4 text-center">
-                    <h3 class="text-lg md:text-xl font-semibold text-main-color">{{ product.title }}</h3>
-                    <div class='flex justify-center'>
-                        {% for _ in "54321"|make_list %}
-                            {% if forloop.counter <= product.average_rating %}
-                                <span class="star active">
-                                    <svg width="20" height="20" class="text-yellow-500">
+                        <h3 class="text-lg md:text-xl font-semibold text-main-color">{{ product.title }}</h3>
+                        <div class='flex justify-center'>
+                            {% for _ in "54321"|make_list %}
+                                {% if forloop.counter <= product.average_rating %}
+                                    <span class="star active">
+                                        <svg width="20" height="20" class="text-yellow-500">
+                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                        </svg>
+                                    </span>
+                                {% else %}
+                                <span class="star">
+                                    <svg width="20" height="20">
                                         <use xlink:href="/static/svg/sprite.svg#star"></use>
                                     </svg>
                                 </span>
-                            {% else %}
-                            <span class="star">
-                                <svg width="20" height="20">
-                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                </svg>
-                            </span>
-                            {% endif %}
-                        {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
+                </a>
+            {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <section class="py-16 px-[12%]">
+        <div class="container mx-auto p-6 md:p-12 bg-second-color rounded-xl">
+            <h1 class="text-3xl md:text-4xl font-bold text-center text-main-color mb-8 md:mb-12">{% trans "Biežāk Uzdotie Jautājumi" %}</h1>
+
+            {% for faq in faqs %}
+                <div x-data="{ open: false }" class="border-b border-gray-300 py-4">
+                    <h2 @click="open = !open" class="text-lg md:text-xl font-semibold text-main-color cursor-pointer flex justify-between items-center">
+                        {{ faq.question }}
+                        <svg width="25" height="25" x-bind:class="{ 'rotate-180': open }" class="transform transition-transform duration-300" fill="none" >
+                            <use xlink:href="/static/svg/sprite.svg#arrow"></use>
+                        </svg>
+                    </h2>
+                    <p x-show="open" x-transition class="mt-2 text-text-color text-base md:text-lg">
+                        {{ faq.answer }}
+                    </p>
                 </div>
-            </a>
-        {% endfor %}
-        </ul>
-    </div>
-</section>
-
-<section class="py-16 px-[12%]">
-    <div class="container mx-auto p-6 md:p-12 bg-second-color rounded-xl">
-        <h1 class="text-3xl md:text-4xl font-bold text-center text-main-color mb-8 md:mb-12">{% trans "Biežāk Uzdotie Jautājumi" %}</h1>
-
-        {% for faq in faqs %}
-            <div x-data="{ open: false }" class="border-b border-gray-300 py-4">
-                <h2 @click="open = !open" class="text-lg md:text-xl font-semibold text-main-color cursor-pointer flex justify-between items-center">
-                    {{ faq.question }}
-                    <svg width="25" height="25" x-bind:class="{ 'rotate-180': open }" class="transform transition-transform duration-300" fill="none" >
-                        <use xlink:href="/static/svg/sprite.svg#arrow"></use>
-                    </svg>
-                </h2>
-                <p x-show="open" x-transition class="mt-2 text-text-color text-base md:text-lg">
-                    {{ faq.answer }}
-                </p>
-            </div>
-        {% endfor %}
-    </div>
-</section>
-
+            {% endfor %}
+        </div>
+    </section>
+</div>
 
 
 {% endblock %}
