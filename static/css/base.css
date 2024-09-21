@@ -23,7 +23,7 @@
     --other-color: #868686;
     --big-font: 3.5rem;
     --p-font:1rem;
-    --hover-color: #00000039;
+    --hover-color: #f0f0f0;
     --input-color: #ffffffa4;
     --input-readonly-color: #f9f9f9;
     --main-hover-color: #9aab0f;
@@ -36,7 +36,7 @@ body.dark {
     --main-color: #a4c800;
     --second-color: #2b2b2b;
     --other-color: #888888;
-    --hover-color: #ffffff39;
+    --hover-color: #3d3d3d;
     --input-color: #333333a4;
     --input-readonly-color: #2a2a2a;
     --main-hover-color: #819c0d;

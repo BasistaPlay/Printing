@@ -47,3 +47,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.querySelector('.dropdown button').addEventListener('click', function() {
+    const content = document.querySelector('.dropdown-content');
+    content.classList.toggle('hidden');
+});
+
+document.addEventListener('click', function(event) {
+    const target = event.target;
+    if (!target.closest('.dropdown')) {
+        document.querySelector('.dropdown-content').classList.add('hidden');
+    }
+});
