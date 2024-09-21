@@ -1,1 +1,21 @@
-{"scripts":{"build:css":"npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css","build:css:prod":"cross-env NODE_ENV=production npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css","watch:css":"npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css --watch","start":"npm run build:css && npm run watch:css","build":"npm run build:css:prod"},"devDependencies":{"autoprefixer":"^10.4.20","cross-env":"^7.0.3","postcss":"^8.4.45","tailwindcss":"^3.4.10"},"dependencies":{"alpha-js":"^0.0.1","htmx.org":"^1.9.12"}}
+{
+    "scripts": {
+      "build:css": "npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css",
+      "build:css:prod": "cross-env NODE_ENV=production npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css",
+      "watch:css": "npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css --watch",
+      "start": "npm run build:css && npm run build:alpine && npm run watch:css",
+      "build": "npm run build:css:prod",
+      "build:alpine": "cp ./node_modules/alpinejs/dist/cdn.min.js ./ecomerce/static/js/alpine.js"
+    },
+    "devDependencies": {
+      "autoprefixer": "^10.4.20",
+      "cross-env": "^7.0.3",
+      "postcss": "^8.4.45",
+      "tailwindcss": "^3.4.10"
+    },
+    "dependencies": {
+      "alpha-js": "^0.0.1",
+      "alpinejs": "^3.14.1",
+      "htmx.org": "^1.9.12"
+    }
+  }

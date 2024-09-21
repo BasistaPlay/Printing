@@ -108,11 +108,9 @@
         </div>
     </header>
 
-    <div class="mt-32">
-        {% block body %}{% endblock %}
-    </div>
+    {% block body %}{% endblock %}
+    <script src="{% static 'js/alpine.js' %}" type="module"></script>
 
-    {% block body_design %}{% endblock %}
 </body>
 <script src="{% static 'js/darkmode.js' %}"></script>
 <script src="{% static 'js/base.js' %}"></script>

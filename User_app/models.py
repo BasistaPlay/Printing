@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext as _
 
-# Create your models here.
 class ContactMessage(models.Model):
     first_name = models.CharField(_('Vārds'), max_length=100)
     last_name = models.CharField(_('Uzvārds'), max_length=100)

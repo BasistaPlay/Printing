@@ -19,32 +19,38 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 {% endblock %}
 
-{% block body_design %}
-<div class="message-container"></div>
-<div class="loading-overlay"></div>
-<div class="spinner"></div>
+{% block body %}
+
+    <div x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 1000)" class="fixed top-0 left-0 w-full h-full bg-gray-300 bg-opacity-50 z-50" x-show="loading" x-transition>
+        <div class="spinner"></div>
+    </div>
+
+
+
+
 {% csrf_token %}
+    <div class="message-container"></div>
     <div class="product-card" data-product-id="{{ product.id }}"></div>
     <div id="error-messages" class="error-messages"></div>
+
     <div class="product">
-    <div class="image-container" id="front" style="display: block;">
-        <div class="boundary" id="boundary-front" style="top: {{ adjusted_front_image_coords.top }}px; margin-left: {{ adjusted_front_image_coords.left }}px; width: {{ adjusted_front_image_coords.width }}px; height: {{ adjusted_front_image_coords.height }}px;"></div>
-
-        <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
-        <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="front-img" />
-        <img src="{{ product.front_image_with_background.url }}" class="img-2 front-image" />
-        <div id="text-container" data-side="front" style="position: absolute;"></div>
+        <div id="front" style="display: block; position: relative;">
+            <div class="boundary" id="boundary-front"></div>
+            <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
+            <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="front-img" />
+            <img src="{{ product.front_image_with_background.url }}" class="img-2 front-image" />
+            <div id="text-container" data-side="front" class="absolute"></div>
+        </div>
+        <div id="back" style="display: none; position: relative;">
+            <div class="boundary" id="boundary-back"></div>
+            <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="back-img" />
+            <img src="{{ product.back_image_with_background.url }}" class="img-2 front-image" />
+            <div id="text-container" data-side="back" class="absolute"></div>
+        </div>
+        <div class="color" style="background-color: {{ product.available_colors.first.code }}"></div>
     </div>
-    <div class="image-container" id="back" style="display: none;">
-        <div class="boundary" id="boundary-back" style="left: {{ adjusted_back_image_coords.left }}px; top: {{ adjusted_back_image_coords.top }}px; width: {{ adjusted_back_image_coords.width }}px; height: {{ adjusted_back_image_coords.height }}px;"></div>
-        <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="back-img" />
-        <img src="{{ product.back_image_with_background.url }}" class="img-2 front-image" />
-        <div id="text-container" data-side="back" style="position: absolute;"></div>
-    </div>
-    <div class="color" style="background-color: {{product.available_colors.first.code}}"></div>
-</div>
 
-<div id="general" class="content">
+<div id="general" class="content" x-data="{ showModal: false }">
     <h1>{% trans 'Izveido savu' %} {{ product.title }}</h1>
     <div class="color-content">
         <b>{% trans 'Pielāgot krāsu' %}</b>
@@ -79,7 +85,7 @@
     <div class="publish-info">
         <input type="checkbox" id="publish-checkbox">
         <label for="publish-checkbox">{% trans 'Apstiprinu, ka vēlos publicēt savu darbu' %}</label>
-        <span class="info-icon">
+        <span class="info-icon" @click="showModal = true">
             <svg width="20" height="20" style="color: var(--main-color);">
                 <use xlink:href="/static/svg/sprite.svg#info"></use>
             </svg>
@@ -93,28 +99,41 @@
     <div class="buy-button">
         <button class="general-button" id="buy-button">{% trans 'Pirkt tagad' %}</button>
     </div>
-</div>
 
-<div id="info-modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>{% trans 'Pirms publicēšanas jūsu darbu apskatīs administrators. Ja jūsu darbs tiks apstiprināts, mēs to publicēsim. Ja kāds iegādāsies jūsu darbu, jūs saņemsiet 1 eiro savā digitālajā makā.' %}</p>
-        <hr>
-        <h2>{% trans 'Noteikumi:' %}</h2>
-        <ul>
-            <li></li>
-            <li>{% trans 'Necenzūrēts vai nepiedienīgs saturs nav atļauts.' %}</li>
-            <li>{% trans 'Necenzēti vai nepiemēroti teksti nav atļauti virsrakstos un aprakstos.' %}</li>
-            <li>{% trans 'Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības.' %}</li>
-            <li>{% trans 'Publicējot darbu, jūs piekrītat tā izmantošanai mūsu platformā un tās reklamēšanai.' %}</li>
-            <li>{% trans 'Jūs piekrītat, ka mēs varēsim izmantot jūsu lietotāja vārdu vai citu informāciju darbu reklamēšanai vai promocijai mūsu vietnē vai sociālajos tīklos.' %}</li>
-            <li>{% trans 'Jūs esat atbildīgs par visu saturu, ko publicējat, un mēs paturam tiesības noņemt vai rediģēt saturu pēc saviem ieskatiem.' %}</li>
-            <li>{% trans 'Jūs piekrītat ievērot visus vietnes lietošanas noteikumus un privātuma politiku.' %}</li>
-            <li></li>
-        </ul>
-        <hr>
-        <p>{% trans 'Šī ir tikai informatīva ziņa, nav obligāti jāatzīmē rūtiņa, lai publicētu.' %}</p>
+    <div x-cloak x-show="showModal" @click.away="showModal = false" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50" x-transition>
+        <div class="bg-second-color p-8 rounded-xl shadow-2xl w-full max-w-4xl relative" x-transition:enter="transition-opacity duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+            <span class="absolute top-4 right-4 cursor-pointer" @click="showModal = false">
+                <svg width="20" height="20">
+                    <use xlink:href="/static/svg/sprite.svg#close"></use>
+                </svg>
+            </span>
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-text-color mb-4">{% trans 'Noteikumi un Vadlīnijas' %}</h2>
+                <p class="text-text-color">
+                    {% trans 'Pirms publicēšanas jūsu darbu apskatīs administrators. Ja jūsu darbs tiks apstiprināts, mēs to publicēsim. Ja kāds iegādāsies jūsu darbu, jūs saņemsiet 1 eiro savā digitālajā makā.' %}
+                </p>
+            </div>
+            <hr class="border-gray-300 my-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <ul class="list-disc pl-6 space-y-3 text-text-color">
+                    <li>{% trans 'Necenzūrēts vai nepiedienīgs saturs nav atļauts.' %}</li>
+                    <li>{% trans 'Necenzēti vai nepiemēroti teksti nav atļauti virsrakstos un aprakstos.' %}</li>
+                    <li>{% trans 'Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības.' %}</li>
+                    <li>{% trans 'Publicējot darbu, jūs piekrītat tā izmantošanai mūsu platformā un tās reklamēšanai.' %}</li>
+                </ul>
+                <ul class="list-disc pl-6 space-y-3 text-text-color">
+                    <li>{% trans 'Jūs piekrītat, ka mēs varēsim izmantot jūsu lietotāja vārdu vai citu informāciju darbu reklamēšanai vai promocijai mūsu vietnē vai sociālajos tīklos.' %}</li>
+                    <li>{% trans 'Jūs esat atbildīgs par visu saturu, ko publicējat, un mēs paturam tiesības noņemt vai rediģēt saturu pēc saviem ieskatiem.' %}</li>
+                    <li>{% trans 'Jūs piekrītat ievērot visus vietnes lietošanas noteikumus un privātuma politiku.' %}</li>
+                </ul>
+            </div>
+            <hr class="border-gray-300 my-6">
+            <p class="text-center text-text-color">
+                {% trans 'Šī ir tikai informatīva ziņa, nav obligāti jāatzīmē rūtiņa, lai publicētu.' %}
+            </p>
+        </div>
     </div>
+
 </div>
 
 {% if product.can_have_image %}
@@ -248,12 +267,46 @@
     {% if product.can_have_text %}
         <script src="{% static 'js/addtext.js' %}"></script>
     {% endif %}
-
     <script>
-        $(window).on('load', function() {
-            $('.spinner').fadeOut();
-            $('.loading-overlay').fadeOut();
-        });
+        function createBoundary(containerId, boundaryId, widthFactor, heightFactor) {
+            const container = document.getElementById(containerId);
+            const boundary = document.getElementById(boundaryId);
+            const image = container.querySelector('.img-1');
+
+            const originalDisplay = container.style.display;
+            container.style.display = 'block';
+
+            const updateBoundary = () => {
+                const imageWidth = image.clientWidth;
+                const imageHeight = image.clientHeight;
+
+                const boundaryWidth = imageWidth * widthFactor;
+                const boundaryHeight = imageHeight * heightFactor;
+
+                const boundaryTop = (imageHeight - boundaryHeight) / 2;
+                const boundaryLeft = (imageWidth - boundaryWidth) / 2;
+
+                boundary.style.top = `${boundaryTop}px`;
+                boundary.style.left = `${boundaryLeft - 22}px`;
+                boundary.style.width = `${boundaryWidth + 35}px`;
+                boundary.style.height = `${boundaryHeight + 55}px`;
+                boundary.style.position = 'absolute';
+            };
+
+            image.onload = updateBoundary;
+
+            if (image.complete) {
+                updateBoundary();
+            }
+
+            // Pievieno resize notikumu, lai atjauninātu robežas, kad logs tiek mainīts
+            window.addEventListener('resize', updateBoundary);
+
+            container.style.display = originalDisplay;
+        }
+
+        createBoundary('front', 'boundary-front', 0.4, 0.6);
+        createBoundary('back', 'boundary-back', 0.4, 0.6);
     </script>
 
 {% endblock %}
