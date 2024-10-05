@@ -12,7 +12,6 @@ from django.http import Http404
 
 from home import views as page
 from shoping_cart import views as cart
-from stripe_integration import views as stripe
 from User_app import views as user
 
 def admin_required(function):

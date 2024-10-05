@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+dedocument.addEventListener('DOMContentLoaded', function() {
     let currentSide = localStorage.getItem('currentSide') || 'front';
     localStorage.setItem('currentSide', currentSide);
 

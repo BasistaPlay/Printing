@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'product_details',
     'Product',
     'shoping_cart',
-    'stripe_integration',
     'forum',
     'payments',
     'translations',
@@ -249,7 +248,6 @@ JAZZMIN_SETTINGS = {
         "design.designs": "fas fa-tshirt",
         "Product.category": "fas fa-tags",
         "home.Purchase": "fas fa-receipt",
-        "stripe_integration.StripeKeys": "fas fa-credit-card",
         "django_recaptcha.RecaptchaKeys": "fas fa-shield-alt"
     }
 }
@@ -274,8 +272,14 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 
 SOCIALACCOUNT_ADAPTER = 'User_app.adapters.MySocialAccountAdapter'
 
-
+# Recaptcha settings
 RECAPTCHA_PUBLIC_KEY = '6LfuiuQpAAAAAEq03FdKts-9bZ6KIcF9T8K7w4KY'
 RECAPTCHA_PRIVATE_KEY = '6LfuiuQpAAAAAGFFXYQQ4vaPzyJVuT9tpUJK3THe'
 
+# Stripe settings
+STRIPE_PUBLISHABLE_KEY = 'pk_live_51PInOSDHiMtgVgpxLIQN8Vt1G1l1b7Rv7S60bbvHP81ktumh7drUcU6AE2QLu598AsMmJwM8cqiXkB3CUesEERR500BH3CJLj0'
+STRIPE_SECRET_KEY = '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'
+STRIPE_WEBHOOK_SECRET  = 'whsec_375e44e253c0b2211bc2bc19ea6184b4852431a513c55ee5c9698dabb0f5cbb1'
+
 HONEYPOT_FIELD_NAME = 'email2'
+

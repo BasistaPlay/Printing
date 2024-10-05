@@ -7,7 +7,7 @@ class PurchaseProductInline(admin.TabularInline):
     readonly_fields = ['product', 'quantity']
 
 class PurchaseAdmin(admin.ModelAdmin):
-    list_display = ('order_number', 'amount', 'user', 'status', 'created_at')
+    list_display = ('order_number', 'amount', 'user', 'payment_method', 'status', 'created_at')
     search_fields = ('order_number', 'user__username')
     list_filter = ('status', 'created_at')
     readonly_fields = ['order_number', 'amount', 'user', 'created_at']
