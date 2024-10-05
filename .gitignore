@@ -22,3 +22,5 @@ ecomerce/staticfiles/
 
 *.pyc
 
+.env
+

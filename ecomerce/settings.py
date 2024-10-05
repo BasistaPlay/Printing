@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
@@ -277,9 +278,9 @@ RECAPTCHA_PUBLIC_KEY = '6LfuiuQpAAAAAEq03FdKts-9bZ6KIcF9T8K7w4KY'
 RECAPTCHA_PRIVATE_KEY = '6LfuiuQpAAAAAGFFXYQQ4vaPzyJVuT9tpUJK3THe'
 
 # Stripe settings
-STRIPE_PUBLISHABLE_KEY = 'pk_live_51PInOSDHiMtgVgpxLIQN8Vt1G1l1b7Rv7S60bbvHP81ktumh7drUcU6AE2QLu598AsMmJwM8cqiXkB3CUesEERR500BH3CJLj0'
-STRIPE_SECRET_KEY = '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'
-STRIPE_WEBHOOK_SECRET  = 'whsec_375e44e253c0b2211bc2bc19ea6184b4852431a513c55ee5c9698dabb0f5cbb1'
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
 
 HONEYPOT_FIELD_NAME = 'email2'
 
