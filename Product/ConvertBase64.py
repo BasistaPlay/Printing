@@ -19,5 +19,4 @@ def save_base64_image(image_base64, filename):
         return image_file
 
     except Exception as e:
-        print(f"Error saving image: {e}")
         return None

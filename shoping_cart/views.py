@@ -1,11 +1,9 @@
-from django.shortcuts import render
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.translation import gettext as _
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from shoping_cart.cart import Cart
 from django.views.decorators.csrf import csrf_exempt
-import json
 from Product.models import Product
 from shoping_cart.context_processor import cart_total_amount
 from design.models import Designs
@@ -13,9 +11,6 @@ from django.contrib import messages
 
 def cart(request):
     products_with_sizes = []
-    # cart = Cart(request)
-    # cart.clear()
-
     return render(request, 'cart.html', {
         'products_with_sizes': products_with_sizes
     })
@@ -50,36 +45,27 @@ def item_clear(request, id):
     cart = Cart(request)
     product_list = Designs.objects.get(id=id)
     cart.remove(product_list)
-    cart_total = cart_total_amount(request)
-    total_amount = cart_total.get('cart_total_amount', 0)
-    cart_count = len(request.session.get('cart', {}))
-    return JsonResponse({'success': True, 'total_amount': total_amount,'cart_count': cart_count, 'message': 'Product removed from cart successfully'})
+    return redirect('shopping_cart:cart')
 
 @login_required(login_url="/login")
 def item_increment(request, id):
     cart = Cart(request)
     product_list = Designs.objects.get(id=id)
     cart.add(product_list)
-    cart_items = request.session['cart'][f'{id}']['quantity']
-    cart_total = cart_total_amount(request)
-    total_amount = cart_total.get('cart_total_amount', 0)
-    return JsonResponse({'success': True, 'quantity': cart_items,'total_amount': total_amount, 'message': 'Product quantity incremented successfully'})
+    return redirect('shopping_cart:cart')
 
 @login_required(login_url="/login")
 def item_decrement(request, id):
     cart = Cart(request)
     product_list = Designs.objects.get(id=id)
     cart.decrement(product_list)
-    cart_items = request.session['cart'][f'{id}']['quantity']
-    cart_total = cart_total_amount(request)
-    total_amount = cart_total.get('cart_total_amount', 0)
-    return JsonResponse({'success': True, 'quantity': cart_items,'total_amount': total_amount, 'message': 'Product quantity decremented successfully'})
+    return redirect('shopping_cart:cart')
 
 @login_required(login_url="/login")
 def cart_clear(request):
     cart = Cart(request)
     cart.clear()
-    return JsonResponse({'success': True, 'message': 'Cart cleared successfully'})
+    return redirect('shopping_cart:cart')
 
 @login_required(login_url="/login")
 def cart_detail(request):
@@ -87,11 +73,7 @@ def cart_detail(request):
 
 def update_sizes_view(request, id):
     if request.method == 'POST':
-        # Process the request data here
         size = request.POST.get('size')
         quantity = request.POST.get('quantity')
-
-        # Your logic to update the cart goes here
-
         return JsonResponse({'success': True})
     return JsonResponse({'error': 'Invalid request'}, status=400)

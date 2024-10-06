@@ -1,8 +1,7 @@
 from django.contrib import admin, messages
 from django.conf import settings
 from modeltranslation.admin import TranslationAdmin
-from .models import (CustomDesign,
-                    GiftCode)
+from .models import CustomDesign
 from django.utils.translation import gettext_lazy as _
 
 @admin.register(CustomDesign)
@@ -26,7 +25,6 @@ class CustomDesignAdmin(TranslationAdmin):
         else:
             super().save_model(request, obj, form, change)
 
-admin.site.register(GiftCode)
 
 # class PurchaseProductInline(admin.TabularInline):
 #     model = PurchaseProduct

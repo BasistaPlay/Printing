@@ -36,26 +36,29 @@ class Cart(object):
                 'userid': self.request.user.id,
                 'product_id': id,
                 'quantity': int(quantity),
-                'sizeCount': sizeCount,  # Use the sizeCount parameter here
+                'sizeCount': sizeCount,
                 'price': str(designs.product.price),
+                'total_price': str(designs.product.price * int(quantity)),
                 'image': designs.front_image.url if designs.front_image else '',
                 'sizes': sizes ,
                 'design_id' : product_id ,
             }
         else:
             for key, value in self.cart.items():
-                if key == str(designs.id):
-                    value['quantity'] += int(quantity)  # Add the quantity to existing quantity
-                    value['sizeCount'] += sizeCount
-                    if sizes:
-                        for size in sizes:
-                            if size['size'] in value['sizes']:
-                                value['sizes'][size['size']] += size['count']
-                            else:
-                                value['sizes'][size['size']] = size['count']
-                    newItem = False
-                    self.save()
-                    break
+                        if key == str(designs.id):
+                            value['quantity'] += int(quantity)
+                            value['sizeCount'] += sizeCount
+                            value['total_price'] = str(designs.product.price  * value['quantity'])  # Atjaunina kopējo cenu
+                            if sizes:
+                                for size in sizes:
+                                    if size['size'] in value['sizes']:
+                                        value['sizes'][size['size']] += size['count']
+                                    else:
+                                        value['sizes'][size['size']] = size['count']
+                            newItem = False
+                            self.save()
+                            break
+
 
             if newItem:
                 self.cart[designs.id] = {
@@ -64,6 +67,7 @@ class Cart(object):
                     'quantity': int(quantity),
                     'sizeCount': sizeCount,  # Use the sizeCount parameter here
                     'price': str(designs.product.price),
+                    'total_price': str(designs.product.price * int(quantity)),
                     'image': designs.front_image.url if designs.front_image else '',
                     'sizes': sizes,
                     'design_id' : product_id ,
@@ -82,7 +86,6 @@ class Cart(object):
 
     def remove(self, designs):
         design_id = str(designs.id)
-        print(f"rfef{design_id}")
         if design_id in self.cart:
             del self.cart[design_id]
             self.save()
@@ -90,14 +93,12 @@ class Cart(object):
     def decrement(self, designs):
         for key, value in self.cart.items():
             if key == str(designs.id):
-
                 value['quantity'] = value['quantity'] - 1
-                if(value['quantity'] < 1):
-                    return redirect('cart')
+                value['total_price'] = str(Decimal(value['price']) * value['quantity'])
+                if value['quantity'] < 1:
+                    self.remove(designs)
                 self.save()
                 break
-            else:
-                print("Something Wrong")
 
     def clear(self):
         # empty cart
