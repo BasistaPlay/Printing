@@ -215,8 +215,6 @@ class SaveDesignView(LoginRequiredMixin, View):
                 back_image=back_image_file,
             )
 
-            print(new_design.id)
-
             for text_data in texts:
                 TextList.objects.create(
                     designs_text=new_design,

@@ -243,14 +243,18 @@ JAZZMIN_SETTINGS = {
         "User_app.user": "fas fa-user",
         "home.Price": "fas fa-dollar-sign",
         "home.Product_list": "fas fa-list",
-        "home.GiftCode": "fas fa-gift",
         "product_details.Color": "fas fa-paint-brush",
         "product_details.Size": "fas fa-ruler",
         "design.designs": "fas fa-tshirt",
         "Product.category": "fas fa-tags",
         "home.Purchase": "fas fa-receipt",
-        "django_recaptcha.RecaptchaKeys": "fas fa-shield-alt"
-    }
+        "django_recaptcha.RecaptchaKeys": "fas fa-shield-alt",
+
+        "Payments.BankDetails": "fas fa-university",
+        "Payments.Purchase": "fas fa-shopping-cart",
+        "Payments.GiftCode": "fas fa-gift",
+        "User_App.FAQ": "fas fa-question-circle"
+    },
 }
 
 CART_SESSION_ID = 'cart'

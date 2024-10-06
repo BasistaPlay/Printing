@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load static i18n %}
+{% load i18n %}
 {% load cart_tag %}
 
 {% block title %}
@@ -8,91 +8,108 @@
 {% endblock %}
 
 {% block body %}
-<div class='mt-32'>
-    <div class="flex flex-col lg:flex-row justify-between max-w-7xl mx-auto my-8 p-6 gap-8">
-        <section class="flex-1 bg-white rounded-2xl p-8 shadow-xl">
-            {% if request.session.cart.items %}
-                {% for key, value in request.session.cart.items %}
-                <div class="flex flex-col md:flex-row items-start mb-6 p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200" data-product-id="{{ value.product_id }}">
-                    <img class="w-32 h-auto rounded-lg" src="{{ value.image }}" alt="Product Image">
-                    <div class="flex-1 ml-0 md:ml-8 mt-4 md:mt-0">
-                        <div class="flex justify-between items-center mb-3">
-                            <h2 class="text-xl font-semibold text-gray-900">{{ value.title }}</h2>
-                            <p class="text-xl font-semibold text-main-color">{{ value.price }}€</p>
-                        </div>
-                        <div class="flex gap-8 mb-4">
-                            <div>
-                                <label for="size-{{ forloop.counter }}" class="block text-sm font-medium text-gray-600 mb-2">Izmērs:</label>
-                                <select id="size-{{ forloop.counter }}" class="border border-gray-300 rounded-md px-3 py-2 focus:ring-main-color focus:border-main-color">
-                                    <option value="S">S</option>
-                                    <option value="M">M</option>
-                                    <option value="L">L</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label for="quantity-{{ forloop.counter }}" class="block text-sm font-medium text-gray-600 mb-2">Daudzums:</label>
-                                <div class="flex items-center space-x-2">
-                                    <button class="bg-main-color text-white w-8 h-8 rounded flex items-center justify-center hover:bg-bmain-color transition duration-200">-</button>
-                                    <input type="number" id="quantity-{{ forloop.counter }}" value="1" min="1" class="w-12 text-center border border-gray-300 rounded-md">
-                                    <button class="bg-main-color text-white w-8 h-8 rounded flex items-center justify-center hover:bg-main-color transition duration-200">+</button>
+<div class="container mx-auto mt-32">
+    <div class="bg-second-color rounded-lg p-8">
+
+        <h1 class="text-3xl font-bold text-main-color mb-8 text-center">{% trans 'Grozs' %}</h1>
+
+        {% if request.session.cart.items %}
+            <div class="hidden sm:block">
+                <table class="w-full table-auto text-left">
+                    <thead class="bg-main-color text-white">
+                        <tr>
+                            <th class="p-4">{% trans 'Attēli' %}</th>
+                            <th class="p-4">{% trans 'Cena' %}</th>
+                            <th class="p-4">{% trans 'Daudzums' %}</th>
+                            <th class="p-4">{% trans 'Kopējā cena' %}</th>
+                            <th class="p-4">{% trans 'Darbības' %}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-second-color">
+                        {% for key, value in request.session.cart.items %}
+                        <tr class="border-b border-gray-300 hover:bg-hover-color transition">
+                            <td class="p-4 flex items-center space-x-4">
+                                <img class="w-16 h-auto rounded-lg" src="{{ value.image }}" alt="{% trans 'Product Image' %}">
+                                <img class="w-16 h-auto rounded-lg" src="{{ value.image_back }}" alt="{% trans 'Product Image' %}">
+                            </td>
+                            <td class="p-4">
+                                <p class="text-lg text-text-color">{{ value.price }}€</p>
+                            </td>
+                            <td class="p-4">
+                                <div class="flex items-center space-x-0 bg-input-color rounded-full shadow-md w-32">
+                                    <a
+                                    {% if value.quantity != 1 %}
+                                        href='{% url "shopping_cart:item_decrement" value.product_id %}'
+                                    {% endif %}
+                                    class="bg-main-color text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-main-color-light transition-all focus:outline-none focus:ring-2 focus:ring-main-color-light
+                                    {% if value.quantity == 1 %} opacity-50 cursor-not-allowed {% endif %}">-
+                                    </a>
+                                    <input type="number" id="quantity-{{ forloop.counter }}" value="{{ value.quantity }}" min="1" class="w-12 text-center border-0 bg-input-color text-main-color focus:outline-none" readonly>
+                                    <a href='{% url "shopping_cart:item_increment" value.product_id %}' class="bg-main-color text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-main-color-light transition-all focus:outline-none focus:ring-2 focus:ring-main-color-light">
+                                        +
+                                    </a>
                                 </div>
-                            </div>
-                        </div>
-                        <button class="mt-4 flex items-center bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
-                            <svg width="20" height="20" class="mr-2" fill="currentColor">
-                                <use xlink:href="/static/svg/sprite.svg#trash"></use>
-                            </svg>
-                            Noņemt
-                        </button>
+                            </td>
+                            <td class="p-4">
+                                <p class="text-lg text-text-color font-bold">{{ value.total_price }}€</p>
+                            </td>
+                            <td class="p-4">
+                                <a href='{% url "shopping_cart:item_clear" value.product_id %}' class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
+                                    {% trans 'Noņemt' %}
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sm:hidden space-y-6">
+                {% for key, value in request.session.cart.items %}
+                <div class="grid grid-cols-1 gap-4 p-6 bg-second-color rounded-lg justify-center items-center text-center">
+                    <div class="flex items-center justify-center space-x-4">
+                        <img class="w-16 h-auto rounded-lg" src="{{ value.image }}" alt="{% trans 'Product Image' %}">
+                        <img class="w-16 h-auto rounded-lg" src="{{ value.image_back }}" alt="{% trans 'Product Image' %}">
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-text-color">{{ value.title }}</h2>
+                        <p class="text-lg text-text-color">{% trans 'Cena' %}: <span class="font-bold">{{ value.price }}€</span></p>
+                    </div>
+                    <div>
+                        <p class="text-lg text-text-color font-bold">{% trans 'Kopējā cena' %}: {{ value.total_price }}€</p>
+                    </div>
+                    <div class="flex items-center justify-center space-x-0 bg-input-color rounded-full w-32">
+                        <a
+                        {% if value.quantity != 1 %}
+                            href='{% url "shopping_cart:item_decrement" value.product_id %}'
+                        {% endif %}
+                        class="bg-main-color text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-main-color-light transition-all focus:outline-none focus:ring-2 focus:ring-main-color-light
+                        {% if value.quantity == 1 %} opacity-50 cursor-not-allowed {% endif %}">-
+                        </a>
+                        <input type="number" id="quantity-{{ forloop.counter }}" value="{{ value.quantity }}" min="1" class="w-12 text-center border-0 bg-input-color text-main-color focus:outline-none" readonly>
+                        <a href='{% url "shopping_cart:item_increment" value.product_id %}' class="bg-main-color text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-main-color-light transition-all focus:outline-none focus:ring-2 focus:ring-main-color-light">
+                            +
+                        </a>
+                    </div>
+                    <div>
+                        <a href='{% url "shopping_cart:item_clear" value.product_id %}' class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
+                            {% trans 'Noņemt' %}
+                        </a>
                     </div>
                 </div>
                 {% endfor %}
-            {% else %}
-            <p class="text-center text-gray-600">Jūsu grozs ir tukšs.</p>
-            {% endif %}
-        </section>
-
-        <aside class="flex-1 sticky top-8 bg-white rounded-2xl p-8 shadow-xl">
-            <div class="space-y-6">
-                <div class="border-b border-gray-200 pb-6">
-                    <label for="coupon-code" class="block text-sm font-medium text-gray-600 mb-2">Ievadiet kupona kodu:</label>
-                    <div class="flex gap-4">
-                        <input type="text" id="coupon-code" class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:bg-main-color focus:bg-main-color" placeholder="Kupona kods">
-                        <button class="bg-main-color text-white px-6 py-2 rounded-lg hover:bg-main-color transition-all">Piemērot kuponu</button>
-                    </div>
-                </div>
-                <div class="border-b border-gray-200 pb-6">
-                    <p class="text-lg font-semibold text-gray-700">Pirms atlaides: <span class="text-gray-900">€70.00</span></p>
-                    <p class="text-lg font-semibold text-gray-700">Nodoklis: <span class="text-gray-900">€7.00</span></p>
-                    <p class="text-lg font-semibold text-gray-700">Piegāde: <span class="text-gray-900">€4.00</span></p>
-                    <p class="text-2xl font-bold text-gray-900">Kopā: {{ cart_total_amount|floatformat:2 }}€</p>
-                </div>
-                <div>
-                    <p class="text-lg font-medium text-gray-700 mb-4">Maksājuma opcijas:</p>
-                    <div class="space-y-4">
-                        <button class="flex items-center justify-center w-full bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-all">
-                            <svg width="20" height="20" fill="currentColor" class="mr-2">
-                                <use xlink:href="/static/svg/sprite.svg#laptop"></use>
-                            </svg>
-                            Interneta banka
-                        </button>
-                        <a href="{% url 'payments:bank_details' %}" class="flex items-center justify-center w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-all">
-                            <svg width="20" height="20" fill="currentColor" class="mr-2">
-                                <use xlink:href="/static/svg/sprite.svg#bank"></use>
-                            </svg>
-                            Bankas pārskaitījums
-                        </a>
-                        <button class="flex items-center justify-center w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-all">
-                            <svg width="20" height="20" fill="currentColor" class="mr-2">
-                                <use xlink:href="/static/svg/sprite.svg#apple"></use>
-                            </svg>
-                            Apple Pay
-                        </button>
-                        <a href="{% url 'payments:stripe_checkout' %}" class="flex items-center justify-center w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all">Stripe</a>
-                    </div>
-                </div>
             </div>
-        </aside>
+
+            <div class="flex items-center justify-between p-6 flex-col sm:flex-row space-y-4 sm:space-y-0">
+                <p class="text-2xl font-bold text-main-color">{% trans 'Kopā' %}: {{ cart_total_amount|floatformat:2 }}€</p>
+                <a href="{% url 'payments:payment' %}" class="bg-main-color text-white px-8 py-4 rounded-lg text-lg hover:bg-main-color-dark transition-all">
+                    {% trans 'Noformēt pasūtījumu' %}
+                </a>
+            </div>
+        {% else %}
+            <p class="text-center text-text-color">{% trans 'Jūsu grozs ir tukšs.' %}</p>
+        {% endif %}
     </div>
+
 </div>
 {% endblock %}

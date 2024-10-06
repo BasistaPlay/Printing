@@ -27,7 +27,6 @@ urlpatterns = [
      path("__reload__/", include("django_browser_reload.urls")),
      path('', page.homepage, name='homepage'),
      path('sprite-svg/', admin_required(TemplateView.as_view(template_name='sprite_svg_preview.html'))),
-     path('check_discount_code/',page.check_discount_code, name='check_discount_code'),
      path('accounts/', include('allauth.urls')),
      path('cart/', include('shoping_cart.urls')),
      path('profile/', include('User_app.urls')),
