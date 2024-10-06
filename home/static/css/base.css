@@ -11,8 +11,11 @@
     font-family: 'MyCustomFont', sans-serif;
     text-decoration: none;
     list-style: none;
-
+    scrollbar-width: auto;
+    scrollbar-color: var(--main-color) #f2f2f2;
+    accent-color: greenyellow;
 }
+
 
 :root{
     --bg2-color: #c1c1c1 ;
@@ -40,14 +43,6 @@ body.dark {
     --input-color: #333333a4;
     --input-readonly-color: #2a2a2a;
     --main-hover-color: #819c0d;
-}
-
-
-/* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: var(--main-color) #f2f2f2;
 }
 
   /* Chrome, Edge, and Safari */

@@ -1465,7 +1465,3 @@ msgstr ""
 #: .\env\Lib\site-packages\modeltranslation\widgets.py:24
 msgid "None"
 msgstr ""
-
-#: .\stripe_integration\admin.py:11
-msgid "Varat pievienot tikai vienu ierakstu."
-msgstr ""

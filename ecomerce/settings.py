@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
@@ -59,7 +60,6 @@ INSTALLED_APPS = [
     'product_details',
     'Product',
     'shoping_cart',
-    'stripe_integration',
     'forum',
     'payments',
     'translations',
@@ -249,7 +249,6 @@ JAZZMIN_SETTINGS = {
         "design.designs": "fas fa-tshirt",
         "Product.category": "fas fa-tags",
         "home.Purchase": "fas fa-receipt",
-        "stripe_integration.StripeKeys": "fas fa-credit-card",
         "django_recaptcha.RecaptchaKeys": "fas fa-shield-alt"
     }
 }
@@ -274,8 +273,14 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 
 SOCIALACCOUNT_ADAPTER = 'User_app.adapters.MySocialAccountAdapter'
 
-
+# Recaptcha settings
 RECAPTCHA_PUBLIC_KEY = '6LfuiuQpAAAAAEq03FdKts-9bZ6KIcF9T8K7w4KY'
 RECAPTCHA_PRIVATE_KEY = '6LfuiuQpAAAAAGFFXYQQ4vaPzyJVuT9tpUJK3THe'
 
+# Stripe settings
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+
 HONEYPOT_FIELD_NAME = 'email2'
+

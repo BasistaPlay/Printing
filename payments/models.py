@@ -19,12 +19,20 @@ class Purchase(models.Model):
         ('DELIVERED', _('Piegādāts')),
         ('CANCELLED', _('Atcelts')),
     ]
+    PAYMENT_METHOD_CHOICES = [
+        ('INTERNETBANKA', _('Internetbanka')),
+        ('BANK_TRANSFER', _('Bankas pārskaitījums')),
+        ('APPLE_PAY', _('Apple Pay')),
+        ('STRIPE', _('Stripe')),
+    ]
+
     order_number = models.CharField(max_length=100)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default='PENDING')
     created_at = models.DateTimeField(default=timezone.now)
     is_paid = models.BooleanField(default=False)
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, default='INTERNETBANKA')
 
     def __str__(self):
         return f"Order {self.order_number} by {self.user.username}"

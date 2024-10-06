@@ -1028,9 +1028,9 @@ input {
   font-size: 14px; /* Fonta lielums */
 }
 
-#publish-checkbox {
+/* #publish-checkbox {
   display: none; /* Paslēpj standarta čeksboksu */
-}
+} */
 
 .publish-info label {
   position: relative;
@@ -1040,23 +1040,7 @@ input {
   margin-right: 10px; /* Atstarpe starp čeksboksu un tekstu */
 }
 
-.publish-info label::before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--main-color);
-  border-radius: 4px; /* Noapaļotas malas */
-  background-color: #fff; /* Balts fons */
-  margin-right: 10px; /* Atstarpe starp čeksboksu un tekstu */
-  position: relative;
-  top: 0;
-  transition: background-color 0.3s, border-color 0.3s;
-  background-image: url('/static/svg/sprite.svg#check'); /* SVG ikonas URL */
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 14px 14px; /* Izmēri atbilstoši jūsu SVG ikonas izmēram */
-}
+
 
 #publish-checkbox:checked + label::before {
   background-color: var(--main-color); /* Fons, kad čeksboks ir atzīmēts */
