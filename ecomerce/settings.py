@@ -15,7 +15,7 @@ import os
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -60,11 +60,10 @@ INSTALLED_APPS = [
     'product_details',
     'Product',
     'shoping_cart',
-    'forum',
     'payments',
     'translations',
     'honeypot',
-    "django_browser_reload",
+    # "django_browser_reload",
     #'django_extensions',
     'allauth',
     'allauth.account',
@@ -91,20 +90,22 @@ ROOT_URLCONF = 'ecomerce.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'shoping_cart.context_processor.cart_total_amount',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.i18n',
-            ],
-        },
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [
+        os.path.join(BASE_DIR, 'templates'),
+    ],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'shoping_cart.context_processor.cart_total_amount',
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+            'django.template.context_processors.i18n',
+        ],
     },
+},
 ]
 
 WSGI_APPLICATION = 'ecomerce.wsgi.application'
