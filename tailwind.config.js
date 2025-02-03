@@ -4,7 +4,6 @@ module.exports = {
     './templates/**/*.html',
     './static/**/*.js',
     './static/**/*.css',
-    './forum/templates/**/*.html',
     './home/templates/**/*.html',
     './Product/templates/**/*.html',
     './shoping_cart/templates/**/*.html',
