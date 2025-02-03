@@ -11,7 +11,7 @@ from django.contrib import messages
 
 def cart(request):
     products_with_sizes = []
-    return render(request, 'cart.html', {
+    return render(request, 'cart/cart.html', {
         'products_with_sizes': products_with_sizes
     })
 
