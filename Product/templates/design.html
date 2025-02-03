@@ -255,11 +255,11 @@
 
 {% block js %}
     <script src="{% static 'js/addtocart.js' %}"></script>
+    <script src="{% static 'js/design.js' %}"></script>
     <script src="{% static 'js/SaveDesign.js' %}"></script>
     {% if product.can_have_ai_image %}
         <script src="{% static 'js/aiimagegenerate.js' %}"></script>
     {% endif %}
-    <script src="{% static 'js/design.js' %}"></script>
     <script src="{% static 'js/general_design.js' %}"></script>
     {% if product.can_have_image %}
         <script src="{% static 'js/addimage.js' %}"></script>
