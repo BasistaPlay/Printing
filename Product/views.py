@@ -21,13 +21,13 @@ from django.http import Http404
 
 class CategoryListView(ListView):
     model = Category
-    template_name = 'all_categories.html'
+    template_name = 'Product/all_categories.html'
     context_object_name = 'categories'
 
 
 class CategoryDetailView(DetailView):
     model = Category
-    template_name = 'category_detail.html'
+    template_name = 'Product/category_detail.html'
     context_object_name = 'category'
     slug_field = 'slug'
     slug_url_kwarg = 'category_slug'
@@ -46,7 +46,7 @@ class CategoryDetailView(DetailView):
 
 class DesignView(LoginRequiredMixin, DetailView):
     model = Product
-    template_name = 'design.html'
+    template_name = 'Product/design.html'
     context_object_name = 'product'
     login_url = '/login/'
 
@@ -105,7 +105,7 @@ class DesignView(LoginRequiredMixin, DetailView):
 
 
 class CreativeCornerView(ListView):
-    template_name = 'creativecorner.html'
+    template_name = 'Product/creativecorner.html'
     context_object_name = 'page_obj'
     paginate_by = 10
 
@@ -145,7 +145,7 @@ class CreativeCornerView(ListView):
 
 class ProductDetailView(DetailView):
     model = Designs
-    template_name = 'detail.html'
+    template_name = 'Product/detail.html'
     context_object_name = 'product'
 
     def get_context_data(self, **kwargs):
