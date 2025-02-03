@@ -63,6 +63,8 @@ INSTALLED_APPS = [
     'payments',
     'translations',
     'honeypot',
+    'compressor',
+    'webpack_loader',
     #'django_extensions',
     'allauth',
     'allauth.account',
@@ -171,11 +173,12 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_URL = '/static/'  # URL ceļš, kuru izmantos, lai piekļūtu statiskajiem failiem
 
-STATIC_ROOT = '/home/ericprint/Printing/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -192,10 +195,6 @@ EMAIL_HOST_PASSWORD = 'hjmyxkzttzahgfib'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'mafiagameeee@gmail.com'
 
-try:
-    from ecomerce.local_settings import *
-except ImportError:
-    pass
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
@@ -287,3 +286,18 @@ STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
 
 HONEYPOT_FIELD_NAME = 'email2'
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
+# COMPRESS_ENABLED = True
+
+# STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
+try:
+    from ecomerce.local_settings import *
+except ImportError:
+    pass

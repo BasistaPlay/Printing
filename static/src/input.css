@@ -1,0 +1,10 @@
+@import './tailwind/styles.css';
+@import './tailwind/alert.css';
+@import './tailwind/base.css';
+@import './tailwind/login.css';
+@import './tailwind/profile.css';
+@import './tailwind/design.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
