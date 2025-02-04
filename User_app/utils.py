@@ -29,8 +29,8 @@ def send_verification_email(user, verification_code):
     from_email = 'no-reply@ericprint.com'
     to_email = user.email
 
-    text_content = render_to_string('emails/verification_email.txt', context)
-    html_content = render_to_string('emails/verification_email.html', context)
+    text_content = render_to_string('User/emails/verification_email.txt', context)
+    html_content = render_to_string('User/emails/verification_email.html', context)
 
     email = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
     email.attach_alternative(html_content, "text/html")

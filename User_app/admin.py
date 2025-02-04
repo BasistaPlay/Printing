@@ -61,7 +61,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
                     mime_image.add_header('Content-Disposition', 'inline', filename='company_logo.png')
 
             # Render the email content
-            html_content = render_to_string('emails/answer_message.html', {
+            html_content = render_to_string('User/emails/answer_message.html', {
                 'contact_message': obj,
                 'admin_message': admin_message
             })

@@ -1,13 +1,9 @@
-{% extends 'Profile.html' %}
+{% extends 'User/Profile.html' %}
 {% load static %}
 {% load i18n %}
 
 {% block title %}
     {% trans 'Dzēst profilu' %}
-{% endblock %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/profile/delete_account_form.css' %}" />
 {% endblock %}
 
 {% block content %}

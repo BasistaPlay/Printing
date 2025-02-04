@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     'Product',
     'shoping_cart',
     'payments',
-    'translations',
     'honeypot',
     'compressor',
     'webpack_loader',
