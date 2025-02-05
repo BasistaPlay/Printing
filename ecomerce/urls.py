@@ -5,13 +5,10 @@ from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from django.views.i18n import set_language
-from django.contrib.auth.views import PasswordChangeView
 from django.views.generic import TemplateView
 from django.http import Http404
 
-from home import views as page
-from shoping_cart import views as cart
+from home import views as home
 from User_app import views as user
 
 def admin_required(function):
@@ -24,21 +21,19 @@ def admin_required(function):
 urlpatterns = [
      path('admin/', admin.site.urls),
      path('i18n/', include('django.conf.urls.i18n')),
-     path("__reload__/", include("django_browser_reload.urls")),
-     path('', page.homepage, name='homepage'),
+     path('', home.HomePageView.as_view(), name='homepage'),
      path('sprite-svg/', admin_required(TemplateView.as_view(template_name='sprite_svg_preview.html'))),
      path('accounts/', include('allauth.urls')),
      path('cart/', include('shoping_cart.urls')),
      path('profile/', include('User_app.urls')),
      path('product/', include('Product.urls')),
-     path('forum/', include('forum.urls')),
      path('payments/', include('payments.urls')),
-
-
+     path('rosetta/', include('rosetta.urls')),
 ]
 
+
 urlpatterns += i18n_patterns(
-     path('', page.homepage, name='homepage'),
+     path('', home.HomePageView.as_view(), name='homepage'),
      path('admin/', admin.site.urls),
      path('login/', user.LoginView.as_view(), name='login'),
      path('register/', user.RegisterView.as_view(), name='register'),
@@ -48,8 +43,8 @@ urlpatterns += i18n_patterns(
      path('contact-us/', user.ContactUsView.as_view(), name='contact_us'),
 )
 
-handler404 = page.handler404
-handler500 = page.handler500
+handler404 = home.Handler404View.as_view()
+handler500 = home.Handler500View.as_view()
 
 
 if settings.DEBUG:

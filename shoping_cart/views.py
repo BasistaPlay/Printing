@@ -1,44 +1,55 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from shoping_cart.cart import Cart
 from django.views.decorators.csrf import csrf_exempt
 from Product.models import Product
-from shoping_cart.context_processor import cart_total_amount
 from design.models import Designs
 from django.contrib import messages
+from django.http import HttpResponse
+import json
 
 def cart(request):
     products_with_sizes = []
-    return render(request, 'cart.html', {
+    return render(request, 'cart/cart.html', {
         'products_with_sizes': products_with_sizes
     })
 
 @csrf_exempt
 def cart_add(request, id):
-    if request.method == 'POST':
+    if request.method == 'GET':
         try:
-            product_list = Designs.objects.get(id=id)
+            product = Designs.objects.get(id=id)
             cart = Cart(request)
-            cart.add(product_list)
+            selected_items = request.GET.get('selected_items')
 
-            messages.success(request, _('Prece veiksmīgi pievienota grozam.'), extra_tags='success cart')
-            return JsonResponse({
-                'success': True,
-                'messages': [m.message for m in messages.get_messages(request)]
-            })
+            if selected_items:
+                # Parse the selected_items JSON string
+                items = json.loads(selected_items)
+                sizes = []
+                for item in items:
+                    sizes.append({
+                        'size': item['size_id'],
+                        'count': item['quantity']
+                    })
+
+                # Add items to the cart
+                cart.add(product, quantity=1, sizeCount=len(items), sizes=sizes, product_id=id)
+
+                messages.success(request, _('Prece veiksmīgi pievienota grozam.'), extra_tags='success cart')
+                return HttpResponse(status=200)
+            else:
+                messages.error(request, _('Nav izvēlēti neviens izmērs vai daudzums.'))
+                return HttpResponse(status=400)
+
         except Designs.DoesNotExist:
             messages.error(request, _('Prece nav atrasta.'))
-            return JsonResponse({
-                'success': False,
-                'messages': [m.message for m in messages.get_messages(request)]
-            })
+            return HttpResponse(status=400)
 
-    return JsonResponse({
-        'success': False,
-        'messages': [_('Nederīgs pieprasījums.')]
-    })
+    return HttpResponse(status=400)
+
+
 
 @login_required(login_url="/login")
 def item_clear(request, id):

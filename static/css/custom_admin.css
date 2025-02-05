@@ -6,7 +6,11 @@
 }
 
 .canvas-container canvas {
+<<<<<<< HEAD
     border: 1px solid #000000; /* Piemçram, râmja apmales lînija */
+=======
+    border: 1px solid #000000;
+>>>>>>> 40fee0696a24515af28c5b23014830b4412940a2
 }
 
 .field-front_image_coords{

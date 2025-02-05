@@ -2,9 +2,9 @@
 module.exports = {
   content: [
     './templates/**/*.html',
+    './templates/*.html',
     './static/**/*.js',
     './static/**/*.css',
-    './forum/templates/**/*.html',
     './home/templates/**/*.html',
     './Product/templates/**/*.html',
     './shoping_cart/templates/**/*.html',
@@ -13,9 +13,8 @@ module.exports = {
     './payments/templates/**/*.html',
     './payments/templates/*.html',
     './ecommerce/static/src/**/*.js',
-    './static/**/*.js', // Only your own JavaScript files
+    './static/**/*.js',
     './static/**/*.css',
-    // Exclude node_modules by being more specific
     '!./node_modules/**/*',
     './ecomerce/templates/**/*.html',
     './ecomerce/static/src/**/*.js',

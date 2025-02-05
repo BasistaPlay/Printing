@@ -15,7 +15,7 @@ import os
 from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -60,11 +60,11 @@ INSTALLED_APPS = [
     'product_details',
     'Product',
     'shoping_cart',
-    'forum',
     'payments',
-    'translations',
     'honeypot',
-    "django_browser_reload",
+    'compressor',
+    'webpack_loader',
+    'rosetta',
     #'django_extensions',
     'allauth',
     'allauth.account',
@@ -79,7 +79,6 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -91,20 +90,22 @@ ROOT_URLCONF = 'ecomerce.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'shoping_cart.context_processor.cart_total_amount',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.i18n',
-            ],
-        },
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [
+        os.path.join(BASE_DIR, 'templates'),
+    ],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'shoping_cart.context_processor.cart_total_amount',
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+            'django.template.context_processors.i18n',
+        ],
     },
+},
 ]
 
 WSGI_APPLICATION = 'ecomerce.wsgi.application'
@@ -172,11 +173,13 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_URL = '/static/'  # URL ceļš, kuru izmantos, lai piekļūtu statiskajiem failiem
 
-STATIC_ROOT = '/home/ericprint/Printing/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -193,10 +196,8 @@ EMAIL_HOST_PASSWORD = 'hjmyxkzttzahgfib'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'mafiagameeee@gmail.com'
 
-try:
-    from ecomerce.local_settings import *
-except ImportError:
-    pass
+ROSETTA_REQUIRES_AUTH = False
+
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 
@@ -288,3 +289,18 @@ STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
 
 HONEYPOT_FIELD_NAME = 'email2'
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
+# COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
+try:
+    from ecomerce.local_settings import *
+except ImportError:
+    pass

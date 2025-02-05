@@ -1,0 +1,89 @@
+{% extends 'User/Profile.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+    {% trans 'Personīgā informācija' %}
+{% endblock %}
+
+{% block content %}
+<div class="rounded-lg my-8 mx-auto max-w-[900px] overflow-hidden p-6">
+    {% if messages %}
+        <div class='mb-4'>
+            {% for message in messages %}
+                {% if 'pass-change' in message.tags %}
+                    {% include 'partials/alert.html' with message=message message_tags=message.tags class='' %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="mb-4 pb-2 border-b border-gray-200">
+        <h2 class='text-2xl m-0 text-main-color'>{% trans 'Personīgā informācija' %}</h2>
+    </div>
+    <div class="mt-4">
+        <form method="post" action="{% url 'profile:personal_info' %}">
+            {% csrf_token %}
+            <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+                <div class="profile-input flex-1">
+                    {{ form.first_name.label_tag }}
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <div class="error">
+                            {{ form.first_name.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="profile-input flex-1">
+                    {{ form.last_name.label_tag }}
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <div class="error">
+                            {{ form.last_name.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+                <div class="profile-input flex-1 {% if form.email.errors %}error{% endif %}">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="error">
+                            {{ form.email.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="profile-input flex-1 {% if form.username.errors %}error{% endif %}">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="error">
+                            {{ form.username.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+                <div class="profile-input flex-1 {% if form.phone_number.errors %}error{% endif %}">
+                    {{ form.phone_number.label_tag }}
+                    {{ form.phone_number }}
+                    {% if form.phone_number.errors %}
+                        <div class="error">
+                            {{ form.phone_number.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row md:gap-4 mb-4">
+                <div class="flex items-center gap-2">
+                    {{ form.wants_promotions }}
+                    <label class='profile-checkbox m-0 text-base cursor-pointer' for="{{ form.wants_promotions.id_for_label }}">
+                        {% trans 'Vēlos saņemt jaunumus un piedāvājumus' %}
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="main-btn">{% trans 'Saglabt izmaiņas' %}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

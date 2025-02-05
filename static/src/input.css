@@ -1,9 +1,9 @@
-@import './styles.css';
-@import './alert.css';
-@import './base.css';
-@import './login.css';
-@import './profile.css';
-@import './design.css';
+@import './tailwind/styles.css';
+@import './tailwind/alert.css';
+@import './tailwind/base.css';
+@import './tailwind/login.css';
+@import './tailwind/profile.css';
+@import './tailwind/design.css';
 
 @tailwind base;
 @tailwind components;

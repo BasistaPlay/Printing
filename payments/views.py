@@ -19,7 +19,7 @@ import uuid
 import stripe
 
 class CheckoutView(FormView):
-    template_name = 'payment.html'
+    template_name = 'payments/payment.html'
     form_class = PurchaseForm
     success_url = reverse_lazy('purchase_confirmation')
 

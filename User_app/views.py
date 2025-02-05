@@ -26,7 +26,7 @@ from honeypot.decorators import check_honeypot
 
 class LoginView(View):
     form_class = LoginForm
-    template_name = 'login.html'
+    template_name = 'User/login.html'
 
     def get_context_data(self, **kwargs):
         context = kwargs
@@ -62,7 +62,7 @@ class LoginView(View):
 
 
 class RegisterView(FormView):
-    template_name = 'register.html'
+    template_name = 'User/register.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('profile:verify_email')
 
@@ -90,7 +90,7 @@ class RegisterView(FormView):
 
 
 class ExtraInfoView(LoginRequiredMixin, FormView):
-    template_name = 'extra_info.html'
+    template_name = 'User/extra_info.html'
     form_class = ExtraInfoForm
     success_url = reverse_lazy('home')
 
@@ -102,7 +102,7 @@ class ExtraInfoView(LoginRequiredMixin, FormView):
         return super().form_valid(form)
 
 class EmailVerificationView(FormView):
-    template_name = 'verify_email.html'
+    template_name = 'User/verify_email.html'
     form_class = EmailVerificationForm
     success_url = reverse_lazy('login')
 
@@ -156,7 +156,7 @@ def logout_view(request):
 
 @method_decorator(check_honeypot, name='post')
 class ContactUsView(View):
-    template_name = 'contact.html'
+    template_name = 'User/contact.html'
 
     def get(self, request):
         contacts = Contact.objects.first()
@@ -198,7 +198,7 @@ class ContactUsView(View):
             to_email = [email]
             text_content = 'Paldies par ziņojumu. Mēs centīsimies atbildēt jums pēc iespējas ātrāk.'
 
-            email_content = render_to_string('emails/message_received.html', {'contact_message': contact_message})
+            email_content = render_to_string('User/emails/message_received.html', {'contact_message': contact_message})
             email = EmailMultiAlternatives(subject, text_content, from_email, to_email)
             email.attach_alternative(email_content, "text/html")
 
@@ -227,7 +227,7 @@ class ContactUsView(View):
 class PersonalInfoView(LoginRequiredMixin, UpdateView):
     model = MyUser
     form_class = PersonalInfoForm
-    template_name = 'Profile/personal_info_form.html'
+    template_name = 'User/Profile/personal_info_form.html'
     success_url = reverse_lazy('profile:personal_info')
 
     def get_object(self):
@@ -241,7 +241,7 @@ class PersonalInfoView(LoginRequiredMixin, UpdateView):
 class CustomPasswordChangeView(FormView):
     form_class = CustomPasswordChangeForm
     success_url = reverse_lazy('profile:change_password')
-    template_name = 'Profile/password_change_form.html'
+    template_name = 'User/Profile/password_change_form.html'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -255,7 +255,7 @@ class CustomPasswordChangeView(FormView):
 
 
 class DeleteAccountView(LoginRequiredMixin, FormView):
-    template_name = 'Profile/delete_account_form.html'
+    template_name = 'User/Profile/delete_account_form.html'
     form_class = DeleteAccountForm
     success_url = reverse_lazy('profile:login')
 
@@ -269,7 +269,7 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
 
 class PurchaseHistoryView(LoginRequiredMixin, ListView):
     model = Purchase
-    template_name = 'Profile/purchase_history.html'
+    template_name = 'User/Profile/purchase_history.html'
     context_object_name = 'purchases'
 
     def get_queryset(self):
