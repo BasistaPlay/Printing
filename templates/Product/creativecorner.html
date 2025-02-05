@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load i18n %}
+{% load static i18n %}
 
 {% block title %}
     {% trans 'Radošais stūrītis' %}
@@ -11,100 +10,93 @@
     <div class="message-container"></div>
     <section class="shop w-full">
         <div class="flex gap-5 p-5 max-md:flex-col">
-            <aside class="w-64 bg-second-color rounded-lg p-5 sticky top-5 z-50 max-md:w-full max-md:mb-5 max-md:relative">
-                <form id="filter-form">
-                    <div class="flex flex-col gap-4">
-                        <div class="mb-4">
-                            <label class='block mb-1 font-bold' for="search-input">{% trans 'Meklēt:' %}</label>
-                            <input class='w-full p-2 rounded box-border bg-input-color text-text-color border border-gray-300 focus:border-main-color focus:outline-none' type="text" id="search-input" name="search" placeholder="{% trans 'Meklēt...' %}">
-                        </div>
-                        <div class="mb-4">
-                            <label class='block mb-1 font-bold'>{% trans 'Krāsas:' %}</label>
-                            <div class="flex gap-3">
-                                <input type="hidden" name="color" id="selected-colors">
-                                {% for color in all_colors %}
-                                    <div class="w-8 h-8 rounded-full border border-gray-300 cursor-pointer" data-color-id="{{ color.id }}" style="background-color: {{ color.code }}"></div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="mb-4">
-                            <label class='block mb-1 font-bold' for="product-select">{% trans 'Produktu saraksts:' %}</label>
-                            <select class='w-full p-2 rounded box-border bg-input-color text-text-color border border-gray-300 focus:border-main-color focus:outline-none' id="product-select" name="product_list">
-                                <option value="">{% trans 'Visi' %}</option>
-                                {% for product in all_products %}
-                                    <option value="{{ product.id }}">{{ product.title }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block mb-1 font-bold">{% trans 'Reitings:' %}</label>
-                                <div id="rating-filter" class="rating-filter flex justify-center">
-                                    <span class="star cursor-pointer" data-rating="1">
-                                        <svg width="30" height="30" class="fill-current text-gray-400">
-                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="star cursor-pointer" data-rating="2">
-                                        <svg width="30" height="30" class="fill-current text-gray-400">
-                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="star cursor-pointer" data-rating="3">
-                                        <svg width="30" height="30" class="fill-current text-gray-400">
-                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="star cursor-pointer" data-rating="4">
-                                        <svg width="30" height="30" class="fill-current text-gray-400">
-                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                        </svg>
-                                    </span>
-                                    <span class="star cursor-pointer" data-rating="5">
-                                        <svg width="30" height="30" class="fill-current text-gray-400">
-                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                        </svg>
-                                    </span>
+            <aside x-data="{
+                selectedColors: [],
+                selectedRating: null,
+                toggleColor(colorId) {
+                    if (this.selectedColors.includes(colorId)) {
+                        this.selectedColors = this.selectedColors.filter(id => id !== colorId);
+                    } else {
+                        this.selectedColors.push(colorId);
+                    }
+                },
+                setRating(rating) {
+                    this.selectedRating = this.selectedRating === rating ? null : rating;
+                }
+            }"
+            class="w-64 bg-second-color rounded-lg p-5 sticky top-5 z-50 max-md:w-full max-md:mb-5 max-md:relative">
+
+            <form id="filter-form"
+                hx-get="{% url 'product:filtered_creative_corner' %}"
+                hx-target="#filtered-products"
+                hx-trigger="change, keyup delay:300ms"
+                hx-push-url="false">
+
+                <div class="flex flex-col gap-4">
+
+                    <div class="mb-4">
+                        <label class='block mb-1 font-bold' for="search-input">{% trans 'Meklēt:' %}</label>
+                        <input class='w-full p-2 rounded box-border bg-input-color text-text-color border border-gray-300 focus:border-main-color focus:outline-none'
+                            type="text" id="search-input" name="search" placeholder="{% trans 'Meklēt...' %}">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class='block mb-1 font-bold'>{% trans 'Krāsas:' %}</label>
+                        <div class="flex gap-3">
+                            <input type="hidden" name="color" :value="selectedColors.join(',')" id="selected-colors">
+                            {% for color in all_colors %}
+                                <div
+                                    class="w-8 h-8 rounded-full border border-gray-300 cursor-pointer"
+                                    :class="selectedColors.includes('{{ color.id }}') ? 'ring-2 ring-main-color' : ''"
+                                    data-color-id="{{ color.id }}"
+                                    style="background-color: {{ color.code }}"
+                                    @click="toggleColor('{{ color.id }}'); $nextTick(() => document.querySelector('#filter-form').dispatchEvent(new Event('change')))">
                                 </div>
-                            <input type="hidden" name="rating" id="selected-rating">
-                        </div>
-                        <div class="mb-4">
-                            <button type="submit" id="filter-button" class="btn">{% trans 'Filtrēt' %}</button>
+                            {% endfor %}
                         </div>
                     </div>
-                </form>
-            </aside>
+
+                    <div class="mb-4">
+                        <label class='block mb-1 font-bold' for="product-select">{% trans 'Produktu saraksts:' %}</label>
+                        <select class='w-full p-2 rounded box-border bg-input-color text-text-color border border-gray-300 focus:border-main-color focus:outline-none'
+                            id="product-select" name="product_list">
+                            <option value="">{% trans 'Visi' %}</option>
+                            {% for product in all_products %}
+                                <option value="{{ product.id }}">{{ product.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-4" x-data="{ selectedRating: null, setRating(rating) {
+                        this.selectedRating = this.selectedRating === rating ? null : rating;
+                        console.log('Selected Rating:', this.selectedRating);
+                    }}">
+                        <label class="block mb-1 font-bold">{% trans 'Reitings:' %}</label>
+                        <div id="rating-filter" class="rating-filter flex justify-center">
+                            <template x-for="rating in [1, 2, 3, 4, 5]" :key="rating">
+                                <span class="star cursor-pointer"
+                                    @click="setRating(rating); $nextTick(() => document.querySelector('#filter-form').dispatchEvent(new Event('change')))"
+                                    :class="{ 'text-yellow-400': selectedRating >= rating, 'text-gray-400': selectedRating < rating }">
+                                    <svg width="30" height="30" class="fill-current">
+                                        <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                    </svg>
+                                </span>
+                            </template>
+                        </div>
+                        <input type="hidden" name="rating" :value="selectedRating" id="selected-rating">
+                    </div>
+
+
+                </div>
+            </form>
+        </aside>
+
 
 
 
             <main class="flex-1 max-md:ml-0">
-                <div id="product-container" class="grid gap-4 ml-0 grid-cols-[repeat(auto-fill,minmax(200px,1fr))] max-md:grid-cols-[repeat(auto-fill,minmax(100%,1fr))] ">
-                    {% for product_list in page_obj %}
-                    <div class="bg-second-color rounded-lg overflow-hidden relative text-center p-3 group">
-                        <a href="{% url 'product:detail' user=user product_title=product_list.product.title Designs_id=product_list.id %}">
-                            <div class="relative">
-                                <img src="{{ product_list.front_image.url }}" alt="{{ product_list.title }}" class="w-full h-auto transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0">
-                                <img src="{{ product_list.back_image.url }}" alt="Back Image" class="w-full h-auto transition-opacity duration-500 ease-in-out opacity-0 absolute inset-0 group-hover:opacity-100">
-                            </div>
-                            <div class="p-3">
-                                <h3 class='text-text-color'>{{ product_list.title }}</h3>
-                                <div class="my-3 mx-0 flex justify-center">
-                                    {% for starreiting in star_range %}
-                                        <div class='star {% if starreiting <= product_list.average_rating %}active{% endif %}'>
-                                            <span class="star" data-rating="{{ starreiting }}">
-                                                <svg width="30" height="30" style="fill:grey">
-                                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                                </svg>
-                                            </span>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </a>
-                        <div class="absolute bottom-3 right-3">
-                            <a class='text-main-color text-2xl' href="#" onclick="AddToCart('{{ product_list.id|safe }}')"><i class="bx bx-cart"></i></a>
-                        </div>
-                    </div>
-                    {% endfor %}
+                <div id="filtered-products" class="grid gap-4 ml-0 grid-cols-[repeat(auto-fill,minmax(200px,1fr))] max-md:grid-cols-[repeat(auto-fill,minmax(100%,1fr))]">
+                    {% include 'Product/creativecorner_list.html' %}
                 </div>
 
                 <div class="my-5 mx-0 text-center">
@@ -139,7 +131,5 @@
 {% endblock %}
 
 {% block js %}
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="{% static 'js/Product/creativecorner.js' %}"></script>
     <script src="{% static 'js/Product/addtocart.js' %}"></script>
 {% endblock %}

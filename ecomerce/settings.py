@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'honeypot',
     'compressor',
     'webpack_loader',
+    'rosetta',
     #'django_extensions',
     'allauth',
     'allauth.account',
@@ -193,6 +194,8 @@ EMAIL_HOST_USER = 'mafiagameeee@gmail.com'
 EMAIL_HOST_PASSWORD = 'hjmyxkzttzahgfib'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'mafiagameeee@gmail.com'
+
+ROSETTA_REQUIRES_AUTH = False
 
 
 CKEDITOR_UPLOAD_PATH = "uploads/"

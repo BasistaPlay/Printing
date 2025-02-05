@@ -1,0 +1,40 @@
+{% load static i18n %}
+
+{% for product_list in page_obj %}
+<div class="bg-second-color rounded-lg overflow-hidden relative text-center p-3 group cursor-pointer">
+    <a hx-get="{% url 'product:detail' user=request.user.username product_title=product_list.product.title Designs_id=product_list.id %}"
+        hx-target="#product-modal-content"
+        hx-trigger="click"
+        hx-swap="innerHTML">
+        <div class="relative">
+            <img src="{{ product_list.front_image.url }}" alt="{{ product_list.title }}" class="w-full h-auto transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0">
+            <img src="{{ product_list.back_image.url }}" alt="Back Image" class="w-full h-auto transition-opacity duration-500 ease-in-out opacity-0 absolute inset-0 group-hover:opacity-100">
+        </div>
+        <div class="p-3">
+            <h3 class='text-text-color'>{{ product_list.title }}</h3>
+            <div class="my-3 mx-0 flex justify-center">
+                {% for starreiting in star_range %}
+                    <div class='star {% if starreiting <= product_list.average_rating %}active{% endif %}'>
+                        <span class="star" data-rating="{{ starreiting }}">
+                            <svg width="30" height="30" style="fill:grey">
+                                <use xlink:href="/static/svg/sprite.svg#star"></use>
+                            </svg>
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </a>
+    <div class="absolute bottom-3 right-3">
+        <a class='text-main-color text-2xl' href="#" onclick="AddToCart('{{ product_list.id|safe }}')">
+            <i class="bx bx-cart"></i>
+        </a>
+    </div>
+</div>
+
+{% empty %}
+    <p class="text-center text-gray-500">{% trans "Nav atrasti rezultāti." %}</p>
+{% endfor %}
+
+
+{% include "include/base_panel.html" %}

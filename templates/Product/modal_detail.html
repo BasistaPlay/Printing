@@ -1,0 +1,162 @@
+{% load i18n %}
+
+<div class="p-6">
+    <div class="relative flex flex-col lg:flex-row bg-second-color rounded-xl max-w-[1000px] mx-auto lg:space-x-8 max-md:mt-8">
+
+        <!-- Produkta attēli -->
+        <div x-data="{ currentImage: '{{ product.front_image.url }}' }" class="relative max-w-[400px] w-full mx-auto lg:mx-0">
+            <div class="relative w-full">
+                <img id="headphoneImage1" :src="currentImage" class="h-auto rounded-xl w-full shadow-lg transition-transform duration-300 transform hover:scale-105">
+            </div>
+            <div class="flex justify-center mt-5 space-x-2">
+                <img
+                    class="w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300"
+                    :class="{ 'opacity-100': currentImage === '{{ product.front_image.url }}', 'opacity-80': currentImage !== '{{ product.front_image.url }}' }"
+                    @click="currentImage = '{{ product.front_image.url }}'"
+                    src="{{ product.front_image.url }}"
+                    alt="Thumbnail 1">
+                <img
+                    class="w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300"
+                    :class="{ 'opacity-100': currentImage === '{{ product.back_image.url }}', 'opacity-80': currentImage !== '{{ product.back_image.url }}' }"
+                    @click="currentImage = '{{ product.back_image.url }}'"
+                    src="{{ product.back_image.url }}"
+                    alt="Thumbnail 2">
+            </div>
+        </div>
+
+        <!-- Produkta informācija -->
+        <div class="mt-12 lg:mt-0 text-center lg:text-left max-w-[600px] w-full mx-auto">
+            <h3 class="text-s font-semibold text-text-color max-md:text-2xl">{{ product.author }}</h3>
+            <h1 class="text-3xl font-bold text-text-color mb-4 max-md:text-2xl">{{ product.title }}</h1>
+            <p class="text-2xl text-main-color font-semibold flex items-center justify-center lg:justify-start max-md:text-xl">
+                {{ product.product.price }} €
+            </p>
+
+            <!-- Produkta reitings -->
+            {% with product.average_rating|floatformat:0 as avg_rating %}
+                <div x-data="{ rating: {{ product.average_rating }} }">
+                    <div class="flex items-center space-x-1 mt-3 max-md:justify-center">
+                        {% for star in "12345" %}
+                            <div class="star {% if star <= avg_rating %}active{% endif %}">
+                                <svg
+                                    width="30" height="30"
+                                    class="cursor-pointer transition-all duration-200 hover:scale-110"
+                                    @click="rating = {{ star }}; $dispatch('rate', { stars: {{ star }} })">
+                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
+                                </svg>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endwith %}
+
+            <!-- Reitinga atjaunošana -->
+            <div
+                hx-get="{% url 'product:rate-design' product.id %}"
+                hx-trigger="rate from:body"
+                hx-vals='js:{stars: event.detail.stars}'
+                hx-swap="outerHTML"
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+            </div>
+
+            <!-- Produkta apraksts -->
+            <p class="text-base text-gray-600 leading-relaxed mb-6 max-md:text-sm text-text-color mt-6">
+                {{ product.description }}
+            </p>
+
+            <div x-data="{
+                quantities: {},
+                maxQuantities: {},
+                availableSizes: [],
+                init() {
+                    let inventory = JSON.parse('{{ inventory_json|escapejs }}');
+
+                    for (let item of inventory) {
+                        this.availableSizes.push({
+                            id: item.id,
+                            size: item.size,
+                            name: item.name,
+                            quantity: item.quantity
+                        });
+                    }
+
+                    this.maxQuantities = {};
+                    this.quantities = {};
+                    this.availableSizes.forEach(size => {
+                        this.maxQuantities[size.id] = size.quantity;
+                        this.quantities[size.id] = 0;
+                    });
+                },
+                updateQuantity(sizeId, value) {
+                    let numValue = parseInt(value, 10);
+                    if (isNaN(numValue) || numValue < 0) {
+                        this.quantities[sizeId] = 0;
+                    } else if (numValue > this.maxQuantities[sizeId]) {
+                        this.quantities[sizeId] = this.maxQuantities[sizeId];
+                    } else {
+                        this.quantities[sizeId] = numValue;
+                    }
+                }
+            }">
+
+
+                <div class="mb-4">
+                    <label class="block font-semibold mb-2">Izmērs un daudzums:</label>
+                    <template x-for="size in availableSizes" :key="size.id">
+                        <div class="flex items-center gap-4 mb-2">
+                            <label class="w-24" x-text="size.name"></label>
+                            <input type="number"
+                                x-model="quantities[size.id]"
+                                @input="updateQuantity(size.id, $event.target.value)"
+                                min="0"
+                                :max="maxQuantities[size.id]"
+                                class="border p-2 w-16 text-center rounded">
+                            <span x-text="'/' + maxQuantities[size.id]"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Pievienot grozam poga -->
+            <div x-data="{
+                quantities: {},
+                maxQuantities: {},
+                availableSizes: [],
+                selectedItems: [],
+                addToCart() {
+                    // Update selectedItems based on quantities
+                    this.selectedItems = Object.keys(this.quantities)
+                        .filter(sizeId => this.quantities[sizeId] > 0)
+                        .map(sizeId => ({
+                            size_id: sizeId,
+                            quantity: this.quantities[sizeId]
+                        }));
+
+                    // Dispatch event if items are selected
+                    if (this.selectedItems.length > 0) {
+                        this.$dispatch('cart-updated');
+                    }
+                }
+            }">
+            <button
+            @click="addToCart"
+            hx-get="/cart/add/{{ product.id }}/"
+            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            hx-trigger="click"
+            hx-target="#cart-count"
+            hx-swap="outerHTML"
+            :hx-vals="JSON.stringify({ selected_items: selectedItems })"
+            @click="console.log('Selected items:', selectedItems)">
+            {% trans "Pievienot grozam" %}
+        </button>
+            </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

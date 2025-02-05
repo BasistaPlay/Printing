@@ -28,6 +28,7 @@ urlpatterns = [
      path('profile/', include('User_app.urls')),
      path('product/', include('Product.urls')),
      path('payments/', include('payments.urls')),
+     path('rosetta/', include('rosetta.urls')),
 ]
 
 
