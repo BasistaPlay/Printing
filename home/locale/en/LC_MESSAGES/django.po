@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-16 11:23+0300\n"
-"PO-Revision-Date: 2025-02-05 15:34+0200\n"
-"Last-Translator:   <Admin@admin.lv>\n"
+"PO-Revision-Date: 2025-02-08 23:14+0200\n"
+"Last-Translator:   <dwfwe@efewf.ewf>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: admin.py:24
 msgid "Varat pievienot tikai vienu ierakstu."
-msgstr "You can only add one entry."
+msgstr "You can only add one record"
 
 #: models.py:7
 msgid "Virsraksts"
-msgstr "title"
+msgstr "Title"
 
 #: models.py:8
 msgid "Apraksts"
@@ -98,7 +98,7 @@ msgstr "Profile"
 #, fuzzy
 #| msgid "Pierakstīties"
 msgid "Izrakstīties"
-msgstr "Sign up"
+msgstr "Sign out"
 
 #: templates/base.html:39 templates/base.html:60
 msgid "Pierakstīties"
@@ -109,26 +109,25 @@ msgid "Admin"
 msgstr "Admin"
 
 #: templates/home_page.html:108
-#, fuzzy
 #| msgid "Produkti"
 msgid "Mūsu produkti!"
 msgstr "Products"
 
 #: templates/home_page.html:139
 msgid "Kategorija"
-msgstr ""
+msgstr "Category"
 
 #: templates/home_page.html:144
 msgid "Vai meklē savu vēlamo produktu"
-msgstr ""
+msgstr "Looking for your preferred product?"
 
 #: templates/home_page.html:144
 msgid "kategorija"
-msgstr ""
+msgstr "Category"
 
 #: templates/home_page.html:151
 msgid "Kā izveidot dizainu:"
-msgstr "ALAHS"
+msgstr "How to create a design:"
 
 #: templates/home_page.html:153
 msgid ""
@@ -136,92 +135,100 @@ msgid ""
 "dizainu. Sekojiet šiem soļiem, lai iegūtu unikālu dizainu, kas atbilst jūsu "
 "vajadzībām."
 msgstr ""
+"With our tool, you can quickly and easily create your own personalized "
+"design. Follow these steps for a unique design that meets your needs"
 
 #: templates/home_page.html:160
-#, fuzzy
 #| msgid "Izvēlieties fontu:"
 msgid "1. Izvēlies produktu"
-msgstr "Select Font:"
+msgstr "1. Choose a product"
 
 #: templates/home_page.html:161
-#, fuzzy
 #| msgid "Izvēlieties valodu, kuru vēlaties izmantot šajā lapā."
 msgid "Izvēlieties produktu, kuru vēlaties pielāgot no mūsu plašā klāsta."
-msgstr "Select the language you want to use on this page."
+msgstr "Choose the product you want to customize from our wide range"
 
 #: templates/home_page.html:164
 msgid "2. Izveido savu personālo dizainu"
-msgstr ""
+msgstr "2. Creates your own personal design"
 
 #: templates/home_page.html:165
 msgid "Izmantojiet mūsu dizaina rīku, lai izveidotu savu unikālo dizainu."
-msgstr ""
+msgstr "Use our theme tool to create your own unique design."
 
 #: templates/home_page.html:168
 msgid "3. Pasūti šo personalu dizainu"
-msgstr ""
+msgstr "3. Order this personal design"
 
 #: templates/home_page.html:169
 msgid "Pabeidziet pasūtījumu, un mēs apstrādāsim jūsu personalizēto dizainu."
-msgstr ""
+msgstr "Complete your order and we'll process your personalized design"
 
 #: templates/home_page.html:172
 msgid "4. Saņem dizainu"
-msgstr ""
+msgstr "Get your design "
 
 #: templates/home_page.html:173
 msgid "Saņemiet savu unikālo dizainu un izbaudiet to."
-msgstr ""
+msgstr "Get your own unique design and enjoy it"
 
 #: templates/home_page.html:182
 msgid "Ieguvumi no savu darbu publicēšanas"
-msgstr ""
+msgstr "Benefits of publishing your works"
 
 #: templates/home_page.html:184
 msgid ""
 "Publicējot savu darbu, jūs veidojat iespēju iedvesmot citus un gūt arī "
 "praktiskus ieguvumus!"
 msgstr ""
+"by publishing your work, you create an opportunity to inspire others and "
+"also make practical gains"
 
 #: templates/home_page.html:197
 #, fuzzy
 #| msgid "Apstiprinu, ka vēlos publicēt savu darbu"
 msgid "Kāpēc publicēt savu darbu?"
-msgstr "I confirm that I want to publish my work."
+msgstr "Why publish your work?"
 
 #: templates/home_page.html:199
 msgid ""
 " Daloties ar savu darbu, jūs varat sniegt iedvesmu citiem un veidot saikni "
 "ar līdzīgiem radošiem cilvēkiem."
 msgstr ""
+"By sharing your work, you can provide inspiration to others and build "
+"connections with similar creative people"
 
 #: templates/home_page.html:211
 msgid "Mazliet nopelnīt"
-msgstr ""
+msgstr "To earn a little"
 
 #: templates/home_page.html:213
 msgid ""
 "  Jūs saņemsiet 1 euro digitālajā makā par katru pārdoto preci ar jūsu "
 "dizainu, ko varat iztērēt veikalā."
 msgstr ""
+"You'll get €1 in your digital wallet for every item sold with your design, "
+"which you can spend on our store"
 
 #: templates/home_page.html:225
 msgid "Digitālais maks"
-msgstr ""
+msgstr "Digital wallet"
 
 #: templates/home_page.html:227
 msgid ""
 "Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai iegādātos "
 "citus produktus šajā veikalā."
 msgstr ""
+"Income goes into your digital wallet and can be used to buy other products "
+"in this store"
 
 #: templates/home_page.html:236
 msgid "Lietotāju populārākie dizaini!"
-msgstr ""
+msgstr "Users' top themes"
 
 #: templates/home_page.html:281
 msgid "Biežāk Uzdotie Jautājumi"
-msgstr ""
+msgstr "Frequently Asked Questions"
 
 #: templates/ressret_password/password_reset_form.html:18
 msgid "Vai esat aizmirsis paroli?"
