@@ -1,6 +1,10 @@
 <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-    <div class="bg-second-color p-6 rounded-lg max-w-3xl w-full relative">
-        <button class="absolute top-2 right-2 text-gray-700" onclick="closeModal()">✖</button>
+    <div class="bg-second-color p-6 rounded-lg max-w-3xl w-full relative opacity-0 transition-opacity duration-300 ease-in-out" id="modal-content">
+        <button class="absolute top-2 right-2 text-gray-700" onclick="closeModal()">
+            <svg width="24" height="24" class="mx-auto mb-4 text-text-color">
+                <use xlink:href="/static/svg/sprite.svg#close"></use>
+            </svg>
+        </button>
         <div id="product-modal-content">
             <!-- Produkta info tiks ielādēta šeit ar HTMX -->
         </div>
@@ -8,11 +12,30 @@
 </div>
 
 <script>
-    function closeModal() {
-        document.getElementById("product-modal").classList.add("hidden");
-    }
+   function closeModal() {
+    const modal = document.getElementById("product-modal");
+    const modalContent = modal.querySelector("#modal-content");
+    modalContent.classList.add("opacity-0");
+    setTimeout(() => {
+        modal.classList.add("hidden");
+    }, 300);
+}
 
-    document.addEventListener("htmx:afterSwap", function(evt) {
-        document.getElementById("product-modal").classList.remove("hidden");
-    });
+document.addEventListener("htmx:beforeRequest", function(evt) {
+    const modal = document.getElementById("product-modal");
+    modal.classList.add("hidden");
+});
+
+document.addEventListener("htmx:afterSwap", function(evt) {
+    const modal = document.getElementById("product-modal");
+    const modalContent = modal.querySelector("#modal-content");
+
+    if (evt.target.id === "product-modal-content" && evt.detail.xhr.responseText) {
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+            modalContent.classList.remove("opacity-0");
+        }, 10);
+    }
+});
+
 </script>

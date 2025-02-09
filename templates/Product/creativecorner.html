@@ -76,7 +76,7 @@
                             <template x-for="rating in [1, 2, 3, 4, 5]" :key="rating">
                                 <span class="star cursor-pointer"
                                     @click="setRating(rating); $nextTick(() => document.querySelector('#filter-form').dispatchEvent(new Event('change')))"
-                                    :class="{ 'text-yellow-400': selectedRating >= rating, 'text-gray-400': selectedRating < rating }">
+                                    :class="{ 'active': selectedRating >= rating,}">
                                     <svg width="30" height="30" class="fill-current">
                                         <use xlink:href="/static/svg/sprite.svg#star"></use>
                                     </svg>
@@ -130,6 +130,3 @@
 </div>
 {% endblock %}
 
-{% block js %}
-    <script src="{% static 'js/Product/addtocart.js' %}"></script>
-{% endblock %}

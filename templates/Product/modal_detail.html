@@ -110,14 +110,13 @@
                                 @input="updateQuantity(size.id, $event.target.value)"
                                 min="0"
                                 :max="maxQuantities[size.id]"
-                                class="border p-2 w-16 text-center rounded">
+                                class="border p-2 w-16 text-center rounded bg-input-color">
                             <span x-text="'/' + maxQuantities[size.id]"></span>
                         </div>
                     </template>
                 </div>
             </div>
 
-            <!-- Pievienot grozam poga -->
             <div x-data="{
                 quantities: {},
                 maxQuantities: {},
