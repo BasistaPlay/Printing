@@ -1696,6 +1696,17 @@ video {
   top: 100%;
 }
 
+<<<<<<< HEAD
+=======
+.bottom-40{
+  bottom: 10rem;
+}
+
+.bottom-9{
+  bottom: 2.25rem;
+}
+
+>>>>>>> 354a6c5f44d76aa01c36a8c11eeb8dede7039332
 .z-0{
   z-index: 0;
 }
@@ -4609,6 +4620,10 @@ video {
 
   .max-md\:bottom-40{
     bottom: 10rem;
+  }
+
+  .max-md\:bottom-9{
+    bottom: 2.25rem;
   }
 
   .max-md\:mb-3{
