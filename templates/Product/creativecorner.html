@@ -30,7 +30,8 @@
                 hx-get="{% url 'product:filtered_creative_corner' %}"
                 hx-target="#filtered-products"
                 hx-trigger="change, keyup delay:300ms"
-                hx-push-url="false">
+                hx-push-url="false"
+                hx-indicator="#spinner">
 
                 <div class="flex flex-col gap-4">
 
@@ -92,6 +93,9 @@
         </aside>
 
 
+        <div id="spinner" class=" absolute inset-0 flex justify-center items-center bg-white bg-opacity-50">
+            <div class="w-16 h-16 hidden border-t-4 border-main-color border-solid rounded-full animate-spin"></div>
+        </div>
 
 
             <main class="flex-1 max-md:ml-0">

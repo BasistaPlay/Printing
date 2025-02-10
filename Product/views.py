@@ -178,7 +178,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = self.object.product
-        inventory = product.inventory.all()
+        inventory = product.inventory.filter(product=self.object.product, color=self.object.product_color)
 
         context['inventory_json'] = json.dumps([
             {

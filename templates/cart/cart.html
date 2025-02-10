@@ -10,16 +10,16 @@
 {% block body %}
 <div class="container mx-auto mt-32">
     <div class="bg-second-color rounded-lg p-8">
-
         <h1 class="text-3xl font-bold text-main-color mb-8 text-center">{% trans 'Grozs' %}</h1>
 
         {% if request.session.cart.items %}
-            <div class="hidden sm:block">
+            <div class="sm:block">
                 <table class="w-full table-auto text-left">
                     <thead class="bg-main-color text-white">
                         <tr>
                             <th class="p-4">{% trans 'Attēli' %}</th>
                             <th class="p-4">{% trans 'Cena' %}</th>
+                            <th class="p-4">{% trans 'Izmēri' %}</th>
                             <th class="p-4">{% trans 'Daudzums' %}</th>
                             <th class="p-4">{% trans 'Kopējā cena' %}</th>
                             <th class="p-4">{% trans 'Darbības' %}</th>
@@ -30,29 +30,18 @@
                         <tr class="border-b border-gray-300 hover:bg-hover-color transition">
                             <td class="p-4 flex items-center space-x-4">
                                 <img class="w-16 h-auto rounded-lg" src="{{ value.image }}" alt="{% trans 'Product Image' %}">
-                                <img class="w-16 h-auto rounded-lg" src="{{ value.image_back }}" alt="{% trans 'Product Image' %}">
+                                <img class="w-16 h-auto rounded-lg" src="{{ value.back_image }}" alt="{% trans 'Product Image' %}">
                             </td>
+                            <td class="p-4 text-lg text-text-color">{{ value.price }}€</td>
                             <td class="p-4">
-                                <p class="text-lg text-text-color">{{ value.price }}€</p>
+                                <ul class="text-text-color">
+                                    {% for size in value.sizes %}
+                                        <li class="text-sm">{{ size.size }}: <strong>{{ size.count }}</strong></li>
+                                    {% endfor %}
+                                </ul>
                             </td>
-                            <td class="p-4">
-                                <div class="flex items-center space-x-0 bg-input-color rounded-full shadow-md w-32">
-                                    <a
-                                    {% if value.quantity != 1 %}
-                                        href='{% url "shopping_cart:item_decrement" value.product_id %}'
-                                    {% endif %}
-                                    class="bg-main-color text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-main-color-light transition-all focus:outline-none focus:ring-2 focus:ring-main-color-light
-                                    {% if value.quantity == 1 %} opacity-50 cursor-not-allowed {% endif %}">-
-                                    </a>
-                                    <input type="number" id="quantity-{{ forloop.counter }}" value="{{ value.quantity }}" min="1" class="w-12 text-center border-0 bg-input-color text-main-color focus:outline-none" readonly>
-                                    <a href='{% url "shopping_cart:item_increment" value.product_id %}' class="bg-main-color text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-main-color-light transition-all focus:outline-none focus:ring-2 focus:ring-main-color-light">
-                                        +
-                                    </a>
-                                </div>
-                            </td>
-                            <td class="p-4">
-                                <p class="text-lg text-text-color font-bold">{{ value.total_price }}€</p>
-                            </td>
+                            <td class="p-4 text-lg text-text-color font-bold">{{ value.quantity }}</td>
+                            <td class="p-4 text-lg text-text-color font-bold">{{ value.total_price }}€</td>
                             <td class="p-4">
                                 <a href='{% url "shopping_cart:item_clear" value.product_id %}' class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
                                     {% trans 'Noņemt' %}
@@ -63,43 +52,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <div class="sm:hidden space-y-6">
-                {% for key, value in request.session.cart.items %}
-                <div class="grid grid-cols-1 gap-4 p-6 bg-second-color rounded-lg justify-center items-center text-center">
-                    <div class="flex items-center justify-center space-x-4">
-                        <img class="w-16 h-auto rounded-lg" src="{{ value.image }}" alt="{% trans 'Product Image' %}">
-                        <img class="w-16 h-auto rounded-lg" src="{{ value.image_back }}" alt="{% trans 'Product Image' %}">
-                    </div>
-                    <div>
-                        <h2 class="text-xl font-semibold text-text-color">{{ value.title }}</h2>
-                        <p class="text-lg text-text-color">{% trans 'Cena' %}: <span class="font-bold">{{ value.price }}€</span></p>
-                    </div>
-                    <div>
-                        <p class="text-lg text-text-color font-bold">{% trans 'Kopējā cena' %}: {{ value.total_price }}€</p>
-                    </div>
-                    <div class="flex items-center justify-center space-x-0 bg-input-color rounded-full w-32">
-                        <a
-                        {% if value.quantity != 1 %}
-                            href='{% url "shopping_cart:item_decrement" value.product_id %}'
-                        {% endif %}
-                        class="bg-main-color text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-main-color-light transition-all focus:outline-none focus:ring-2 focus:ring-main-color-light
-                        {% if value.quantity == 1 %} opacity-50 cursor-not-allowed {% endif %}">-
-                        </a>
-                        <input type="number" id="quantity-{{ forloop.counter }}" value="{{ value.quantity }}" min="1" class="w-12 text-center border-0 bg-input-color text-main-color focus:outline-none" readonly>
-                        <a href='{% url "shopping_cart:item_increment" value.product_id %}' class="bg-main-color text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-main-color-light transition-all focus:outline-none focus:ring-2 focus:ring-main-color-light">
-                            +
-                        </a>
-                    </div>
-                    <div>
-                        <a href='{% url "shopping_cart:item_clear" value.product_id %}' class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
-                            {% trans 'Noņemt' %}
-                        </a>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-
             <div class="flex items-center justify-between p-6 flex-col sm:flex-row space-y-4 sm:space-y-0">
                 <p class="text-2xl font-bold text-main-color">{% trans 'Kopā' %}: {{ cart_total_amount|floatformat:2 }}€</p>
                 <a href="{% url 'payments:payment' %}" class="bg-main-color text-white px-8 py-4 rounded-lg text-lg hover:bg-main-color-dark transition-all">
@@ -110,6 +62,5 @@
             <p class="text-center text-text-color">{% trans 'Jūsu grozs ir tukšs.' %}</p>
         {% endif %}
     </div>
-
 </div>
 {% endblock %}

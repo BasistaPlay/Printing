@@ -23,31 +23,27 @@ def cart_add(request, id):
             product = Designs.objects.get(id=id)
             cart = Cart(request)
             selected_items = request.GET.get('selected_items')
+            print(f"Received selected_items: {selected_items}")
 
             if selected_items:
-                # Parse the selected_items JSON string
                 items = json.loads(selected_items)
-                sizes = []
-                for item in items:
-                    sizes.append({
-                        'size': item['size_id'],
-                        'count': item['quantity']
-                    })
 
-                # Add items to the cart
-                cart.add(product, quantity=1, sizeCount=len(items), sizes=sizes, product_id=id)
+                sizes = [{'size': size_id, 'count': count} for size_id, count in items.items() if count > 0]
 
-                messages.success(request, _('Prece veiksmīgi pievienota grozam.'), extra_tags='success cart')
-                return HttpResponse(status=200)
-            else:
-                messages.error(request, _('Nav izvēlēti neviens izmērs vai daudzums.'))
-                return HttpResponse(status=400)
+                if sizes:
+                    cart.add(product, quantity=1, sizeCount=len(sizes), sizes=sizes, product_id=id)
+
+                    # Aizvietojam `cart.get_total_items()` ar pareizo metodi
+                    total_items = sum(item['quantity'] for item in cart.session.get('cart', {}).values())
+
+                    return JsonResponse({'cart_count': total_items, 'message': 'Prece veiksmīgi pievienota grozam.'}, status=200)
+                else:
+                    return JsonResponse({'error': 'Nav izvēlēts neviens derīgs izmērs vai daudzums.'}, status=400)
 
         except Designs.DoesNotExist:
-            messages.error(request, _('Prece nav atrasta.'))
-            return HttpResponse(status=400)
+            return JsonResponse({'error': 'Prece nav atrasta.'}, status=404)
 
-    return HttpResponse(status=400)
+    return JsonResponse({'error': 'Neatbalstīts pieprasījums.'}, status=400)
 
 
 
