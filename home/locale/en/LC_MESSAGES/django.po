@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-16 11:23+0300\n"
+"POT-Creation-Date: 2025-02-10 15:32+0200\n"
 "PO-Revision-Date: 2025-02-08 23:14+0200\n"
 "Last-Translator:   <dwfwe@efewf.ewf>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,221 +18,182 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: admin.py:24
+#: admin.py:23
 msgid "Varat pievienot tikai vienu ierakstu."
 msgstr "You can only add one record"
 
-#: models.py:7
+#: models.py:6
 msgid "Virsraksts"
 msgstr "Title"
 
-#: models.py:8
+#: models.py:7
 msgid "Apraksts"
 msgstr "Description"
 
-#: models.py:9
+#: models.py:8
 msgid "Papildu piezīmes"
 msgstr "Additional notes"
 
-#: models.py:10
+#: models.py:9
 msgid "Bilde"
 msgstr "Image"
 
-#: models.py:16
+#: models.py:15
 msgid "Pielāgots dizains"
 msgstr "Custom design"
 
-#: models.py:17
+#: models.py:16
 msgid "Pielāgoti dizaini"
 msgstr "Custom designs"
 
-#: models.py:44
-msgid "Dāvanu kods"
-msgstr "Gift code"
+#~ msgid "Dāvanu kods"
+#~ msgstr "Gift code"
 
-#: models.py:45
-msgid "Dāvanu kodi"
-msgstr "Gift codes"
+#~ msgid "Dāvanu kodi"
+#~ msgstr "Gift codes"
 
-#: models.py:50
-msgid "Gaida apstiprinājumu"
-msgstr "Awaiting confirmation"
+#~ msgid "Gaida apstiprinājumu"
+#~ msgstr "Awaiting confirmation"
 
-#: models.py:51
-msgid "Apstrāde"
-msgstr "Processing"
+#~ msgid "Apstrāde"
+#~ msgstr "Processing"
 
-#: models.py:52
-msgid "Nosūtīts"
-msgstr "Shipped"
+#~ msgid "Nosūtīts"
+#~ msgstr "Shipped"
 
-#: models.py:53
-msgid "Piegādāts"
-msgstr "Delivered"
+#~ msgid "Piegādāts"
+#~ msgstr "Delivered"
 
-#: models.py:54
-msgid "Atcelts"
-msgstr "Cancelled"
+#~ msgid "Atcelts"
+#~ msgstr "Cancelled"
 
-#: templates/base.html:30 templates/home_page.html:6
-msgid "Sākumlapa"
-msgstr "Homepage"
+#~ msgid "Sākumlapa"
+#~ msgstr "Homepage"
 
-#: templates/base.html:31
-msgid "Radošais stūrītis"
-msgstr "Creative corner"
+#~ msgid "Radošais stūrītis"
+#~ msgstr "Creative corner"
 
-#: templates/base.html:32
-msgid "Sazinies ar mums"
-msgstr "Contact us"
+#~ msgid "Sazinies ar mums"
+#~ msgstr "Contact us"
 
-#: templates/base.html:33
-msgid "Grozs"
-msgstr "Cart"
+#~ msgid "Grozs"
+#~ msgstr "Cart"
 
-#: templates/base.html:36 templates/base.html:52 templates/base.html:55
-msgid "Profils"
-msgstr "Profile"
+#~ msgid "Profils"
+#~ msgstr "Profile"
 
-#: templates/base.html:37 templates/base.html:56
 #, fuzzy
-#| msgid "Pierakstīties"
-msgid "Izrakstīties"
-msgstr "Sign out"
+#~| msgid "Pierakstīties"
+#~ msgid "Izrakstīties"
+#~ msgstr "Sign out"
 
-#: templates/base.html:39 templates/base.html:60
-msgid "Pierakstīties"
-msgstr "Sign up"
+#~ msgid "Pierakstīties"
+#~ msgstr "Sign up"
 
-#: templates/base.html:42
-msgid "Admin"
-msgstr "Admin"
+#~ msgid "Admin"
+#~ msgstr "Admin"
 
-#: templates/home_page.html:108
-#| msgid "Produkti"
-msgid "Mūsu produkti!"
-msgstr "Products"
+#~| msgid "Produkti"
+#~ msgid "Mūsu produkti!"
+#~ msgstr "Products"
 
-#: templates/home_page.html:139
-msgid "Kategorija"
-msgstr "Category"
+#~ msgid "Kategorija"
+#~ msgstr "Category"
 
-#: templates/home_page.html:144
-msgid "Vai meklē savu vēlamo produktu"
-msgstr "Looking for your preferred product?"
+#~ msgid "Vai meklē savu vēlamo produktu"
+#~ msgstr "Looking for your preferred product?"
 
-#: templates/home_page.html:144
-msgid "kategorija"
-msgstr "Category"
+#~ msgid "kategorija"
+#~ msgstr "Category"
 
-#: templates/home_page.html:151
-msgid "Kā izveidot dizainu:"
-msgstr "How to create a design:"
+#~ msgid "Kā izveidot dizainu:"
+#~ msgstr "How to create a design:"
 
-#: templates/home_page.html:153
-msgid ""
-"Izmantojot mūsu rīku, jūs varat ātri un viegli izveidot savu personalizēto "
-"dizainu. Sekojiet šiem soļiem, lai iegūtu unikālu dizainu, kas atbilst jūsu "
-"vajadzībām."
-msgstr ""
-"With our tool, you can quickly and easily create your own personalized "
-"design. Follow these steps for a unique design that meets your needs"
+#~ msgid ""
+#~ "Izmantojot mūsu rīku, jūs varat ātri un viegli izveidot savu "
+#~ "personalizēto dizainu. Sekojiet šiem soļiem, lai iegūtu unikālu dizainu, "
+#~ "kas atbilst jūsu vajadzībām."
+#~ msgstr ""
+#~ "With our tool, you can quickly and easily create your own personalized "
+#~ "design. Follow these steps for a unique design that meets your needs"
 
-#: templates/home_page.html:160
-#| msgid "Izvēlieties fontu:"
-msgid "1. Izvēlies produktu"
-msgstr "1. Choose a product"
+#~| msgid "Izvēlieties fontu:"
+#~ msgid "1. Izvēlies produktu"
+#~ msgstr "1. Choose a product"
 
-#: templates/home_page.html:161
-#| msgid "Izvēlieties valodu, kuru vēlaties izmantot šajā lapā."
-msgid "Izvēlieties produktu, kuru vēlaties pielāgot no mūsu plašā klāsta."
-msgstr "Choose the product you want to customize from our wide range"
+#~| msgid "Izvēlieties valodu, kuru vēlaties izmantot šajā lapā."
+#~ msgid "Izvēlieties produktu, kuru vēlaties pielāgot no mūsu plašā klāsta."
+#~ msgstr "Choose the product you want to customize from our wide range"
 
-#: templates/home_page.html:164
-msgid "2. Izveido savu personālo dizainu"
-msgstr "2. Creates your own personal design"
+#~ msgid "2. Izveido savu personālo dizainu"
+#~ msgstr "2. Creates your own personal design"
 
-#: templates/home_page.html:165
-msgid "Izmantojiet mūsu dizaina rīku, lai izveidotu savu unikālo dizainu."
-msgstr "Use our theme tool to create your own unique design."
+#~ msgid "Izmantojiet mūsu dizaina rīku, lai izveidotu savu unikālo dizainu."
+#~ msgstr "Use our theme tool to create your own unique design."
 
-#: templates/home_page.html:168
-msgid "3. Pasūti šo personalu dizainu"
-msgstr "3. Order this personal design"
+#~ msgid "3. Pasūti šo personalu dizainu"
+#~ msgstr "3. Order this personal design"
 
-#: templates/home_page.html:169
-msgid "Pabeidziet pasūtījumu, un mēs apstrādāsim jūsu personalizēto dizainu."
-msgstr "Complete your order and we'll process your personalized design"
+#~ msgid ""
+#~ "Pabeidziet pasūtījumu, un mēs apstrādāsim jūsu personalizēto dizainu."
+#~ msgstr "Complete your order and we'll process your personalized design"
 
-#: templates/home_page.html:172
-msgid "4. Saņem dizainu"
-msgstr "Get your design "
+#~ msgid "4. Saņem dizainu"
+#~ msgstr "Get your design "
 
-#: templates/home_page.html:173
-msgid "Saņemiet savu unikālo dizainu un izbaudiet to."
-msgstr "Get your own unique design and enjoy it"
+#~ msgid "Saņemiet savu unikālo dizainu un izbaudiet to."
+#~ msgstr "Get your own unique design and enjoy it"
 
-#: templates/home_page.html:182
-msgid "Ieguvumi no savu darbu publicēšanas"
-msgstr "Benefits of publishing your works"
+#~ msgid "Ieguvumi no savu darbu publicēšanas"
+#~ msgstr "Benefits of publishing your works"
 
-#: templates/home_page.html:184
-msgid ""
-"Publicējot savu darbu, jūs veidojat iespēju iedvesmot citus un gūt arī "
-"praktiskus ieguvumus!"
-msgstr ""
-"by publishing your work, you create an opportunity to inspire others and "
-"also make practical gains"
+#~ msgid ""
+#~ "Publicējot savu darbu, jūs veidojat iespēju iedvesmot citus un gūt arī "
+#~ "praktiskus ieguvumus!"
+#~ msgstr ""
+#~ "by publishing your work, you create an opportunity to inspire others and "
+#~ "also make practical gains"
 
-#: templates/home_page.html:197
 #, fuzzy
-#| msgid "Apstiprinu, ka vēlos publicēt savu darbu"
-msgid "Kāpēc publicēt savu darbu?"
-msgstr "Why publish your work?"
+#~| msgid "Apstiprinu, ka vēlos publicēt savu darbu"
+#~ msgid "Kāpēc publicēt savu darbu?"
+#~ msgstr "Why publish your work?"
 
-#: templates/home_page.html:199
-msgid ""
-" Daloties ar savu darbu, jūs varat sniegt iedvesmu citiem un veidot saikni "
-"ar līdzīgiem radošiem cilvēkiem."
-msgstr ""
-"By sharing your work, you can provide inspiration to others and build "
-"connections with similar creative people"
+#~ msgid ""
+#~ " Daloties ar savu darbu, jūs varat sniegt iedvesmu citiem un veidot "
+#~ "saikni ar līdzīgiem radošiem cilvēkiem."
+#~ msgstr ""
+#~ "By sharing your work, you can provide inspiration to others and build "
+#~ "connections with similar creative people"
 
-#: templates/home_page.html:211
-msgid "Mazliet nopelnīt"
-msgstr "To earn a little"
+#~ msgid "Mazliet nopelnīt"
+#~ msgstr "To earn a little"
 
-#: templates/home_page.html:213
-msgid ""
-"  Jūs saņemsiet 1 euro digitālajā makā par katru pārdoto preci ar jūsu "
-"dizainu, ko varat iztērēt veikalā."
-msgstr ""
-"You'll get €1 in your digital wallet for every item sold with your design, "
-"which you can spend on our store"
+#~ msgid ""
+#~ "  Jūs saņemsiet 1 euro digitālajā makā par katru pārdoto preci ar jūsu "
+#~ "dizainu, ko varat iztērēt veikalā."
+#~ msgstr ""
+#~ "You'll get €1 in your digital wallet for every item sold with your "
+#~ "design, which you can spend on our store"
 
-#: templates/home_page.html:225
-msgid "Digitālais maks"
-msgstr "Digital wallet"
+#~ msgid "Digitālais maks"
+#~ msgstr "Digital wallet"
 
-#: templates/home_page.html:227
-msgid ""
-"Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai iegādātos "
-"citus produktus šajā veikalā."
-msgstr ""
-"Income goes into your digital wallet and can be used to buy other products "
-"in this store"
+#~ msgid ""
+#~ "Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai "
+#~ "iegādātos citus produktus šajā veikalā."
+#~ msgstr ""
+#~ "Income goes into your digital wallet and can be used to buy other "
+#~ "products in this store"
 
-#: templates/home_page.html:236
-msgid "Lietotāju populārākie dizaini!"
-msgstr "Users' top themes"
+#~ msgid "Lietotāju populārākie dizaini!"
+#~ msgstr "Users' top themes"
 
-#: templates/home_page.html:281
-msgid "Biežāk Uzdotie Jautājumi"
-msgstr "Frequently Asked Questions"
+#~ msgid "Biežāk Uzdotie Jautājumi"
+#~ msgstr "Frequently Asked Questions"
 
-#: templates/ressret_password/password_reset_form.html:18
-msgid "Vai esat aizmirsis paroli?"
-msgstr "Forgot your password?"
+#~ msgid "Vai esat aizmirsis paroli?"
+#~ msgstr "Forgot your password?"
 
 #~ msgid "Produkts"
 #~ msgstr "Product"
@@ -424,22 +385,24 @@ msgstr "Forgot your password?"
 #~ msgstr "Change password"
 
 #~ msgid ""
-#~ "Lūdzu, ņemiet vērā, ka, izdzēšot savu profilu, tiks neatgriezeniski dzēsti "
-#~ "visi jūsu personiskie dati, pievienotie dizaini un veiktie pasūtījumi. "
-#~ "Turklāt visi jūsu kontā esošie virtuālās valūtas līdzekļi tiks dzēsti."
+#~ "Lūdzu, ņemiet vērā, ka, izdzēšot savu profilu, tiks neatgriezeniski "
+#~ "dzēsti visi jūsu personiskie dati, pievienotie dizaini un veiktie "
+#~ "pasūtījumi. Turklāt visi jūsu kontā esošie virtuālās valūtas līdzekļi "
+#~ "tiks dzēsti."
 #~ msgstr ""
-#~ "Please note that by deleting your profile, all your personal data, uploaded "
-#~ "designs, and placed orders will be irreversibly erased. Additionally, any "
-#~ "virtual currency balance in your account will also be deleted."
+#~ "Please note that by deleting your profile, all your personal data, "
+#~ "uploaded designs, and placed orders will be irreversibly erased. "
+#~ "Additionally, any virtual currency balance in your account will also be "
+#~ "deleted."
 
 #~ msgid ""
-#~ "Lai turpinātu, lūdzu, ievadiet savu konta paroli un noklikšķiniet uz \"Dzēst"
-#~ " profilu\". Šo darbību nevar atsaukt, tāpēc, lūdzu, pārliecinieties, ka esat"
-#~ " pilnīgi pārliecināti par šo izvēli."
+#~ "Lai turpinātu, lūdzu, ievadiet savu konta paroli un noklikšķiniet uz "
+#~ "\"Dzēst profilu\". Šo darbību nevar atsaukt, tāpēc, lūdzu, "
+#~ "pārliecinieties, ka esat pilnīgi pārliecināti par šo izvēli."
 #~ msgstr ""
-#~ "To proceed, please enter your account password and click 'Delete Profile'. "
-#~ "This action cannot be undone, so please ensure that you are completely "
-#~ "certain about this decision."
+#~ "To proceed, please enter your account password and click 'Delete "
+#~ "Profile'. This action cannot be undone, so please ensure that you are "
+#~ "completely certain about this decision."
 
 #~ msgid "Parole:"
 #~ msgstr "Password"
@@ -468,7 +431,8 @@ msgstr "Forgot your password?"
 #~ msgid "Paldies par pasūtījumu!"
 #~ msgstr "Thank you for your order!"
 
-#~ msgid "Paldies par jūsu uzticību! Mēs esam ļoti priecīgi par jūsu pasūtījumu."
+#~ msgid ""
+#~ "Paldies par jūsu uzticību! Mēs esam ļoti priecīgi par jūsu pasūtījumu."
 #~ msgstr "Thank you for your trust! We are very pleased with your order."
 
 #~ msgid "Skatīt pasūtijumu"
@@ -572,9 +536,9 @@ msgstr "Forgot your password?"
 #~ "apstiprināts, mēs to publicēsim. Ja kāds iegādāsies jūsu darbu, jūs "
 #~ "saņemsiet 1 eiro savā digitālajā makā."
 #~ msgstr ""
-#~ "Before your work is published, it will be reviewed by an administrator. If "
-#~ "your work is approved, we will publish it. If someone purchases your work, "
-#~ "you will receive 1 euro in your digital wallet."
+#~ "Before your work is published, it will be reviewed by an administrator. "
+#~ "If your work is approved, we will publish it. If someone purchases your "
+#~ "work, you will receive 1 euro in your digital wallet."
 
 #~ msgid "Noteikumi:"
 #~ msgstr "Rules:"
@@ -582,14 +546,16 @@ msgstr "Forgot your password?"
 #~ msgid "Necenzūrēts vai nepiedienīgs saturs nav atļauts."
 #~ msgstr "Uncensored or inappropriate content is not allowed."
 
-#~ msgid "Necenzēti vai nepiemēroti teksti nav atļauti virsrakstos un aprakstos."
+#~ msgid ""
+#~ "Necenzēti vai nepiemēroti teksti nav atļauti virsrakstos un aprakstos."
 #~ msgstr ""
 #~ "Uncensored or inappropriate texts are not allowed in titles and "
 #~ "descriptions."
 
 #~ msgid ""
 #~ "Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības."
-#~ msgstr "Your work must be original and respect intellectual property rights."
+#~ msgstr ""
+#~ "Your work must be original and respect intellectual property rights."
 
 #~ msgid ""
 #~ "Publicējot darbu, jūs piekrītat tā izmantošanai mūsu platformā un tās "
@@ -603,15 +569,15 @@ msgstr "Forgot your password?"
 #~ "informāciju darbu reklamēšanai vai promocijai mūsu vietnē vai sociālajos "
 #~ "tīklos."
 #~ msgstr ""
-#~ "You agree that we may use your username or other information for advertising"
-#~ " or promotion of your work on our website or social networks."
+#~ "You agree that we may use your username or other information for "
+#~ "advertising or promotion of your work on our website or social networks."
 
 #~ msgid ""
-#~ "Jūs esat atbildīgs par visu saturu, ko publicējat, un mēs paturam tiesības "
-#~ "noņemt vai rediģēt saturu pēc saviem ieskatiem."
+#~ "Jūs esat atbildīgs par visu saturu, ko publicējat, un mēs paturam "
+#~ "tiesības noņemt vai rediģēt saturu pēc saviem ieskatiem."
 #~ msgstr ""
-#~ "You are responsible for all content you publish, and we reserve the right to"
-#~ " remove or edit content at our discretion."
+#~ "You are responsible for all content you publish, and we reserve the right "
+#~ "to remove or edit content at our discretion."
 
 #~ msgid ""
 #~ "Jūs piekrītat ievērot visus vietnes lietošanas noteikumus un privātuma "

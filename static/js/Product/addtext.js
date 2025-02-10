@@ -12,6 +12,7 @@ function addText() {
     const textList = document.getElementById('text-list');
     const fontSize = document.getElementById('font-size').value + 'px';
     const editButton = document.getElementById('addTextButton');
+    const textColor = document.getElementById('font-color').value;
 
     editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
 
@@ -59,7 +60,7 @@ function addText() {
         const listItem = document.createElement('li');
         listItem.className = 'text-list-item';
         listItem.innerHTML = `
-            <span style="font-size: ${fontSize};">${text}</span>
+            <span style="font-size: ${fontSize}; color: ${textColor}">${text}</span>
             <button class="edit-button" onclick="editTextInList(this)">
                 <svg width="20" height="20" style="fill: white">
                     <use xlink:href="/static/svg/sprite.svg#edit"></use>
@@ -82,33 +83,52 @@ function addText() {
 }
 function addResizableAndDraggable(element, currentSide, fontSize) {
     const $element = $(element);
-    let currentWidth, currentHeight;
+    let $container = $(`#boundary-${currentSide}`);
+
+    let maxWidth = $container.width();
+    let maxHeight = $container.height();
 
     $element.draggable({
-        containment: `#boundary-${currentSide}`,
-        start: function(event, ui) {
-            $(this).data('startLeft', ui.position.left);
-            $(this).data('startTop', ui.position.top);
-        },
+        containment: $container,
         drag: function(event, ui) {
-            ui.position.left = Math.round(ui.position.left);
-            ui.position.top = Math.round(ui.position.top);
-            $(this).css({
-                left: ui.position.left,
-                top: ui.position.top,
-            });
+            ui.position.left = Math.max(0, Math.min(ui.position.left, maxWidth - $element.width()));
+            ui.position.top = Math.max(0, Math.min(ui.position.top, maxHeight - $element.height()));
+            $(this).css({ left: ui.position.left, top: ui.position.top });
+        }
+    });
+
+    $element.resizable({
+        handles: 'se',
+        minWidth: 20,
+        minHeight: 20,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+        resize: function(event, ui) {
+            const textSpan = $element.find('.editable-text');
+            let newFontSize = ui.size.height;
+
+            // Neļaut pārsniegt konteinera izmēru
+            if (ui.size.width > maxWidth) ui.size.width = maxWidth;
+            if (ui.size.height > maxHeight) ui.size.height = maxHeight;
+
+            textSpan.css({ fontSize: `${newFontSize}px` });
         },
         stop: function(event, ui) {
-            $(this).css({
-                left: ui.position.left,
-                top: ui.position.top,
-            });
+            const textSpan = $element.find('.editable-text');
+            textSpan.css({ fontSize: `${ui.size.height}px` });
         }
-    })
-    $element.children('.editable-text').css({
-        fontSize: fontSize,
+    });
+
+    // Sākotnēji atspējo resizable, aktivizē tikai klikšķa gadījumā
+    $element.resizable('disable');
+    $element.on('click', function() {
+        $(this).resizable('enable');
     });
 }
+
+
+
+
 window.editTextInList = function(button) {
     const listItem = button.parentNode;
     const textSpan = listItem.querySelector('span');
@@ -143,7 +163,6 @@ window.editTextInList = function(button) {
     textInput.value = previousTextContent;
     document.getElementById('font-select').value = previousFontFamily;
     document.getElementById('font-size').value = parseInt(previousFontSize);
-    document.getElementById('font-color').value = previousFontColor;
     hideEmptyTextItems();
 }
 
