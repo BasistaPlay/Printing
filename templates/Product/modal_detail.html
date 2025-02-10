@@ -63,7 +63,6 @@
             <p class="text-base text-gray-600 leading-relaxed mb-6 max-md:text-sm text-text-color mt-6">
                 {{ product.description }}
             </p>
-
             <div x-data="{
                 quantities: {},
                 maxQuantities: {},
@@ -96,9 +95,15 @@
                     } else {
                         this.quantities[sizeId] = numValue;
                     }
+                },
+                addToCart() {
+                    console.log(JSON.stringify(this.quantities)); // Pārbaude konsolē
+                    htmx.ajax('GET', '/cart/add/{{ product.id }}/', {
+                        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                        values: { selected_items: JSON.stringify(this.quantities) }
+                    });
                 }
             }">
-
 
                 <div class="mb-4">
                     <label class="block font-semibold mb-2">Izmērs un daudzums:</label>
@@ -115,39 +120,11 @@
                         </div>
                     </template>
                 </div>
-            </div>
 
-            <div x-data="{
-                quantities: {},
-                maxQuantities: {},
-                availableSizes: [],
-                selectedItems: [],
-                addToCart() {
-                    // Update selectedItems based on quantities
-                    this.selectedItems = Object.keys(this.quantities)
-                        .filter(sizeId => this.quantities[sizeId] > 0)
-                        .map(sizeId => ({
-                            size_id: sizeId,
-                            quantity: this.quantities[sizeId]
-                        }));
+                <button @click="addToCart" class="bg-blue-500 text-white px-4 py-2 rounded">
+                    {% trans "Pievienot grozam" %}
+                </button>
 
-                    // Dispatch event if items are selected
-                    if (this.selectedItems.length > 0) {
-                        this.$dispatch('cart-updated');
-                    }
-                }
-            }">
-            <button
-            @click="addToCart"
-            hx-get="/cart/add/{{ product.id }}/"
-            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-            hx-trigger="click"
-            hx-target="#cart-count"
-            hx-swap="outerHTML"
-            :hx-vals="JSON.stringify({ selected_items: selectedItems })"
-            @click="console.log('Selected items:', selectedItems)">
-            {% trans "Pievienot grozam" %}
-        </button>
             </div>
 
 
