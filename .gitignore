@@ -205,3 +205,4 @@ static/src/output.css
 staticfiles/
 compressed_static/CACHE/
 output.css
+static/src/output.css
