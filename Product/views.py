@@ -101,10 +101,11 @@ class DesignView(LoginRequiredMixin, DetailView):
         return super().get(request, *args, **kwargs)
 
 
-class CreativeCornerView(ListView):
+class CreativeCornerView(LoginRequiredMixin, ListView):
     template_name = 'Product/creativecorner.html'
     context_object_name = 'page_obj'
     paginate_by = 10
+    login_url = '/login/'
 
     def get_queryset(self):
         return Designs.objects.filter(publish_product=True, allow_publish=True)

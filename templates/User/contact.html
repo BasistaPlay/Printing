@@ -20,103 +20,91 @@
             {% endif %}
         </div>
 
-    <section class="flex justify-center items-center bg-bg-color">
-        <div class="relative min-w-[1100px] min-h-[550px] flex z-50 max-xl:w-[90%] max-xl:min-w-auto max-xl:m-5 max-lg:flex max-lg:flex-col-reverse">
-            <div class="absolute h-[calc(100%-80px)] top-10 w-96 bg-main-color z-10 p-10 flex justify-center flex-col justify-between rounded-3xl max-xl:top-0 max-xl:h-[550px] max-xl:relative max-xl:rounded-none max-lg:w-full max-lg:h-auto max-lg:flex-row" style="box-shadow: 0 20px 25px rgba(0,0,0,0.15);">
-                <div>
-                    <h2 class='text-white text-2xl font-medium'>{% trans 'Kontaktinformācija' %}</h2>
-                    <ul class="relative my-5">
-                        {% if Contact %}
-                            <li class='relative list-none flex my-5 cursor-pointer items-start'>
+        <div class="flex justify-center items-center px-4 py-16">
+            <div class="w-full max-w-6xl bg-white shadow-lg rounded-3xl overflow-hidden flex flex-col lg:flex-row">
+                <!-- Kontaktinformācija -->
+                <div class="  bg-main-color text-white p-8 flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-2xl font-semibold mb-6">{% trans 'Kontaktinformācija' %}</h2>
+                        <ul class="space-y-4">
+                            {% if Contact %}
                                 {% if Contact.address %}
-                                <div class='text-white'>
-                                    <svg width="25" height="25" style="fill: white;">
-                                        <use xlink:href="/static/svg/sprite.svg#location"></use>
-                                    </svg>
-                                    <span class='w-8 min-h-8'>{{ Contact.address }}<br>
+                                    <li class="flex items-center">
+                                        <svg class="w-6 h-6 mr-3" fill="currentColor">
+                                            <use xlink:href="/static/svg/sprite.svg#location"></use>
+                                        </svg>
+                                        <span>{{ Contact.address }}<br>{{ Contact.postal_code }}</span>
+                                    </li>
                                 {% endif %}
-                                {% if Contact.postal_code %}
-                                    {{ Contact.postal_code }}<br></span>
+                                {% if Contact.email %}
+                                    <li class="flex items-center">
+                                        <svg class="w-6 h-6 mr-3" fill="currentColor">
+                                            <use xlink:href="/static/svg/sprite.svg#email"></use>
+                                        </svg>
+                                        <a href="mailto:{{ Contact.email }}" class="underline">{{ Contact.email }}</a>
+                                    </li>
                                 {% endif %}
-                            </li>
-                            {% if Contact.email %}
-                            <li class='flex pb-5'>
-                                <svg width="25" height="25" style="color: white;">
-                                    <use xlink:href="/static/svg/sprite.svg#email"></use>
-                                </svg>
-                                <span class='ml-2'><a class='text-white underline-none w-8 min-w-8' href="mailto:{{ Contact.email }}">{{ Contact.email }}</a></span>
-                            </li>
+                                {% if Contact.phone_number %}
+                                    <li class="flex items-center">
+                                        <svg class="w-6 h-6 mr-3" fill="currentColor">
+                                            <use xlink:href="/static/svg/sprite.svg#phone"></use>
+                                        </svg>
+                                        <a href="tel:{{ Contact.phone_number }}">{{ Contact.phone_number }}</a>
+                                    </li>
+                                {% endif %}
                             {% endif %}
-                            {% if Contact.phone_number %}
-                            <li class='flex'>
-                                <svg width="25" height="25" style="color: white;">
-                                    <use xlink:href="/static/svg/sprite.svg#phone"></use>
-                                </svg>
-                                <span class='text-white ml-2'>{{ Contact.phone_number }}</span>
-                            </li>
-                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- Sociālie tīkli -->
+                    <div class="mt-8 flex space-x-4">
+                        {% if Contact.facebook_link %}
+                            <a href="{{ Contact.facebook_link }}" class="text-white hover:text-gray-300">
+                                <svg class="w-6 h-6" fill="currentColor"><use xlink:href="/static/svg/sprite.svg#facebook"></use></svg>
+                            </a>
                         {% endif %}
-                    </ul>
-                    <ul class="relative flex ">
-                        {% if Contact %}
-                            {% if Contact.facebook_link %}
-                                <li class='list-none mr-4'><a class='underline-none' href="{{ Contact.facebook_link }}">
-                                    <svg width="15" height="15" fill="white" style='color:white'>
-                                        <use xlink:href="/static/svg/sprite.svg#facebook"></use>
-                                    </svg>
-                                </a></li>
-                            {% endif %}
-
-                            {% if Contact.instagram_link %}
-                                <li class='list-none mr-4'><a href="{{ Contact.instagram_link }}">
-                                    <svg width="15" height="15" fill="white">
-                                        <use xlink:href="/static/svg/sprite.svg#instagram"></use>
-                                    </svg>
-                                </a></li>
-                            {% endif %}
-
-                            {% if Contact.twitter_link %}
-                                <li class='list-none mr-4'><a href="{{ Contact.twitter_link }}">
-                                    <svg width="15" height="15" fill="white">
-                                        <use xlink:href="/static/svg/sprite.svg#twitter"></use>
-                                    </svg>
-                                </a></li>
-                            {% endif %}
+                        {% if Contact.instagram_link %}
+                            <a href="{{ Contact.instagram_link }}" class="text-white hover:text-gray-300">
+                                <svg class="w-6 h-6" fill="currentColor"><use xlink:href="/static/svg/sprite.svg#instagram"></use></svg>
+                            </a>
                         {% endif %}
-                    </ul>
+                        {% if Contact.twitter_link %}
+                            <a href="{{ Contact.twitter_link }}" class="text-white hover:text-gray-300">
+                                <svg class="w-6 h-6" fill="currentColor"><use xlink:href="/static/svg/sprite.svg#twitter"></use></svg>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-2/3 p-8">
+                    <h2 class="text-main-color text-2xl font-semibold mb-6">{% trans 'Nosūtīt ziņu' %}</h2>
+                    <form method="post" action="{% url 'contact_us' %}">
+                        {% csrf_token %}
+                        {% render_honeypot_field "email2" %}
+                        <div class="relative flex flex-wrap pt-8">
+                            <div class="inputBox w-1/2 max-sm:w-full">
+                                {{ form.first_name }}
+                                <span class='label-text'>{% trans 'Vārds' %}</span>
+                            </div>
+                            <div class="inputBox w-1/2 max-sm:w-full">
+                                {{ form.last_name }}
+                                <span class='label-text'>{% trans 'Uzvārds' %}</span>
+                            </div>
+                            <div class="inputBox w-1/2 max-sm:w-full">
+                                {{ form.email }}
+                                <span class='label-text'>{% trans 'E-pasts' %}</span>
+                            </div>
+                            <div class="inputBox w-1/2 max-sm:w-full">
+                                {{ form.phone_number }}
+                                <span class='label-text'>{% trans 'Telefona numurs' %}</span>
+                            </div>
+                            <div class="inputBox w-full h-32">
+                                {{ form.message }}
+                                <span class='label-text'>{% trans 'Raksti savu ziņu šeit...' %}</span>
+                            </div>
+                        <button type="submit" class="w-full bg-main-color text-white py-3 rounded-lg hover:bg-opacity-90 transition">{% trans 'Sūtīt' %}</button>
+                    </form>
                 </div>
             </div>
-            <div  class='absolute w-[calc(100%-150px)] pt-18 pb-18 pl-64 pr-12 ml-40 h-full bg-second-color rounded-3xl max-xl:rounded-none max-xl:relative max-xl:w-[calc(100%-350px)] max-xl:ml-0 max-xl:p-10 max-xl:shadow-none max-xl:calc max-xl:h-[550px] max-lg:w-full max-lg:h-auto ' style='box-shadow: 0 50px 50px rgba(0,0,0,0.25);'>
-                <h2 class='text-main-color text-2xl font-medium mt-12'>{% trans 'Nosūtīt ziņu' %}</h2>
-                <form method="post" action="{% url 'contact_us' %}">
-                    {% csrf_token %}
-                    {% render_honeypot_field "email2" %}
-                    <div class="relative flex flex-wrap pt-8">
-                        <div class="inputBox w-1/2 max-sm:w-full">
-                            {{ form.first_name }}
-                            <span class='label-text'>{% trans 'Vārds' %}</span>
-                        </div>
-                        <div class="inputBox w-1/2 max-sm:w-full">
-                            {{ form.last_name }}
-                            <span class='label-text'>{% trans 'Uzvārds' %}</span>
-                        </div>
-                        <div class="inputBox w-1/2 max-sm:w-full">
-                            {{ form.email }}
-                            <span class='label-text'>{% trans 'E-pasts' %}</span>
-                        </div>
-                        <div class="inputBox w-1/2 max-sm:w-full">
-                            {{ form.phone_number }}
-                            <span class='label-text'>{% trans 'Telefona numurs' %}</span>
-                        </div>
-                        <div class="inputBox w-full h-32">
-                            {{ form.message }}
-                            <span class='label-text'>{% trans 'Raksti savu ziņu šeit...' %}</span>
-                        </div>
-                        <input class='main-btn w-full' type="submit" value="{% trans 'Sūtīt' %}">
-                    </div>
-                </form>
-            </div>
         </div>
-    </section>
 </div>
 {% endblock %}

@@ -43,6 +43,7 @@ DEBUG = False
 INSTALLED_APPS = [
     'modeltranslation',
     'django_recaptcha',
+    'rosetta',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,7 +65,6 @@ INSTALLED_APPS = [
     'honeypot',
     'compressor',
     'webpack_loader',
-    'rosetta',
     #'django_extensions',
     'allauth',
     'allauth.account',
