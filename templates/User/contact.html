@@ -21,7 +21,7 @@
         </div>
 
         <div class="flex justify-center items-center px-4 py-16">
-            <div class="w-full max-w-6xl bg-white shadow-lg rounded-3xl overflow-hidden flex flex-col lg:flex-row">
+            <div class="w-full max-w-6xl bg-second-color shadow-lg rounded-3xl overflow-hidden flex flex-col lg:flex-row">
                 <!-- Kontaktinformācija -->
                 <div class="  bg-main-color text-white p-8 flex flex-col justify-between">
                     <div>
@@ -83,23 +83,23 @@
                         <div class="relative flex flex-wrap pt-8">
                             <div class="inputBox w-1/2 max-sm:w-full">
                                 {{ form.first_name }}
-                                <span class='label-text'>{% trans 'Vārds' %}</span>
+                                <span class='label-text text-text-color'>{% trans 'Vārds' %}</span>
                             </div>
                             <div class="inputBox w-1/2 max-sm:w-full">
                                 {{ form.last_name }}
-                                <span class='label-text'>{% trans 'Uzvārds' %}</span>
+                                <span class='label-text text-text-color'>{% trans 'Uzvārds' %}</span>
                             </div>
                             <div class="inputBox w-1/2 max-sm:w-full">
                                 {{ form.email }}
-                                <span class='label-text'>{% trans 'E-pasts' %}</span>
+                                <span class='label-text text-text-color'>{% trans 'E-pasts' %}</span>
                             </div>
                             <div class="inputBox w-1/2 max-sm:w-full">
                                 {{ form.phone_number }}
-                                <span class='label-text'>{% trans 'Telefona numurs' %}</span>
+                                <span class='label-text text-text-color'>{% trans 'Telefona numurs' %}</span>
                             </div>
                             <div class="inputBox w-full h-32">
                                 {{ form.message }}
-                                <span class='label-text'>{% trans 'Raksti savu ziņu šeit...' %}</span>
+                                <span class='label-text text-text-color'>{% trans 'Raksti savu ziņu šeit...' %}</span>
                             </div>
                         <button type="submit" class="w-full bg-main-color text-white py-3 rounded-lg hover:bg-opacity-90 transition">{% trans 'Sūtīt' %}</button>
                     </form>

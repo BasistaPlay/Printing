@@ -1696,6 +1696,10 @@ video {
   bottom: 10rem;
 }
 
+.bottom-9{
+  bottom: 2.25rem;
+}
+
 .z-0{
   z-index: 0;
 }
@@ -4725,6 +4729,10 @@ video {
 
   .max-md\:bottom-40{
     bottom: 10rem;
+  }
+
+  .max-md\:bottom-9{
+    bottom: 2.25rem;
   }
 
   .max-md\:mb-3{
