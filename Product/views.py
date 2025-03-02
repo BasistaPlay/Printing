@@ -13,6 +13,7 @@ from django.db.models import Sum
 import json
 from datetime import datetime
 from django.http import Http404
+from django.conf import settings
 
 
 
@@ -83,6 +84,7 @@ class DesignView(LoginRequiredMixin, DetailView):
 
         context['adjusted_front_image_coords'] = adjusted_front_image_coords
         context['adjusted_back_image_coords'] = adjusted_back_image_coords
+        context['hugging_face_token'] = settings.HUGGING_FACE_TOKEN
 
         return context
 

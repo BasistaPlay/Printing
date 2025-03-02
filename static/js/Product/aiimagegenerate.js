@@ -1,4 +1,3 @@
-const token = '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';
 const InputTxt = document.getElementById('textInput-Ai');
 const imagesContainer = document.getElementById('generatedImages');
 const loader = document.getElementById('loader');
@@ -18,7 +17,10 @@ async function query() {
 
         try {
             const response = await fetch("https://api-inference.huggingface.co/models/ZB-Tech/Text-to-Image", {
-                headers: { Authorization: `Bearer ${token}` },
+                headers: {
+                    "Authorization": `Bearer ${HUGGING_FACE_TOKEN}`,
+                    "Content-Type": "application/json"
+                },
                 method: "POST",
                 body: JSON.stringify({'inputs': InputTxt.value + `, variation ${i + 1}`}),
             });

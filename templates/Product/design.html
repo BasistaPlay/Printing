@@ -255,6 +255,9 @@
     <script src="{% static 'js/Product/general_design.js' %}"></script>
 
     {% if product.can_have_ai_image %}
+        <script>
+            const HUGGING_FACE_TOKEN = "{{ hugging_face_token }}";
+        </script>
         <script src="{% static 'js/Product/aiimagegenerate.js' %}"></script>
     {% endif %}
     {% if product.can_have_image %}
