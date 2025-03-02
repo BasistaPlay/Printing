@@ -22,7 +22,6 @@
 
         <div class="flex justify-center items-center px-4 py-16">
             <div class="w-full max-w-6xl bg-second-color shadow-lg rounded-3xl overflow-hidden flex flex-col lg:flex-row">
-                <!-- Kontaktinformācija -->
                 <div class="  bg-main-color text-white p-8 flex flex-col justify-between">
                     <div>
                         <h2 class="text-2xl font-semibold mb-6">{% trans 'Kontaktinformācija' %}</h2>
@@ -55,7 +54,6 @@
                             {% endif %}
                         </ul>
                     </div>
-                    <!-- Sociālie tīkli -->
                     <div class="mt-8 flex space-x-4">
                         {% if Contact.facebook_link %}
                             <a href="{{ Contact.facebook_link }}" class="text-white hover:text-gray-300">

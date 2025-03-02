@@ -3,7 +3,6 @@
 <div class="p-6">
     <div class="relative flex flex-col lg:flex-row bg-second-color rounded-xl max-w-[1000px] mx-auto lg:space-x-8 max-md:mt-8">
 
-        <!-- Produkta attēli -->
         <div x-data="{ currentImage: '{{ product.front_image.url }}' }" class="relative max-w-[400px] w-full mx-auto lg:mx-0">
             <div class="relative w-full">
                 <img id="headphoneImage1" :src="currentImage" class="h-auto rounded-xl w-full shadow-lg transition-transform duration-300 transform hover:scale-105">
@@ -24,7 +23,6 @@
             </div>
         </div>
 
-        <!-- Produkta informācija -->
         <div class="mt-12 lg:mt-0 text-center lg:text-left max-w-[600px] w-full mx-auto">
             <h3 class="text-s font-semibold text-text-color max-md:text-2xl">{{ product.author }}</h3>
             <h1 class="text-3xl font-bold text-text-color mb-4 max-md:text-2xl">{{ product.title }}</h1>
@@ -32,7 +30,6 @@
                 {{ product.product.price }} €
             </p>
 
-            <!-- Produkta reitings -->
             {% with product.average_rating|floatformat:0 as avg_rating %}
                 <div x-data="{ rating: {{ product.average_rating }} }">
                     <div class="flex items-center space-x-1 mt-3 max-md:justify-center">
@@ -50,7 +47,6 @@
                 </div>
             {% endwith %}
 
-            <!-- Reitinga atjaunošana -->
             <div
                 hx-get="{% url 'product:rate-design' product.id %}"
                 hx-trigger="rate from:body"
@@ -59,7 +55,6 @@
                 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
             </div>
 
-            <!-- Produkta apraksts -->
             <p class="text-base text-gray-600 leading-relaxed mb-6 max-md:text-sm text-text-color mt-6">
                 {{ product.description }}
             </p>
