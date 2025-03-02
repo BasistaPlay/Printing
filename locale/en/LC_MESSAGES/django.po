@@ -9,86 +9,87 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-10 15:30+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2025-03-01 13:01+0200\n"
+"Last-Translator: Anonymous User <anonymous@user.tld>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: templates/Product/all_categories.html:10
 msgid "Produktu Kategorijas"
-msgstr ""
+msgstr "Product categories"
 
 #: templates/Product/category_detail.html:31
 msgid "Šajā kategorijā nav produktu"
-msgstr ""
+msgstr "There are no products in this category"
 
 #: templates/Product/creativecorner.html:5 templates/base.html:36
 msgid "Radošais stūrītis"
-msgstr ""
+msgstr "Creative corner"
 
 #: templates/Product/creativecorner.html:39
 msgid "Meklēt:"
-msgstr ""
+msgstr "Search"
 
 #: templates/Product/creativecorner.html:41
 msgid "Meklēt..."
-msgstr ""
+msgstr "Search"
 
 #: templates/Product/creativecorner.html:45
 msgid "Krāsas:"
-msgstr ""
+msgstr "Colors"
 
 #: templates/Product/creativecorner.html:61
 msgid "Produktu saraksts:"
-msgstr ""
+msgstr "Product List"
 
 #: templates/Product/creativecorner.html:64
 msgid "Visi"
-msgstr ""
+msgstr "All"
 
 #: templates/Product/creativecorner.html:75
 msgid "Reitings:"
-msgstr ""
+msgstr "Ranking"
 
 #: templates/Product/creativecorner_list.html:36
 msgid "Nav atrasti rezultāti."
-msgstr ""
+msgstr "No found"
 
 #: templates/Product/design.html:6
 msgid "Dizaina rīks"
-msgstr ""
+msgstr "Theme Tool"
 
 #: templates/Product/design.html:54
 msgid "Izveido savu"
-msgstr ""
+msgstr "Create your own"
 
 #: templates/Product/design.html:56
 msgid "Pielāgot krāsu"
-msgstr ""
+msgstr "Customize Color"
 
 #: templates/Product/design.html:66
 msgid "Ievadiet daudzumu"
-msgstr ""
+msgstr "Enter quantity"
 
 #: templates/Product/design.html:75
 msgid "Izvēlies izmēru"
-msgstr ""
+msgstr "Choose a size"
 
 #: templates/Product/design.html:87
 msgid "Apstiprinu, ka vēlos publicēt savu darbu"
-msgstr ""
+msgstr "I confirm that I want to publish my work"
 
 #: templates/Product/design.html:96
 msgid "Virsraksts"
-msgstr ""
+msgstr "Heading"
 
 #: templates/Product/design.html:100
 msgid "Pirkt tagad"
-msgstr ""
+msgstr "Buy now"
 
 #: templates/Product/design.html:111
 msgid "Noteikumi un Vadlīnijas"
@@ -100,17 +101,23 @@ msgid ""
 "apstiprināts, mēs to publicēsim. Ja kāds iegādāsies jūsu darbu, jūs "
 "saņemsiet 1 eiro savā digitālajā makā."
 msgstr ""
+"Your work will be viewed by your administrator before publishing. If your "
+"work is approved, we will publish it. If someone buys your job, you'll get "
+"€1 in your digital wallet."
 
 #: templates/Product/design.html:119
 msgid "Necenzūrēts vai nepiedienīgs saturs nav atļauts."
-msgstr ""
+msgstr "Uncensored or indecent content is not allowed."
 
 #: templates/Product/design.html:120
 msgid "Necenzēti vai nepiemēroti teksti nav atļauti virsrakstos un aprakstos."
 msgstr ""
+"Uncensored or inappropriate texts are not allowed in headings and "
+"descriptions."
 
 #: templates/Product/design.html:121
-msgid "Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības."
+msgid ""
+"Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības."
 msgstr ""
 
 #: templates/Product/design.html:122
@@ -118,6 +125,8 @@ msgid ""
 "Publicējot darbu, jūs piekrītat tā izmantošanai mūsu platformā un tās "
 "reklamēšanai."
 msgstr ""
+"When you publish your work, you agree to use it on our platform and promote "
+"it."
 
 #: templates/Product/design.html:125
 msgid ""
@@ -125,127 +134,134 @@ msgid ""
 "informāciju darbu reklamēšanai vai promocijai mūsu vietnē vai sociālajos "
 "tīklos."
 msgstr ""
+"You agree that we will be able to use your user name or other information to"
+" promote or promote works on our site or social networks."
 
 #: templates/Product/design.html:126
 msgid ""
 "Jūs esat atbildīgs par visu saturu, ko publicējat, un mēs paturam tiesības "
 "noņemt vai rediģēt saturu pēc saviem ieskatiem."
 msgstr ""
+"You are responsible for all content that you publish, and we reserve the "
+"right to remove or edit content as you please."
 
 #: templates/Product/design.html:127
 msgid ""
 "Jūs piekrītat ievērot visus vietnes lietošanas noteikumus un privātuma "
 "politiku."
 msgstr ""
+"You agree to comply with all terms of use and privacy policies for the site."
 
 #: templates/Product/design.html:132
 msgid ""
 "Šī ir tikai informatīva ziņa, nav obligāti jāatzīmē rūtiņa, lai publicētu."
 msgstr ""
+"This is just an informational post, it's not mandatory to tick the box to "
+"post."
 
 #: templates/Product/design.html:148
 msgid "Nometiet attēlus vai"
-msgstr ""
+msgstr "Swap picture"
 
 #: templates/Product/design.html:148
 msgid " Pārlūkot"
-msgstr ""
+msgstr "Browse"
 
 #: templates/Product/design.html:158 templates/Product/design.html:193
 msgid "Pievienot tekstu"
-msgstr ""
+msgstr "Add text"
 
 #: templates/Product/design.html:160
 msgid "Ievadiet tekstu:"
-msgstr ""
+msgstr "Enter text"
 
 #: templates/Product/design.html:161
 msgid "Lūdzu, ievadiet savu tekstu šeit."
-msgstr ""
+msgstr "Please enter your text here."
 
 #: templates/Product/design.html:164
 msgid "Izvēlieties fontu:"
-msgstr ""
+msgstr "Choose a font:"
 
 #: templates/Product/design.html:180
 msgid "Fonta izmērs:"
-msgstr ""
+msgstr "Font size:"
 
 #: templates/Product/design.html:184
 msgid "Fonta krāsa:"
-msgstr ""
+msgstr "Font Color:"
 
 #: templates/Product/design.html:197
 msgid "Rediģēt tekstu"
-msgstr ""
+msgstr "Edit text"
 
 #: templates/Product/design.html:205
 msgid "AI attēla ģenerators"
-msgstr ""
+msgstr "AI Image Generator"
 
 #: templates/Product/design.html:206
 msgid "Ievadiet tekstu"
-msgstr ""
+msgstr "Enter text"
 
 #: templates/Product/design.html:207
 msgid "Ģenerēt attēlu"
-msgstr ""
+msgstr "Generate Picture"
 
 #: templates/Product/design.html:210
 msgid "Sūtīt uz attēlu"
-msgstr ""
+msgstr "Send to Picture"
 
 #: templates/Product/design.html:219
 msgid "Vispārīgi"
-msgstr ""
+msgstr "Generally"
 
 #: templates/Product/design.html:226
 msgid "Attēls"
-msgstr ""
+msgstr "Picture"
 
 #: templates/Product/design.html:234
 msgid "Teksts"
-msgstr ""
+msgstr "Text"
 
 #: templates/Product/design.html:242
 msgid "AI Ģenerators"
-msgstr ""
+msgstr "AI generator"
 
 #: templates/Product/design.html:250
 msgid "Pagriezt"
-msgstr ""
+msgstr "Rotate"
 
 #: templates/Product/modal_detail.html:125
 msgid "Pievienot grozam"
-msgstr ""
+msgstr "Add to cart"
 
 #: templates/User/Profile.html:9
 msgid "Mans Profils"
-msgstr ""
+msgstr "My Profile"
 
 #: templates/User/Profile.html:16
 #: templates/User/Profile/personal_info_form.html:6
 #: templates/User/Profile/personal_info_form.html:21
 msgid "Personīgā informācija"
-msgstr ""
+msgstr "Personal information"
 
 #: templates/User/Profile.html:23
 msgid "Paroles maiņa"
-msgstr ""
+msgstr "Change password"
 
 #: templates/User/Profile.html:31
 msgid "Pasūtījumu vēsture"
-msgstr ""
+msgstr "Order History"
 
 #: templates/User/Profile.html:39
 msgid "Dzēst kontu"
-msgstr ""
+msgstr "Delete account"
 
 #: templates/User/Profile/delete_account_form.html:6
 #: templates/User/Profile/delete_account_form.html:12
 #: templates/User/Profile/delete_account_form.html:21
 msgid "Dzēst profilu"
-msgstr ""
+msgstr "Delete Profile"
 
 #: templates/User/Profile/delete_account_form.html:16
 msgid ""
@@ -253,317 +269,324 @@ msgid ""
 "datus, tostarp iepriekšējos pasūtījumus, saglabātos dizainus un virtuālo "
 "valūtu. Šī darbība nav atsaucama. Vai tiešām vēlaties turpināt?"
 msgstr ""
+"Please note that deleting your account will permanently delete all your "
+"data, including previous orders, saved themes, and virtual currency. This "
+"action cannot be undone. Are you sure you want to continue?"
 
 #: templates/User/Profile/password_change_form.html:6
 #: templates/User/Profile/password_change_form.html:21
 #: templates/User/Profile/password_change_form.html:27
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/lib/_main_header.html:39
 msgid "Change Password"
-msgstr ""
+msgstr "Change Password"
 
 #: templates/User/Profile/personal_info_form.html:81
 msgid "Vēlos saņemt jaunumus un piedāvājumus"
-msgstr ""
+msgstr "I want to get news and offers"
 
 #: templates/User/Profile/personal_info_form.html:85
 msgid "Saglabt izmaiņas"
-msgstr ""
+msgstr "Save changes"
 
 #: templates/User/Profile/purchase_history.html:6
 #: templates/User/Profile/purchase_history.html:12
 msgid "Pirkumu vēsture"
-msgstr ""
+msgstr "Order History"
 
 #: templates/User/Profile/purchase_history.html:20
 msgid "Pasūtījuma numurs"
-msgstr ""
+msgstr "Order number"
 
 #: templates/User/Profile/purchase_history.html:21
 #: templates/payments/bank_details.html:34
 msgid "Summa"
-msgstr ""
+msgstr "Amount"
 
 #: templates/User/Profile/purchase_history.html:22
 msgid "Statuss"
-msgstr ""
+msgstr "Status"
 
 #: templates/User/Profile/purchase_history.html:23
 msgid "Datums"
-msgstr ""
+msgstr "Date"
 
 #: templates/User/Profile/purchase_history.html:24
 msgid "Produkts"
-msgstr ""
+msgstr "Product"
 
 #: templates/User/Profile/purchase_history.html:25
 msgid "Priekšējā bilde"
-msgstr ""
+msgstr "Front picture"
 
 #: templates/User/Profile/purchase_history.html:26
 msgid "Aizmugurējā bilde"
-msgstr ""
+msgstr "Beck picture"
 
 #: templates/User/Profile/purchase_history.html:63
 #: templates/User/Profile/purchase_history.html:76
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: templates/User/Profile/purchase_history.html:87
 msgid "Nav neviena pasūtījuma!"
-msgstr ""
+msgstr "There are no orders!"
 
 #: templates/User/contact.html:7 templates/base.html:37
 msgid "Sazinies ar mums"
-msgstr ""
+msgstr "Contact us"
 
 #: templates/User/contact.html:28
 msgid "Kontaktinformācija"
-msgstr ""
+msgstr "Contact"
 
 #: templates/User/contact.html:79
 msgid "Nosūtīt ziņu"
-msgstr ""
+msgstr "Send message"
 
 #: templates/User/contact.html:86
 msgid "Vārds"
-msgstr ""
+msgstr "Name"
 
 #: templates/User/contact.html:90
 msgid "Uzvārds"
-msgstr ""
+msgstr "Surname"
 
 #: templates/User/contact.html:94
 msgid "E-pasts"
-msgstr ""
+msgstr "E-mail"
 
 #: templates/User/contact.html:98
 msgid "Telefona numurs"
-msgstr ""
+msgstr "Telephone number"
 
 #: templates/User/contact.html:102
 msgid "Raksti savu ziņu šeit..."
-msgstr ""
+msgstr "phone number"
 
 #: templates/User/contact.html:104
 msgid "Sūtīt"
-msgstr ""
+msgstr "Send"
 
 #: templates/User/emails/verification_email.html:8
 #: templates/User/emails/verification_email.html:56
 msgid "Verifikācijas kods"
-msgstr ""
+msgstr "Verification code"
 
 #: templates/User/emails/verification_email.html:55
 msgid "Company Logo"
-msgstr ""
+msgstr "Company logo"
 
 #: templates/User/emails/verification_email.html:59
 msgid "Sveiki"
-msgstr ""
+msgstr "Hi"
 
 #: templates/User/emails/verification_email.html:60
 msgid "Jūsu verifikācijas kods ir:"
-msgstr ""
+msgstr "Your verification code is:"
 
 #: templates/User/emails/verification_email.html:62
 msgid ""
 "Lūdzu, ievadiet šo kodu, lai verificētu savu e-pasta adresi. Ja jūs neesat "
 "pieprasījis šo kodu, ignorējiet šo ziņojumu."
 msgstr ""
+"Please enter this code to verify your email address. If you have not "
+"requested this code, ignore this message."
 
 #: templates/User/emails/verification_email.html:63
 msgid ""
 "Paldies, ka reģistrējāties Ericprint.com! Mēs priecājamies par jūsu "
 "pievienošanos."
 msgstr ""
+"Thank you for signing up for Ericprint.com! We are delighted with your "
+"joining."
 
 #: templates/User/emails/verification_email.html:66
 msgid "Paldies"
-msgstr ""
+msgstr "Thank you "
 
 #: templates/User/extra_info.html:6 templates/User/extra_info.html:15
 msgid "Papildu informācija"
-msgstr ""
+msgstr "Additional information"
 
 #: templates/User/extra_info.html:46
 msgid "Saglabāt"
-msgstr ""
+msgstr "Save"
 
 #: templates/User/extra_info.html:49 templates/User/register.html:93
 msgid "Vai jums jau ir konts? "
-msgstr ""
+msgstr "Do you already have an account?"
 
 #: templates/User/extra_info.html:49 templates/User/login.html:7
 #: templates/User/login.html:27 templates/User/login.html:46
 #: templates/User/register.html:93
 msgid "Pieslēgties"
-msgstr ""
+msgstr "Connect"
 
 #: templates/User/login.html:32
 msgid "Lietotājvārds"
-msgstr ""
+msgstr "Username"
 
 #: templates/User/login.html:36
 msgid "Parole"
-msgstr ""
+msgstr "Password"
 
 #: templates/User/login.html:50
 msgid "Vai jums nav konta? "
-msgstr ""
+msgstr "Do you have an account?"
 
 #: templates/User/login.html:51 templates/User/register.html:6
 #: templates/User/register.html:15 templates/User/register.html:90
 msgid "Reģistrēties"
-msgstr ""
+msgstr "Register"
 
 #: templates/User/login.html:54
 msgid "Aizmirsāt paroli?"
-msgstr ""
+msgstr "Forgot your password?"
 
 #: templates/User/login.html:55
 msgid "Atjaunot to šeit"
-msgstr ""
+msgstr "Restore it here"
 
 #: templates/User/login.html:58
 msgid "Vai pieslēdzies caur sociālajiem tīkliem"
-msgstr ""
+msgstr "Or connect via social networks"
 
 #: templates/User/register.html:53
 msgid "Latvija"
-msgstr ""
+msgstr "Latvia"
 
 #: templates/User/register.html:54
 msgid "Igaunija"
-msgstr ""
+msgstr "Estonian"
 
 #: templates/User/register.html:55
 msgid "Lietuva"
-msgstr ""
+msgstr "Lithuania"
 
 #: templates/User/register.html:83
 msgid "Ar šo es apliecinu, ka esmu iepazinies(-usies) ar"
-msgstr ""
+msgstr "I hereby certify that I have become acquainted with (-)"
 
 #: templates/User/register.html:85
 msgid "EricPrint lietošanas noteikumiem"
-msgstr ""
+msgstr "For the terms of use of ericprint"
 
 #: templates/User/verify_email.html:7
 msgid "Verify Email"
-msgstr ""
+msgstr "Verify E-mail"
 
 #: templates/User/verify_email.html:28
 msgid "Verificēt e-pastu"
-msgstr ""
+msgstr "Verify E-mail"
 
 #: templates/User/verify_email.html:29
 msgid "Verifikācijas kods tika nosūtīts uz"
-msgstr ""
+msgstr "Verification code was sent to"
 
 #: templates/User/verify_email.html:29
 msgid "Lūdzu, ievadiet kodu zemāk, lai verificētu savu e-pastu."
-msgstr ""
+msgstr "Please enter the code below to verify your email."
 
 #: templates/User/verify_email.html:42
 msgid "Verificēt"
-msgstr ""
+msgstr "Verify"
 
 #: templates/User/verify_email.html:45
 msgid "Nesaņēmāt kodu?"
-msgstr ""
+msgstr "Didn't get the code?"
 
 #: templates/User/verify_email.html:45
 msgid "Nosūtīt kodu vēlreiz"
-msgstr ""
+msgstr "Resend code"
 
 #: templates/base.html:35 templates/home/home_page.html:6
 msgid "Sākumlapa"
-msgstr ""
+msgstr "Homepage"
 
 #: templates/base.html:38 templates/cart/cart.html:7
 #: templates/cart/cart.html:13 templates/payments/payment.html:7
 msgid "Grozs"
-msgstr ""
+msgstr "Basket"
 
 #: templates/base.html:41 templates/base.html:57 templates/base.html:60
 msgid "Profils"
-msgstr ""
+msgstr "Profile"
 
 #: templates/base.html:42 templates/base.html:61
 msgid "Izrakstīties"
-msgstr ""
+msgstr "Sign out"
 
 #: templates/base.html:44 templates/base.html:65
 msgid "Pierakstīties"
-msgstr ""
+msgstr "Sing in"
 
 #: templates/base.html:47
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: templates/cart/cart.html:20
 msgid "Attēli"
-msgstr ""
+msgstr "Pictures"
 
 #: templates/cart/cart.html:21
 msgid "Cena"
-msgstr ""
+msgstr "Price"
 
 #: templates/cart/cart.html:22
 msgid "Izmēri"
-msgstr ""
+msgstr "Size"
 
 #: templates/cart/cart.html:23
 msgid "Daudzums"
-msgstr ""
+msgstr "Quantity"
 
 #: templates/cart/cart.html:24
 msgid "Kopējā cena"
-msgstr ""
+msgstr "Total price"
 
 #: templates/cart/cart.html:25
 msgid "Darbības"
-msgstr ""
+msgstr "Actions"
 
 #: templates/cart/cart.html:32 templates/cart/cart.html:33
 msgid "Product Image"
-msgstr ""
+msgstr "Product Image\t"
 
 #: templates/cart/cart.html:47
 msgid "Noņemt"
-msgstr ""
+msgstr "Remove"
 
 #: templates/cart/cart.html:56
 msgid "Kopā"
-msgstr ""
+msgstr "Total "
 
 #: templates/cart/cart.html:58 templates/payments/payment.html:122
 msgid "Noformēt pasūtījumu"
-msgstr ""
+msgstr "Design order"
 
 #: templates/cart/cart.html:62
 msgid "Jūsu grozs ir tukšs."
-msgstr ""
+msgstr "Your basket is empty"
 
 #: templates/home/home_page.html:32
 msgid "Mūsu produkti!"
-msgstr ""
+msgstr "Our products"
 
 #: templates/home/home_page.html:57
 msgid "Kategorija"
-msgstr ""
+msgstr "Category"
 
 #: templates/home/home_page.html:63
 msgid "Vai meklē savu vēlamo produktu"
-msgstr ""
+msgstr "Or looking for your preferred product"
 
 #: templates/home/home_page.html:63
 msgid "kategorija"
-msgstr ""
+msgstr "Category"
 
 #: templates/home/home_page.html:70
 msgid "Kā izveidot dizainu:"
-msgstr ""
+msgstr "How to create a design"
 
 #: templates/home/home_page.html:72
 msgid ""
@@ -571,122 +594,132 @@ msgid ""
 "dizainu. Sekojiet šiem soļiem, lai iegūtu unikālu dizainu, kas atbilst jūsu "
 "vajadzībām."
 msgstr ""
+"With our tool, you can quickly and easily create your own personalized "
+"design. Follow these steps for a unique design that meets your needs."
 
 #: templates/home/home_page.html:79
 msgid "1. Izvēlies produktu"
-msgstr ""
+msgstr "1. Choose a product"
 
 #: templates/home/home_page.html:80
 msgid "Izvēlieties produktu, kuru vēlaties pielāgot no mūsu plašā klāsta."
-msgstr ""
+msgstr "Choose the product you want to customize from our wide range."
 
 #: templates/home/home_page.html:83
 msgid "2. Izveido savu personālo dizainu"
-msgstr ""
+msgstr "2. Creates your own personal design"
 
 #: templates/home/home_page.html:84
 msgid "Izmantojiet mūsu dizaina rīku, lai izveidotu savu unikālo dizainu."
-msgstr ""
+msgstr "Use our theme tool to create your own unique design"
 
 #: templates/home/home_page.html:87
 msgid "3. Pasūti šo personalu dizainu"
-msgstr ""
+msgstr "3. Order this personalized design"
 
 #: templates/home/home_page.html:88
 msgid "Pabeidziet pasūtījumu, un mēs apstrādāsim jūsu personalizēto dizainu."
-msgstr ""
+msgstr "Complete your order and we'll process your personalized design"
 
 #: templates/home/home_page.html:91
 msgid "4. Saņem dizainu"
-msgstr ""
+msgstr "4. Gets a design"
 
 #: templates/home/home_page.html:92
 msgid "Saņemiet savu unikālo dizainu un izbaudiet to."
-msgstr ""
+msgstr "Get your own unique design and enjoy it"
 
 #: templates/home/home_page.html:101
 msgid "Ieguvumi no savu darbu publicēšanas"
-msgstr ""
+msgstr "Benefits of publishing your works"
 
 #: templates/home/home_page.html:103
 msgid ""
 "Publicējot savu darbu, jūs veidojat iespēju iedvesmot citus un gūt arī "
 "praktiskus ieguvumus!"
 msgstr ""
+"When you publish your work, you create an opportunity to inspire others and "
+"also make practical gains"
 
 #: templates/home/home_page.html:116
 msgid "Kāpēc publicēt savu darbu?"
-msgstr ""
+msgstr "Why publish your work?"
 
 #: templates/home/home_page.html:118
 msgid ""
 " Daloties ar savu darbu, jūs varat sniegt iedvesmu citiem un veidot saikni "
 "ar līdzīgiem radošiem cilvēkiem."
 msgstr ""
+"by sharing your work, you can provide inspiration to others and build "
+"connections with similar creative people."
 
 #: templates/home/home_page.html:130
 msgid "Mazliet nopelnīt"
-msgstr ""
+msgstr "To earn a little"
 
 #: templates/home/home_page.html:132
 msgid ""
 "  Jūs saņemsiet 1 euro digitālajā makā par katru pārdoto preci ar jūsu "
 "dizainu, ko varat iztērēt veikalā."
 msgstr ""
+"You'll get €1 in your digital wallet for every item sold with your design, "
+"which you can spend on the store."
 
 #: templates/home/home_page.html:144
 msgid "Digitālais maks"
-msgstr ""
+msgstr "Digital wallet"
 
 #: templates/home/home_page.html:146
 msgid ""
 "Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai iegādātos "
 "citus produktus šajā veikalā."
 msgstr ""
+"Income goes into the digital wallet and can be used to buy other products in"
+" this store."
 
 #: templates/home/home_page.html:155
 msgid "Lietotāju populārākie dizaini!"
-msgstr ""
+msgstr "User top design!"
 
 #: templates/home/home_page.html:200
 msgid "Biežāk Uzdotie Jautājumi"
-msgstr ""
+msgstr "Frequently asked questions"
 
 #: templates/payments/bank_details.html:8
 msgid "Bankas rekvizīti"
-msgstr ""
+msgstr "Bank Properties"
 
 #: templates/payments/bank_details.html:9
 msgid "Lūdzu, izmantojiet šos rekvizītus, lai veiktu bankas pārskaitījumu:"
-msgstr ""
+msgstr "Please use these properties to make a bank transfer:"
 
 #: templates/payments/bank_details.html:13
 msgid "Banka"
-msgstr ""
+msgstr "bank"
 
 #: templates/payments/bank_details.html:20
 msgid "Saņēmējs"
-msgstr ""
+msgstr "Receiver"
 
 #: templates/payments/bank_details.html:27
 msgid "Konta numurs"
-msgstr ""
+msgstr "Bank account number"
 
 #: templates/payments/bank_details.html:41
 msgid "Maksājuma mērķis"
-msgstr ""
+msgstr "payment objective"
 
 #: templates/payments/bank_details.html:52
 msgid "Atpakaļ"
-msgstr ""
+msgstr "Beck"
 
 #: templates/payments/bank_details.html:57
 msgid "Samaksāju"
-msgstr ""
+msgstr "I paid"
 
 #: templates/payments/payment.html:12
 msgid "Preču grozs"
-msgstr ""
+msgstr "Goods basket"
 
 #: templates/payments/payment.html:35
 msgid "Izvēlieties personu"
@@ -702,7 +735,7 @@ msgstr ""
 
 #: templates/payments/payment.html:51
 msgid "Jūsu kontakti"
-msgstr ""
+msgstr "Your contacts"
 
 #: templates/payments/payment.html:70
 msgid "Juridiskas personas dati"
@@ -710,25 +743,27 @@ msgstr ""
 
 #: templates/payments/payment.html:96
 msgid "Dāvanu kods"
-msgstr ""
+msgstr "Gift Code"
 
 #: templates/payments/payment.html:103
 msgid "Piegādes varianti"
-msgstr ""
+msgstr "Choose a delivery "
 
 #: templates/payments/payment.html:113
 msgid "Apmaksas veids"
-msgstr ""
+msgstr "payment"
 
 #: templates/payments/transfer_confirmation.html:19
 msgid "Ko darīt tālāk?"
-msgstr ""
+msgstr "What to do next?"
 
 #: templates/payments/transfer_confirmation.html:20
 msgid ""
 "Lūdzu, pārliecinieties, ka jūsu e-pasta adrese ir pareiza un sekojiet līdzi "
 "mūsu e-pastiem, lai saņemtu jaunāko informāciju par jūsu pasūtījumu."
 msgstr ""
+"Please make sure your email address is correct and keep track of our emails "
+"for the latest information about your order."
 
 #: templates/payments/transfer_confirmation.html:27
 msgid "Atgriezties sākumlapā"
@@ -736,15 +771,15 @@ msgstr ""
 
 #: templates/ressret_password/password_reset_form.html:18
 msgid "Vai esat aizmirsis paroli?"
-msgstr ""
+msgstr "Forgot your password?"
 
 #: venv/lib/python3.11/site-packages/IPython/core/tests/test_completer.py:445
 msgid "open('foo"
-msgstr ""
+msgstr "open"
 
 #: venv/lib/python3.11/site-packages/IPython/core/tests/test_completer.py:449
 msgid "open(\"foo"
-msgstr ""
+msgstr "open"
 
 #: venv/lib/python3.11/site-packages/IPython/core/tests/test_completer.py:453
 #, python-format
@@ -811,37 +846,37 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3/templates/adminlte/lib/_main_header.html:150
 msgid "Change password"
-msgstr ""
+msgstr "Change password"
 
 #: venv/lib/python3.11/site-packages/adminlte3/templates/adminlte/lib/_main_header.html:151
 msgid "Sign out"
-msgstr ""
+msgstr "Sign out"
 
 #: venv/lib/python3.11/site-packages/adminlte3/templates/adminlte/login.html:19
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_form.html:70
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_list.html:54
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/login.html:7
 msgid "Please correct the error below."
-msgstr ""
+msgstr "Please correct the error below."
 
 #: venv/lib/python3.11/site-packages/adminlte3/templates/adminlte/login.html:20
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_form.html:70
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_list.html:55
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/login.html:8
 msgid "Please correct the errors below."
-msgstr ""
+msgstr "Please correct the errors below."
 
 #: venv/lib/python3.11/site-packages/adminlte3/templates/adminlte/login.html:40
 msgid "Username"
-msgstr ""
+msgstr "Username"
 
 #: venv/lib/python3.11/site-packages/adminlte3/templates/adminlte/login.html:44
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #: venv/lib/python3.11/site-packages/adminlte3/templates/adminlte/login.html:53
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/app_index.html:14
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/base.html:32
@@ -850,7 +885,7 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/index.html:21
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/object_history.html:13
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/base_login.html:23
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/base_site.html:6
@@ -870,16 +905,16 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_form.html:52
 msgid "History"
-msgstr ""
+msgstr "History"
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_form.html:54
 msgid "View on site"
-msgstr ""
+msgstr "View on site"
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_list.html:71
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_list.html:97
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/change_list.html:82
 #, python-format
@@ -936,8 +971,8 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/login.html:53
 #, python-format
 msgid ""
-"You are authenticated as %(username)s, but are not authorized to access this "
-"page. Would you like to login to a different account?"
+"You are authenticated as %(username)s, but are not authorized to access this"
+" page. Would you like to login to a different account?"
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/object_history.html:33
@@ -954,8 +989,8 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/object_history.html:49
 msgid ""
-"This object doesn't have a change history. It probably wasn't added via this "
-"admin site."
+"This object doesn't have a change history. It probably wasn't added via this"
+" admin site."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/search_form.html:16
@@ -1088,8 +1123,8 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/core/validators.py:267
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
-"hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
+" hyphens."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/core/validators.py:279
@@ -1289,15 +1324,15 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1489
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
-"uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1497
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
-"[TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1502
@@ -1316,8 +1351,8 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1789
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
-"uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1793
@@ -1476,7 +1511,8 @@ msgid "Many-to-many relationship"
 msgstr ""
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the label
+#. characters will prevent the default label_suffix to be appended to the
+#. label
 #: venv/lib/python3.11/site-packages/django/forms/boundfield.py:184
 msgid ":?.!"
 msgstr ""
@@ -1526,7 +1562,8 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/forms/fields.py:625
 #, python-format
-msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid ""
+"Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1634,7 +1671,8 @@ msgid "The inline value did not match the parent instance."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/forms/models.py:1429
-msgid "Select a valid choice. That choice is not one of the available choices."
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/forms/models.py:1568
@@ -2090,10 +2128,10 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/views/csrf.py:127
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
-"including the “Referrer-Policy: no-referrer” header, please remove them. The "
-"CSRF protection requires the “Referer” header to do strict referer checking. "
-"If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
+" including the “Referrer-Policy: no-referrer” header, please remove them. "
+"The CSRF protection requires the “Referer” header to do strict referer "
+"checking. If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 
@@ -2145,8 +2183,8 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/django/views/generic/dates.py:652
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because %(class_name)s."
-"allow_future is False."
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/views/generic/dates.py:692
@@ -2202,10 +2240,10 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:221
 #, python-format
 msgid ""
-"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
-"%(version)s/ref/settings/#debug\" target=\"_blank\" "
-"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
-"configured any URLs."
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:229
