@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Krāsas izvēles apstrāde
     const colorElements = document.querySelectorAll('.color-select');
     const colorContainer = document.querySelector('.color');
 
@@ -13,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             colorElement.classList.add('active-color');
 
-            // Izmēru atjaunināšana pēc krāsas izvēles
             const colorId = colorElement.getAttribute('data-color-id');
             const productSlug = document.getElementById('product-slug').value;
 
@@ -42,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     option.classList.remove('active');
                     option.style.pointerEvents = 'auto';
 
-                    // Check if size is available
                     const quantity = sizesMap.get(sizeName);
                     if (quantity === undefined || quantity === 0) {
                         option.classList.add('readonly');
@@ -56,14 +53,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Izmēru izvēles apstrāde
     const sizeOptions = document.querySelectorAll('.size-option');
     sizeOptions.forEach(option => {
         option.addEventListener('click', function() {
             if (!option.classList.contains('readonly')) {
-                // Noņem active klasi no visiem izmēriem
                 sizeOptions.forEach(opt => opt.classList.remove('active'));
-                // Pievieno active klasi noklikšķinātajam izmēram
                 option.classList.add('active');
             }
         });
@@ -101,36 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'block';
     });
 
-    closeBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
     window.addEventListener('click', function(event) {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
     });
-
-    window.onload = function() {
-        const frontImg = document.getElementById('front-img');
-        const boundary = document.getElementById('boundary-front');
-
-        // Funkcija, lai atjauninātu boundary
-        function updateBoundary() {
-            const imgRect = frontImg.getBoundingClientRect();
-
-            // Iestata boundary izmērus un pozīciju
-            boundary.style.top = `${imgRect.top}px`;
-            boundary.style.left = `${imgRect.left}px`;
-            boundary.style.width = `${imgRect.width}px`;
-            boundary.style.height = `${imgRect.height}px`;
-            boundary.style.position = 'absolute'; // Fiksēto pozīciju
-        }
-
-        // Atjaunina boundary, kad logs tiek pārslogots
-        window.addEventListener('resize', updateBoundary);
-
-        // Pirmā inicializācija
-        updateBoundary();
-    };
 });

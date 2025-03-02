@@ -789,6 +789,13 @@ input {
 	background-color: var(--main-color);
 }
 
+@media screen and (max-width: 1500px) {
+  .tooltip {
+    display: none;
+  }
+
+}
+
 @media screen and (max-width: 1685px) {
   .tooltip {
     visibility: hidden;
@@ -1150,7 +1157,7 @@ input {
   animation: spin 1s linear infinite;
   display: none;
   position: absolute;
-  margin-top: 150px;
+  margin-top: 120px;
   margin-left: 300px;
 }
 
@@ -1279,4 +1286,25 @@ input {
   background: rgba(185, 185, 185, 0.54)
   ;
   z-index: 9998;
+}
+
+#generatedImages {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  justify-items: center;
+  align-items: center;
+}
+
+#generatedImages img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease, border 0.3s ease;
+}
+
+#generatedImages img:hover {
+  border: 2px solid var(--main-color);
+  transform: scale(1.05);
 }

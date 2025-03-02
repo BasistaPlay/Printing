@@ -11,8 +11,8 @@ function addText() {
     const textInput = document.getElementById('text-input');
     const textList = document.getElementById('text-list');
     const fontSize = document.getElementById('font-size').value + 'px';
-    const editButton = document.getElementById('addTextButton');
     const textColor = document.getElementById('font-color').value;
+    const editButton = document.getElementById('addTextButton');
 
     editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
 
@@ -27,12 +27,15 @@ function addText() {
             return;
         }
 
+        let $container = $(`#boundary-${currentSide}`);
+        const containerWidth = $container.width();
         const textElement = document.createElement('div');
         textElement.className = 'draggable-text ui-draggable ui-draggable-handle ui-resizable';
         textElement.style.position = 'relative';
         textElement.style.left = '0';
         textElement.style.top = '0';
-        textElement.innerHTML = `<span class="editable-text">${text}</span>`;
+        textElement.style.maxWidth = '90%';
+        textElement.innerHTML = `<span class="editable-text" style="color: ${textColor}; font-size: ${fontSize}; word-break: break-word; overflow-wrap: break-word; display: inline-block; max-width: ${containerWidth}px;">${text}</span>`;
         textContainer.appendChild(textElement);
 
         requestAnimationFrame(() => {
@@ -81,53 +84,37 @@ function addText() {
         alert('Please enter text before adding to the list.');
     }
 }
+
 function addResizableAndDraggable(element, currentSide, fontSize) {
     const $element = $(element);
     let $container = $(`#boundary-${currentSide}`);
 
-    let maxWidth = $container.width();
-    let maxHeight = $container.height();
+    function updateContainerSize() {
+        let containerWidth = $container.width();
+        let containerHeight = $container.height();
+        return {
+            maxWidth: containerWidth,
+            maxHeight: containerHeight,
+        };
+    }
+
+    let { maxWidth, maxHeight } = updateContainerSize();
+
+    $(window).on('resize', function() {
+        ({ maxWidth, maxHeight } = updateContainerSize());
+    });
 
     $element.draggable({
-        containment: $container,
-        drag: function(event, ui) {
-            ui.position.left = Math.max(0, Math.min(ui.position.left, maxWidth - $element.width()));
-            ui.position.top = Math.max(0, Math.min(ui.position.top, maxHeight - $element.height()));
-            $(this).css({ left: ui.position.left, top: ui.position.top });
-        }
-    });
-
-    $element.resizable({
-        handles: 'se',
-        minWidth: 20,
-        minHeight: 20,
-        maxWidth: maxWidth,
-        maxHeight: maxHeight,
-        resize: function(event, ui) {
-            const textSpan = $element.find('.editable-text');
-            let newFontSize = ui.size.height;
-
-            // Neļaut pārsniegt konteinera izmēru
-            if (ui.size.width > maxWidth) ui.size.width = maxWidth;
-            if (ui.size.height > maxHeight) ui.size.height = maxHeight;
-
-            textSpan.css({ fontSize: `${newFontSize}px` });
-        },
+        containment: `#boundary-${currentSide}`,
+        scroll: false,
         stop: function(event, ui) {
-            const textSpan = $element.find('.editable-text');
-            textSpan.css({ fontSize: `${ui.size.height}px` });
+            $(this).css({
+                left: ui.position.left + 'px',
+                top: ui.position.top + 'px'
+            });
         }
-    });
-
-    // Sākotnēji atspējo resizable, aktivizē tikai klikšķa gadījumā
-    $element.resizable('disable');
-    $element.on('click', function() {
-        $(this).resizable('enable');
     });
 }
-
-
-
 
 window.editTextInList = function(button) {
     const listItem = button.parentNode;
@@ -201,5 +188,5 @@ window.deleteText = function(button) {
 }
 
 function getCurrentSide() {
-    return currentSide;
+    return localStorage.getItem('currentSide') || 'front';
 }

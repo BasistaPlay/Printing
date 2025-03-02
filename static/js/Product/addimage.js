@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let currentSide = localStorage.getItem('currentSide') || 'front';
     localStorage.setItem('currentSide', currentSide);
+    console.log('wefewf')
 
     function showContent(element) {
         element.style.display = 'block';
@@ -30,10 +31,12 @@ $(document).ready(function () {
 
     $('.upload-area').click(function () {
         $('#upload-input').trigger('click');
+        console.log('clicked')
     });
 
     $('#upload-input').change(event => {
-        if (event.target.files) {
+        if (event.target.files && event.target.files.length > 0) {
+            console.log(event.target.files);
             handleFiles(event.target.files);
         }
     });
@@ -171,7 +174,7 @@ $(document).ready(function () {
                     $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).resizable({
                         handles: 'ne, se, sw, nw, n, e, s, w',
                         ghost: false,
-                        containment: `#boundary-${currentSide}`,  // Ensures it stays within the container
+                        containment: `#boundary-${currentSide}`,
                         maxWidth: selectedContainer.width(),
                         maxHeight: selectedContainer.height(),
                         resize: function (event, ui) {

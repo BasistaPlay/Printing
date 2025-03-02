@@ -25,9 +25,6 @@
         <div class="spinner"></div>
     </div>
 
-
-
-
 {% csrf_token %}
     <div class="message-container"></div>
     <div class="product-card" data-product-id="{{ product.id }}"></div>
@@ -148,8 +145,7 @@
                 <p class="upload-area-text">{% trans 'Nometiet attēlus vai' %}<span> {% trans ' Pārlūkot' %}</span></p>
             </div>
             <input type="file" class="visually-hidden" name="" id="upload-input" accept="image/*" multiple>
-            <div class="upload-img">
-            </div>
+            <div class="upload-img"></div>
         </div>
     </div>
 {% endif %}
@@ -206,8 +202,7 @@
         <input type="text" id="textInput-Ai" placeholder="{% trans 'Ievadiet tekstu' %}">
         <button id="generateButton">{% trans 'Ģenerēt attēlu' %}</button>
         <div id="loader" class="loader"></div>
-        <img id="image" src="" alt="">
-        <button id="sendToImageBtn" style="display:none;">{% trans 'Sūtīt uz attēlu' %}</button>
+        <div id="generatedImages"></div>
     </div>
 {% endif %}
 
@@ -257,21 +252,28 @@
     <script src="{% static 'js/Product/addtocart.js' %}"></script>
     <script src="{% static 'js/Product/design.js' %}"></script>
     <script src="{% static 'js/Product/SaveDesign.js' %}"></script>
+    <script src="{% static 'js/Product/general_design.js' %}"></script>
+
     {% if product.can_have_ai_image %}
         <script src="{% static 'js/Product/aiimagegenerate.js' %}"></script>
     {% endif %}
-    <script src="{% static 'js/Product/general_design.js' %}"></script>
     {% if product.can_have_image %}
         <script src="{% static 'js/Product/addimage.js' %}"></script>
     {% endif %}
     {% if product.can_have_text %}
         <script src="{% static 'js/Product/addtext.js' %}"></script>
     {% endif %}
+
+
     <script>
-        function createBoundary(containerId, boundaryId, widthFactor, heightFactor) {
+        const frontCoords = {{ product.front_image_coords|safe }};
+        const backCoords = {{ product.back_image_coords|safe }};
+
+        function createBoundary(containerId, boundaryId, coords) {
             const container = document.getElementById(containerId);
             const boundary = document.getElementById(boundaryId);
             const image = container.querySelector('.img-1');
+            const textContainer = container.querySelector('#text-container');
 
             const originalDisplay = container.style.display;
             container.style.display = 'block';
@@ -280,33 +282,31 @@
                 const imageWidth = image.clientWidth;
                 const imageHeight = image.clientHeight;
 
-                const boundaryWidth = imageWidth * widthFactor;
-                const boundaryHeight = imageHeight * heightFactor;
+                const boundaryWidth = coords.width;
+                const boundaryHeight = coords.height;
 
-                const boundaryTop = (imageHeight - boundaryHeight) / 2;
-                const boundaryLeft = (imageWidth - boundaryWidth) / 2;
+                const boundaryTop = coords.top;
+                const boundaryLeft = coords.left;
 
-                boundary.style.top = `${boundaryTop}px`;
-                boundary.style.left = `${boundaryLeft - 22}px`;
-                boundary.style.width = `${boundaryWidth + 35}px`;
-                boundary.style.height = `${boundaryHeight + 55}px`;
+                boundary.style.top = `${boundaryTop + 20}px`;
+                boundary.style.left = `${boundaryLeft + 30}px`;
+                boundary.style.width = `${boundaryWidth + 20}px`;
+                boundary.style.height = `${boundaryHeight + 20}px`;
                 boundary.style.position = 'absolute';
             };
 
             image.onload = updateBoundary;
-
             if (image.complete) {
                 updateBoundary();
             }
 
-            // Pievieno resize notikumu, lai atjauninātu robežas, kad logs tiek mainīts
             window.addEventListener('resize', updateBoundary);
 
             container.style.display = originalDisplay;
         }
 
-        createBoundary('front', 'boundary-front', 0.4, 0.6);
-        createBoundary('back', 'boundary-back', 0.4, 0.6);
+        createBoundary('front', 'boundary-front', frontCoords);
+        createBoundary('back', 'boundary-back', backCoords);
     </script>
 
 {% endblock %}
