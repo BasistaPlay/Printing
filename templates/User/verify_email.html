@@ -15,7 +15,7 @@
                 <div class='mb-4'>
                     {% for message in messages %}
                         {% if 'register' in message.tags %}
-                            {% include 'partials/alert.html' with message=message message_tags=message.tags class='' %}
+                            {% include 'layout/partials/alert.html' with message=message message_tags=message.tags class='' %}
                         {% endif %}
                     {% endfor %}
                 </div>

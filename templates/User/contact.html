@@ -14,7 +14,7 @@
             {% if messages %}
                 <div class='mb-4'>
                     {% for message in messages %}
-                        {% include 'partials/alert.html' with message=message message_tags=message.tags class='' %}
+                        {% include 'layout/partials/alert.html' with message=message message_tags=message.tags class='' %}
                     {% endfor %}
                 </div>
             {% endif %}
