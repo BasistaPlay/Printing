@@ -1,0 +1,463 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: node_modules/jquery-ui-dist/jquery-ui.min.js:6
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-03 16:47+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+
+#: node_modules/jquery-ui-dist/jquery-ui.min.js:6
+msgid "d"
+msgstr ""
+
+#: node_modules/jquery-ui-dist/jquery-ui.min.js:6
+msgid "o"
+msgstr ""
+
+#: node_modules/jquery-ui-dist/jquery-ui.min.js:6
+msgid "m"
+msgstr ""
+
+#: node_modules/jquery-ui-dist/jquery-ui.min.js:6
+msgid "y"
+msgstr ""
+
+#: node_modules/jquery-ui-dist/jquery-ui.min.js:6
+msgid "@"
+msgstr ""
+
+#: node_modules/jquery-ui-dist/jquery-ui.min.js:6
+msgid "!"
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:38
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:47
+#, javascript-format
+msgid "Available %s"
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:44
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:53
+#, javascript-format
+msgid ""
+"This is the list of available %s. You may choose some by selecting them in "
+"the box below and then clicking the \"Choose\" arrow between the two boxes."
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:60
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:69
+#, javascript-format
+msgid "Type into this box to filter down the list of available %s."
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:65 static/admin/js/SelectFilter2.js:110
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:74
+msgid "Filter"
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:69
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:78
+msgid "Choose all"
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:69
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:78
+#, javascript-format
+msgid "Click to choose all %s at once."
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:75
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:84
+msgid "Choose"
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:77
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:86
+msgid "Remove"
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:83
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:92
+#, javascript-format
+msgid "Chosen %s"
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:89
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:98
+#, javascript-format
+msgid ""
+"This is the list of chosen %s. You may remove some by selecting them in the "
+"box below and then clicking the \"Remove\" arrow between the two boxes."
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:105
+#, javascript-format
+msgid "Type into this box to filter down the list of selected %s."
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:120
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:108
+msgid "Remove all"
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:120
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/SelectFilter2.js:108
+#, javascript-format
+msgid "Click to remove all chosen %s at once."
+msgstr ""
+
+#: static/admin/js/SelectFilter2.js:211
+#, javascript-format
+msgid "%s selected option not visible"
+msgid_plural "%s selected options not visible"
+msgstr[0] ""
+msgstr[1] ""
+
+#: static/admin/js/actions.js:67
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.js:48
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.min.js:2
+msgid "%(sel)s of %(cnt)s selected"
+msgid_plural "%(sel)s of %(cnt)s selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: static/admin/js/actions.js:161
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.js:117
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.min.js:5
+msgid ""
+"You have unsaved changes on individual editable fields. If you run an "
+"action, your unsaved changes will be lost."
+msgstr ""
+
+#: static/admin/js/actions.js:174
+msgid ""
+"You have selected an action, but you haven’t saved your changes to "
+"individual fields yet. Please click OK to save. You’ll need to re-run the "
+"action."
+msgstr ""
+
+#: static/admin/js/actions.js:175
+msgid ""
+"You have selected an action, and you haven’t made any changes on individual "
+"fields. You’re probably looking for the Go button rather than the Save "
+"button."
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:13
+#: static/admin/js/admin/DateTimeShortcuts.js:110
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:13
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:115
+msgid "Now"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:14
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:14
+msgid "Midnight"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:15
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:15
+msgid "6 a.m."
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:16
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:16
+msgid "Noon"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:17
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:17
+msgid "6 p.m."
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:78
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:82
+#, javascript-format
+msgid "Note: You are %s hour ahead of server time."
+msgid_plural "Note: You are %s hours ahead of server time."
+msgstr[0] ""
+msgstr[1] ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:86
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:90
+#, javascript-format
+msgid "Note: You are %s hour behind server time."
+msgid_plural "Note: You are %s hours behind server time."
+msgstr[0] ""
+msgstr[1] ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:128
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:133
+msgid "Choose a Time"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:158
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:163
+msgid "Choose a time"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:175
+#: static/admin/js/admin/DateTimeShortcuts.js:333
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:180
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:340
+msgid "Cancel"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:238
+#: static/admin/js/admin/DateTimeShortcuts.js:318
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:245
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:325
+msgid "Today"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:255
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:262
+msgid "Choose a Date"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:312
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:319
+msgid "Yesterday"
+msgstr ""
+
+#: static/admin/js/admin/DateTimeShortcuts.js:324
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:331
+msgid "Tomorrow"
+msgstr ""
+
+#: static/admin/js/calendar.js:11
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:12
+msgid "January"
+msgstr ""
+
+#: static/admin/js/calendar.js:12
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:13
+msgid "February"
+msgstr ""
+
+#: static/admin/js/calendar.js:13
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:14
+msgid "March"
+msgstr ""
+
+#: static/admin/js/calendar.js:14
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:15
+msgid "April"
+msgstr ""
+
+#: static/admin/js/calendar.js:15
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:16
+msgid "May"
+msgstr ""
+
+#: static/admin/js/calendar.js:16
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:17
+msgid "June"
+msgstr ""
+
+#: static/admin/js/calendar.js:17
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:18
+msgid "July"
+msgstr ""
+
+#: static/admin/js/calendar.js:18
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:19
+msgid "August"
+msgstr ""
+
+#: static/admin/js/calendar.js:19
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:20
+msgid "September"
+msgstr ""
+
+#: static/admin/js/calendar.js:20
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:21
+msgid "October"
+msgstr ""
+
+#: static/admin/js/calendar.js:21
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:22
+msgid "November"
+msgstr ""
+
+#: static/admin/js/calendar.js:22
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:23
+msgid "December"
+msgstr ""
+
+#: static/admin/js/calendar.js:25
+msgctxt "abbrev. month January"
+msgid "Jan"
+msgstr ""
+
+#: static/admin/js/calendar.js:26
+msgctxt "abbrev. month February"
+msgid "Feb"
+msgstr ""
+
+#: static/admin/js/calendar.js:27
+msgctxt "abbrev. month March"
+msgid "Mar"
+msgstr ""
+
+#: static/admin/js/calendar.js:28
+msgctxt "abbrev. month April"
+msgid "Apr"
+msgstr ""
+
+#: static/admin/js/calendar.js:29
+msgctxt "abbrev. month May"
+msgid "May"
+msgstr ""
+
+#: static/admin/js/calendar.js:30
+msgctxt "abbrev. month June"
+msgid "Jun"
+msgstr ""
+
+#: static/admin/js/calendar.js:31
+msgctxt "abbrev. month July"
+msgid "Jul"
+msgstr ""
+
+#: static/admin/js/calendar.js:32
+msgctxt "abbrev. month August"
+msgid "Aug"
+msgstr ""
+
+#: static/admin/js/calendar.js:33
+msgctxt "abbrev. month September"
+msgid "Sep"
+msgstr ""
+
+#: static/admin/js/calendar.js:34
+msgctxt "abbrev. month October"
+msgid "Oct"
+msgstr ""
+
+#: static/admin/js/calendar.js:35
+msgctxt "abbrev. month November"
+msgid "Nov"
+msgstr ""
+
+#: static/admin/js/calendar.js:36
+msgctxt "abbrev. month December"
+msgid "Dec"
+msgstr ""
+
+#: static/admin/js/calendar.js:39
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:26
+msgctxt "one letter Sunday"
+msgid "S"
+msgstr ""
+
+#: static/admin/js/calendar.js:40
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:27
+msgctxt "one letter Monday"
+msgid "M"
+msgstr ""
+
+#: static/admin/js/calendar.js:41
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:28
+msgctxt "one letter Tuesday"
+msgid "T"
+msgstr ""
+
+#: static/admin/js/calendar.js:42
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:29
+msgctxt "one letter Wednesday"
+msgid "W"
+msgstr ""
+
+#: static/admin/js/calendar.js:43
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:30
+msgctxt "one letter Thursday"
+msgid "T"
+msgstr ""
+
+#: static/admin/js/calendar.js:44
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:31
+msgctxt "one letter Friday"
+msgid "F"
+msgstr ""
+
+#: static/admin/js/calendar.js:45
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/calendar.js:32
+msgctxt "one letter Saturday"
+msgid "S"
+msgstr ""
+
+#: static/admin/js/collapse.js:16 static/admin/js/collapse.js:34
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/collapse.js:27
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/collapse.js:45
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/collapse.min.js:2
+msgid "Show"
+msgstr ""
+
+#: static/admin/js/collapse.js:30
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/collapse.js:41
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/collapse.min.js:2
+msgid "Hide"
+msgstr ""
+
+#: static/js/Product/addimage.js:361
+msgid "Attēla iestatījumi"
+msgstr ""
+
+#: static/js/Product/addimage.js:364
+msgid "Slāņa kārtība"
+msgstr ""
+
+#: static/js/Product/addimage.js:368
+msgid "Rotācija"
+msgstr ""
+
+#: static/js/Product/addimage.js:372
+msgid "Pielāgot"
+msgstr ""
+
+#: static/js/Product/addimage.js:373
+msgid "Atcelt"
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.js:129
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.min.js:5
+msgid ""
+"You have selected an action, but you haven't saved your changes to "
+"individual fields yet. Please click OK to save. You'll need to re-run the "
+"action."
+msgstr ""
+
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.js:131
+#: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.min.js:6
+msgid ""
+"You have selected an action, and you haven't made any changes on individual "
+"fields. You're probably looking for the Go button rather than the Save "
+"button."
+msgstr ""
+
+#~ msgid "Image Settings"
+#~ msgstr "Image Settings"
+
+#~ msgid "Z-Index"
+#~ msgstr "Z-Index"
+
+#~ msgid "Rotation"
+#~ msgstr "Rotation"
+
+#~ msgid "Apply"
+#~ msgstr "Apply"

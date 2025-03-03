@@ -109,6 +109,7 @@ body {
   align-items: stretch;
   justify-content: flex-start;
   flex-wrap: wrap;
+  padding: 10px;
   justify-content: center;
 }
 
@@ -151,8 +152,9 @@ body {
 }
 
 .uploaded-img {
-  /* padding: 4px 0; */
+  padding: 4px 0;
   position: relative;
+  cursor: pointer;
 }
 
 .remove-btn {
@@ -163,8 +165,8 @@ body {
   border: none;
   color: var(--main-color);
   position: relative;
-  top: -81px;
-  right: 28px;
+  top: -100px;
+  right: 40px;
   cursor: pointer;
   transition: all 300ms ease-in-out;
 }
@@ -1218,7 +1220,7 @@ input {
   background-color: #45a049;
 }
 
-.uploaded-img.element-image {
+.uploaded-img-product.element-image {
   bottom: 10%;
   left: 35%;
 }
@@ -1328,4 +1330,78 @@ input {
 
 .z-indexbtn:hover {
   background-color: #e0e0e0;
+}
+
+#image-settings {
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #333;
+  transition: opacity 0.3s ease-in-out;
+}
+
+#image-settings.show {
+  opacity: 1;
+}
+
+.upload-wrapper {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.upload-wrapper.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#image-settings h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+#image-settings label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+#image-settings .input-group {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 12px;
+}
+
+#image-settings .input-group input {
+  width: 48%; /* Divi inputi vienā rindā, paliekot nelielai atstarpei */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#image-settings button {
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+#image-settings button:hover {
+  background-color: var(--main-color-dark);
+}
+
+#image-settings button#cancel-settings {
+  background-color: #f44336;
+  margin-top: 15px;
+}
+
+#image-settings button#cancel-settings:hover {
+  background-color: #d32f2f;
 }

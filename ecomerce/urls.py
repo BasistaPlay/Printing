@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from django.http import Http404
+from django.views.i18n import JavaScriptCatalog
 
 from home import views as home
 from User_app import views as user
@@ -21,6 +22,7 @@ def admin_required(function):
 urlpatterns = [
      path('admin/', admin.site.urls),
      path('i18n/', include('django.conf.urls.i18n')),
+     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
      path('', home.HomePageView.as_view(), name='homepage'),
      path('sprite-svg/', admin_required(TemplateView.as_view(template_name='sprite_svg_preview.html'))),
      path('accounts/', include('allauth.urls')),

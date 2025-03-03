@@ -71,7 +71,7 @@ function addToProduct(imageUrl) {
     $('.upload-img').append(htmlList);
 
     let htmlKrekls = `
-        <div class='uploaded-img element-image ${currentSide}' data-image-id='${imageId}' style='z-index:2; top:100px; background: transparent;'>
+        <div class='uploaded-img-product element-image ${currentSide}' data-image-id='${imageId}' style='z-index:2; top:100px; background: transparent;'>
             <img src='${imageUrl}' class='editable-image resizable-image' draggable='true' style='background: transparent; object-fit: contain;'>
         </div>
     `;
@@ -82,7 +82,7 @@ function addToProduct(imageUrl) {
         $('[data-image-id="' + imageIdToRemove + '"]').remove();
     });
 
-    $(`.uploaded-img[data-image-id='${imageId}'] .editable-image`).resizable({
+    $(`.uploaded-img-product[data-image-id='${imageId}'] .editable-image`).resizable({
         handles: 'ne, se, sw, nw, n, e, s, w',
         ghost: false,
         containment: `#boundary-${currentSide}`,
