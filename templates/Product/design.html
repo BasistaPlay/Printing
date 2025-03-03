@@ -30,22 +30,26 @@
     <div class="product-card" data-product-id="{{ product.id }}"></div>
     <div id="error-messages" class="error-messages"></div>
 
-    <div class="product">
-        <div id="front" style="display: block; position: relative;">
-            <div class="boundary" id="boundary-front"></div>
-            <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
-            <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="front-img" />
-            <img src="{{ product.front_image_with_background.url }}" class="img-2 front-image" />
-            <div id="text-container" data-side="front" class="absolute"></div>
+
+    <div>
+        <div class="product">
+            <div id="front" style="display: block; position: relative;">
+                <div class="boundary" id="boundary-front"></div>
+                <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
+                <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="front-img" />
+                <img src="{{ product.front_image_with_background.url }}" class="img-2 front-image" />
+                <div id="text-container" data-side="front" class="absolute"></div>
+            </div>
+            <div id="back" style="display: none; position: relative;">
+                <div class="boundary" id="boundary-back"></div>
+                <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="back-img" />
+                <img src="{{ product.back_image_with_background.url }}" class="img-2 front-image" />
+                <div id="text-container" data-side="back" class="absolute"></div>
+            </div>
+            <div class="color" style="background-color: {{ product.available_colors.first.code }}"></div>
         </div>
-        <div id="back" style="display: none; position: relative;">
-            <div class="boundary" id="boundary-back"></div>
-            <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="back-img" />
-            <img src="{{ product.back_image_with_background.url }}" class="img-2 front-image" />
-            <div id="text-container" data-side="back" class="absolute"></div>
-        </div>
-        <div class="color" style="background-color: {{ product.available_colors.first.code }}"></div>
     </div>
+
 
 <div id="general" class="content" x-data="{ showModal: false }">
     <h1>{% trans 'Izveido savu' %} {{ product.title }}</h1>

@@ -276,7 +276,6 @@
 // }
 
 // function selectOption() {
-//     console.log(this);
 //     const icon = this.querySelector('.iconify').cloneNode(true),
 //         phone_code = this.querySelector('strong').cloneNode(true);
 

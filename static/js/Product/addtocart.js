@@ -1,5 +1,4 @@
 function AddToCart(design_id) {
-    console.log(design_id);
     let numValue = $('.num').text();
     let productCard = $('.product-card[data-product-id]');
     let product_id = productCard.data('product-id');
@@ -19,7 +18,6 @@ function AddToCart(design_id) {
             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
         },
         success: function(response) {
-            console.log(response);
             if (response.success) {
                 showMessages(response.messages);
                 var cartCountElement = $('#cart-count');

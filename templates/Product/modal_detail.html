@@ -92,7 +92,6 @@
                     }
                 },
                 addToCart() {
-                    console.log(JSON.stringify(this.quantities)); // Pārbaude konsolē
                     htmx.ajax('GET', '/cart/add/{{ product.id }}/', {
                         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
                         values: { selected_items: JSON.stringify(this.quantities) }

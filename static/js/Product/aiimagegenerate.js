@@ -86,10 +86,35 @@ function addToProduct(imageUrl) {
         handles: 'ne, se, sw, nw, n, e, s, w',
         ghost: false,
         containment: `#boundary-${currentSide}`,
-        // maxWidth: selectedContainer.width(),
-        // maxHeight: selectedContainer.height()
+        resize: function (event, ui) {
+            ui.element.css({
+                position: 'absolute',
+                top: ui.originalPosition.top,
+                left: ui.originalPosition.left
+            });
+        },
+        stop: function (event, ui) {
+            let parent = ui.element.parent();
+            let position = parent.position();
+            let width = parent.width();
+            let height = parent.height();
+            parent.css({
+                top: position.top,
+                left: position.left,
+                width: width,
+                height: height
+            });
+        }
+
     }).parent().draggable({
-        containment: `#boundary-${currentSide}`
+        containment: `#boundary-${currentSide}`,
+        stop: function (event, ui) {
+            let wrapper = ui.helper;
+            wrapper.css({
+                top: ui.position.top,
+                left: ui.position.left
+            });
+        }
     });
 }
 
