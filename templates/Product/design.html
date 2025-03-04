@@ -83,15 +83,25 @@
         </div>
     </div>
 
-    <div class="publish-info">
-        <input type="checkbox" id="publish-checkbox">
-        <label for="publish-checkbox">{% trans 'Apstiprinu, ka vēlos publicēt savu darbu' %}</label>
-        <span class="info-icon" @click="showModal = true">
+    <div class="flex py-4 items-center space-x-2">
+        <label for="publish-checkbox" class="flex items-center space-x-2 cursor-pointer">
+            <input type="checkbox" id="publish-checkbox" class="hidden peer">
+            <div class="w-6 h-6 rounded-md border-2 border-gray-500 flex items-center justify-center transition peer-checked:bg-[var(--main-color)] peer-checked:border-[var(--main-color)]">
+                <svg class="w-4 h-4 text-second-color transition peer-checked:color-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12l5 5L20 7"></path>
+                </svg>
+            </div>
+            <span>{% trans 'Apstiprinu, ka vēlos publicēt savu darbu' %}</span>
+        </label>
+        <span class="info-icon cursor-pointer" @click="showModal = true">
             <svg width="20" height="20" style="color: var(--main-color);">
                 <use xlink:href="/static/svg/sprite.svg#info"></use>
             </svg>
         </span>
     </div>
+
+
+
 
     <div id="additional-info" style="display: none;">
         <input type="text" id="title-input" placeholder="{% trans 'Virsraksts' %}">
