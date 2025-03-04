@@ -13,6 +13,8 @@ function addText() {
     const fontSize = document.getElementById('font-size').value + 'px';
     const textColor = document.getElementById('font-color').value;
     const editButton = document.getElementById('addTextButton');
+    const fontFamily = document.getElementById('font-select').value
+
 
     editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
 
@@ -35,7 +37,7 @@ function addText() {
         textElement.style.left = '0';
         textElement.style.top = '0';
         textElement.style.maxWidth = '90%';
-        textElement.innerHTML = `<span class="editable-text" style="color: ${textColor}; font-size: ${fontSize}; word-break: break-word; overflow-wrap: break-word; display: inline-block; max-width: ${containerWidth}px;">${text}</span>`;
+        textElement.innerHTML = `<span class="editable-text" style="color: ${textColor}; font-size: ${fontSize}; font-family: ${fontFamily}; word-break: break-word; overflow-wrap: break-word; display: inline-block; max-width: ${containerWidth}px;">${text}</span>`;
         textContainer.appendChild(textElement);
 
         requestAnimationFrame(() => {
