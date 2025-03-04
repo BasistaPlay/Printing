@@ -1232,6 +1232,11 @@ input {
   left: 35%;
 }
 
+.uploaded-img-product {
+  position: absolute !important;
+}
+
+
 
 .boundary {
   position: absolute;

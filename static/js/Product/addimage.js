@@ -113,6 +113,14 @@ $(document).ready(function () {
                     containment: `#boundary-${currentSide}`,
                     maxWidth: selectedContainer.width(),
                     maxHeight: selectedContainer.height(),
+                    start: function (event, ui) {
+                        ui.element.data('startTop', ui.position.top);
+                        ui.element.data('startLeft', ui.position.left);
+                    },
+                    resize: function (event, ui) {
+                        ui.position.top = ui.element.data('startTop');
+                        ui.position.left = ui.element.data('startLeft');
+                    }
                 }).parent().draggable({ containment: `#boundary-${currentSide}` });
             };
             reader.readAsDataURL(file);
