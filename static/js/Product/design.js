@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to hide content
     function hideContent(element) {
         if (element) {
-            element.style.display = 'none';
+            element.classList.add('hidden');
         }
     }
 
     // Function to show content
     function showContent(element) {
         if (element) {
-            element.style.display = 'block';
+            element.classList.remove('hidden');
         }
     }
 
@@ -89,9 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     publishCheckbox.addEventListener('change', function() {
         if (this.checked) {
-            additionalInfo.style.display = 'block';
+            additionalInfo.class.display = 'block';
         } else {
-            additionalInfo.style.display = 'none';
+            additionalInfo.class.display = 'hidden';
         }
     });
 

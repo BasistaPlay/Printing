@@ -33,14 +33,14 @@
 
     <div>
         <div class="product">
-            <div id="front" style="display: block; position: relative;">
+            <div id="front" style="position: relative;">
                 <div class="boundary" id="boundary-front"></div>
                 <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
                 <img src="{{ product.front_image_not_background.url }}" class="img-1 front-image" id="front-img" />
                 <img src="{{ product.front_image_with_background.url }}" class="img-2 front-image" />
                 <div id="text-container" data-side="front" class="absolute"></div>
             </div>
-            <div id="back" style="display: none; position: relative;">
+            <div id="back" class="hidden" style="position: relative;">
                 <div class="boundary" id="boundary-back"></div>
                 <img src="{{ product.back_image_not_background.url }}" class="img-1 front-image" id="back-img" />
                 <img src="{{ product.back_image_with_background.url }}" class="img-2 front-image" />
@@ -51,8 +51,8 @@
     </div>
 
 
-<div id="general" class="content" x-data="{ showModal: false }">
-    <h1>{% trans 'Izveido savu' %} {{ product.title }}</h1>
+<div id="general" class="content max-md:mb-6 h-[470px] max-md:h-full" x-data="{ showModal: false }">
+    <h1 class="items-center text-center">{% trans 'Izveido savu' %} {{ product.title }}</h1>
     <div class="color-content">
         <b>{% trans 'Pielāgot krāsu' %}</b>
         <div class="color-groups">
@@ -103,7 +103,7 @@
 
 
 
-    <div id="additional-info" style="display: none;">
+    <div id="additional-info" class="hidden">
         <input type="text" id="title-input" placeholder="{% trans 'Virsraksts' %}">
     </div>
 
@@ -148,7 +148,7 @@
 </div>
 
 {% if product.can_have_image %}
-    <div id="upload" class="content" style="display: none;">
+    <div id="upload" class="hidden content max-md:mb-6 h-[470px] max-md:h-full">
         <div class="upload-wrapper">
             <div class="upload-area">
                 <div class="upload-area-svg flex justify-center">
@@ -164,8 +164,8 @@
     </div>
 {% endif %}
 {% if product.can_have_text %}
-    <div id="Text" class="content" style="display: none;">
-        <h1>{% trans 'Pievienot tekstu' %}</h1>
+    <div id="Text" class="hidden content max-md:mb-6 h-[470px] max-md:h-full">
+        <h1 class="items-center text-center">{% trans 'Pievienot tekstu' %}</h1>
         <div class="input-container">
             <label for="text-input">{% trans 'Ievadiet tekstu:' %}</label>
             <input type="text" id="text-input" placeholder="{% trans 'Lūdzu, ievadiet savu tekstu šeit.' %}">
@@ -211,13 +211,22 @@
 {% endif %}
 
 {% if product.can_have_ai_image %}
-    <div id="Ai-generator" class="content" style="display: none;">
-        <h1>{% trans 'AI attēla ģenerators' %}</h1>
-        <input type="text" id="textInput-Ai" placeholder="{% trans 'Ievadiet tekstu' %}">
-        <button id="generateButton">{% trans 'Ģenerēt attēlu' %}</button>
-        <div id="loader" class="loader"></div>
-        <div id="generatedImages"></div>
+<div id="Ai-generator" class="hidden content h-[470px] max-md:h-full max-md:mb-6 max-md:p-4 ">
+    <h1 class="items-center text-center">{% trans 'AI attēla ģenerators' %}</h1>
+    <div class="p-4 flex flex-col sm:flex-row items-center gap-2 w-full">
+        <input type="text" id="textInput-Ai" placeholder="{% trans 'Ievadiet tekstu' %}"
+            class="border rounded-lg p-2 w-full sm:w-auto flex-1">
+        <button id="generateButton"
+                class="bg-main-color text-white px-4 py-2 rounded-lg hover:bg-main-hover-color transition">
+            {% trans 'Ģenerēt attēlu' %}
+        </button>
     </div>
+
+    <div id="imageContainer" class="relative flex items-center justify-center min-h-[200px]">
+        <div id="loader" class="hidden"></div>
+        <div id="generatedImages" class="mt-4"></div>
+    </div>
+</div>
 {% endif %}
 
 <div class="navbar-wrapper pc">

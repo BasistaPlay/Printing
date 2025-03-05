@@ -8,14 +8,6 @@ body {
   gap: 2em;
 }
 
-#general {
-  display: block;
-}
-
-#general h1 {
-  align-items: center;
-  text-align: center;
-}
 
 .product {
   position: relative;
@@ -78,7 +70,6 @@ body {
   width: 700px;
   height: 470px;
   min-height: 360px;
-  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -228,9 +219,7 @@ body {
   border-radius: 10px;
   box-shadow: var(--main-color);
   width: 700px;
-  height: 470px;
   min-height: 360px;
-  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
@@ -265,11 +254,6 @@ body {
   padding: 0 15px;
   max-width: 760px;
   text-align: center;
-}
-
-.image-generator h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
 }
 
 .image-generator p {
@@ -478,9 +462,6 @@ input {
   margin-top: 10px;
 }
 
-#Text h1 {
-  text-align: center;
-}
 
 .input-container {
   margin: 0 20px 0 60px;
@@ -514,9 +495,9 @@ input {
 }
 
 .size-option.readonly {
-  color: #aaa; /* Gray out the text */
+  color: #aaa;
   cursor: not-allowed;
-  opacity: 0.6; /* Make it look disabled */
+  opacity: 0.6;
 }
 
 .button:hover {
@@ -547,11 +528,6 @@ input {
 #font-color::-moz-color-swatch {
   border-radius: none;
   border: none;
-}
-
-#Ai-generator {
-  align-items: center;
-  text-align: center;
 }
 
 .color-select {
@@ -700,7 +676,7 @@ input {
 
 
 .button svg {
-  margin-right: 8px; /* Attālums starp ikonu un tekstu */
+  margin-right: 8px;
 }
 
 .input-container {
@@ -843,7 +819,6 @@ input {
 
   .product {
     margin-top: 100px;
-    /* width: 95%; */
     order: 1;
   }
 
@@ -1033,28 +1008,25 @@ input {
 .publish-info {
   display: flex;
   align-items: center;
-  margin: 20px 0; /* Vienots marginu augšā un apakšā */
-  font-size: 14px; /* Fonta lielums */
+  margin: 20px 0;
+  font-size: 14px;
 }
 
-/* #publish-checkbox {
-  display: none; /* Paslēpj standarta čeksboksu */
-} */
 
 .publish-info label {
   position: relative;
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-right: 10px; /* Atstarpe starp čeksboksu un tekstu */
+  margin-right: 10px;
 }
 
 
 
 #publish-checkbox:checked + label::before {
-  background-color: var(--main-color); /* Fons, kad čeksboks ir atzīmēts */
-  border-color: var(--main-color); /* Mala, kad čeksboks ir atzīmēts */
-  background-image: url('/static/svg/sprite.svg#check'); /* Ikona, kad čeksboks ir atzīmēts */
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+  background-image: url('/static/svg/sprite.svg#check');
 }
 
 .info-icon {
@@ -1063,7 +1035,7 @@ input {
   justify-content: center;
   cursor: pointer;
   margin-left: 10px;
-  color: var(--main-color); /* Ikonas krāsa */
+  color: var(--main-color);
 }
 
 .info-icon svg {
@@ -1125,7 +1097,6 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  /* color: var(--text-color); */
 }
 
 #additional-info input::placeholder,
@@ -1150,49 +1121,20 @@ input {
 .info-icon {
   margin-left: 10px;
 }
-.loader {
+#loader {
   border: 4px solid #f3f3f3;
   border-top: 4px solid var(--main-color);
   border-radius: 50%;
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
-  display: none;
   position: absolute;
-  margin-top: 120px;
-  margin-left: 300px;
+  left: 50%;
+  top: 50%;
 }
-
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
-}
-
-#Ai-generator h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-#textInput-Ai {
-  width: 300px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-}
-
-#generateButton {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#generateButton:hover {
-  background-color: #45a049;
 }
 
 #image {
@@ -1230,7 +1172,6 @@ input {
   position: absolute;
   border: 2px dashed #000;
   pointer-events: none;
-  /* Pārliecinās, ka tas seko attēla izmēram */
 }
 
 #text-container{
@@ -1371,7 +1312,7 @@ input {
 }
 
 #image-settings .input-group input {
-  width: 48%; /* Divi inputi vienā rindā, paliekot nelielai atstarpei */
+  width: 48%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -1390,10 +1331,6 @@ input {
   margin-top: 10px;
   width: 100%;
   transition: background-color 0.3s ease;
-}
-
-#image-settings button:hover {
-  background-color: var(--main-color-dark);
 }
 
 #image-settings button#cancel-settings {
