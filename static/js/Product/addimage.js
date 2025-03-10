@@ -142,19 +142,19 @@ $(document).ready(function () {
 
         let settingsPanel = `
             <div id="image-settings" class="settings-panel">
-                <h3>Attēla iestatījumi</h3>
+                <h3>${gettext("Picture settings")}</h3>
                 <div class="input-group">
                     <div class="input-item">
-                        <label for="z-index">Slāņa kārtība:</label>
+                        <label for="z-index">${gettext("Layer order")}:</label>
                         <input type="number" id="z-index" value="${originalStyles.zIndex}">
                     </div>
                     <div class="input-item">
-                        <label for="rotate">Rotācija:</label>
+                        <label for="rotate">${gettext("Rotation")}:</label>
                         <input type="number" id="rotate" value="${originalStyles.rotate}">
                     </div>
                 </div>
-                <button id="apply-settings">Pielāgot</button>
-                <button id="cancel-settings">Atcelt</button>
+                <button id="apply-settings">${gettext("Customize")}</button>
+                <button id="cancel-settings">${gettext("Cancel")}</button>
             </div>`;
         $('#upload').append(settingsPanel);
 

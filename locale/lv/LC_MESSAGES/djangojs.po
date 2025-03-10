@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-03 16:47+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2025-03-10 12:25+0200\n"
+"PO-Revision-Date: 2025-03-10 12:24+0200\n"
+"Last-Translator:   <Admin@admin.lv>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: node_modules/jquery-ui-dist/jquery-ui.min.js:6
 msgid "d"
@@ -212,6 +213,7 @@ msgstr ""
 
 #: static/admin/js/admin/DateTimeShortcuts.js:175
 #: static/admin/js/admin/DateTimeShortcuts.js:333
+#: static/js/Product/addimage.js:157
 #: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:180
 #: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/admin/DateTimeShortcuts.js:340
 msgid "Cancel"
@@ -414,24 +416,28 @@ msgstr ""
 msgid "Hide"
 msgstr ""
 
-#: static/js/Product/addimage.js:361
-msgid "Attēla iestatījumi"
+#: static/js/Product/SaveDesign.js:87
+msgid "Please select a color"
 msgstr ""
 
-#: static/js/Product/addimage.js:364
-msgid "Slāņa kārtība"
+#: static/js/Product/SaveDesign.js:92
+msgid "Title is required"
 msgstr ""
 
-#: static/js/Product/addimage.js:368
-msgid "Rotācija"
+#: static/js/Product/addimage.js:145
+msgid "Picture settings"
 msgstr ""
 
-#: static/js/Product/addimage.js:372
-msgid "Pielāgot"
+#: static/js/Product/addimage.js:148
+msgid "Layer order"
 msgstr ""
 
-#: static/js/Product/addimage.js:373
-msgid "Atcelt"
+#: static/js/Product/addimage.js:152
+msgid "Rotation"
+msgstr ""
+
+#: static/js/Product/addimage.js:156
+msgid "Customize"
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/static/admin/js/actions.js:129
@@ -450,14 +456,8 @@ msgid ""
 "button."
 msgstr ""
 
-#~ msgid "Image Settings"
-#~ msgstr "Image Settings"
-
 #~ msgid "Z-Index"
 #~ msgstr "Z-Index"
-
-#~ msgid "Rotation"
-#~ msgstr "Rotation"
 
 #~ msgid "Apply"
 #~ msgstr "Apply"

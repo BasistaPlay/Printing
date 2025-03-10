@@ -84,12 +84,12 @@ $('#buy-button').click(function() {
     var errorHtml = '';
 
     if (!activeColor) {
-        errorHtml += '<p>' + 'Please select a color' + '</p>';
+        errorHtml += '<p>' + `${gettext("Please select a color")}` + '</p>';
     }
 
     if (publishCheckbox) {
         if (!title.trim()) {
-            errorHtml += '<p>' + 'Title is required' + '</p>';
+            errorHtml += '<p>' + `${gettext("Title is required")}` + '</p>';
         }
     }
 
