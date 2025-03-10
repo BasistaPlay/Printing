@@ -37,7 +37,7 @@ function addText() {
         textElement.style.left = '0';
         textElement.style.top = '0';
         textElement.style.maxWidth = '90%';
-        textElement.innerHTML = `<span class="editable-text" style="color: ${textColor}; font-size: ${fontSize}; font-family: ${fontFamily}; word-break: break-word; overflow-wrap: break-word; display: inline-block; max-width: ${containerWidth}px;">${text}</span>`;
+        textElement.innerHTML = `<span class="editable-text" style="color: ${textColor}; font-size: ${fontSize}; font-family: ${fontFamily}; word-break: normal; overflow-wrap: break-word; white-space: normal; display: inline-block; max-width: ${containerWidth}px;">${text}</span>`;
         textContainer.appendChild(textElement);
 
         requestAnimationFrame(() => {
