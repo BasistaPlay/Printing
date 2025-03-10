@@ -101,6 +101,7 @@ $(document).ready(function () {
                 selectedContainer.prepend(htmlKrekls);
 
                 let imgElement = $(`.uploaded-img-product[data-image-id='${imageId}'] .editable-image`);
+                imgElement.attr('draggable', false);
 
                 $('.remove-btn').click(function () {
                     let imageIdToRemove = $(this).parent().data('image-id');
@@ -126,6 +127,7 @@ $(document).ready(function () {
             reader.readAsDataURL(file);
         }
     }
+
 
     $(document).on('click', '.uploaded-img', function () {
         let imageId = $(this).data('image-id');
