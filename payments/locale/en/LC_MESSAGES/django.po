@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:50+0200\n"
+"POT-Creation-Date: 2025-03-17 18:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,123 +18,123 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:7
+#: payments/forms.py:7
 msgid "Fiziska persona"
 msgstr ""
 
-#: forms.py:8
+#: payments/forms.py:8
 msgid "Juridiska persona"
 msgstr ""
 
-#: forms.py:16
+#: payments/forms.py:16
 msgid "Piekritu noteikumiem"
 msgstr ""
 
-#: forms.py:19 models.py:120
+#: payments/forms.py:19 payments/models.py:120
 msgid "Dāvanu kods"
 msgstr ""
 
-#: forms.py:45
+#: payments/forms.py:45
 msgid "Uzņēmuma nosaukums"
 msgstr ""
 
-#: forms.py:46
+#: payments/forms.py:46
 msgid "Reģistrācijas numurs"
 msgstr ""
 
-#: forms.py:62
+#: payments/forms.py:62
 msgid "Dāvanu kods nav derīgs vai ir beidzies tā derīguma termiņš."
 msgstr ""
 
-#: forms.py:65 views.py:63
+#: payments/forms.py:65 payments/views.py:63
 msgid "Šāds dāvanu kods nepastāv."
 msgstr ""
 
-#: forms.py:73
+#: payments/forms.py:73
 msgid "Vārds un uzvārds ir obligāts."
 msgstr ""
 
-#: forms.py:75
+#: payments/forms.py:75
 msgid "Telefona numurs ir obligāts."
 msgstr ""
 
-#: forms.py:77
+#: payments/forms.py:77
 msgid "E-pasts ir obligāts."
 msgstr ""
 
-#: forms.py:81
+#: payments/forms.py:81
 msgid "Uzņēmuma nosaukums ir nepieciešams juridiskai personai."
 msgstr ""
 
-#: forms.py:83
+#: payments/forms.py:83
 msgid "Reģistrācijas numurs ir nepieciešams juridiskai personai."
 msgstr ""
 
-#: forms.py:85
+#: payments/forms.py:85
 msgid "PVN numurs ir nepieciešams juridiskai personai."
 msgstr ""
 
-#: forms.py:87
+#: payments/forms.py:87
 msgid "Uzņēmuma adrese ir nepieciešama juridiskai personai."
 msgstr ""
 
-#: models.py:17
+#: payments/models.py:17
 msgid "Gaida apstiprinājumu"
 msgstr ""
 
-#: models.py:18
+#: payments/models.py:18
 msgid "Apstrāde"
 msgstr ""
 
-#: models.py:19
+#: payments/models.py:19
 msgid "Nosūtīts"
 msgstr ""
 
-#: models.py:20
+#: payments/models.py:20
 msgid "Piegādāts"
 msgstr ""
 
-#: models.py:21
+#: payments/models.py:21
 msgid "Atcelts"
 msgstr ""
 
-#: models.py:24
+#: payments/models.py:24
 msgid "Internetbanka"
 msgstr ""
 
-#: models.py:25
+#: payments/models.py:25
 msgid "Bankas pārskaitījums"
 msgstr ""
 
-#: models.py:121
+#: payments/models.py:121
 msgid "Dāvanu kodi"
 msgstr ""
 
-#: views.py:63
+#: payments/views.py:63
 msgid "gift_code"
 msgstr ""
 
-#: views.py:266
+#: payments/views.py:266
 msgid "Paldies par jūsu pasūtījumu!"
 msgstr ""
 
-#: views.py:267
+#: payments/views.py:267
 msgid ""
 "Jūsu maksājuma procesa apstiprinājums ir saņemts. Kad mēs apstiprināsim jūsu "
 "apmaksu, mēs nosūtīsim apstiprinājuma e-pastu uz jūsu norādīto adresi."
 msgstr ""
 
-#: views.py:268
+#: payments/views.py:268
 msgid ""
 "Svarīgi! Jūs nevarēsiet veikt turpmākus pasūtījumus ar šo maksājuma metodi, "
 "kamēr mēs neapstiprināsim jūsu pašreizējo maksājumu."
 msgstr ""
 
-#: views.py:272
+#: payments/views.py:272
 msgid "Paldies par jūsu Stripe maksājumu!"
 msgstr ""
 
-#: views.py:273
+#: payments/views.py:273
 msgid ""
 "Jūsu maksājums ar Stripe ir veiksmīgi apstiprināts. Mēs esam nosūtījuši "
 "apstiprinājuma e-pastu uz jūsu norādīto adresi."

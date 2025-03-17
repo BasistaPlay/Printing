@@ -1,7 +1,4 @@
-{% load static compress %}
-{% load i18n %}
-{% load cart_tag %}
-{% load custom_tags %}
+{% load static compress i18n cart_tag custom_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +17,7 @@
     <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="dd464516-7e9e-4977-a678-2eee349bb2b8" data-blockingmode="auto" type="text/javascript"></script>
 
     <link rel="icon" href="{% display_icon %}" type="image/png">
+    <link rel="manifest" href="{% url 'manifest' %}">
 
     {% block css %}
     {% endblock %}
@@ -114,10 +112,14 @@
     </header>
 
     {% block body %}{% endblock %}
-    <script src="{% static 'dist/bundle.js' %}"></script>
+
+    {% include 'include/_install_banner.html'%}
 
 </body>
+
+<script src="{% static 'dist/bundle.js' %}"></script>
 <script src="{% static 'js/darkmode.js' %}"></script>
 <script src="{% static 'js/base.js' %}"></script>
+<script defer type="module" src="{% static 'js/app.js' %}"></script>
 {% block js %}{% endblock %}
 </html>

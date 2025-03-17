@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:31+0200\n"
+"POT-Creation-Date: 2025-03-17 18:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,200 +18,200 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:35
+#: User_app/admin.py:35
 msgid "Atzīmēt atlasītās ziņas kā atbildētas"
 msgstr "Mark selected messages as answered"
 
-#: admin.py:40
+#: User_app/admin.py:40
 msgid "Lietotāja informācija"
 msgstr "User Information"
 
-#: admin.py:43
+#: User_app/admin.py:43
 msgid "Administratora ziņojums"
 msgstr "Administrator's Message"
 
-#: admin.py:92
+#: User_app/admin.py:92
 msgid "Kontaktinformācija"
 msgstr "Contact Information"
 
-#: admin.py:95
+#: User_app/admin.py:95
 msgid "Sociālās saites"
 msgstr "Social Links"
 
-#: admin.py:104
+#: User_app/admin.py:104
 msgid "You can only add one record."
 msgstr "You can only add one record."
 
-#: admin.py:113
+#: User_app/admin.py:113
 msgid "Personiskā informācija"
 msgstr "Personal Information"
 
-#: admin.py:114
+#: User_app/admin.py:114
 msgid "Atļaujas"
 msgstr "Permissions"
 
-#: admin.py:115
+#: User_app/admin.py:115
 msgid "Svarīgie datumi"
 msgstr "Important Dates"
 
-#: admin.py:116
+#: User_app/admin.py:116
 msgid "Papildu informācija"
 msgstr "Additional Information"
 
-#: forms.py:27
+#: User_app/forms.py:27
 msgid "Piekrītu interneta veikala noteikumiem"
 msgstr "I agree to the online store's terms"
 
-#: forms.py:33 forms.py:120
+#: User_app/forms.py:33 User_app/forms.py:120
 msgid "Parole"
 msgstr "Password"
 
-#: forms.py:34
+#: User_app/forms.py:34
 msgid "Apstipriniet paroli"
 msgstr "Confirm Password"
 
-#: forms.py:37 forms.py:102
+#: User_app/forms.py:37 User_app/forms.py:102
 msgid "Talruņa numurs"
 msgstr "Phone Number"
 
-#: forms.py:50
+#: User_app/forms.py:50
 msgid "Šī e-pasta adrese jau tiek izmantota."
 msgstr "This email address is already in use."
 
-#: forms.py:56
+#: User_app/forms.py:56
 msgid "Šis lietotājvārds jau tiek izmantots."
 msgstr "This username is already in use."
 
-#: forms.py:69
+#: User_app/forms.py:69
 #, python-brace-format
 msgid "Nepareizs telefona numurs: {e}"
 msgstr "Invalid phone number: {e}"
 
-#: forms.py:72
+#: User_app/forms.py:72
 msgid "Šis telefona numurs jau tiek izmantots."
 msgstr "This phone number is already in use."
 
-#: forms.py:82
+#: User_app/forms.py:82
 msgid "Verifikācijas kods"
 msgstr "Verification Code"
 
-#: models.py:7
+#: User_app/models.py:7
 msgid "Vārds"
 msgstr "First Name"
 
-#: models.py:8
+#: User_app/models.py:8
 msgid "Uzvārds"
 msgstr "Last Name"
 
-#: models.py:9 models.py:42
+#: User_app/models.py:9 User_app/models.py:42
 msgid "E-pasts"
 msgstr "Email"
 
-#: models.py:10 models.py:41
+#: User_app/models.py:10 User_app/models.py:41
 msgid "Telefona numurs"
 msgstr "Phone Number"
 
-#: models.py:12
+#: User_app/models.py:12
 msgid "Atbildēts"
 msgstr "Answered"
 
-#: models.py:13
+#: User_app/models.py:13
 msgid "Administrātora virsraksts"
 msgstr "Administrator Title"
 
-#: models.py:14
+#: User_app/models.py:14
 msgid "Administrātora vēstule"
 msgstr "Administrator Letter"
 
-#: models.py:20
+#: User_app/models.py:20
 msgid "Kontaktziņojums"
 msgstr "Contact Message"
 
-#: models.py:21
+#: User_app/models.py:21
 msgid "Kontaktziņojumi"
 msgstr "Contact Messages"
 
-#: models.py:34
+#: User_app/models.py:34
 msgid "Lietotājs"
 msgstr "User"
 
-#: models.py:35
+#: User_app/models.py:35
 msgid "Lietotāji"
 msgstr "Users"
 
-#: models.py:39
+#: User_app/models.py:39
 msgid "Adrese"
 msgstr "Address"
 
-#: models.py:40
+#: User_app/models.py:40
 msgid "Pasta indekss"
 msgstr "Postal Code"
 
-#: models.py:43
+#: User_app/models.py:43
 msgid "Twitter saite"
 msgstr "Twitter Link"
 
-#: models.py:44
+#: User_app/models.py:44
 msgid "Facebook saite"
 msgstr "Facebook Link"
 
-#: models.py:45
+#: User_app/models.py:45
 msgid "Instagram saite"
 msgstr "Instagram Link"
 
-#: models.py:51
+#: User_app/models.py:51
 msgid "Kontakts"
 msgstr "Contact"
 
-#: models.py:52
+#: User_app/models.py:52
 msgid "Kontakti"
 msgstr "Contacts"
 
-#: models.py:64
+#: User_app/models.py:64
 msgid "Jautājums"
 msgstr ""
 
-#: models.py:65
+#: User_app/models.py:65
 #, fuzzy
 #| msgid "Atbildēts"
 msgid "Atbilde"
 msgstr "Answered"
 
-#: models.py:66
+#: User_app/models.py:66
 msgid "Izveidots"
 msgstr ""
 
-#: models.py:67
+#: User_app/models.py:67
 #, fuzzy
 #| msgid "Atjaunot to šeit"
 msgid "Atjaunots"
 msgstr "Reset it here"
 
-#: models.py:71
+#: User_app/models.py:71
 msgid "Biežāk uzdoto jautājumu"
 msgstr ""
 
-#: models.py:72
+#: User_app/models.py:72
 msgid "Biežāk uzdoto jautājumi"
 msgstr ""
 
-#: views.py:54
+#: User_app/views.py:54
 msgid "Jūsu e-pasts vēl nav verificēts. Lūdzu, pārbaudiet savu e-pastu."
 msgstr "Your email has not been verified. Please check your email."
 
-#: views.py:57
+#: User_app/views.py:57
 msgid "Nepareizs lietotājvārds vai parole."
 msgstr "Invalid username or password."
 
-#: views.py:59
+#: User_app/views.py:59
 msgid "Lūdzu, pārbaudiet ievadītos datus."
 msgstr "Please check the entered data."
 
-#: views.py:71
+#: User_app/views.py:71
 msgid "Lūdzu, piekrītiet noteikumiem."
 msgstr "Please agree to the terms."
 
-#: views.py:86
+#: User_app/views.py:86
 msgid ""
 "Jūsu profils ir veiksmīgi reģistrēts. Verifikācijas kods tika nosūtīts uz "
 "jūsu e-pastu."
@@ -219,39 +219,39 @@ msgstr ""
 "Your profile has been successfully registered. A verification code has been "
 "sent to your email."
 
-#: views.py:124
+#: User_app/views.py:124
 msgid "Jūsu e-pasts ir veiksmīgi verificēts."
 msgstr "Your email has been successfully verified."
 
-#: views.py:127
+#: User_app/views.py:127
 msgid "Nepareizs verifikācijas kods."
 msgstr "Invalid verification code."
 
-#: views.py:144
+#: User_app/views.py:144
 msgid "Jauns verifikācijas kods tika nosūtīts uz jūsu e-pastu."
 msgstr "A new verification code has been sent to your email."
 
-#: views.py:146
+#: User_app/views.py:146
 msgid "Lietotājs ar šo e-pasta adresi neeksistē."
 msgstr "User with this email address does not exist."
 
-#: views.py:148
+#: User_app/views.py:148
 msgid "Verifikācijas informācija nav atrasta."
 msgstr "Verification information not found."
 
-#: views.py:150
+#: User_app/views.py:150
 msgid "Radās kļūda. Lūdzu, mēģiniet vēlreiz."
 msgstr "An error occurred. Please try again."
 
-#: views.py:237
+#: User_app/views.py:237
 msgid "Jūsu personiskā informācija ir atjaunināta."
 msgstr "Your personal information has been updated."
 
-#: views.py:253
+#: User_app/views.py:253
 msgid "Jūsu parole ir veiksmīgi nomainīta."
 msgstr "Your password has been successfully changed."
 
-#: views.py:266
+#: User_app/views.py:266
 msgid "Jūsu konts ir veiksmīgi izdzēsts."
 msgstr "Your account has been successfully deleted."
 

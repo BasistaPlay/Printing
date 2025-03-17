@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:30+0200\n"
+"POT-Creation-Date: 2025-03-17 18:13+0200\n"
 "PO-Revision-Date: 2025-03-01 13:01+0200\n"
 "Last-Translator: Anonymous User <anonymous@user.tld>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "Product categories"
 msgid "Šajā kategorijā nav produktu"
 msgstr "There are no products in this category"
 
-#: templates/Product/creativecorner.html:5 templates/base.html:36
+#: templates/Product/creativecorner.html:5 templates/base.html:34
 msgid "Radošais stūrītis"
 msgstr "Creative corner"
 
@@ -51,7 +51,7 @@ msgstr "Product List"
 msgid "Visi"
 msgstr "All"
 
-#: templates/Product/creativecorner.html:75
+#: templates/Product/creativecorner.html:74
 msgid "Reitings:"
 msgstr "Ranking"
 
@@ -63,39 +63,39 @@ msgstr "No found"
 msgid "Dizaina rīks"
 msgstr "Theme Tool"
 
-#: templates/Product/design.html:54
+#: templates/Product/design.html:55
 msgid "Izveido savu"
 msgstr "Create your own"
 
-#: templates/Product/design.html:56
+#: templates/Product/design.html:57
 msgid "Pielāgot krāsu"
 msgstr "Customize Color"
 
-#: templates/Product/design.html:66
+#: templates/Product/design.html:67
 msgid "Ievadiet daudzumu"
 msgstr "Enter quantity"
 
-#: templates/Product/design.html:75
+#: templates/Product/design.html:76
 msgid "Izvēlies izmēru"
 msgstr "Choose a size"
 
-#: templates/Product/design.html:87
+#: templates/Product/design.html:94
 msgid "Apstiprinu, ka vēlos publicēt savu darbu"
 msgstr "I confirm that I want to publish my work"
 
-#: templates/Product/design.html:96
+#: templates/Product/design.html:104
 msgid "Virsraksts"
 msgstr "Heading"
 
-#: templates/Product/design.html:100
+#: templates/Product/design.html:108
 msgid "Pirkt tagad"
 msgstr "Buy now"
 
-#: templates/Product/design.html:111
+#: templates/Product/design.html:119
 msgid "Noteikumi un Vadlīnijas"
 msgstr ""
 
-#: templates/Product/design.html:113
+#: templates/Product/design.html:121
 msgid ""
 "Pirms publicēšanas jūsu darbu apskatīs administrators. Ja jūsu darbs tiks "
 "apstiprināts, mēs to publicēsim. Ja kāds iegādāsies jūsu darbu, jūs "
@@ -105,22 +105,21 @@ msgstr ""
 "work is approved, we will publish it. If someone buys your job, you'll get "
 "€1 in your digital wallet."
 
-#: templates/Product/design.html:119
+#: templates/Product/design.html:127
 msgid "Necenzūrēts vai nepiedienīgs saturs nav atļauts."
 msgstr "Uncensored or indecent content is not allowed."
 
-#: templates/Product/design.html:120
+#: templates/Product/design.html:128
 msgid "Necenzēti vai nepiemēroti teksti nav atļauti virsrakstos un aprakstos."
 msgstr ""
 "Uncensored or inappropriate texts are not allowed in headings and "
 "descriptions."
 
-#: templates/Product/design.html:121
-msgid ""
-"Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības."
+#: templates/Product/design.html:129
+msgid "Jūsu darbam jābūt oriģinālam un jāievēro intelektuālā īpašuma tiesības."
 msgstr ""
 
-#: templates/Product/design.html:122
+#: templates/Product/design.html:130
 msgid ""
 "Publicējot darbu, jūs piekrītat tā izmantošanai mūsu platformā un tās "
 "reklamēšanai."
@@ -128,16 +127,16 @@ msgstr ""
 "When you publish your work, you agree to use it on our platform and promote "
 "it."
 
-#: templates/Product/design.html:125
+#: templates/Product/design.html:133
 msgid ""
 "Jūs piekrītat, ka mēs varēsim izmantot jūsu lietotāja vārdu vai citu "
 "informāciju darbu reklamēšanai vai promocijai mūsu vietnē vai sociālajos "
 "tīklos."
 msgstr ""
-"You agree that we will be able to use your user name or other information to"
-" promote or promote works on our site or social networks."
+"You agree that we will be able to use your user name or other information to "
+"promote or promote works on our site or social networks."
 
-#: templates/Product/design.html:126
+#: templates/Product/design.html:134
 msgid ""
 "Jūs esat atbildīgs par visu saturu, ko publicējat, un mēs paturam tiesības "
 "noņemt vai rediģēt saturu pēc saviem ieskatiem."
@@ -145,93 +144,89 @@ msgstr ""
 "You are responsible for all content that you publish, and we reserve the "
 "right to remove or edit content as you please."
 
-#: templates/Product/design.html:127
+#: templates/Product/design.html:135
 msgid ""
 "Jūs piekrītat ievērot visus vietnes lietošanas noteikumus un privātuma "
 "politiku."
 msgstr ""
 "You agree to comply with all terms of use and privacy policies for the site."
 
-#: templates/Product/design.html:132
+#: templates/Product/design.html:140
 msgid ""
 "Šī ir tikai informatīva ziņa, nav obligāti jāatzīmē rūtiņa, lai publicētu."
 msgstr ""
 "This is just an informational post, it's not mandatory to tick the box to "
 "post."
 
-#: templates/Product/design.html:148
+#: templates/Product/design.html:156
 msgid "Nometiet attēlus vai"
 msgstr "Swap picture"
 
-#: templates/Product/design.html:148
+#: templates/Product/design.html:156
 msgid " Pārlūkot"
 msgstr "Browse"
 
-#: templates/Product/design.html:158 templates/Product/design.html:193
+#: templates/Product/design.html:165 templates/Product/design.html:200
 msgid "Pievienot tekstu"
 msgstr "Add text"
 
-#: templates/Product/design.html:160
+#: templates/Product/design.html:167
 msgid "Ievadiet tekstu:"
 msgstr "Enter text"
 
-#: templates/Product/design.html:161
+#: templates/Product/design.html:168
 msgid "Lūdzu, ievadiet savu tekstu šeit."
 msgstr "Please enter your text here."
 
-#: templates/Product/design.html:164
+#: templates/Product/design.html:171
 msgid "Izvēlieties fontu:"
 msgstr "Choose a font:"
 
-#: templates/Product/design.html:180
+#: templates/Product/design.html:187
 msgid "Fonta izmērs:"
 msgstr "Font size:"
 
-#: templates/Product/design.html:184
+#: templates/Product/design.html:191
 msgid "Fonta krāsa:"
 msgstr "Font Color:"
 
-#: templates/Product/design.html:197
+#: templates/Product/design.html:204
 msgid "Rediģēt tekstu"
 msgstr "Edit text"
 
-#: templates/Product/design.html:205
+#: templates/Product/design.html:212
 msgid "AI attēla ģenerators"
 msgstr "AI Image Generator"
 
-#: templates/Product/design.html:206
+#: templates/Product/design.html:214
 msgid "Ievadiet tekstu"
 msgstr "Enter text"
 
-#: templates/Product/design.html:207
+#: templates/Product/design.html:218
 msgid "Ģenerēt attēlu"
 msgstr "Generate Picture"
 
-#: templates/Product/design.html:210
-msgid "Sūtīt uz attēlu"
-msgstr "Send to Picture"
-
-#: templates/Product/design.html:219
+#: templates/Product/design.html:234
 msgid "Vispārīgi"
 msgstr "Generally"
 
-#: templates/Product/design.html:226
+#: templates/Product/design.html:241
 msgid "Attēls"
 msgstr "Picture"
 
-#: templates/Product/design.html:234
+#: templates/Product/design.html:249
 msgid "Teksts"
 msgstr "Text"
 
-#: templates/Product/design.html:242
+#: templates/Product/design.html:257
 msgid "AI Ģenerators"
 msgstr "AI generator"
 
-#: templates/Product/design.html:250
+#: templates/Product/design.html:265
 msgid "Pagriezt"
 msgstr "Rotate"
 
-#: templates/Product/modal_detail.html:125
+#: templates/Product/modal_detail.html:119
 msgid "Pievienot grozam"
 msgstr "Add to cart"
 
@@ -331,39 +326,39 @@ msgstr "N/A"
 msgid "Nav neviena pasūtījuma!"
 msgstr "There are no orders!"
 
-#: templates/User/contact.html:7 templates/base.html:37
+#: templates/User/contact.html:7 templates/base.html:35
 msgid "Sazinies ar mums"
 msgstr "Contact us"
 
-#: templates/User/contact.html:28
+#: templates/User/contact.html:27
 msgid "Kontaktinformācija"
 msgstr "Contact"
 
-#: templates/User/contact.html:79
+#: templates/User/contact.html:77
 msgid "Nosūtīt ziņu"
 msgstr "Send message"
 
-#: templates/User/contact.html:86
+#: templates/User/contact.html:84
 msgid "Vārds"
 msgstr "Name"
 
-#: templates/User/contact.html:90
+#: templates/User/contact.html:88
 msgid "Uzvārds"
 msgstr "Surname"
 
-#: templates/User/contact.html:94
+#: templates/User/contact.html:92
 msgid "E-pasts"
 msgstr "E-mail"
 
-#: templates/User/contact.html:98
+#: templates/User/contact.html:96
 msgid "Telefona numurs"
 msgstr "Telephone number"
 
-#: templates/User/contact.html:102
+#: templates/User/contact.html:100
 msgid "Raksti savu ziņu šeit..."
 msgstr "phone number"
 
-#: templates/User/contact.html:104
+#: templates/User/contact.html:102
 msgid "Sūtīt"
 msgstr "Send"
 
@@ -471,56 +466,56 @@ msgstr "I hereby certify that I have become acquainted with (-)"
 msgid "EricPrint lietošanas noteikumiem"
 msgstr "For the terms of use of ericprint"
 
-#: templates/User/verify_email.html:7
+#: templates/User/verify_email.html:6
 msgid "Verify Email"
 msgstr "Verify E-mail"
 
-#: templates/User/verify_email.html:28
+#: templates/User/verify_email.html:27
 msgid "Verificēt e-pastu"
 msgstr "Verify E-mail"
 
-#: templates/User/verify_email.html:29
+#: templates/User/verify_email.html:28
 msgid "Verifikācijas kods tika nosūtīts uz"
 msgstr "Verification code was sent to"
 
-#: templates/User/verify_email.html:29
+#: templates/User/verify_email.html:28
 msgid "Lūdzu, ievadiet kodu zemāk, lai verificētu savu e-pastu."
 msgstr "Please enter the code below to verify your email."
 
-#: templates/User/verify_email.html:42
+#: templates/User/verify_email.html:41
 msgid "Verificēt"
 msgstr "Verify"
 
-#: templates/User/verify_email.html:45
+#: templates/User/verify_email.html:44
 msgid "Nesaņēmāt kodu?"
 msgstr "Didn't get the code?"
 
-#: templates/User/verify_email.html:45
+#: templates/User/verify_email.html:44
 msgid "Nosūtīt kodu vēlreiz"
 msgstr "Resend code"
 
-#: templates/base.html:35 templates/home/home_page.html:6
+#: templates/base.html:33 templates/home/home_page.html:6
 msgid "Sākumlapa"
 msgstr "Homepage"
 
-#: templates/base.html:38 templates/cart/cart.html:7
+#: templates/base.html:36 templates/cart/cart.html:7
 #: templates/cart/cart.html:13 templates/payments/payment.html:7
 msgid "Grozs"
 msgstr "Basket"
 
-#: templates/base.html:41 templates/base.html:57 templates/base.html:60
+#: templates/base.html:39 templates/base.html:55 templates/base.html:58
 msgid "Profils"
 msgstr "Profile"
 
-#: templates/base.html:42 templates/base.html:61
+#: templates/base.html:40 templates/base.html:59
 msgid "Izrakstīties"
 msgstr "Sign out"
 
-#: templates/base.html:44 templates/base.html:65
+#: templates/base.html:42 templates/base.html:63
 msgid "Pierakstīties"
 msgstr "Sing in"
 
-#: templates/base.html:47
+#: templates/base.html:45
 msgid "Admin"
 msgstr "Admin"
 
@@ -674,8 +669,8 @@ msgid ""
 "Ienākumi tiek ieskaitīti digitālajā makā un tos var izmantot, lai iegādātos "
 "citus produktus šajā veikalā."
 msgstr ""
-"Income goes into the digital wallet and can be used to buy other products in"
-" this store."
+"Income goes into the digital wallet and can be used to buy other products in "
+"this store."
 
 #: templates/home/home_page.html:155
 msgid "Lietotāju populārākie dizaini!"
@@ -684,6 +679,28 @@ msgstr "User top design!"
 #: templates/home/home_page.html:200
 msgid "Biežāk Uzdotie Jautājumi"
 msgstr "Frequently asked questions"
+
+#: templates/include/_install_banner.html:12
+#: templates/include/_install_banner.html:33
+msgid "Pievienojiet EricPrint savam sākuma ekrānam!"
+msgstr ""
+
+#: templates/include/_install_banner.html:15
+#: templates/include/_install_banner.html:36
+#, fuzzy
+#| msgid "Pievienot tekstu"
+msgid "Pievienot"
+msgstr "Add text"
+
+#: templates/include/_install_banner.html:45
+msgid ""
+"\n"
+"            <p>1. Spiediet <strong>Share</strong> ikonu (kvadrāts ar "
+"bultiņu).</p>\n"
+"            <p>2. Izvēlieties <strong>Add to Home Screen</strong>.</p>\n"
+"            <p>3. Apstipriniet, nospiežot <strong>Add</strong>.</p>\n"
+"            "
+msgstr ""
 
 #: templates/payments/bank_details.html:8
 msgid "Bankas rekvizīti"
@@ -971,8 +988,8 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/login.html:53
 #, python-format
 msgid ""
-"You are authenticated as %(username)s, but are not authorized to access this"
-" page. Would you like to login to a different account?"
+"You are authenticated as %(username)s, but are not authorized to access this "
+"page. Would you like to login to a different account?"
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/object_history.html:33
@@ -989,8 +1006,8 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/object_history.html:49
 msgid ""
-"This object doesn't have a change history. It probably wasn't added via this"
-" admin site."
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/adminlte3_theme/templates/admin/search_form.html:16
@@ -1123,8 +1140,8 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/core/validators.py:267
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/core/validators.py:279
@@ -1324,15 +1341,15 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1489
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1497
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1502
@@ -1351,8 +1368,8 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1789
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1793
@@ -1511,8 +1528,7 @@ msgid "Many-to-many relationship"
 msgstr ""
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.11/site-packages/django/forms/boundfield.py:184
 msgid ":?.!"
 msgstr ""
@@ -1562,8 +1578,7 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/forms/fields.py:625
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1671,8 +1686,7 @@ msgid "The inline value did not match the parent instance."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/forms/models.py:1429
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/forms/models.py:1568
@@ -2128,10 +2142,10 @@ msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/views/csrf.py:127
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 
@@ -2183,8 +2197,8 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/django/views/generic/dates.py:652
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/views/generic/dates.py:692
@@ -2240,10 +2254,10 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:221
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
 
 #: venv/lib/python3.11/site-packages/django/views/templates/default_urlconf.html:229
@@ -2278,3 +2292,6 @@ msgstr ""
 #: venv/lib/python3.11/site-packages/modeltranslation/widgets.py:24
 msgid "None"
 msgstr ""
+
+#~ msgid "Sūtīt uz attēlu"
+#~ msgstr "Send to Picture"

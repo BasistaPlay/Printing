@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:31+0200\n"
+"POT-Creation-Date: 2025-03-17 18:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,134 +18,134 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:19
+#: Product/admin.py:19
 msgid "General"
 msgstr ""
 
-#: admin.py:28
+#: Product/admin.py:28
 msgid "No Image"
 msgstr ""
 
-#: admin.py:31
+#: Product/admin.py:31
 msgid "Thumbnail"
 msgstr ""
 
-#: admin.py:51 models.py:63
+#: Product/admin.py:51 Product/models.py:63
 msgid "Produkts"
 msgstr ""
 
-#: admin.py:54
+#: Product/admin.py:54
 msgid "Cena"
 msgstr ""
 
-#: admin.py:57
+#: Product/admin.py:57
 msgid "Bildes"
 msgstr ""
 
-#: admin.py:60
+#: Product/admin.py:60
 msgid "Papildu iespējas"
 msgstr ""
 
-#: models.py:15 models.py:32
+#: Product/models.py:15 Product/models.py:32
 msgid "Virsraksts"
 msgstr ""
 
-#: models.py:15
+#: Product/models.py:15
 msgid "Ievadiet kategorijas nosaukumu."
 msgstr ""
 
-#: models.py:16 models.py:34
+#: Product/models.py:16 Product/models.py:34
 msgid "Slug"
 msgstr ""
 
-#: models.py:16 models.py:34
+#: Product/models.py:16 Product/models.py:34
 msgid "Ievadiet URL draudzīgu nosaukumu."
 msgstr ""
 
-#: models.py:17 models.py:33
+#: Product/models.py:17 Product/models.py:33
 msgid "Bilde"
 msgstr ""
 
-#: models.py:27
+#: Product/models.py:27
 msgid "Kategorija"
 msgstr ""
 
-#: models.py:28
+#: Product/models.py:28
 msgid "Kategorijas"
 msgstr ""
 
-#: models.py:32
+#: Product/models.py:32
 msgid "Ievadiet produkta nosaukumu."
 msgstr ""
 
-#: models.py:36
+#: Product/models.py:36
 msgid "Ievadiet opcijas kā sarakstu ar komatiem"
 msgstr ""
 
-#: models.py:38
+#: Product/models.py:38
 msgid "Priekšējā bilde ar fonu"
 msgstr ""
 
-#: models.py:39
+#: Product/models.py:39
 msgid "Priekšējā bilde bez fona"
 msgstr ""
 
-#: models.py:40
+#: Product/models.py:40
 msgid "Aizmugurējā bilde ar fonu"
 msgstr ""
 
-#: models.py:41
+#: Product/models.py:41
 msgid "Aizmugurējā bilde bez fona"
 msgstr ""
 
-#: models.py:49
+#: Product/models.py:49
 msgid "Publisks"
 msgstr ""
 
-#: models.py:49
+#: Product/models.py:49
 msgid "Norādiet, vai produkts ir publisks."
 msgstr ""
 
-#: models.py:51
+#: Product/models.py:51
 msgid "Var ietvert attēlu"
 msgstr ""
 
-#: models.py:51
+#: Product/models.py:51
 msgid "Norādiet, vai produktā var būt attēls."
 msgstr ""
 
-#: models.py:52
+#: Product/models.py:52
 msgid "Var ietvert tekstu"
 msgstr ""
 
-#: models.py:52
+#: Product/models.py:52
 msgid "Norādiet, vai produktā var būt teksts."
 msgstr ""
 
-#: models.py:53
+#: Product/models.py:53
 msgid "Var ietvert attēlu ar AI palīdzību"
 msgstr ""
 
-#: models.py:53
+#: Product/models.py:53
 msgid "Norādiet, vai produktā var būt attēls ar AI palīdzību."
 msgstr ""
 
-#: models.py:54
+#: Product/models.py:54
 msgid "Var tikt grozīts"
 msgstr ""
 
-#: models.py:54
+#: Product/models.py:54
 msgid "Norādiet, vai produktu var apgriezt."
 msgstr ""
 
-#: models.py:64
+#: Product/models.py:64
 msgid "Produkti"
 msgstr ""
 
-#: models.py:73
+#: Product/models.py:73
 msgid "Vērtējums"
 msgstr ""
 
-#: models.py:74
+#: Product/models.py:74
 msgid "Vērtējumi"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:50+0200\n"
+"POT-Creation-Date: 2025-03-17 18:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,26 +18,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:11 models.py:15
+#: product_details/admin.py:11 product_details/models.py:15
 msgid "Krāsas"
 msgstr ""
 
-#: admin.py:21 models.py:27
+#: product_details/admin.py:21 product_details/models.py:27
 msgid "Izmēri"
 msgstr ""
 
-#: models.py:14
+#: product_details/models.py:14
 msgid "Krāsa"
 msgstr ""
 
-#: models.py:26
+#: product_details/models.py:26
 msgid "Izmērs"
 msgstr ""
 
-#: models.py:41
+#: product_details/models.py:41
 msgid "Noliktavas krājums"
 msgstr ""
 
-#: models.py:42
+#: product_details/models.py:42
 msgid "Noliktavas krājumi"
 msgstr ""

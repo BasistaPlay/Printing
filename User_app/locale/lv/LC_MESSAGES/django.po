@@ -1,0 +1,250 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-17 18:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
+#: User_app/admin.py:35
+msgid "Atzīmēt atlasītās ziņas kā atbildētas"
+msgstr ""
+
+#: User_app/admin.py:40
+msgid "Lietotāja informācija"
+msgstr ""
+
+#: User_app/admin.py:43
+msgid "Administratora ziņojums"
+msgstr ""
+
+#: User_app/admin.py:92
+msgid "Kontaktinformācija"
+msgstr ""
+
+#: User_app/admin.py:95
+msgid "Sociālās saites"
+msgstr ""
+
+#: User_app/admin.py:104
+msgid "You can only add one record."
+msgstr ""
+
+#: User_app/admin.py:113
+msgid "Personiskā informācija"
+msgstr ""
+
+#: User_app/admin.py:114
+msgid "Atļaujas"
+msgstr ""
+
+#: User_app/admin.py:115
+msgid "Svarīgie datumi"
+msgstr ""
+
+#: User_app/admin.py:116
+msgid "Papildu informācija"
+msgstr ""
+
+#: User_app/forms.py:27
+msgid "Piekrītu interneta veikala noteikumiem"
+msgstr ""
+
+#: User_app/forms.py:33 User_app/forms.py:120
+msgid "Parole"
+msgstr ""
+
+#: User_app/forms.py:34
+msgid "Apstipriniet paroli"
+msgstr ""
+
+#: User_app/forms.py:37 User_app/forms.py:102
+msgid "Talruņa numurs"
+msgstr ""
+
+#: User_app/forms.py:50
+msgid "Šī e-pasta adrese jau tiek izmantota."
+msgstr ""
+
+#: User_app/forms.py:56
+msgid "Šis lietotājvārds jau tiek izmantots."
+msgstr ""
+
+#: User_app/forms.py:69
+#, python-brace-format
+msgid "Nepareizs telefona numurs: {e}"
+msgstr ""
+
+#: User_app/forms.py:72
+msgid "Šis telefona numurs jau tiek izmantots."
+msgstr ""
+
+#: User_app/forms.py:82
+msgid "Verifikācijas kods"
+msgstr ""
+
+#: User_app/models.py:7
+msgid "Vārds"
+msgstr ""
+
+#: User_app/models.py:8
+msgid "Uzvārds"
+msgstr ""
+
+#: User_app/models.py:9 User_app/models.py:42
+msgid "E-pasts"
+msgstr ""
+
+#: User_app/models.py:10 User_app/models.py:41
+msgid "Telefona numurs"
+msgstr ""
+
+#: User_app/models.py:12
+msgid "Atbildēts"
+msgstr ""
+
+#: User_app/models.py:13
+msgid "Administrātora virsraksts"
+msgstr ""
+
+#: User_app/models.py:14
+msgid "Administrātora vēstule"
+msgstr ""
+
+#: User_app/models.py:20
+msgid "Kontaktziņojums"
+msgstr ""
+
+#: User_app/models.py:21
+msgid "Kontaktziņojumi"
+msgstr ""
+
+#: User_app/models.py:34
+msgid "Lietotājs"
+msgstr ""
+
+#: User_app/models.py:35
+msgid "Lietotāji"
+msgstr ""
+
+#: User_app/models.py:39
+msgid "Adrese"
+msgstr ""
+
+#: User_app/models.py:40
+msgid "Pasta indekss"
+msgstr ""
+
+#: User_app/models.py:43
+msgid "Twitter saite"
+msgstr ""
+
+#: User_app/models.py:44
+msgid "Facebook saite"
+msgstr ""
+
+#: User_app/models.py:45
+msgid "Instagram saite"
+msgstr ""
+
+#: User_app/models.py:51
+msgid "Kontakts"
+msgstr ""
+
+#: User_app/models.py:52
+msgid "Kontakti"
+msgstr ""
+
+#: User_app/models.py:64
+msgid "Jautājums"
+msgstr ""
+
+#: User_app/models.py:65
+msgid "Atbilde"
+msgstr ""
+
+#: User_app/models.py:66
+msgid "Izveidots"
+msgstr ""
+
+#: User_app/models.py:67
+msgid "Atjaunots"
+msgstr ""
+
+#: User_app/models.py:71
+msgid "Biežāk uzdoto jautājumu"
+msgstr ""
+
+#: User_app/models.py:72
+msgid "Biežāk uzdoto jautājumi"
+msgstr ""
+
+#: User_app/views.py:54
+msgid "Jūsu e-pasts vēl nav verificēts. Lūdzu, pārbaudiet savu e-pastu."
+msgstr ""
+
+#: User_app/views.py:57
+msgid "Nepareizs lietotājvārds vai parole."
+msgstr ""
+
+#: User_app/views.py:59
+msgid "Lūdzu, pārbaudiet ievadītos datus."
+msgstr ""
+
+#: User_app/views.py:71
+msgid "Lūdzu, piekrītiet noteikumiem."
+msgstr ""
+
+#: User_app/views.py:86
+msgid ""
+"Jūsu profils ir veiksmīgi reģistrēts. Verifikācijas kods tika nosūtīts uz "
+"jūsu e-pastu."
+msgstr ""
+
+#: User_app/views.py:124
+msgid "Jūsu e-pasts ir veiksmīgi verificēts."
+msgstr ""
+
+#: User_app/views.py:127
+msgid "Nepareizs verifikācijas kods."
+msgstr ""
+
+#: User_app/views.py:144
+msgid "Jauns verifikācijas kods tika nosūtīts uz jūsu e-pastu."
+msgstr ""
+
+#: User_app/views.py:146
+msgid "Lietotājs ar šo e-pasta adresi neeksistē."
+msgstr ""
+
+#: User_app/views.py:148
+msgid "Verifikācijas informācija nav atrasta."
+msgstr ""
+
+#: User_app/views.py:150
+msgid "Radās kļūda. Lūdzu, mēģiniet vēlreiz."
+msgstr ""
+
+#: User_app/views.py:237
+msgid "Jūsu personiskā informācija ir atjaunināta."
+msgstr ""
+
+#: User_app/views.py:253
+msgid "Jūsu parole ir veiksmīgi nomainīta."
+msgstr ""
+
+#: User_app/views.py:266
+msgid "Jūsu konts ir veiksmīgi izdzēsts."
+msgstr ""

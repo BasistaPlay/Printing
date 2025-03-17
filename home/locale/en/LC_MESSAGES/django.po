@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:32+0200\n"
+"POT-Creation-Date: 2025-03-17 18:13+0200\n"
 "PO-Revision-Date: 2025-02-08 23:14+0200\n"
 "Last-Translator:   <dwfwe@efewf.ewf>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,31 +18,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: admin.py:23
+#: home/admin.py:23
 msgid "Varat pievienot tikai vienu ierakstu."
 msgstr "You can only add one record"
 
-#: models.py:6
+#: home/models.py:6
 msgid "Virsraksts"
 msgstr "Title"
 
-#: models.py:7
+#: home/models.py:7
 msgid "Apraksts"
 msgstr "Description"
 
-#: models.py:8
+#: home/models.py:8
 msgid "Papildu piezīmes"
 msgstr "Additional notes"
 
-#: models.py:9
+#: home/models.py:9
 msgid "Bilde"
 msgstr "Image"
 
-#: models.py:15
+#: home/models.py:15
 msgid "Pielāgots dizains"
 msgstr "Custom design"
 
-#: models.py:16
+#: home/models.py:16
 msgid "Pielāgoti dizaini"
 msgstr "Custom designs"
 

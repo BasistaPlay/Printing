@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-10 15:32+0200\n"
+"POT-Creation-Date: 2025-03-17 18:13+0200\n"
 "PO-Revision-Date: 2025-02-05 15:27+0200\n"
 "Last-Translator:   <Admin@admin.lv>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: settings.py:162
+#: ecomerce/settings.py:162
 msgid "Latvian"
 msgstr ""
 
-#: settings.py:163
+#: ecomerce/settings.py:163
 msgid "English"
 msgstr ""
 
