@@ -86,9 +86,6 @@ MIDDLEWARE = [
     'honeypot.middleware.HoneypotMiddleware',
 ]
 
-MIDDLEWARE.remove("django.middleware.csrf.CsrfViewMiddleware")
-MIDDLEWARE.remove("django.contrib.auth.middleware.AuthenticationMiddleware")
-
 ROOT_URLCONF = 'ecomerce.urls'
 
 TEMPLATES = [
