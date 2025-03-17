@@ -1,97 +1,214 @@
-function saveImage(side, callback) {
-    var productDiv = document.querySelector('.product');
-    var parentWidth = productDiv.offsetWidth;
-    var parentHeight = productDiv.offsetHeight;
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("#buy-now").addEventListener("click", function (event) {
+        var activeColor = document.querySelector('.color-select.active-color')?.getAttribute('data-color-name');
+        var publishCheckbox = document.querySelector("#publish-checkbox")?.checked;
+        var titleInput = document.querySelector("#title-input")?.value.trim();
+        var errorHtml = '';
 
-    var boundaries = document.querySelectorAll('.boundary');
+        if (!activeColor) {
+            errorHtml += '<p>' + `${gettext("Please select a color")}` + '</p>';
+        }
+
+        if (publishCheckbox && !titleInput) {
+            errorHtml += '<p>' + `${gettext("Title is required")}` + '</p>';
+        }
+
+        if (errorHtml) {
+            document.getElementById('error-messages').innerHTML = errorHtml;
+            document.getElementById('error-messages').classList.add('show');
+
+            setTimeout(function () {
+                document.getElementById('error-messages').classList.remove('show');
+            }, 10000);
+
+            event.preventDefault();
+            return;
+        }
+
+        openBuyNowPopup();
+    });
+});
+
+function openBuyNowPopup() {
+    let originalProduct = document.querySelector("#original-product");
+
+    if (!originalProduct) {
+        console.error("Kļūda: Nevar atrast 'original-product'!");
+        return;
+    }
+
+    let clonedProduct = originalProduct.cloneNode(true);
+    clonedProduct.classList.add("cloned-product");
+
+    let hiddenInputs = clonedProduct.querySelectorAll("input[type='hidden']");
+    hiddenInputs.forEach(input => input.remove());
+
+    let title = document.createElement("h2");
+    title.innerText = `${gettext("Your Personalized Design Preview")}`;
+    title.classList.add("text-xl", "lg:text-4xl", "font-bold", "mb-6", "text-center", "text-color");
+
+    let front = clonedProduct.querySelector("#front");
+    let back = clonedProduct.querySelector("#back");
+    let color = clonedProduct.querySelector(".color");
+
+    if (front && back) {
+        front.classList.remove("hidden");
+        back.classList.remove("hidden");
+        front.style.display = "block";
+        back.style.display = "block";
+
+        let boundaryFront = front.querySelector("#boundary-front");
+        let boundaryBack = back.querySelector("#boundary-back");
+        if (boundaryFront) boundaryFront.remove();
+        if (boundaryBack) boundaryBack.remove();
+
+        let imageContainer = document.createElement("div");
+        imageContainer.classList.add("flex", "items-center", "justify-center", "gap-4", "w-full", "max-md:flex-col");
+
+        [front, back].forEach(side => {
+            side.classList.add("relative", "w-[480px]", "h-[464px]");
+
+            let overlay = document.createElement("div");
+            overlay.classList.add(
+                "absolute", "top-0", "left-0", "w-full", "h-full",
+                "bg-transparent", "z-10"
+            );
+            overlay.style.pointerEvents = "all";
+            side.appendChild(overlay);
+        });
+
+        let frontImg1 = front.querySelector(".img-1");
+        let frontImg2 = front.querySelector(".img-2");
+        let backImg1 = back.querySelector(".img-1");
+        let backImg2 = back.querySelector(".img-2");
+
+        [frontImg1, frontImg2, backImg1, backImg2].forEach(img => {
+            if (img) {
+                img.classList.add("w-[480px]", "h-[464px]");
+            }
+        });
+
+        if (color) {
+            let frontColor = color.cloneNode(true);
+            let backColor = color.cloneNode(true);
+            frontColor.classList.add("absolute", "top-0", "left-0", "w-[480px]", "h-[464px]");
+            backColor.classList.add("absolute", "top-0", "left-0", "w-[480px]", "h-[464px]");
+
+            front.appendChild(frontColor);
+            back.appendChild(backColor);
+        }
+
+        imageContainer.appendChild(front);
+        imageContainer.appendChild(back);
+
+        clonedProduct.innerHTML = "";
+        clonedProduct.appendChild(imageContainer);
+    }
+
+    let overlay = document.createElement("div");
+    overlay.classList.add("fixed", "inset-0", "bg-black", "bg-opacity-50", "flex", "items-center", "justify-center", "z-50", 'max-md:pt-24');
+
+    let wrapper = document.createElement("div");
+    wrapper.classList.add("relative", "flex", "flex-col", "items-center", "bg-second-color", "p-6", "rounded-lg", "shadow-2xl", "max-md:w-[95%]", "max-sm:w-[90%]", "max-h-[85vh]", "overflow-y-auto");
+
+    let closeButton = document.createElement("button");
+    closeButton.innerText = "✖";
+    closeButton.classList.add("absolute", "top-2", "right-2", "text-gray-500", "hover:text-red-500", "text-xl");
+    closeButton.addEventListener("click", function () {
+        overlay.remove();
+        document.body.classList.remove("overflow-hidden");
+    });
+
+    let buyButton = document.createElement("button");
+    buyButton.innerText = `${gettext("Add to Cart")}`;
+    buyButton.id = "buy-button";
+    buyButton.classList.add("base-page-btn", "mt-4");
+
+    wrapper.appendChild(closeButton);
+    wrapper.appendChild(title);
+    wrapper.appendChild(clonedProduct);
+    wrapper.appendChild(buyButton);
+    overlay.appendChild(wrapper);
+
+    document.body.appendChild(overlay);
+    document.body.classList.add("overflow-hidden");
+}
+
+
+
+
+
+
+function saveImageFromClone(element, side, callback) {
+    let parentWidth = element.offsetWidth;
+    let parentHeight = element.offsetHeight;
+
+    let boundaries = element.querySelectorAll('.boundary');
     boundaries.forEach(boundary => boundary.style.display = 'none');
 
-    productDiv.style.width = parentWidth + 'px';
-    productDiv.style.height = parentHeight + 'px';
-
-    var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
+    let canvas = document.createElement('canvas');
+    let context = canvas.getContext('2d');
 
     canvas.width = parentWidth;
     canvas.height = parentHeight;
 
-    html2canvas(productDiv).then(function(renderedCanvas) {
+    html2canvas(element).then(function (renderedCanvas) {
         context.drawImage(renderedCanvas, 0, 0, parentWidth, parentHeight);
 
-        var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-        var data = imageData.data;
+        let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        let data = imageData.data;
 
-        var pixelCount = {};
-
-        for (var i = 0; i < data.length; i += 4) {
-            var r = data[i];
-            var g = data[i + 1];
-            var b = data[i + 2];
-            var key = r + ',' + g + ',' + b;
+        let pixelCount = {};
+        for (let i = 0; i < data.length; i += 4) {
+            let r = data[i];
+            let g = data[i + 1];
+            let b = data[i + 2];
+            let key = r + ',' + g + ',' + b;
 
             if (!pixelCount[key]) {
                 pixelCount[key] = 0;
             }
-
             pixelCount[key]++;
         }
 
-        var maxCount = 0;
-        var backgroundColorKey;
-
-        for (var key in pixelCount) {
+        let maxCount = 0;
+        let backgroundColorKey;
+        for (let key in pixelCount) {
             if (pixelCount[key] > maxCount) {
                 maxCount = pixelCount[key];
                 backgroundColorKey = key;
             }
         }
 
-        var rgbValues = backgroundColorKey.split(',').map(function(value) {
-            return parseInt(value);
-        });
+        let rgbValues = backgroundColorKey.split(',').map(value => parseInt(value));
 
-        for (var i = 0; i < data.length; i += 4) {
-            var r = data[i];
-            var g = data[i + 1];
-            var b = data[i + 2];
+        for (let i = 0; i < data.length; i += 4) {
+            let r = data[i];
+            let g = data[i + 1];
+            let b = data[i + 2];
 
             if (r === rgbValues[0] && g === rgbValues[1] && b === rgbValues[2]) {
                 data[i + 3] = 0;
             }
         }
 
-        var trimHeight = 15;
-        context.clearRect(0, canvas.height - trimHeight, canvas.width, trimHeight);
-
         context.putImageData(imageData, 0, 0);
-
-        var base64URL = canvas.toDataURL('image/png');
+        let base64URL = canvas.toDataURL('image/png');
 
         callback(side, base64URL);
-
         boundaries.forEach(boundary => boundary.style.display = 'block');
     });
 }
 
 
-
-$('#buy-button').click(function() {
+$(document).on('click', '#buy-button', function () {
     var publishCheckbox = $('#publish-checkbox').is(":checked");
-    var activeColor = $('.color-select.active-color').attr('data-color-name');
+    var activeColor = document.querySelector('.color-select.active-color')?.getAttribute('data-color-name');
     var productSlug = $('#product-slug').val();
     var title = $('#title-input').val() || '';
 
     var errorHtml = '';
 
-    if (!activeColor) {
-        errorHtml += '<p>' + `${gettext("Please select a color")}` + '</p>';
-    }
-
-    if (publishCheckbox) {
-        if (!title.trim()) {
-            errorHtml += '<p>' + `${gettext("Title is required")}` + '</p>';
-        }
-    }
 
     if (errorHtml) {
         document.getElementById('error-messages').innerHTML = errorHtml;
@@ -133,14 +250,17 @@ $('#buy-button').click(function() {
     formData.append('images', JSON.stringify(images));
     formData.append('texts', JSON.stringify(texts));
 
-    document.getElementById('front').style.display = 'block';
-    document.getElementById('back').style.display = 'none';
+    let clonedProduct = document.querySelector('.cloned-product');
+    let front = clonedProduct ? clonedProduct.querySelector('#front') : null;
+    let back = clonedProduct ? clonedProduct.querySelector('#back') : null;
 
-    saveImage('front', function(side, base64URLFront) {
+    if (!front || !back) {
+        console.error("Kļūda: Nevar atrast priekšpusi vai aizmuguri klonētajam produktam!");
+        return;
+    }
+    saveImageFromClone(front, 'front', function(side, base64URLFront) {
         formData.append(side + '_image', base64URLFront);
-        document.getElementById('front').style.display = 'none';
-        document.getElementById('back').style.display = 'block';
-        saveImage('back', function(side, base64URLBack) {
+        saveImageFromClone(back, 'back', function(side, base64URLBack) {
             formData.append(side + '_image', base64URLBack);
 
             var csrfToken = document.querySelector("input[name='csrfmiddlewaretoken']").value;

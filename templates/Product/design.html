@@ -31,7 +31,7 @@
     <div id="error-messages" class="error-messages"></div>
 
 
-    <div>
+    <div id="original-product">
         <div class="product">
             <div id="front" style="position: relative;">
                 <div class="boundary" id="boundary-front"></div>
@@ -83,11 +83,11 @@
         </div>
     </div>
 
-    <div class="flex py-4 items-center space-x-2">
+    <div class="flex flex-row items-center text-center py-4 space-y-2 md:flex-row md:justify-start md:items-center md:space-y-0 md:space-x-2">
         <label for="publish-checkbox" class="flex items-center space-x-2 cursor-pointer">
             <input type="checkbox" id="publish-checkbox" class="hidden peer">
             <div class="w-6 h-6 rounded-md border-2 border-gray-500 flex items-center justify-center transition peer-checked:bg-[var(--main-color)] peer-checked:border-[var(--main-color)]">
-                <svg class="w-4 h-4 text-second-color transition peer-checked:color-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="w-4 h-4 text-second-color transition peer-checked:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 12l5 5L20 7"></path>
                 </svg>
             </div>
@@ -100,15 +100,12 @@
         </span>
     </div>
 
-
-
-
     <div id="additional-info" class="hidden">
         <input type="text" id="title-input" placeholder="{% trans 'Virsraksts' %}">
     </div>
 
     <div class="buy-button">
-        <button class="general-button" id="buy-button">{% trans 'Pirkt tagad' %}</button>
+        <button class="general-button" id="buy-now">{% trans 'Pirkt tagad' %}</button>
     </div>
 
     <div x-cloak x-show="showModal" @click.away="showModal = false" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50" x-transition>

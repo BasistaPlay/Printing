@@ -834,8 +834,21 @@ input {
   }
   .quantity-content-text{
     text-align: center;
-    aligin-item:center;
-}
+  }
+
+  .quantity-content-text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .quantity-content {
+    margin: 10px auto;
+  }
+
   .color-groups{
     justify-content: center;
   }
@@ -937,7 +950,7 @@ input {
   border: 1px solid var(--main-color);
 }
 
-.quantity-content{
+.quantity-content {
   height: 30px;
   width: 140px;
   display: flex;
@@ -950,7 +963,7 @@ input {
   margin: 10px 0 10px 0;
 }
 
-.quantity-content span{
+.quantity-content span {
   width: 100%;
   text-align: center;
   font-size: 22px;
@@ -958,7 +971,7 @@ input {
   cursor: pointer;
 }
 
-.quantity-content span.num{
+.quantity-content span.num {
   font-size: 20px;
   border-right: 1px solid rgba(255, 255, 255, 0.2);
   border-left: 1px solid rgba(255, 255, 255, 0.2);
