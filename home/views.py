@@ -7,9 +7,6 @@ import os
 import re
 from django.views.generic import TemplateView, View
 from django.templatetags.static import static
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
 
 class HomePageView(TemplateView):
     template_name = 'home/home_page.html'
@@ -40,31 +37,3 @@ class Handler500View(TemplateView):
         context['error_code'] = 500
         context['error_description'] = "An internal server error occurred. Please try again later."
         return context
-
-@csrf_exempt
-def manifest(request):
-    icon = CustomDesign.objects.first()
-    if icon and icon.image:
-        icon_url = icon.image.url
-
-    manifest_data = {
-        "name": "EricPrint",
-        "short_name": "EricPrint",
-        "start_url": "/",
-        "display": "standalone",
-        "background_color": "#ffffff",
-        "theme_color": "#b6c816",
-        "icons": [
-            {
-                "src": icon_url,
-                "sizes": "192x192",
-                "type": "image/png"
-            },
-            {
-                "src": icon_url,
-                "sizes": "512x512",
-                "type": "image/png"
-            }
-        ]
-    }
-    return JsonResponse(manifest_data)

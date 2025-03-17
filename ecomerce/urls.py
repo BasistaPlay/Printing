@@ -31,7 +31,6 @@ urlpatterns = [
      path('product/', include('Product.urls')),
      path('payments/', include('payments.urls')),
      path('rosetta/', include('rosetta.urls')),
-     path('manifest.json', home.manifest, name='manifest'),
 ]
 
 
