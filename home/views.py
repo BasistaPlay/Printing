@@ -8,6 +8,7 @@ import re
 from django.views.generic import TemplateView, View
 from django.templatetags.static import static
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 class HomePageView(TemplateView):
@@ -40,7 +41,7 @@ class Handler500View(TemplateView):
         context['error_description'] = "An internal server error occurred. Please try again later."
         return context
 
-
+@csrf_exempt
 def manifest(request):
     icon = CustomDesign.objects.first()
     if icon and icon.image:
