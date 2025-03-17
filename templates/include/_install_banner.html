@@ -1,6 +1,6 @@
 {% load static compress i18n cart_tag custom_tags %}
 <div class="pt-12">
-    <div id="install-banner" class="fixed z-50 w-full shadow-lg bottom-0" style="display: none;">
+    <div id="install-banner" class="fixed w-full shadow-lg bottom-0 z-[99999999999]" style="display: none;">
         <div class="bg-second-color rounded-b-lg p-2 flex items-center justify-between">
             <div class="flex items-center pr-4 ml-4">
                 <div class="h-9 w-9 rounded-full overflow-hidden">
@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <div x-data="{ open: false }" id="ios-install-banner" class="fixed bottom-0 z-50 w-full shadow-lg bg-second-color p-3 rounded-b-lg" style="display: none;">
+    <div x-data="{ open: false }" id="ios-install-banner" class="fixed bottom-0 w-full shadow-lg bg-second-color p-3 z-[99999999999] rounded-b-lg" style="display: none;">
         <div class="flex items-center justify-between">
             <div class="flex items-center pr-4 ml-4">
                 <div class="h-9 w-9 rounded-full overflow-hidden">
