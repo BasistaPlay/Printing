@@ -17,7 +17,7 @@
                     {% for product in products %}
                     <a class="flex flex-col bg-second-color rounded-xl" href="{% url 'product:design_detail' slug=product.slug %}">
                         <div class="relative w-full h-0 pb-[100%] overflow-hidden">
-                            <img data-src="{{ product.image.url }}" alt="{{ product.title }}" class="lazyload absolute top-0 left-0 w-full h-full object-cover">
+                            <img data-src="{{ product.image.url }}" alt="{{ product.title }}" class="lazyload absolute top-0 left-0 w-full h-full object-cover no-search">
                         </div>
                         <div class="p-5 text-center">
                             <h3 class="text-2xl text-text-color font-semibold mb-3">{{ product.title }}</h3>

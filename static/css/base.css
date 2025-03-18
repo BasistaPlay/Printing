@@ -69,3 +69,9 @@ body.dark {
     background: var(--main-color);
     color: #fff;
   }
+
+.no-search {
+pointer-events: none;
+-webkit-user-drag: none;
+user-select: none;
+}

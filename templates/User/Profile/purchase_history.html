@@ -57,7 +57,7 @@
                                         {% for item in purchase.purchase_products.all %}
                                             {% if item.product.front_image %}
                                                 <li>
-                                                    <img data-src="{{ item.product.front_image.url }}" alt="{{ item.product.title }}" class="lazyload h-12 w-12 object-cover rounded shadow-sm border border-gray-300" />
+                                                    <img data-src="{{ item.product.front_image.url }}" alt="{{ item.product.title }}" class="lazyload no-search h-12 w-12 object-cover rounded shadow-sm border border-gray-300" />
                                                 </li>
                                             {% else %}
                                                 <li class="text-text-color">{% trans 'N/A' %}</li>
@@ -70,7 +70,7 @@
                                         {% for item in purchase.purchase_products.all %}
                                             {% if item.product.back_image %}
                                                 <li>
-                                                    <img data-src="{{ item.product.back_image.url }}" alt="{{ item.product.title }}" class="lazyload h-12 w-12 object-cover rounded shadow-sm border border-gray-300" />
+                                                    <img data-src="{{ item.product.back_image.url }}" alt="{{ item.product.title }}" class="lazyload no-search h-12 w-12 object-cover rounded shadow-sm border border-gray-300" />
                                                 </li>
                                             {% else %}
                                                 <li class="text-text-color">{% trans 'N/A' %}</li>

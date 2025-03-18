@@ -29,8 +29,8 @@
                         {% for key, value in request.session.cart.items %}
                         <tr class="border-b border-gray-300 hover:bg-hover-color transition">
                             <td class="p-4 flex items-center space-x-4">
-                                <img class="lazyload w-16 h-auto rounded-lg" data-src="{{ value.image }}" alt="{% trans 'Product Image' %}">
-                                <img class="lazyload w-16 h-auto rounded-lg" data-src="{{ value.back_image }}" alt="{% trans 'Product Image' %}">
+                                <img class="lazyload w-16 h-auto rounded-lg no-search" data-src="{{ value.image }}" alt="{% trans 'Product Image' %}">
+                                <img class="lazyload w-16 h-auto rounded-lg no-search" data-src="{{ value.back_image }}" alt="{% trans 'Product Image' %}">
                             </td>
                             <td class="p-4 text-lg text-text-color">{{ value.price }}€</td>
                             <td class="p-4">

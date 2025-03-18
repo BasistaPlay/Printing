@@ -13,7 +13,7 @@
             {% for category in categories %}
             <a href="{% url 'product:category_detail' category.slug %}" class="flex flex-col bg-second-color rounded-2xl overflow-hidden text-text-color shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-[1.02]">
                 <div class="relative w-full h-52 overflow-hidden">
-                    <img data-src="{{ category.image.url }}" alt="{{ category.title }}" class="lazyload w-full h-full object-contain">
+                    <img data-src="{{ category.image.url }}" alt="{{ category.title }}" class="lazyload w-full h-full object-contain no-search">
                 </div>
                 <div class="p-6 text-center">
                     <h2 class="text-2xl font-semibold mb-2 text-text-color transition-colors duration-300 hover:text-main-color">

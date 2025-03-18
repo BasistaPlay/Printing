@@ -15,7 +15,7 @@
     <section class="relative h-auto flex flex-col md:flex-row text-white md:pb-16 px-[12%]">
         <div class="inset-0 bg-opacity-50 backdrop-blur-sm md:bg-opacity-10 md:backdrop-blur-none z-10"></div>
         <div class="inset-0 w-full h-64 md:relative md:w-1/2 md:h-auto md:order-2  max-md:mb-3">
-            <img data-src="{{ custom_designs.image.url }}" alt="Background Image" class="lazyload w-full h-full object-cover md:object-cover md:static opacity-20 filter blur-md md:blur-none md:opacity-100 z-0">
+            <img data-src="{{ custom_designs.image.url }}" alt="Background Image" class="lazyload w-full h-full object-cover md:object-cover md:static opacity-20 filter blur-md md:blur-none md:opacity-100 z-0 no-search">
         </div>
         <div class="relative z-30 w-full md:w-1/2 flex items-center justify-center p-8 md:pl-16 order-1 md:order-1 text-center md:text-left">
             <div class="max-md:absolute max-md:bottom-9">
@@ -37,7 +37,7 @@
                     <li>
                         <a href="{% url 'product:design_detail' slug=product.slug %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                             <div class="relative w-full h-40 md:h-48 overflow-hidden flex justify-center items-center">
-                                <img data-src="{{ product.image.url }}" alt="{{ product.title }}" class="lazyload object-cover h-full transition-transform duration-300 hover:scale-110">
+                                <img data-src="{{ product.image.url }}" alt="{{ product.title }}" class="lazyload object-cover h-full transition-transform duration-300 hover:scale-110 no-search">
                             </div>
                             <div class="mt-4 text-center">
                                 <h3 class="text-lg md:text-xl font-semibold text-main-color">{{ product.title }}</h3>
@@ -167,7 +167,7 @@
             {% for product in products_top %}
                 <a href="{% url 'product:detail' user='user_value' product_title=product.title Designs_id=product.id %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl mr-4 md:mr-5">
                     <div class="relative w-full h-36 md:h-48 overflow-hidden flex justify-center items-center">
-                        <img data-src="{{ product.front_image.url }}" alt="{{ product.title }}" class="lazyload object-cover h-full transition-transform duration-300 hover:scale-110">
+                        <img data-src="{{ product.front_image.url }}" alt="{{ product.title }}" class="lazyload object-cover h-full transition-transform duration-300 hover:scale-110 no-search">
                     </div>
                     <div class="mt-4 text-center">
                         <h3 class="text-lg md:text-xl font-semibold text-main-color">{{ product.title }}</h3>

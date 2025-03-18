@@ -28,7 +28,7 @@
 <body class='text-text-color bg-bg-color'>
     <header class='fixed w-full top-0 right-0 z-[100000] flex p-7 items-center justify-between transform max-2xl:px-4 max-2xl:py-3.5 max-lg:px-2 max-xl:bg-second-color bg-bg-color'>
         <a href='{% url "homepage" %}' class="flex items-center color-text-color text-3xl font-bold">
-            <img class='lazyload align-middle text-main-color h-14 w-14 mr-1' data-src='{% display_icon %}' alt="EricPrint Logo">
+            <img class='lazyload align-middle text-main-color h-14 w-14 mr-1 no-search' data-src='{% display_icon %}' alt="EricPrint Logo">
             <span>EricPrint</span>
         </a>
         <ul class="navlist">
@@ -88,7 +88,7 @@
             <div class="relative inline-block">
                 <div class="dropdown">
                     <button class="bg-transparent text-text-color p-3 text-base cursor-pointer flex items-center space-x-2 transition-all duration-200">
-                        <img class='lazyload h-5' data-src="{% if LANGUAGE_CODE == 'lv' %}{% static 'img/lv-flag.png' %}{% else %}{% static 'img/en-flag.png' %}{% endif %}" alt="{% if LANGUAGE_CODE == 'lv' %}Latvian{% else %}English{% endif %}">
+                        <img class='lazyload h-5 no-search' data-src="{% if LANGUAGE_CODE == 'lv' %}{% static 'img/lv-flag.png' %}{% else %}{% static 'img/en-flag.png' %}{% endif %}" alt="{% if LANGUAGE_CODE == 'lv' %}Latvian{% else %}English{% endif %}">
                         <i class="fa fa-caret-down"></i>
                     </button>
 
@@ -96,11 +96,11 @@
                         <form id="language-form" class="flex flex-col bg-second-color rounded-lg shadow-lg" action="{% url 'set_language' %}" method="post">
                             {% csrf_token %}
                             <button class="flex items-center space-x-2 px-4 py-2 text-left w-full rounded-lg border-none cursor-pointer hover:bg-hover-color transition-colors duration-200" type="submit" name="language" value="lv">
-                                <img class="lazyload h-5 mr-3" data-src="{% static 'img/lv-flag.png' %}" alt="Latvian">
+                                <img class="lazyload h-5 mr-3 no-search" data-src="{% static 'img/lv-flag.png' %}" alt="Latvian">
                                 <span>Latviešu</span>
                             </button>
                             <button class="flex items-center space-x-2 px-4 py-2 text-left rounded-lg w-full border-none cursor-pointer hover:bg-hover-color transition-colors duration-200" type="submit" name="language" value="en">
-                                <img class="lazyload h-5 mr-3" data-src="{% static 'img/en-flag.png' %}" alt="English">
+                                <img class="lazyload h-5 mr-3 no-search" data-src="{% static 'img/en-flag.png' %}" alt="English">
                                 <span>English</span>
                             </button>
                         </form>

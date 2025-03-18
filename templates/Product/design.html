@@ -36,14 +36,14 @@
             <div id="front" style="position: relative;">
                 <div class="boundary" id="boundary-front"></div>
                 <input type="hidden" id="product-slug" name="product_slug" value="{{ product.slug }}">
-                <img data-src="{{ product.front_image_not_background.url }}" class="lazyload img-1 front-image" id="front-img" />
-                <img data-src="{{ product.front_image_with_background.url }}" class="lazyload img-2 front-image" />
+                <img data-src="{{ product.front_image_not_background.url }}" class="lazyload img-1 front-image no-search" id="front-img" />
+                <img data-src="{{ product.front_image_with_background.url }}" class="lazyload img-2 front-image no-search" />
                 <div id="text-container" data-side="front" class="absolute"></div>
             </div>
             <div id="back" class="hidden" style="position: relative;">
                 <div class="boundary" id="boundary-back"></div>
-                <img data-src="{{ product.back_image_not_background.url }}" class="lazyload img-1 front-image" id="back-img" />
-                <img data-src="{{ product.back_image_with_background.url }}" class="lazyload img-2 front-image" />
+                <img data-src="{{ product.back_image_not_background.url }}" class="lazyload img-1 front-image no-search" id="back-img" />
+                <img data-src="{{ product.back_image_with_background.url }}" class="lazyload img-2 front-image no-search" />
                 <div id="text-container" data-side="back" class="absolute"></div>
             </div>
             <div class="color" style="background-color: {{ product.available_colors.first.code }}"></div>

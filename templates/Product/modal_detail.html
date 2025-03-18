@@ -5,17 +5,17 @@
 
         <div x-data="{ currentImage: '{{ product.front_image.url }}' }" class="relative max-w-[400px] w-full mx-auto lg:mx-0">
             <div class="relative w-full">
-                <img id="headphoneImage1" :data-src="currentImage" class="lazyload h-auto rounded-xl w-full shadow-lg transition-transform duration-300 transform hover:scale-105">
+                <img id="headphoneImage1" :data-src="currentImage" class="lazyload h-auto rounded-xl w-full shadow-lg transition-transform duration-300 transform hover:scale-105 no-search">
             </div>
             <div class="flex justify-center mt-5 space-x-2">
                 <img
-                    class="lazyload w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300"
+                    class="lazyload w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
                     :class="{ 'opacity-100': currentImage === '{{ product.front_image.url }}', 'opacity-80': currentImage !== '{{ product.front_image.url }}' }"
                     @click="currentImage = '{{ product.front_image.url }}'"
                     data-src="{{ product.front_image.url }}"
                     alt="Thumbnail 1">
                 <img
-                    class="lazyload w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300"
+                    class="lazyload w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
                     :class="{ 'opacity-100': currentImage === '{{ product.back_image.url }}', 'opacity-80': currentImage !== '{{ product.back_image.url }}' }"
                     @click="currentImage = '{{ product.back_image.url }}'"
                     data-src="{{ product.back_image.url }}"
