@@ -59,3 +59,18 @@ document.addEventListener('click', function(event) {
         document.querySelector('.dropdown-content').classList.add('hidden');
     }
 });
+
+document.addEventListener('contextmenu', function(event) {
+    if (event.target.classList.contains('no-search')) {
+        event.preventDefault();
+    }
+});
+
+document.querySelectorAll('.no-search').forEach(img => {
+    img.addEventListener('dragstart', event => event.preventDefault());
+    img.addEventListener('mousedown', event => event.preventDefault());
+});
+
+document.querySelectorAll('.draggable').forEach(img => {
+    img.setAttribute('draggable', 'true');
+});
