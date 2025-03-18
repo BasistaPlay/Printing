@@ -7,8 +7,8 @@
         hx-trigger="click"
         hx-swap="innerHTML">
         <div class="relative">
-            <img src="{{ product_list.front_image.url }}" alt="{{ product_list.title }}" class="w-full h-auto transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0">
-            <img src="{{ product_list.back_image.url }}" alt="Back Image" class="w-full h-auto transition-opacity duration-500 ease-in-out opacity-0 absolute inset-0 group-hover:opacity-100">
+            <img data-src="{{ product_list.front_image.url }}" alt="{{ product_list.title }}" class="lazyload w-full h-auto transition-opacity duration-500 ease-in-out opacity-100 group-hover:opacity-0">
+            <img data-src="{{ product_list.back_image.url }}" alt="Back Image" class="lazyload w-full h-auto transition-opacity duration-500 ease-in-out opacity-0 absolute inset-0 group-hover:opacity-100">
         </div>
         <div class="p-3">
             <h3 class='text-text-color'>{{ product_list.title }}</h3>
