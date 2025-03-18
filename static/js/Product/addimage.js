@@ -84,7 +84,7 @@ $(document).ready(function () {
 
                 let htmlList = `
                 <div class='uploaded-img ${currentSide}' data-image-id='${imageId}' id='save-img'>
-                    <img src='${event.target.result}' draggable='true' style='background: transparent; object-fit: contain;'>
+                    <img src='${event.target.result}' draggable='true' style='background: transparent; object-fit: contain; class='no-search'>
                     <button type='button' class='remove-btn'>
                         <svg width="20" height="20" style="color: var(--main-color);">
                             <use xlink:href="/static/svg/sprite.svg#x-circle"></use>
@@ -96,7 +96,7 @@ $(document).ready(function () {
 
                 let htmlKrekls = `
                 <div class='uploaded-img-product element-image ${currentSide}' data-image-id='${imageId}' style='z-index:2; top:100px; background: transparent;'>
-                    <img src='${event.target.result}' class='editable-image resizable-image' draggable='true' style='background: transparent; object-fit: contain;'>
+                    <img src='${event.target.result}' class='no-search editable-image resizable-image' draggable='true' style='background: transparent; object-fit: contain;'>
                 </div>`;
                 selectedContainer.prepend(htmlKrekls);
 
