@@ -2,25 +2,38 @@ let darkmode = document.querySelector('#darkmode');
 let body = document.body;
 let svgIcon = darkmode.querySelector('use');
 
-// Pārbaudīt, vai ir saglabāts iepriekšējais dark mode stāvoklis
-let isDarkMode = localStorage.getItem('darkMode') === 'true';
+let savedMode = localStorage.getItem('darkMode');
 
-// Ja ir saglabāts, tad uzstādīt dark mode
-if (isDarkMode) {
+let prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+if (savedMode === 'true' || (savedMode === null && prefersDarkMode)) {
     svgIcon.setAttribute('xlink:href', '/static/svg/sprite.svg#sun');
     body.classList.add('dark');
+} else {
+    svgIcon.setAttribute('xlink:href', '/static/svg/sprite.svg#moon-ico');
+    body.classList.remove('dark');
 }
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    if (localStorage.getItem('darkMode') === null) {
+        if (event.matches) {
+            body.classList.add('dark');
+            svgIcon.setAttribute('xlink:href', '/static/svg/sprite.svg#sun');
+        } else {
+            body.classList.remove('dark');
+            svgIcon.setAttribute('xlink:href', '/static/svg/sprite.svg#moon-ico');
+        }
+    }
+});
 
 darkmode.onclick = () => {
     if (body.classList.contains('dark')) {
-        // Pārslēgt uz light mode
         svgIcon.setAttribute('xlink:href', '/static/svg/sprite.svg#moon-ico');
         body.classList.remove('dark');
         localStorage.setItem('darkMode', 'false');
     } else {
-        // Pārslēgt uz dark mode
         svgIcon.setAttribute('xlink:href', '/static/svg/sprite.svg#sun');
         body.classList.add('dark');
         localStorage.setItem('darkMode', 'true');
     }
-}
+};
