@@ -22,7 +22,7 @@ function addText() {
 
     if (text !== '') {
         const currentSide = getCurrentSide();
-        const textContainer = document.getElementById('text-container');
+        const textContainer = document.querySelector(`[data-side="${currentSide}"]`);
 
         if (!textContainer) {
             console.error(`Text container not found for side: ${currentSide}`);

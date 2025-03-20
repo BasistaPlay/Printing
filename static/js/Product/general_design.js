@@ -101,3 +101,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const checkbox = document.getElementById("publish-checkbox");
+    const additionalInfo = document.getElementById("additional-info");
+
+    checkbox.addEventListener("change", function () {
+        if (this.checked) {
+            additionalInfo.classList.remove("hidden");
+        } else {
+            additionalInfo.classList.add("hidden");
+        }
+    });
+});
+
