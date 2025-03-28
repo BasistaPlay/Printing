@@ -7,7 +7,10 @@ import os
 import re
 from django.views.generic import TemplateView, View
 from django.templatetags.static import static
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class HomePageView(TemplateView):
     template_name = 'home/home_page.html'
 
@@ -20,6 +23,7 @@ class HomePageView(TemplateView):
         context['popular_products'] = Product.objects.filter(is_public=True).order_by('-views')[:20]
         return context
 
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class Handler404View(TemplateView):
     template_name = "error/404.html"
 
@@ -29,6 +33,7 @@ class Handler404View(TemplateView):
         context['error_description'] = "The Page can't be found"
         return context
 
+@method_decorator(cache_page(60 * 60), name='dispatch')
 class Handler500View(TemplateView):
     template_name = "error/404.html"
 

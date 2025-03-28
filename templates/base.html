@@ -1,4 +1,4 @@
-{% load static compress i18n cart_tag custom_tags %}
+{% load static compress i18n cart_tag custom_tags cache  %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +26,7 @@
 </head>
 
 <body class='text-text-color bg-bg-color'>
+    {% cache 300 "navbar_cache_key_"|add:user.id|stringformat:"s"|add:LANGUAGE_CODE %}
     <header class='fixed w-full top-0 right-0 z-[100000] flex p-7 items-center justify-between transform max-2xl:px-4 max-2xl:py-3.5 max-lg:px-2 max-xl:bg-second-color bg-bg-color'>
         <a href='{% url "homepage" %}' class="flex items-center color-text-color text-3xl font-bold">
             <img class='lazyload align-middle text-main-color h-14 w-14 mr-1 no-search' data-src='{% display_icon %}' alt="EricPrint Logo">
@@ -72,6 +73,7 @@
                     <use xlink:href="/static/svg/sprite.svg#close"></use>
                 </svg>
             </div>
+            {% endcache %}
             <a href="{% url 'shopping_cart:cart' %}" class="text-4xl text-text-color z-[10001] cursor-pointer m-4 max-md:hidden">
                 <svg width="25" height="25" style="fill: var(--text-color);">
                     <use xlink:href="/static/svg/sprite.svg#shopping_cart"></use>
@@ -107,9 +109,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </header>
 
