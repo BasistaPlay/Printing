@@ -1,4 +1,4 @@
-{% load static compress i18n cart_tag custom_tags cache  %}
+{% load static compress i18n cart_tag custom_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,14 +19,30 @@
     <link rel="icon" href="{% display_icon %}" type="image/png">
     <link rel="manifest" href="{% static 'manifest.json' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js" async></script>
+    <script src="https://unpkg.com/@barba/core"></script>
+    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
 
 
     {% block css %}
     {% endblock %}
 </head>
 
-<body class='text-text-color bg-bg-color'>
-    {% cache 300 "navbar_cache_key_"|add:user.id|stringformat:"s"|add:LANGUAGE_CODE %}
+<body data-barba="wrapper" class='text-text-color bg-bg-color'>
+    <div id="custom-loader" class="fixed inset-0 flex flex-col gap-6 items-center justify-center bg-bg-color text-main-color z-[999999] opacity-0 invisible transition-opacity duration-300">
+
+
+
+        <span class="text-2xl font-semibold tracking-widest animate-pulse">EricPrint</span>
+
+        <!-- Bounce dots -->
+        <div class="flex gap-1">
+          <span class="w-3 h-3 rounded-full bg-main-color animate-[bounce_1s_infinite]"></span>
+          <span class="w-3 h-3 rounded-full bg-main-color animate-[bounce_1s_infinite_150ms]"></span>
+          <span class="w-3 h-3 rounded-full bg-main-color animate-[bounce_1s_infinite_300ms]"></span>
+        </div>
+
+      </div>
+    <div data-barba="container">
     <header class='fixed w-full top-0 right-0 z-[100000] flex p-7 items-center justify-between transform max-2xl:px-4 max-2xl:py-3.5 max-lg:px-2 max-xl:bg-second-color bg-bg-color'>
         <a href='{% url "homepage" %}' class="flex items-center color-text-color text-3xl font-bold">
             <img class='lazyload align-middle text-main-color h-14 w-14 mr-1 no-search' data-src='{% display_icon %}' alt="EricPrint Logo">
@@ -73,7 +89,6 @@
                     <use xlink:href="/static/svg/sprite.svg#close"></use>
                 </svg>
             </div>
-            {% endcache %}
             <a href="{% url 'shopping_cart:cart' %}" class="text-4xl text-text-color z-[10001] cursor-pointer m-4 max-md:hidden">
                 <svg width="25" height="25" style="fill: var(--text-color);">
                     <use xlink:href="/static/svg/sprite.svg#shopping_cart"></use>
@@ -115,9 +130,10 @@
     {% block body %}{% endblock %}
 
     {% include 'include/_install_banner.html'%}
-
+    </div>
 </body>
 
+<script src="{% static 'js/loader.js' %}"></script>
 <script src="{% static 'dist/bundle.js' %}"></script>
 <script src="{% static 'js/darkmode.js' %}"></script>
 <script src="{% static 'js/base.js' %}"></script>

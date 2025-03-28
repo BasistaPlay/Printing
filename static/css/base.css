@@ -75,3 +75,41 @@ pointer-events: none;
 -webkit-user-drag: none;
 user-select: none;
 }
+
+[data-barba="container"] {
+    opacity: 1; /* sākotnējā vērtība */
+  }
+
+  html.is-changing [data-barba="container"] {
+    pointer-events: none;
+  }
+
+  html.is-animating [data-barba="container"] {
+    transition: opacity 0.5s ease;
+  }
+
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(-5px); }
+    50% { transform: translateY(5px); }
+  }
+
+  .animate-\[bounce_1s_infinite\] {
+    animation: bounce 1s infinite;
+  }
+
+  .animate-\[bounce_1s_infinite_150ms\] {
+    animation: bounce 1s infinite 150ms;
+  }
+
+  .animate-\[bounce_1s_infinite_300ms\] {
+    animation: bounce 1s infinite 300ms;
+  }
+
+  /* custom lēnāka spin animācija */
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 3s linear infinite;
+  }
