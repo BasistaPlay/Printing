@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load static i18n %}
 
 {% block title %}
@@ -19,18 +18,15 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 {% endblock %}
 
-{% block body %}
 
-    <div x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 1000)" class="fixed top-0 left-0 w-full h-full bg-gray-300 bg-opacity-50 z-50" x-show="loading" x-transition>
-        <div class="spinner"></div>
-    </div>
+{% block body %}
 
 {% csrf_token %}
     <div class="message-container"></div>
     <div class="product-card" data-product-id="{{ product.id }}"></div>
     <div id="error-messages" class="error-messages"></div>
 
-
+<div class="flex direction-row gap-6 max-md:flex-col max-md:items-center order-1">
     <div id="original-product">
         <div class="product">
             <div id="front" style="position: relative;">
@@ -51,7 +47,7 @@
     </div>
 
 
-<div id="general" class="content max-md:mb-6 h-[470px] max-md:h-full" x-data="{ showModal: false }">
+<div id="general" class="bg-second-color rounded-xl w-[700px] min-h-96 items-center p-4 max-md:mb-6 h-[470px] max-md:h-full max-md:w-[95%] max-md:order-3" x-data="{ showModal: false }">
     <h1 class="items-center text-center">{% trans 'Izveido savu' %} {{ product.title }}</h1>
     <div class="color-content">
         <b>{% trans 'Pielāgot krāsu' %}</b>
@@ -145,7 +141,7 @@
 </div>
 
 {% if product.can_have_image %}
-    <div id="upload" class="hidden content max-md:mb-6 h-[470px] max-md:h-full">
+    <div id="upload" class="hidden bg-second-color rounded-xl w-[700px] min-h-96 items-center p-4 max-md:mb-6 h-[470px] max-md:h-full max-md:order-3">
         <div class="upload-wrapper">
             <div class="upload-area">
                 <div class="upload-area-svg flex justify-center">
@@ -161,7 +157,7 @@
     </div>
 {% endif %}
 {% if product.can_have_text %}
-    <div id="Text" class="hidden content max-md:mb-6 h-[470px] max-md:h-full">
+    <div id="Text" class="hidden bg-second-color rounded-xl w-[700px] min-h-96 items-center p-4 max-md:mb-6 h-[470px] max-md:h-full max-md:order-3">
         <h1 class="items-center text-center">{% trans 'Pievienot tekstu' %}</h1>
         <div class="input-container">
             <label for="text-input">{% trans 'Ievadiet tekstu:' %}</label>
@@ -208,7 +204,7 @@
 {% endif %}
 
 {% if product.can_have_ai_image %}
-<div id="Ai-generator" class="hidden content h-[470px] max-md:h-full max-md:mb-6 max-md:p-4 ">
+<div id="Ai-generator" class="hidden bg-second-color rounded-xl w-[700px] min-h-96 items-center p-4 h-[470px] max-md:h-full max-md:mb-6 max-md:p-4 max-md:order-3">
     <h1 class="items-center text-center">{% trans 'AI attēla ģenerators' %}</h1>
     <div class="p-4 flex flex-col sm:flex-row items-center gap-2 w-full">
         <input type="text" id="textInput-Ai" placeholder="{% trans 'Ievadiet tekstu' %}"
@@ -226,46 +222,50 @@
 </div>
 {% endif %}
 
-<div class="navbar-wrapper pc">
-    <div class="nav-item" id="generalIcon">
-        <svg width="20" height="20" style="color: var(--text-color);">
-            <use xlink:href="/static/svg/sprite.svg#settings"></use>
-        </svg>
-        <div class="tooltip">{% trans 'Vispārīgi' %}</div>
+<div class="flex bg-second-color p-4 rounded-xl shadow-md max-md:flex-wrap max-md:w-[95%] flex-col max-md:flex-row">
+    <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="generalIcon">
+      <svg width="24" height="24" class="text-[var(--text-color)] transition-transform group-hover:scale-110">
+        <use xlink:href="/static/svg/sprite.svg#settings"></use>
+      </svg>
     </div>
+
     {% if product.can_have_image %}
-        <div class="nav-item" id="imageIcon">
-            <svg width="20" height="20" style="color: var(--text-color);">
-                <use xlink:href="/static/svg/sprite.svg#image"></use>
-            </svg>
-            <div class="tooltip">{% trans 'Attēls' %}</div>
-        </div>
+    <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="imageIcon">
+      <svg width="24" height="24" class="text-[var(--text-color)] transition-transform group-hover:scale-110">
+        <use xlink:href="/static/svg/sprite.svg#image"></use>
+      </svg>
+    </div>
     {% endif %}
+
     {% if product.can_have_text %}
-        <div class="nav-item" id="textIcon">
-            <svg width="20" height="20" style="color: var(--text-color);">
-                <use xlink:href="/static/svg/sprite.svg#text"></use>
-            </svg>
-            <div class="tooltip">{% trans 'Teksts' %}</div>
-        </div>
+    <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="textIcon">
+      <svg width="24" height="24" class="text-[var(--text-color)] transition-transform group-hover:scale-110">
+        <use xlink:href="/static/svg/sprite.svg#text"></use>
+      </svg>
+    </div>
     {% endif %}
+
     {% if product.can_have_ai_image %}
-        <div class="nav-item" id="Ai-generatoricon">
-            <svg width="20" height="20" style="fill: var(--text-color);">
-                <use xlink:href="/static/svg/sprite.svg#AI"></use>
-            </svg>
-            <div class="tooltip">{% trans 'AI Ģenerators' %}</div>
-        </div>
+    <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="Ai-generatoricon">
+      <svg width="24" height="24" class="fill-[var(--text-color)] transition-transform group-hover:scale-110">
+        <use xlink:href="/static/svg/sprite.svg#AI"></use>
+      </svg>
+    </div>
     {% endif %}
+
     {% if product.can_be_rotate %}
-        <div class="nav-item" id="roatateicon">
-            <svg width="20" height="20" style="color: var(--text-color);">
-                <use xlink:href="/static/svg/sprite.svg#rotate"></use>
-            </svg>
-            <div class="tooltip">{% trans 'Pagriezt' %}</div>
-        </div>
+    <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="roatateicon">
+      <svg width="24" height="24" class="text-[var(--text-color)] transition-transform group-hover:scale-110">
+        <use xlink:href="/static/svg/sprite.svg#rotate"></use>
+      </svg>
+    </div>
     {% endif %}
+  </div>
+
+
 </div>
+
+
 {% endblock %}
 
 {% block js %}

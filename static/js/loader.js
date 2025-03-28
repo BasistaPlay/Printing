@@ -11,33 +11,41 @@ function showLoader() {
   }
 
     barba.init({
-    transitions: [{
-      name: 'ericprint-tailwind-loader',
-      leave({ current }) {
-        showLoader();
-        return gsap.to(current.container, { opacity: 0, duration: 0.3 });
-      },
-      enter({ next }) {
-        gsap.set(next.container, { opacity: 0 });
-      },
-      afterEnter({ next }) {
-        return new Promise(resolve => {
-          const images = next.container.querySelectorAll('img');
-          let loaded = 0;
-          const checkLoad = () => {
-            loaded++;
-            if (loaded === images.length || images.length === 0) {
-              gsap.to(next.container, { opacity: 1, duration: 0.3 });
-              hideLoader();
-              resolve();
-            }
-          };
-          if(images.length === 0) checkLoad();
-          images.forEach(img => {
-            if (img.complete) checkLoad();
-            else img.onload = img.onerror = checkLoad;
-          });
-        });
+  transitions: [{
+    name: 'ericprint-tailwind-loader',
+    leave({ current }) {
+      showLoader();
+      return gsap.to(current.container, { opacity: 0, duration: 0.3 });
+    },
+    enter({ next }) {
+      gsap.set(next.container, { opacity: 0 });
+    },
+    afterEnter({ next }) {
+      const namespace = next.container.dataset.barbaNamespace;
+
+      switch (namespace) {
+        case 'design':
+          if (typeof initDesignPage === 'function') initDesignPage();
+          break;
+        case 'homepage':
+          if (typeof initHomePage === 'function') initHomePage();
+          break;
       }
-    }]
-  });
+
+      const container = next.container;
+
+      const onFullyLoaded = () => {
+        requestAnimationFrame(() => {
+          gsap.to(container, { opacity: 1, duration: 0.3 });
+          hideLoader();
+        });
+      };
+
+      if (document.readyState === 'complete') {
+        onFullyLoaded();
+      } else {
+        window.addEventListener('load', onFullyLoaded);
+      }
+    }
+  }]
+});
