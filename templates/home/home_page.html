@@ -11,7 +11,7 @@
 
 {% block body %}
 <div class='mt-32 max-md:mt-96'>
-    <section class="relative h-auto flex flex-col md:flex-row text-white md:pb-16 px-[12%]">
+    <section class="relative h-auto flex flex-col md:flex-row text-white md:pb-16 px-[12%] max-md:px-[5%]">
         <div class="inset-0 bg-opacity-50 backdrop-blur-sm md:bg-opacity-10 md:backdrop-blur-none z-10"></div>
         <div class="inset-0 w-full h-64 md:relative md:w-1/2 md:h-auto md:order-2  max-md:mb-3">
             <img data-src="{{ custom_designs.image.url }}" alt="Background Image" class="lazyload w-full h-full object-cover md:object-cover md:static opacity-20 filter blur-md md:blur-none md:opacity-100 z-0 no-search">
@@ -26,7 +26,7 @@
     </section>
 
 
-    <section class="overflow-hidden mt-10 px-[12%]">
+    <section class="overflow-hidden mt-10 px-[12%] max-md:px-[5%]">
         <div class="text-center mb-10">
             <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Mūsu produkti!" %}</h2>
         </div>
@@ -62,7 +62,7 @@
         <h2 class="text-lg md:text-xl font-bold text-text-color text-center mt-10">{% trans "Vai meklē savu vēlamo produktu" %} <a href="{% url 'product:all_categories' %}" class='text-main-color text-lg md:text-xl font-extrabold'> {% trans "kategorija" %} </a></h2>
     </section>
 
-    <section class="mt-10 md:mt-52 px-[12%]">
+    <section class="mt-10 md:mt-52 px-[12%] max-md:px-[5%]">
         <div class="flex flex-col md:flex-row">
             <div class="w-full md:w-1/2 px-6 md:px-8 mb-8 md:mb-0 sticky top-32 self-start max-md:relative">
                 <div class="text-center md:text-left mb-8 md:mb-10">
@@ -94,7 +94,7 @@
         </div>
     </section>
 
-    <section class="py-16 md:py-52 max-md:mt-36 px-[12%]">
+    <section class="py-16 md:py-52 max-md:mt-36 px-[12%] max-md:px-[5%]">
         <div class="container mx-auto">
             <div class="mb-10 text-center">
                 <h1 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Ieguvumi no savu darbu publicēšanas" %}</h1>
@@ -149,7 +149,7 @@
         </div>
     </section>
 
-    <section class="overflow-hidden w-full relative py-10 md:py-16 px-[12%]">
+    <section class="overflow-hidden w-full relative py-10 md:py-16 px-[12%] max-md:px-[5%]">
         <div class="text-center mb-10">
             <h2 class="text-3xl md:text-4xl font-bold text-main-color">{% trans "Lietotāju populārākie dizaini!" %}</h2>
         </div>
@@ -194,7 +194,7 @@
         </div>
     </section>
 
-    <section class="py-16 px-[12%]">
+    <section class="py-16 px-[12%] max-md:px-[5%]">
         <div class="container mx-auto p-6 md:p-12 bg-second-color rounded-xl">
             <h1 class="text-3xl md:text-4xl font-bold text-center text-main-color mb-8 md:mb-12">{% trans "Biežāk Uzdotie Jautājumi" %}</h1>
 
