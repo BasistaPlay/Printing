@@ -294,14 +294,18 @@ HONEYPOT_FIELD_NAME = 'email2'
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'dist/',
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'BUNDLE_DIR_NAME': 'static/dist/',
+        'POLL_INTERVAL': 0.1,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
     }
 }
 
-# COMPRESS_ENABLED = True
+
 
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
+
+LOGIN_URL = '/login/'
 
 
 try:

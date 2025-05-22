@@ -76,18 +76,6 @@ pointer-events: none;
 user-select: none;
 }
 
-[data-barba="container"] {
-    opacity: 1; /* sākotnējā vērtība */
-  }
-
-  html.is-changing [data-barba="container"] {
-    pointer-events: none;
-  }
-
-  html.is-animating [data-barba="container"] {
-    transition: opacity 0.5s ease;
-  }
-
 
   @keyframes bounce {
     0%, 100% { transform: translateY(-5px); }

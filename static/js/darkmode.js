@@ -1,19 +1,20 @@
-let body = document.body;
+import gsap from 'gsap';
 
 function updateDarkModeIcon(isDark) {
-    let darkmodeBtn = document.querySelector('#darkmode');
+    const darkmodeBtn = document.querySelector('#darkmode');
     if (!darkmodeBtn) return;
-    let svgIcon = darkmodeBtn.querySelector('use');
-    if (isDark) {
-        svgIcon.setAttribute('xlink:href', '/static/svg/sprite.svg#sun');
-    } else {
-        svgIcon.setAttribute('xlink:href', '/static/svg/sprite.svg#moon-ico');
-    }
+    const svgIcon = darkmodeBtn.querySelector('use');
+    if (!svgIcon) return;
+    svgIcon.setAttribute(
+        'xlink:href',
+        isDark ? '/static/svg/sprite.svg#sun' : '/static/svg/sprite.svg#moon-ico'
+    );
 }
 
 function initializeDarkMode() {
-    let savedMode = localStorage.getItem('darkMode');
-    let prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const body = document.body;
+    const savedMode = localStorage.getItem('darkMode');
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     if (savedMode === 'true' || (savedMode === null && prefersDarkMode)) {
         body.classList.add('dark');
@@ -22,29 +23,26 @@ function initializeDarkMode() {
         body.classList.remove('dark');
         updateDarkModeIcon(false);
     }
+
+    // Poga uzspiešana
+    document.body.addEventListener('click', (event) => {
+        const darkmodeBtn = event.target.closest('#darkmode');
+        if (!darkmodeBtn) return;
+
+        body.classList.toggle('dark');
+
+        const isDark = body.classList.contains('dark');
+        localStorage.setItem('darkMode', isDark ? 'true' : 'false');
+        updateDarkModeIcon(isDark);
+    });
+
+    // Reaģē uz OS režīma maiņu
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+        if (localStorage.getItem('darkMode') === null) {
+            body.classList.toggle('dark', event.matches);
+            updateDarkModeIcon(event.matches);
+        }
+    });
 }
 
-initializeDarkMode();
-
-document.body.addEventListener('click', (event) => {
-    let darkmodeBtn = event.target.closest('#darkmode');
-    if (!darkmodeBtn) return;
-
-    body.classList.toggle('dark');
-
-    let isDark = body.classList.contains('dark');
-    localStorage.setItem('darkMode', isDark ? 'true' : 'false');
-    updateDarkModeIcon(isDark);
-});
-
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    if (localStorage.getItem('darkMode') === null) {
-        body.classList.toggle('dark', event.matches);
-        updateDarkModeIcon(event.matches);
-    }
-});
-
-barba.hooks.after(() => {
-    let isDark = body.classList.contains('dark');
-    updateDarkModeIcon(isDark);
-});
+document.addEventListener('DOMContentLoaded', initializeDarkMode);

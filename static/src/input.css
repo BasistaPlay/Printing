@@ -4,6 +4,7 @@
 @import './tailwind/login.css';
 @import './tailwind/profile.css';
 @import './tailwind/design.css';
+@import './tailwind/draggable.css';
 
 @tailwind base;
 @tailwind components;

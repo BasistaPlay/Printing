@@ -1,5 +1,6 @@
+import $ from 'jquery';
 document.addEventListener('DOMContentLoaded', function() {
-    const colorElements = document.querySelectorAll('.color-select');
+    const colorElements = document.querySelectorAll('#color-select');
     const colorContainer = document.querySelector('.color');
 
     colorElements.forEach(function(colorElement) {
@@ -8,9 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
             colorContainer.style.backgroundColor = selectedColor;
 
             colorElements.forEach(function(element) {
-                element.classList.remove('active-color');
-            });
-            colorElement.classList.add('active-color');
+              element.classList.remove('ring-2', 'ring-offset-2', 'ring-gray-800');
+          });
+              colorElement.classList.add('ring-2', 'ring-offset-2', 'ring-gray-800');
+
 
             const colorId = colorElement.getAttribute('data-color-id');
             const productSlug = document.getElementById('product-slug').value;

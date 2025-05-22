@@ -207,3 +207,4 @@ compressed_static/CACHE/
 output.css
 static/src/output.css
 ecomerce/urls.py
+static/manifest.json

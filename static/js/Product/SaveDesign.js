@@ -1,3 +1,4 @@
+import $ from 'jquery';
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("#buy-now").addEventListener("click", function (event) {
         var activeColor = document.querySelector('.color-select.active-color')?.getAttribute('data-color-name');

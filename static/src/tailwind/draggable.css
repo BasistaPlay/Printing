@@ -1,0 +1,18 @@
+/* style.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .draggable {
+    @apply cursor-grab transition-shadow duration-200 ease-in-out;
+  }
+
+  .draggable:active {
+    @apply cursor-grabbing;
+  }
+
+  .draggable-active {
+    @apply ring-2 ring-[var(--main-color)] shadow-lg z-[30];
+  }
+}

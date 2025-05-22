@@ -1,3 +1,4 @@
+import $ from 'jquery';
 function AddToCart(design_id) {
     let numValue = $('.num').text();
     let productCard = $('.product-card[data-product-id]');

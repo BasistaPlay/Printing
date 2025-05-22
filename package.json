@@ -1,25 +1,45 @@
 {
-    "scripts": {
-        "build:css": "npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css",
-        "build:css:prod": "cross-env NODE_ENV=production npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css",
-        "watch:css": "npx tailwindcss -i ./ecomerce/static/src/input.css -o ./ecomerce/static/src/output.css --watch",
-        "start": "concurrently \"webpack --mode development --watch\" \"npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch\"",
-        "build": "npm run build:css:prod",
-        "build:alpine": "cp ./node_modules/alpinejs/dist/cdn.min.js ./ecomerce/static/js/alpine.js"
-    },
-    "devDependencies": {
-        "autoprefixer": "^10.4.20",
-        "concurrently": "^9.1.2",
-        "cross-env": "^7.0.3",
-        "postcss": "^8.4.45",
-        "tailwindcss": "^3.4.10",
-        "webpack": "^5.97.1",
-        "webpack-cli": "^6.0.1",
-        "webpack-dev-server": "^5.2.0"
-    },
-    "dependencies": {
-        "alpha-js": "^0.0.1",
-        "alpinejs": "^3.14.1",
-        "htmx.org": "^1.9.12"
-    }
+  "scripts": {
+    "dev": "webpack serve",
+    "build": "webpack --mode production && npm run build:css:prod",
+    "build:css": "npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css",
+    "build:css:prod": "cross-env NODE_ENV=production npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css",
+    "start": "concurrently \"webpack --mode development --watch\" \"npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "autoprefixer": "^10.4.21",
+    "babel-loader": "^9.2.1",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "css-loader": "^7.1.2",
+    "postcss": "^8.5.3",
+    "postcss-loader": "^8.1.1",
+    "style-loader": "^4.0.0",
+    "tailwindcss": "^3.4.10",
+    "webpack": "^5.97.1",
+    "webpack-bundle-tracker": "^3.2.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0",
+    "webpack-manifest-plugin": "^5.0.1"
+  },
+  "dependencies": {
+    "@barba/core": "^2.10.3",
+    "@swup/head-plugin": "^2.3.1",
+    "@swup/scripts-plugin": "^2.1.0",
+    "alpinejs": "^3.14.9",
+    "dom-to-image": "^2.6.0",
+    "fabric": "^6.6.5",
+    "gsap": "^3.13.0",
+    "html2canvas": "^1.4.1",
+    "htmx.org": "^1.9.12",
+    "jquery": "^3.7.1",
+    "jquery-ui": "^1.14.1",
+    "jquery-ui-dist": "^1.13.3",
+    "jquery-ui-touch-punch": "^0.2.3",
+    "js-cookie": "^3.0.5",
+    "lazysizes": "^5.3.2",
+    "swup": "^4.8.2"
+  }
 }

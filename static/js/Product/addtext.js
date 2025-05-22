@@ -1,3 +1,4 @@
+import $ from 'jquery';
 let currentSide = localStorage.getItem('currentSide') || 'front';
 localStorage.setItem('currentSide', currentSide);
 
@@ -32,12 +33,16 @@ function addText() {
         let $container = $(`#boundary-${currentSide}`);
         const containerWidth = $container.width();
         const textElement = document.createElement('div');
-        textElement.className = 'draggable-text ui-draggable ui-draggable-handle ui-resizable';
+        textElement.className = 'draggable-text relative inline-block max-w-[90%] w-auto ui-draggable ui-draggable-handle ui-resizable';
         textElement.style.position = 'relative';
         textElement.style.left = '0';
         textElement.style.top = '0';
         textElement.style.maxWidth = '90%';
-        textElement.innerHTML = `<span class="editable-text" style="color: ${textColor}; font-size: ${fontSize}; font-family: ${fontFamily}; word-break: normal; overflow-wrap: break-word; white-space: normal; display: inline-block; max-width: ${containerWidth}px;">${text}</span>`;
+        textElement.innerHTML = `
+                <span class="editable-text inline-block break-words whitespace-normal"
+                        style="color: ${textColor}; font-size: ${fontSize}; font-family: ${fontFamily}; max-width: ${containerWidth}px;">
+                        ${text}
+                </span>`;
         textContainer.appendChild(textElement);
 
         requestAnimationFrame(() => {
@@ -63,21 +68,26 @@ function addText() {
         });
 
         const listItem = document.createElement('li');
-        listItem.className = 'text-list-item';
+        listItem.className = 'text-list-item flex items-center justify-between gap-2 bg-[var(--input-color)] px-3 py-2 rounded-lg shadow-sm mb-2';
         listItem.innerHTML = `
-            <span style="font-size: ${fontSize}; color: ${textColor}">${text}</span>
-            <button class="edit-button" onclick="editTextInList(this)">
-                <svg width="20" height="20" style="fill: white">
+            <span class="text-[${textColor}] text-sm font-medium" style="font-size: ${fontSize};">
+                ${text}
+            </span>
+
+            <div class="flex gap-2">
+                <button class="edit-button p-1 rounded-md bg-[var(--main-color)] hover:bg-opacity-80 transition" onclick="editTextInList(this)">
+                <svg width="20" height="20" class="fill-white">
                     <use xlink:href="/static/svg/sprite.svg#edit"></use>
                 </svg>
-            </button>
+                </button>
 
-            <button class="delete-button" onclick="deleteText(this)">
-                <svg width="20" height="20" style="fill: white">
+                <button class="delete-button p-1 rounded-md bg-red-500 hover:bg-red-600 transition" onclick="deleteText(this)">
+                <svg width="20" height="20" class="fill-white">
                     <use xlink:href="/static/svg/sprite.svg#trash"></use>
                 </svg>
-            </button>
-        `;
+                </button>
+            </div>
+            `;
 
         textList.appendChild(listItem);
 

@@ -1,3 +1,4 @@
+import $ from 'jquery';
 document.addEventListener('DOMContentLoaded', function() {
     let currentSide = localStorage.getItem('currentSide') || 'front';
     localStorage.setItem('currentSide', currentSide);

@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.views import View
 from django.urls import reverse_lazy
 from django.views.generic import FormView, UpdateView, ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from User_app.mixins import CustomLoginRequiredMixin
 from User_app.forms import (LoginForm, RegistrationForm, ContactForm, PersonalInfoForm, CustomPasswordChangeForm, DeleteAccountForm, EmailVerificationForm, ExtraInfoForm)
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView, UpdateView
@@ -89,7 +89,7 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
-class ExtraInfoView(LoginRequiredMixin, FormView):
+class ExtraInfoView(CustomLoginRequiredMixin, FormView):
     template_name = 'User/extra_info.html'
     form_class = ExtraInfoForm
     success_url = reverse_lazy('home')
@@ -224,7 +224,7 @@ class ContactUsView(View):
         }
         return render(request, self.template_name, context)
 
-class PersonalInfoView(LoginRequiredMixin, UpdateView):
+class PersonalInfoView(CustomLoginRequiredMixin, UpdateView):
     model = MyUser
     form_class = PersonalInfoForm
     template_name = 'User/Profile/personal_info_form.html'
@@ -254,7 +254,7 @@ class CustomPasswordChangeView(FormView):
         return response
 
 
-class DeleteAccountView(LoginRequiredMixin, FormView):
+class DeleteAccountView(CustomLoginRequiredMixin, FormView):
     template_name = 'User/Profile/delete_account_form.html'
     form_class = DeleteAccountForm
     success_url = reverse_lazy('profile:login')
@@ -267,7 +267,7 @@ class DeleteAccountView(LoginRequiredMixin, FormView):
             return super().form_valid(form)
         return self.form_invalid(form)
 
-class PurchaseHistoryView(LoginRequiredMixin, ListView):
+class PurchaseHistoryView(CustomLoginRequiredMixin, ListView):
     model = Purchase
     template_name = 'User/Profile/purchase_history.html'
     context_object_name = 'purchases'

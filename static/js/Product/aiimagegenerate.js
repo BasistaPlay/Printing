@@ -1,3 +1,4 @@
+import $ from 'jquery';
 const InputTxt = document.getElementById('textInput-Ai');
 const imagesContainer = document.getElementById('generatedImages');
 const loader = document.getElementById('loader');

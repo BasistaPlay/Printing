@@ -1,6 +1,4 @@
 let deferredPrompt;
-import Cookies from "https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.mjs";
-
 window.addEventListener('beforeinstallprompt', (event) => {
     if (window.matchMedia("(max-width: 768px)").matches && !Cookies.get('installBannerClosed')) {
         event.preventDefault();

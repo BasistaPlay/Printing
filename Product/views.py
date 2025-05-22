@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.db.models import Q, Avg
 from django.views.generic import ListView, DetailView
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
+from User_app.mixins import CustomLoginRequiredMixin
 from Product.ConvertBase64 import save_base64_image
 from design.models import TextList, ImageList, Designs
 from django.db.models import Sum
@@ -42,11 +42,10 @@ class CategoryDetailView(DetailView):
         context['products'] = products
         return context
 
-class DesignView(LoginRequiredMixin, DetailView):
+class DesignView(CustomLoginRequiredMixin, DetailView):
     model = Product
     template_name = 'Product/design.html'
     context_object_name = 'product'
-    login_url = '/login/'
 
     def get_object(self, queryset=None):
         product = get_object_or_404(Product, slug=self.kwargs['slug'])
@@ -103,7 +102,7 @@ class DesignView(LoginRequiredMixin, DetailView):
         return super().get(request, *args, **kwargs)
 
 
-class CreativeCornerView(LoginRequiredMixin, ListView):
+class CreativeCornerView(CustomLoginRequiredMixin, ListView):
     template_name = 'Product/creativecorner.html'
     context_object_name = 'page_obj'
     paginate_by = 10
@@ -196,7 +195,7 @@ class ProductDetailView(DetailView):
 
 
 
-class RateDesignView(LoginRequiredMixin, View):
+class RateDesignView(CustomLoginRequiredMixin, View):
 
     def get(self, request, design_id):
         design = get_object_or_404(Designs, id=design_id)
@@ -214,7 +213,7 @@ class RateDesignView(LoginRequiredMixin, View):
 
         return JsonResponse({"error": "Invalid rating"}, status=400)
 
-class SaveDesignView(LoginRequiredMixin, View):
+class SaveDesignView(CustomLoginRequiredMixin, View):
     login_url = '/login/'
 
     def post(self, request, *args, **kwargs):
