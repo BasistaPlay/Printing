@@ -62,7 +62,7 @@ class ProductAdmin(TranslationAdmin):
         }),
     )
 
-    readonly_fields = ('views', )
+    readonly_fields = ('views', 'can_have_ai_image',)
 
 
     class Media:
@@ -127,20 +127,3 @@ class RatingInline(admin.TabularInline):
     def display_product_color(self, obj):
         return format_html('<div style="width: 20px; height: 20px; background-color: {};"></div>', obj.product_color.code)
     display_product_color.short_description = 'Product Color'
-
-
-# from django_recaptcha.models import RecaptchaKeys
-
-# class RecaptchaKeysAdmin(admin.ModelAdmin):
-#     list_display = ('public_key', 'private_key')
-#     search_fields = ['public_key', 'private_key']
-
-#     def save_model(self, request, obj, form, change):
-#         existing_records = RecaptchaKeys.objects.exclude(pk=obj.pk).count()
-#         if existing_records >= 1:
-#             error_message = _("Varat pievienot tikai vienu ierakstu.")
-#             self.message_user(request, error_message, level=messages.ERROR)
-#         else:
-#             super().save_model(request, obj, form, change)
-
-# admin.site.register(RecaptchaKeys, RecaptchaKeysAdmin)

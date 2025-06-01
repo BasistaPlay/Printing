@@ -1,4 +1,9 @@
 import $ from 'jquery';
+import 'jquery-ui/ui/widget';
+import 'jquery-ui/ui/widgets/mouse';
+import 'jquery-ui/ui/widgets/draggable';
+import 'jquery-ui/ui/widgets/resizable';
+import 'jquery-ui-touch-punch';
 let currentSide = localStorage.getItem('currentSide') || 'front';
 localStorage.setItem('currentSide', currentSide);
 
@@ -6,63 +11,58 @@ let editingIndex = -1;
 let isDragging = false;
 let draggedElement = null;
 
-document.getElementById('addTextButton').addEventListener('click', addText);
+document.addEventListener('DOMContentLoaded', () => {
+    const addTextButton = document.getElementById('addTextButton');
+        if (addTextButton) {
+        addTextButton.addEventListener('click', addText);
+        }
 
-function addText() {
-    const textInput = document.getElementById('text-input');
-    const textList = document.getElementById('text-list');
-    const fontSize = document.getElementById('font-size').value + 'px';
-    const textColor = document.getElementById('font-color').value;
-    const editButton = document.getElementById('addTextButton');
-    const fontFamily = document.getElementById('font-select').value
+    function addText() {
+        const textInput = document.getElementById('text-input');
+        const textList = document.getElementById('text-list');
+        const fontSize = document.getElementById('font-size').value + 'px';
+        const textColor = document.getElementById('font-color').value;
+        const editButton = document.getElementById('addTextButton');
+        const fontFamily = document.getElementById('font-select').value;
 
+        editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
 
-    editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
-
-    const text = textInput.value.trim();
-
-    if (text !== '') {
-        const currentSide = getCurrentSide();
-        const textContainer = document.querySelector(`[data-side="${currentSide}"]`);
-
-        if (!textContainer) {
-            console.error(`Text container not found for side: ${currentSide}`);
+        const text = textInput.value.trim();
+        if (text === '') {
+            alert('Please enter text before adding to the list.');
             return;
         }
 
-        let $container = $(`#boundary-${currentSide}`);
-        const containerWidth = $container.width();
+        const currentSide = getCurrentSide();
+        const $container = $(`#text-container[data-side="${currentSide}"]`);
+
         const textElement = document.createElement('div');
-        textElement.className = 'draggable-text relative inline-block max-w-[90%] w-auto ui-draggable ui-draggable-handle ui-resizable';
-        textElement.style.position = 'relative';
-        textElement.style.left = '0';
-        textElement.style.top = '0';
-        textElement.style.maxWidth = '90%';
+        textElement.className = 'draggable-text absolute block max-w-[90%] w-auto';
+        textElement.style.position = 'absolute';
         textElement.innerHTML = `
-                <span class="editable-text inline-block break-words whitespace-normal"
-                        style="color: ${textColor}; font-size: ${fontSize}; font-family: ${fontFamily}; max-width: ${containerWidth}px;">
-                        ${text}
-                </span>`;
-        textContainer.appendChild(textElement);
+            <span class="editable-text break-words whitespace-normal"
+                style="color: ${textColor}; font-size: ${fontSize}; font-family: ${fontFamily};">
+                ${text}
+            </span>`;
+
+        $container.append(textElement);
 
         requestAnimationFrame(() => {
-            const containerWidth = textContainer.offsetWidth;
-            const containerHeight = textContainer.offsetHeight;
+            const containerWidth = $container.width();
+            const containerHeight = $container.height();
 
             const textSpan = textElement.querySelector('.editable-text');
-            textSpan.style.fontSize = fontSize;
-
             const textWidth = textSpan.offsetWidth;
-            textElement.style.width = `${textWidth}px`;
+            const textHeight = textSpan.offsetHeight;
 
-            const elementWidth = textElement.offsetWidth;
-            const elementHeight = textElement.offsetHeight;
+            const centerX = (containerWidth - textWidth) / 2;
+            const centerY = (containerHeight - textHeight) / 2;
 
-            const centerX = (containerWidth - elementWidth) / 2;
-            const centerY = (containerHeight - elementHeight) / 2;
-
+            textSpan.style.maxWidth = `${containerWidth * 0.9}px`;
             textElement.style.left = `${centerX}px`;
             textElement.style.top = `${centerY}px`;
+            textElement.style.width = `${textWidth}px`;
+            textElement.style.height = `${textHeight}px`;
 
             addResizableAndDraggable(textElement, currentSide, fontSize);
         });
@@ -87,118 +87,150 @@ function addText() {
                 </svg>
                 </button>
             </div>
-            `;
-
+        `;
         textList.appendChild(listItem);
 
         textInput.value = '';
-    } else {
-        alert('Please enter text before adding to the list.');
-    }
-}
 
-function addResizableAndDraggable(element, currentSide, fontSize) {
-    const $element = $(element);
-    let $container = $(`#boundary-${currentSide}`);
+        textElement.addEventListener('dblclick', function() {
+            const textSpan = this.querySelector('.editable-text');
+            textSpan.setAttribute('contenteditable', 'true');
+            textSpan.focus();
 
-    function updateContainerSize() {
-        let containerWidth = $container.width();
-        let containerHeight = $container.height();
-        return {
-            maxWidth: containerWidth,
-            maxHeight: containerHeight,
-        };
+            textSpan.addEventListener('blur', function() {
+                textSpan.removeAttribute('contenteditable');
+                const index = $(this).closest('.draggable-text').index();
+                const listItem = document.getElementById('text-list').children[index];
+                const listTextSpan = listItem.querySelector('span');
+                listTextSpan.textContent = textSpan.textContent;
+            }, { once: true });
+        });
     }
 
-    let { maxWidth, maxHeight } = updateContainerSize();
 
-    $(window).on('resize', function() {
-        ({ maxWidth, maxHeight } = updateContainerSize());
-    });
 
-    $element.draggable({
-        containment: `#boundary-${currentSide}`,
-        scroll: false,
-        stop: function(event, ui) {
-            $(this).css({
-                left: ui.position.left + 'px',
-                top: ui.position.top + 'px'
-            });
+    function addResizableAndDraggable(element, currentSide, fontSize) {
+        const $element = $(element);
+        let $container = $(`#text-container[data-side="${currentSide}"]`);
+
+
+        function updateContainerSize() {
+            let containerWidth = $container.width();
+            let containerHeight = $container.height();
+            return {
+                maxWidth: containerWidth,
+                maxHeight: containerHeight,
+            };
         }
-    });
-}
 
-window.editTextInList = function(button) {
-    const listItem = button.parentNode;
-    const textSpan = listItem.querySelector('span');
-    const textInput = document.getElementById('text-input');
-    const textContainer = document.getElementById('text-container');
-    const editButton = document.getElementById('addTextButton');
+        let { maxWidth, maxHeight } = updateContainerSize();
 
-    if (editButton) {
-        editButton.innerHTML = '<i class="fas fa-edit"></i> Edit text';
-    } else {
-        console.error("Element with ID 'addTextButton' not found!");
+        $(window).on('resize', function() {
+            ({ maxWidth, maxHeight } = updateContainerSize());
+        });
+
+        $element.draggable({
+            containment: `#boundary-${currentSide}`,
+            scroll: false,
+            stop: function(event, ui) {
+                $(this).css({
+                    left: ui.position.left + 'px',
+                    top: ui.position.top + 'px'
+                });
+            }
+        });
     }
 
-    const previousTextContent = textSpan.textContent;
-    const previousFontFamily = textSpan.style.fontFamily;
-    const previousFontSize = textSpan.style.fontSize;
-    const previousFontColor = textSpan.style.color;
-
-    textSpan.textContent = textInput.value;
-    textSpan.style.fontFamily = document.getElementById('font-select').value;
-    textSpan.style.fontSize = document.getElementById('font-size').value + 'px';
-    textSpan.style.color = document.getElementById('font-color').value;
-
-    editingIndex = Array.from(listItem.parentNode.children).indexOf(listItem);
-
-    const editedElement = textContainer.children[editingIndex].querySelector('span');
-    editedElement.textContent = textInput.value;
-    editedElement.style.fontFamily = textSpan.style.fontFamily;
-    editedElement.style.fontSize = textSpan.style.fontSize;
-    editedElement.style.color = textSpan.style.color;
-
-    textInput.value = previousTextContent;
-    document.getElementById('font-select').value = previousFontFamily;
-    document.getElementById('font-size').value = parseInt(previousFontSize);
-    hideEmptyTextItems();
-}
-
-function hideEmptyTextItems() {
-    const textList = document.getElementById('text-list');
-    const listItems = textList.querySelectorAll('.text-list-item');
-
-    listItems.forEach(item => {
-        const textSpan = item.querySelector('span');
-        if (textSpan.textContent.trim() === '') {
-            item.style.display = 'none';
-        } else {
-            item.style.display = '';
-        }
-    });
-}
-
-window.deleteText = function(button) {
-    const listItem = button.parentNode;
-    const textList = document.getElementById('text-list');
-    const textContainer = document.getElementById('text-container');
-
-    listItem.remove();
-    textContainer.innerHTML = "";
-
-    for (let i = 0; i < textList.children.length; i++) {
-        const listItem = textList.children[i];
+    window.editTextInList = function(button) {
+        const listItem = button.closest('li'); // Precīzāk nekā parentNode
         const textSpan = listItem.querySelector('span');
+        const textInput = document.getElementById('text-input');
+        const fontSelect = document.getElementById('font-select');
+        const fontSizeInput = document.getElementById('font-size');
+        const fontColorInput = document.getElementById('font-color');
 
-        const textElement = document.createElement('div');
-        textElement.innerHTML = `<span class="editable-text" style="font-size: ${textSpan.style.fontSize}; color: ${textSpan.style.color}; font-family: ${textSpan.style.fontFamily};">${textSpan.textContent}</span>`;
-        textContainer.appendChild(textElement);
+        const currentSide = getCurrentSide();
+        const $container = $(`#text-container[data-side="${currentSide}"]`);
+
+        // Atrodi index
+        const index = Array.from(listItem.parentNode.children).indexOf(listItem);
+        const textElement = $container.children().eq(index).find('.editable-text')[0];
+
+        // Aizpildi input laukus no boundary teksta
+        textInput.value = textElement.textContent;
+        fontSelect.value = textElement.style.fontFamily || '';
+        fontSizeInput.value = parseInt(textElement.style.fontSize) || '';
+        fontColorInput.value = textElement.style.color || '#000000';
+
+        // Atjaunini “Add text” pogas tekstu
+        const editButton = document.getElementById('addTextButton');
+        editButton.innerHTML = '<i class="fas fa-edit"></i> Save changes';
+
+        // Kad lietotājs spiež “Save”, atjaunina datus
+        editButton.onclick = function() {
+            const newText = textInput.value.trim();
+            if (newText === '') {
+                alert('Please enter some text!');
+                return;
+            }
+
+            const newFontFamily = fontSelect.value;
+            const newFontSize = fontSizeInput.value + 'px';
+            const newColor = fontColorInput.value;
+
+            // Atjaunina boundary tekstu
+            textElement.textContent = newText;
+            textElement.style.fontFamily = newFontFamily;
+            textElement.style.fontSize = newFontSize;
+            textElement.style.color = newColor;
+
+            // Atjaunina sarakstā
+            textSpan.textContent = newText;
+            textSpan.style.fontFamily = newFontFamily;
+            textSpan.style.fontSize = newFontSize;
+            textSpan.style.color = newColor;
+
+            // Atjauno pogu uz “Add text”
+            editButton.innerHTML = '<i class="fas fa-plus"></i> Add text';
+            editButton.onclick = addText;
+        };
+    };
+
+
+    function hideEmptyTextItems() {
+        const textList = document.getElementById('text-list');
+        const listItems = textList.querySelectorAll('.text-list-item');
+
+        listItems.forEach(item => {
+            const textSpan = item.querySelector('span');
+            if (textSpan.textContent.trim() === '') {
+                item.style.display = 'none';
+            } else {
+                item.style.display = '';
+            }
+        });
     }
 
-    editingIndex = -1;
-}
+    window.deleteText = function(button) {
+        const listItem = button.closest('li');
+        const textList = document.getElementById('text-list');
 
-function getCurrentSide() {
-    return localStorage.getItem('currentSide') || 'front';
-}
+        const indexToDelete = Array.from(textList.children).indexOf(listItem);
+
+        // Noņem no saraksta
+        listItem.remove();
+
+        // Noņem no text-container!
+        const currentSide = getCurrentSide();
+        const $container = $(`#text-container[data-side="${currentSide}"]`);
+        $container.children().eq(indexToDelete).remove();
+
+        editingIndex = -1;
+    };
+
+
+
+    function getCurrentSide() {
+        return localStorage.getItem('currentSide') || 'front';
+    }
+});

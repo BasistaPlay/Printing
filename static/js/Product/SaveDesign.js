@@ -1,33 +1,37 @@
 import $ from 'jquery';
+
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelector("#buy-now").addEventListener("click", function (event) {
-        var activeColor = document.querySelector('.color-select.active-color')?.getAttribute('data-color-name');
-        var publishCheckbox = document.querySelector("#publish-checkbox")?.checked;
-        var titleInput = document.querySelector("#title-input")?.value.trim();
-        var errorHtml = '';
+  const buyNowButton = document.querySelector("#buy-now");
+  if (buyNowButton) {
+    buyNowButton.addEventListener("click", function (event) {
+      var activeColor = document.querySelector('.color-select.active-color')?.getAttribute('data-color-name');
+      var publishCheckbox = document.querySelector("#publish-checkbox")?.checked;
+      var titleInput = document.querySelector("#title-input")?.value.trim();
+      var errorHtml = '';
 
-        if (!activeColor) {
-            errorHtml += '<p>' + `${gettext("Please select a color")}` + '</p>';
-        }
+      if (!activeColor) {
+        errorHtml += '<p>' + `${gettext("Please select a color")}` + '</p>';
+      }
 
-        if (publishCheckbox && !titleInput) {
-            errorHtml += '<p>' + `${gettext("Title is required")}` + '</p>';
-        }
+      if (publishCheckbox && !titleInput) {
+        errorHtml += '<p>' + `${gettext("Title is required")}` + '</p>';
+      }
 
-        if (errorHtml) {
-            document.getElementById('error-messages').innerHTML = errorHtml;
-            document.getElementById('error-messages').classList.add('show');
+      if (errorHtml) {
+        document.getElementById('error-messages').innerHTML = errorHtml;
+        document.getElementById('error-messages').classList.add('show');
 
-            setTimeout(function () {
-                document.getElementById('error-messages').classList.remove('show');
-            }, 10000);
+        setTimeout(function () {
+          document.getElementById('error-messages').classList.remove('show');
+        }, 10000);
 
-            event.preventDefault();
-            return;
-        }
+        event.preventDefault();
+        return;
+      }
 
-        openBuyNowPopup();
+      openBuyNowPopup();
     });
+  }
 });
 
 function openBuyNowPopup() {

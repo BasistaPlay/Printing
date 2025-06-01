@@ -88,12 +88,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var publishCheckbox = document.getElementById('publish-checkbox');
     var additionalInfo = document.getElementById('additional-info');
 
-    publishCheckbox.addEventListener('change', function() {
-        if (this.checked) {
-            additionalInfo.class.display = 'block';
-        } else {
-            additionalInfo.class.display = 'hidden';
-        }
-    });
+    if (publishCheckbox && additionalInfo) {
+        publishCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                additionalInfo.classList.remove('hidden');
+            } else {
+                additionalInfo.classList.add('hidden');
+            }
+        });
+    }
+
+
 
 });

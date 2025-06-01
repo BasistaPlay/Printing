@@ -48,6 +48,17 @@
         @apply absolute top-7 right-36 rounded-full bg-main-color text-white flex items-center justify-center w-5 h-5 text-xs text-center;
     }
 
+    .ui-resizable-handle {
+    @apply absolute block w-2 h-2 rounded-sm;
+    background-color: var(--main-color);
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    }
+
+    .ui-resizable-handle:hover {
+    opacity: 1;
+    }
+
 
     .nav-content-second{
         display: none;

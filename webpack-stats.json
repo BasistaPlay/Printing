@@ -1,0 +1,21 @@
+{
+  "status": "done",
+  "assets": {
+    "main.0cfc07771b9b01958158.js": {
+      "name": "main.0cfc07771b9b01958158.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.0cfc07771b9b01958158.js",
+      "publicPath": "/static/dist/main.0cfc07771b9b01958158.js"
+    },
+    "main.0cfc07771b9b01958158.js.LICENSE.txt": {
+      "name": "main.0cfc07771b9b01958158.js.LICENSE.txt",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.0cfc07771b9b01958158.js.LICENSE.txt",
+      "publicPath": "/static/dist/main.0cfc07771b9b01958158.js.LICENSE.txt"
+    }
+  },
+  "chunks": {
+    "main": [
+      "main.0cfc07771b9b01958158.js"
+    ]
+  },
+  "publicPath": "/static/dist/"
+}

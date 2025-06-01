@@ -40,7 +40,6 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
@@ -208,3 +207,4 @@ output.css
 static/src/output.css
 ecomerce/urls.py
 static/manifest.json
+webpack-stats.json

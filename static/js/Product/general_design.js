@@ -66,54 +66,44 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     const plus = document.querySelector(".plus"),
-        minus = document.querySelector(".minus"),
-        num = document.querySelector(".num");
+      minus = document.querySelector(".minus"),
+      num = document.querySelector(".num");
 
-    let a = 1;
+    if (plus && minus && num) {
+        let a = 1;
 
-    function updateNumDisplay() {
-        num.innerText = a < 10 ? '0' + a : a;
-    }
+        function updateNumDisplay() {
+            num.innerText = a < 10 ? '0' + a : a;
+        }
 
-    plus.addEventListener('click', () => {
-        a++;
-        updateNumDisplay();
-    });
-
-    minus.addEventListener('click', () => {
-        if (a > 1) {
-            a--;
+        plus.addEventListener('click', () => {
+            a++;
             updateNumDisplay();
-        }
-    });
+        });
 
-    updateNumDisplay();
+        minus.addEventListener('click', () => {
+            if (a > 1) {
+                a--;
+                updateNumDisplay();
+            }
+        });
 
-    var infoIcon = document.querySelector('.info-icon');
-    var modal = document.getElementById('info-modal');
-    var closeBtn = document.querySelector('.close');
-
-    infoIcon.addEventListener('click', function() {
-        modal.style.display = 'block';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
-        }
-    });
+        updateNumDisplay();
+    }
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    const checkbox = document.getElementById("publish-checkbox");
-    const additionalInfo = document.getElementById("additional-info");
+  const checkbox = document.getElementById("publish-checkbox");
+  const additionalInfo = document.getElementById("additional-info");
 
+  if (checkbox && additionalInfo) {
     checkbox.addEventListener("change", function () {
-        if (this.checked) {
-            additionalInfo.classList.remove("hidden");
-        } else {
-            additionalInfo.classList.add("hidden");
-        }
+      if (this.checked) {
+        additionalInfo.classList.remove("hidden");
+      } else {
+        additionalInfo.classList.add("hidden");
+      }
     });
+  }
 });
 
