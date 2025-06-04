@@ -1,38 +1,21 @@
 {
   "status": "done",
   "assets": {
-    "main.41920db319043a17c12e.js": {
-      "name": "main.41920db319043a17c12e.js",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.41920db319043a17c12e.js",
-      "publicPath": "/static/dist/main.41920db319043a17c12e.js"
+    "main.e275c85f625b0136f713.js": {
+      "name": "main.e275c85f625b0136f713.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.e275c85f625b0136f713.js",
+      "publicPath": "/static/dist/main.e275c85f625b0136f713.js"
     },
-    "main.4660420748fc88345174.js": {
-      "name": "main.4660420748fc88345174.js",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.4660420748fc88345174.js",
-      "publicPath": "/static/dist/main.4660420748fc88345174.js"
-    },
-    "main.5459f3aeaa45e6f9d9e9.js": {
-      "name": "main.5459f3aeaa45e6f9d9e9.js",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.5459f3aeaa45e6f9d9e9.js",
-      "publicPath": "/static/dist/main.5459f3aeaa45e6f9d9e9.js"
-    },
-    "main.a0c6d7ac9d0175055a92.js": {
-      "name": "main.a0c6d7ac9d0175055a92.js",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.a0c6d7ac9d0175055a92.js",
-      "publicPath": "/static/dist/main.a0c6d7ac9d0175055a92.js"
-    },
-    "main.a1b9cb989b0ff0153ab7.js": {
-      "name": "main.a1b9cb989b0ff0153ab7.js",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.a1b9cb989b0ff0153ab7.js",
-      "publicPath": "/static/dist/main.a1b9cb989b0ff0153ab7.js"
+    "main.e275c85f625b0136f713.js.LICENSE.txt": {
+      "name": "main.e275c85f625b0136f713.js.LICENSE.txt",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.e275c85f625b0136f713.js.LICENSE.txt",
+      "publicPath": "/static/dist/main.e275c85f625b0136f713.js.LICENSE.txt"
     }
   },
   "chunks": {
     "main": [
-      "main.4660420748fc88345174.js"
+      "main.e275c85f625b0136f713.js"
     ]
   },
-  "publicPath": "/static/dist/",
-  "error": "ModuleNotFoundError",
-  "message": "Module not found: Error: Can't resolve './home/home_page.js' in '/home/edis/MyProjects/Printing/static/js'"
+  "publicPath": "/static/dist/"
 }
