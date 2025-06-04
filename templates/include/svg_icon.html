@@ -1,0 +1,18 @@
+{% with final_classes=classes|default:'' %}
+  <svg
+    {% if id %}
+      id="{{ id }}"
+    {% endif %}
+    width="{{ size|default:'20' }}"
+    height="{{ size|default:'20' }}"
+    fill="{{ fill|default:'none' }}"
+    class="{{ final_classes }}"
+    {% if onclick %} onclick="{{ onclick }}" {% endif %}
+    {% if rotate %}
+      x-bind:class="{ 'rotate-180': {{ rotate }} }"
+    {% endif %}
+    {% if xclick %} x-on:click="{{ xclick }}" {% endif %}
+  >
+    <use xlink:href="/static/svg/sprite.svg#{{ name }}"></use>
+  </svg>
+{% endwith %}

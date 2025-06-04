@@ -14,9 +14,7 @@
             </div>
             <button id="install-btn" class="base-page-btn">{% trans "Pievienot" %}</button>
             <button id="close-btn" class="ml-2 text-text-color w-8 h-8 flex items-center justify-center">
-                <svg width="20" height="20" style="color: var(--text-color);">
-                    <use xlink:href="/static/svg/sprite.svg#close"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="close" %}
             </button>
         </div>
     </div>
@@ -35,9 +33,7 @@
             </div>
             <button @click="open = !open" class="base-page-btn">{% trans "Pievienot" %}</button>
             <button id="close-btn-ios" class="ml-2 text-text-color w-8 h-8 flex items-center justify-center">
-                <svg width="20" height="20" style="color: var(--text-color);">
-                    <use xlink:href="/static/svg/sprite.svg#close"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="close" %}
             </button>
         </div>
 

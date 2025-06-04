@@ -48,9 +48,7 @@
                 <li>
                     <a href="{% url 'product:all_categories' %}" class="bg-second-color shadow-lg rounded-lg p-4 min-w-[200px] md:min-w-[250px] flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                         <div class="relative w-full h-40 md:h-48 overflow-hidden flex justify-center items-center">
-                            <svg id="menu-icon-svg" width="40" height="40" style="fill: var(--text-color);">
-                                <use xlink:href="/static/svg/sprite.svg#menu"></use>
-                            </svg>
+                            {% include "include/svg_icon.html" with name="menu" size=40 classes="fill-current" %}
                         </div>
                         <div class="mt-4 text-center">
                             <h3 class="text-lg md:text-xl font-semibold text-main-color">{% trans "Kategorija" %}</h3>
@@ -107,9 +105,7 @@
                 <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                            <svg width="40" height="40" class="text-white md:w-25 md:h-25">
-                                <use xlink:href="/static/svg/sprite.svg#question"></use>
-                            </svg>
+                            {% include "include/svg_icon.html" with name="question" size=40 classes='text-white' %}
                         </div>
                     </div>
                     <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Kāpēc publicēt savu darbu?" %}</h2>
@@ -121,9 +117,7 @@
                 <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                            <svg width="40" height="40" class="text-white md:w-25 md:h-25">
-                                <use xlink:href="/static/svg/sprite.svg#money"></use>
-                            </svg>
+                            {% include "include/svg_icon.html" with name="money" size=40 classes='text-white' %}
                         </div>
                     </div>
                     <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Mazliet nopelnīt" %}</h2>
@@ -135,9 +129,7 @@
                 <div class="group bg-second-color p-6 md:p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="flex justify-center mb-6">
                         <div class="w-16 h-16 md:w-20 md:h-20 bg-main-color rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                            <svg width="40" height="40" class="text-white md:w-25 md:h-25">
-                                <use xlink:href="/static/svg/sprite.svg#wallet"></use>
-                            </svg>
+                            {% include "include/svg_icon.html" with name="wallet" size=40 classes='text-white' %}
                         </div>
                     </div>
                     <h2 class="text-xl md:text-2xl font-bold text-center text-main-color group-hover:text-opacity-80 transition-colors duration-300">{% trans "Digitālais maks" %}</h2>
@@ -174,15 +166,11 @@
                             {% for _ in "54321"|make_list %}
                                 {% if forloop.counter <= product.average_rating %}
                                     <span class="star active">
-                                        <svg width="20" height="20" class="text-yellow-500">
-                                            <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                        </svg>
+                                        {% include "include/svg_icon.html" with name="star" classes='text-yellow-500' %}
                                     </span>
                                 {% else %}
                                 <span class="star">
-                                    <svg width="20" height="20">
-                                        <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                    </svg>
+                                    {% include "include/svg_icon.html" with name="star" %}
                                 </span>
                                 {% endif %}
                             {% endfor %}
@@ -202,9 +190,7 @@
                 <div x-data="{ open: false }" class="border-b border-gray-300 py-4">
                     <h2 @click="open = !open" class="text-lg md:text-xl font-semibold text-main-color cursor-pointer flex justify-between items-center">
                         {{ faq.question }}
-                        <svg width="25" height="25" x-bind:class="{ 'rotate-180': open }" class="transform transition-transform duration-300" fill="none" >
-                            <use xlink:href="/static/svg/sprite.svg#arrow"></use>
-                        </svg>
+                        {% include "include/svg_icon.html" with name="arrow" size="25" classes="text-black" rotate='open' %}
                     </h2>
                     <p x-show="open" x-transition class="mt-2 text-text-color text-base md:text-lg">
                         {{ faq.answer }}

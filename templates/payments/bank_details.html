@@ -12,37 +12,27 @@
             <li class="relative mb-4">
                 <label for="bank_name" class="block text-text-color font-semibold mb-1">{% trans "Banka" %}:</label>
                 <input type="text" id="bank_name" value="{{ bank_details.bank_name }}" readonly class="block w-full bg-input-readonly-color border border-gray-300 rounded px-3 py-2 pr-12 transition-colors duration-500 focus:outline-none focus:border-main-color text-text-color">
-                <svg width="20" height="20" class="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('bank_name')">
-                    <use xlink:href="/static/svg/sprite.svg#copy"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="copy" classes="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('bank_name')"%}
             </li>
             <li class="relative mb-4">
                 <label for="bank_name" class="block text-text-color font-semibold mb-1">{% trans "Saņēmējs" %}:</label>
                 <input type="text" id="bank_name" value="{{ bank_details.recipient }}" readonly class="block w-full bg-input-readonly-color border border-gray-300 rounded px-3 py-2 pr-12 transition-colors duration-500 focus:outline-none focus:border-main-color text-text-color">
-                <svg width="20" height="20" class="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('bank_name')">
-                    <use xlink:href="/static/svg/sprite.svg#copy"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="copy" classes="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('bank_name')"%}
             </li>
             <li class="relative mb-4">
                 <label for="account_number" class="block text-text-color font-semibold mb-1">{% trans "Konta numurs" %}:</label>
                 <input type="text" id="account_number" value="{{ bank_details.account_number }}" readonly class="block w-full bg-input-readonly-color border border-gray-300 rounded px-3 py-2 pr-12 transition-colors duration-500 focus:outline-none focus:border-main-color text-text-color">
-                <svg width="20" height="20" class="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('account_number')">
-                    <use xlink:href="/static/svg/sprite.svg#copy"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="copy" classes="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('account_number')"%}
             </li>
             <li class="relative mb-4">
                 <label for="amount" class="block text-text-color font-semibold mb-1">{% trans "Summa" %}:</label>
                 <input type="text" id="amount" value="{{ amount }}" readonly class="block w-full bg-input-readonly-color border border-gray-300 rounded px-3 py-2 pr-12 transition-colors duration-500 focus:outline-none focus:border-main-color text-text-color">
-                <svg width="20" height="20" class="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('amount')">
-                    <use xlink:href="/static/svg/sprite.svg#copy"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="copy" classes="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('amount')"%}
             </li>
             <li class="relative mb-4">
                 <label for="order_number" class="block text-text-color font-semibold mb-1">{% trans "Maksājuma mērķis" %}:</label>
                 <input type="text" id="order_number" value="{{ order_number }}" readonly class="block w-full bg-input-readonly-color border border-gray-300 rounded px-3 py-2 pr-12 transition-colors duration-500 focus:outline-none focus:border-main-color text-text-color">
-                <svg width="20" height="20" class="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('order_number')">
-                    <use xlink:href="/static/svg/sprite.svg#copy"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="copy" classes="absolute right-3 top-2/3 transform -translate-y-1/2 fill-main-color cursor-pointer" onclick="copyToClipboard('order_number')"%}
             </li>
         </ul>
 

@@ -16,9 +16,7 @@
                 {% for starreiting in star_range %}
                     <div class='star {% if starreiting <= product_list.average_rating %}active{% endif %}'>
                         <span class="star" data-rating="{{ starreiting }}">
-                            <svg width="30" height="30" style="fill:grey">
-                                <use xlink:href="/static/svg/sprite.svg#star"></use>
-                            </svg>
+                            {% include "include/svg_icon.html" with name="star" size=30 classes='text-grey' %}
                         </span>
                     </div>
                 {% endfor %}

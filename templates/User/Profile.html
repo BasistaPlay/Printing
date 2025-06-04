@@ -10,32 +10,25 @@
             <ul class="list-none flex max-md:flex-col">
                 <li class="ml-6 ">
                     <a class="nav-link" href="{% url 'profile:personal_info' %}">
-                        <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
-                            <use xlink:href="/static/svg/sprite.svg#user"></use>
-                        </svg>
+                        {% include "include/svg_icon.html" with name="user" classes='mr-2'%}
                         {% trans "Personīgā informācija" %}
                     </a>
                 </li>
                 <li class="ml-6">
                     <a class="nav-link" href="{% url 'profile:change_password' %}">
-                        <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
-                            <use xlink:href="/static/svg/sprite.svg#key"></use>
-                        </svg> {% trans "Paroles maiņa" %}
+                        {% include "include/svg_icon.html" with name="key" classes='mr-2'%}
+                        {% trans "Paroles maiņa" %}
                     </a>
                 </li>
                 <li class="ml-6">
                     <a class="nav-link" href="{% url 'profile:order_history' %}">
-                        <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
-                            <use xlink:href="/static/svg/sprite.svg#order"></use>
-                        </svg>
+                        {% include "include/svg_icon.html" with name="order" classes='mr-2'%}
                         {% trans "Pasūtījumu vēsture" %}
                     </a>
                 </li>
                 <li class="ml-6">
                     <a class="nav-link" href="{% url 'profile:delete_account' %}">
-                        <svg width="20" height="20" style="fill: var(--text-color); margin-right: 8px;">
-                            <use xlink:href="/static/svg/sprite.svg#trash"></use>
-                        </svg>
+                        {% include "include/svg_icon.html" with name="trash" classes='mr-2'%}
                         {% trans "Dzēst kontu" %}
                     </a>
                 </li>

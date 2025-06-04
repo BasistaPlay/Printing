@@ -95,9 +95,7 @@
             <span class="text-text-color text-sm">{% trans 'Apstiprinu, ka vēlos publicēt savu darbu' %}</span>
           </label>
           <span class="info-icon cursor-pointer" @click="showModal = true">
-            <svg width="20" height="20" style="color: var(--main-color);">
-              <use xlink:href="/static/svg/sprite.svg#info"></use>
-            </svg>
+            {% include "include/svg_icon.html" with name="info" classes='text-main-color' %}
           </span>
         </div>
 
@@ -128,9 +126,7 @@
             x-transition:leave-end="opacity-0"
           >
             <span class="absolute top-4 right-4 cursor-pointer" @click="showModal = false">
-              <svg width="20" height="20">
-                <use xlink:href="/static/svg/sprite.svg#close"></use>
-              </svg>
+              {% include "include/svg_icon.html" with name="close" %}
             </span>
 
             <div class="text-center mb-4 sm:mb-6">
@@ -173,9 +169,7 @@
         <div class="text-center flex flex-col justify-center items-center relative">
             <div class="upload-area p-5 border-2 border-dashed border-[var(--text-color)] rounded-lg cursor-pointer w-4/5 transition-all duration-300 ease-in-out flex gap-3 justify-center items-center">
                 <div class="max-w-20">
-                    <svg width="60" height="60" style="color: var(--text-color);">
-                        <use xlink:href="/static/svg/sprite.svg#upload"></use>
-                    </svg>
+                    {% include "include/svg_icon.html" with name="upload" size=60 %}
                 </div>
                 <p class="contents font-bold text-text-color]">{% trans 'Nometiet attēlus vai' %}<span class="text-main-color"> {% trans ' Pārlūkot' %}</span></p>
             </div>
@@ -252,9 +246,7 @@
       id="addTextButton"
       class="flex items-center gap-2 bg-[var(--main-color)] text-white px-4 py-2 rounded-lg hover:opacity-90 transition-all duration-200"
     >
-      <svg width="20" height="20" fill="currentColor">
-        <use xlink:href="/static/svg/sprite.svg#plus"></use>
-      </svg>
+      {% include "include/svg_icon.html" with name="plus" %}
       {% trans 'Pievienot tekstu' %}
     </button>
   </div>
@@ -295,40 +287,30 @@
 
 <div class="flex bg-second-color p-4 rounded-xl shadow-md max-md:flex-wrap max-md:w-[95%] flex-col max-md:flex-row">
     <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="generalIcon">
-      <svg width="24" height="24" class="text-[var(--text-color)] transition-transform group-hover:scale-110">
-        <use xlink:href="/static/svg/sprite.svg#settings"></use>
-      </svg>
+      {% include "include/svg_icon.html" with name="settings" size=24 classes='text-[var(--text-color)] transition-transform group-hover:scale-110' %}
     </div>
 
     {% if product.can_have_image %}
     <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="imageIcon">
-      <svg width="24" height="24" class="text-[var(--text-color)] transition-transform group-hover:scale-110">
-        <use xlink:href="/static/svg/sprite.svg#image"></use>
-      </svg>
+      {% include "include/svg_icon.html" with name="image" size=24 classes='text-[var(--text-color)] transition-transform group-hover:scale-110' %}
     </div>
     {% endif %}
 
     {% if product.can_have_text %}
     <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="textIcon">
-      <svg width="24" height="24" class="text-[var(--text-color)] transition-transform group-hover:scale-110">
-        <use xlink:href="/static/svg/sprite.svg#text"></use>
-      </svg>
+      {% include "include/svg_icon.html" with name="text" size=24 classes='text-[var(--text-color)] transition-transform group-hover:scale-110' %}
     </div>
     {% endif %}
 
     {% if product.can_have_ai_image %}
     <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="Ai-generatoricon">
-      <svg width="24" height="24" class="fill-[var(--text-color)] transition-transform group-hover:scale-110">
-        <use xlink:href="/static/svg/sprite.svg#AI"></use>
-      </svg>
+      {% include "include/svg_icon.html" with name="AI" size=24 classes='text-[var(--text-color)] transition-transform group-hover:scale-110' %}
     </div>
     {% endif %}
 
     {% if product.can_be_rotate %}
     <div class="flex-1 flex flex-col items-center justify-center group cursor-pointer" id="roatateicon">
-      <svg width="24" height="24" class="text-[var(--text-color)] transition-transform group-hover:scale-110">
-        <use xlink:href="/static/svg/sprite.svg#rotate"></use>
-      </svg>
+      {% include "include/svg_icon.html" with name="rotate" size=24 classes='text-[var(--text-color)] transition-transform group-hover:scale-110' %}
     </div>
     {% endif %}
   </div>

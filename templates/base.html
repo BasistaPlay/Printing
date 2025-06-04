@@ -75,9 +75,7 @@
             {% if user.is_authenticated %}
             <div class="relative dropdown nav-content">
                 <a href="javascript:void(0)" class="base-page-btn" id="dropdownButton">
-                    <svg width="20" height="20" style="color: white;">
-                        <use xlink:href="/static/svg/sprite.svg#user"></use>
-                    </svg>
+                    {% include "include/svg_icon.html" with name="user" %}
                     {% trans 'Profils' %}
                 </a>
                 <div id="dropdownMenu" class="dropdown-content absolute bg-white border border-gray-300 rounded-lg shadow-lg w-48 z-10 hidden group">
@@ -89,25 +87,19 @@
                 <a href='{% url 'login' %}' class='base-page-btn nav-content'>{% trans 'Pierakstīties' %}</a>
             {% endif %}
             <div id="menu-icon" class='text-4xl text-text-color z-[10001] cursor-pointer m-4 nav-content-second'>
-                <svg id="menu-icon-svg" width="25" height="25" style="fill: var(--text-color);">
-                    <use xlink:href="/static/svg/sprite.svg#menu"></use>
-                </svg>
-                <svg id="close-icon-svg" width="25" height="25" style="fill: var(--text-color); display: none;">
-                    <use xlink:href="/static/svg/sprite.svg#close"></use>
-                </svg>
+
+                {% include "include/svg_icon.html" with name="menu" id='menu-icon-svg' size=25 classes="fill-current" %}
+                {% include "include/svg_icon.html" with name="close" id='close-icon-svg' size=25 classes="hidden" %}
+
             </div>
             <a href="{% url 'shopping_cart:cart' %}" class="text-4xl text-text-color z-[10001] cursor-pointer m-4 max-md:hidden">
-                <svg width="25" height="25" style="fill: var(--text-color);">
-                    <use xlink:href="/static/svg/sprite.svg#shopping_cart"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="shopping_cart" size=25 classes="fill-current" %}
                 {% if request.session.cart|length >= 1 %}
                     <span id="cart-count">{{ request.session.cart|length }}</span>
                 {% endif %}
             </a>
             <div id="darkmode" class='text-4xl text-text-color z-[10001] cursor-pointer m-4 '>
-                <svg width="25" height="25" style="fill: var(--text-color);">
-                    <use xlink:href="/static/svg/sprite.svg#moon-ico"></use>
-                </svg>
+                {% include "include/svg_icon.html" with name="moon-ico" size=25 classes="fill-current" %}
             </div>
             <div class="relative inline-block">
                 <div class="dropdown">

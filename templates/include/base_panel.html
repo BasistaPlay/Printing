@@ -1,9 +1,7 @@
 <div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
     <div class="bg-second-color p-6 rounded-lg max-w-3xl w-full relative opacity-0 transition-opacity duration-300 ease-in-out" id="modal-content">
         <button class="absolute top-2 right-2 text-gray-700" onclick="closeModal()">
-            <svg width="24" height="24" class="mx-auto mb-4 text-text-color">
-                <use xlink:href="/static/svg/sprite.svg#close"></use>
-            </svg>
+            {% include "include/svg_icon.html" with name="close" size=24 classes='mx-auto mb-4 text-text-color' %}
         </button>
         <div id="product-modal-content"></div>
     </div>

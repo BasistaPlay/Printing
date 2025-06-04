@@ -59,14 +59,10 @@
                         </p>
                         <div class="flex justify-center mt-3 gap-3">
                             <a href="{% provider_login_url 'facebook' %}" class="social-icon">
-                                <svg width="25" height="25" style='color: var(--text-color);'>
-                                    <use xlink:href="/static/svg/sprite.svg#facebook"></use>
-                                </svg>
+                                {% include "include/svg_icon.html" with name="facebook" size=25 %}
                             </a>
                             <a href="{% provider_login_url 'google' %}" class="social-icon">
-                                <svg width="25" height="25" style='fill: var(--text-color);'>
-                                    <use xlink:href="/static/svg/sprite.svg#google"></use>
-                                </svg>
+                                {% include "include/svg_icon.html" with name="google" size=25 %}
                             </a>
                         </div>
                     </div>

@@ -29,25 +29,19 @@
                             {% if Contact %}
                                 {% if Contact.address %}
                                     <li class="flex items-center">
-                                        <svg class="w-6 h-6 mr-3" fill="currentColor">
-                                            <use xlink:href="/static/svg/sprite.svg#location"></use>
-                                        </svg>
+                                        {% include "include/svg_icon.html" with name="location" classes='w-6 h-6 mr-3'%}
                                         <span>{{ Contact.address }}<br>{{ Contact.postal_code }}</span>
                                     </li>
                                 {% endif %}
                                 {% if Contact.email %}
                                     <li class="flex items-center">
-                                        <svg class="w-6 h-6 mr-3" fill="currentColor">
-                                            <use xlink:href="/static/svg/sprite.svg#email"></use>
-                                        </svg>
+                                        {% include "include/svg_icon.html" with name="email" classes='w-6 h-6 mr-3'%}
                                         <a href="mailto:{{ Contact.email }}" class="underline">{{ Contact.email }}</a>
                                     </li>
                                 {% endif %}
                                 {% if Contact.phone_number %}
                                     <li class="flex items-center">
-                                        <svg class="w-6 h-6 mr-3" fill="currentColor">
-                                            <use xlink:href="/static/svg/sprite.svg#phone"></use>
-                                        </svg>
+                                        {% include "include/svg_icon.html" with name="phone" classes='w-6 h-6 mr-3'%}
                                         <a href="tel:{{ Contact.phone_number }}">{{ Contact.phone_number }}</a>
                                     </li>
                                 {% endif %}
@@ -57,17 +51,17 @@
                     <div class="mt-8 flex space-x-4">
                         {% if Contact.facebook_link %}
                             <a href="{{ Contact.facebook_link }}" class="text-white hover:text-gray-300">
-                                <svg class="w-6 h-6" fill="currentColor"><use xlink:href="/static/svg/sprite.svg#facebook"></use></svg>
+                                {% include "include/svg_icon.html" with name="facebook" classes='w-6 h-6 mr-3'%}
                             </a>
                         {% endif %}
                         {% if Contact.instagram_link %}
                             <a href="{{ Contact.instagram_link }}" class="text-white hover:text-gray-300">
-                                <svg class="w-6 h-6" fill="currentColor"><use xlink:href="/static/svg/sprite.svg#instagram"></use></svg>
+                                {% include "include/svg_icon.html" with name="instagram" classes='w-6 h-6 mr-3' fill='currentColor'%}
                             </a>
                         {% endif %}
                         {% if Contact.twitter_link %}
                             <a href="{{ Contact.twitter_link }}" class="text-white hover:text-gray-300">
-                                <svg class="w-6 h-6" fill="currentColor"><use xlink:href="/static/svg/sprite.svg#twitter"></use></svg>
+                                {% include "include/svg_icon.html" with name="twitter" classes='w-6 h-6 mr-3' fill='currentColor' %}
                             </a>
                         {% endif %}
                     </div>
