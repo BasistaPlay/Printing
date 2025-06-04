@@ -27,6 +27,9 @@ import './darkmode.js';
 import './base.js';
 import './app.js';
 
+// === HOME ===
+import './home/home_page.js';
+
 // === USER ===
 import './User/account.js';
 import './User/phone.js';
