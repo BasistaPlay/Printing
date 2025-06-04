@@ -88,13 +88,13 @@
 
         <div class="md:hidden space-y-4">
             {% for purchase in purchases %}
-                <div class="border border-gray-300 rounded-lg p-4 bg-white shadow-sm">
+                <div class="border border-gray-300 rounded-lg p-4 bg-bg2-color shadow-sm">
                 <div class="flex justify-between items-center mb-2 text-sm text-gray-500">
                     <div class="flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10m-5 4v4m0 4h.01M12 7v4"/>
                     </svg>
-                    {{ purchase.created_at }}
+                    <p class="text-text-color">{{ purchase.created_at }}</p>
                     </div>
                     <div class="font-bold text-base text-main-color">{{ purchase.amount }}</div>
                     <div>
@@ -111,9 +111,9 @@
                 {% for item in purchase.purchase_products.all %}
                     <div class="mb-1">
                         <span class="font-medium text-main-color">{% trans 'Produkts:' %}</span>
-                        <span>{{ item.product.title }}</span>
+                        <span class="text-text-color">{{ item.product.title }}</span>
                     </div>
-                        <div class="text-gray-600 text-sm mb-2">
+                        <div class="text-text-color text-sm mb-2">
                         <span class="font-medium">{% trans 'Daudzums:' %}</span>
                         <span>{{ item.quantity }}</span>
                     </div>
