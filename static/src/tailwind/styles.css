@@ -135,7 +135,7 @@
 }
 
 .marquee-content li {
-  @apply flex justify-center items-center flex-shrink-0 max-h-full whitespace-nowrap;
+  @apply flex justify-center flex-shrink-0 max-h-full whitespace-nowrap max-2xl:m-16 max-sm:m-4;
   width: var(--marquee-element-width);
 }
 

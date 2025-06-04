@@ -31,9 +31,6 @@ import './app.js';
 import './User/account.js';
 import './User/phone.js';
 
-// === HOME ===
-import './home/home_page.js';
-
 // === PRODUCT ===
 import './Product/addimage.js';
 import './Product/addtext.js';

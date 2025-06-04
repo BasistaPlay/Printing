@@ -1,51 +1,115 @@
 {% load i18n %}
 
-<div class="p-6">
-    <div class="relative flex flex-col lg:flex-row bg-second-color rounded-xl max-w-[1000px] mx-auto lg:space-x-8 max-md:mt-8">
-
-        <div x-data="{ currentImage: '{{ product.front_image.url }}' }" class="relative max-w-[400px] w-full mx-auto lg:mx-0">
-            <div class="relative w-full">
-                <img id="headphoneImage1" :data-src="currentImage" class="lazyload h-auto rounded-xl w-full shadow-lg transition-transform duration-300 transform hover:scale-105 no-search">
+<div class="p-4 sm:p-6 max-w-full mx-auto overflow-y-auto py-16">
+    <div class="relative flex flex-col lg:flex-row bg-second-color rounded-xl w-full lg:space-x-8">
+        <div x-data="{ currentImage: '{{ product.front_image.url }}' }" class="w-full max-w-full mx-auto">
+            <div class="w-full">
+                <img id="headphoneImage1"
+                :data-src="currentImage"
+                class="lazyload h-auto w-full object-contain rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 no-search max-md:max-h-56">
             </div>
-            <div class="flex justify-center mt-5 space-x-2">
-                <img
-                    class="lazyload w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
-                    :class="{ 'opacity-100': currentImage === '{{ product.front_image.url }}', 'opacity-80': currentImage !== '{{ product.front_image.url }}' }"
-                    @click="currentImage = '{{ product.front_image.url }}'"
-                    data-src="{{ product.front_image.url }}"
-                    alt="Thumbnail 1">
-                <img
-                    class="lazyload w-16 h-16 cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
-                    :class="{ 'opacity-100': currentImage === '{{ product.back_image.url }}', 'opacity-80': currentImage !== '{{ product.back_image.url }}' }"
-                    @click="currentImage = '{{ product.back_image.url }}'"
-                    data-src="{{ product.back_image.url }}"
-                    alt="Thumbnail 2">
+            <div class="flex justify-center mt-2 gap-2 overflow-x-auto">
+                <img class="lazyload w-14 h-14 sm:w-16 sm:h-16 cursor-pointer rounded opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
+                :class="{ 'opacity-100': currentImage === '{{ product.front_image.url }}' }"
+                @click="currentImage = '{{ product.front_image.url }}'"
+                data-src="{{ product.front_image.url }}"
+                alt="Thumbnail 1">
+                <img class="lazyload w-14 h-14 sm:w-16 sm:h-16 cursor-pointer rounded opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
+                :class="{ 'opacity-100': currentImage === '{{ product.back_image.url }}' }"
+                @click="currentImage = '{{ product.back_image.url }}'"
+                data-src="{{ product.back_image.url }}"
+                alt="Thumbnail 2">
             </div>
         </div>
 
-        <div class="mt-12 lg:mt-0 text-center lg:text-left max-w-[600px] w-full mx-auto">
-            <h3 class="text-s font-semibold text-text-color max-md:text-2xl">{{ product.author }}</h3>
-            <h1 class="text-3xl font-bold text-text-color mb-4 max-md:text-2xl">{{ product.title }}</h1>
-            <p class="text-2xl text-main-color font-semibold flex items-center justify-center lg:justify-start max-md:text-xl">
-                {{ product.product.price }} €
-            </p>
+        <div class="mt-4 lg:mt-0 text-center lg:text-left w-full max-w-full px-2">
+            <h3 class="text-sm font-semibold text-text-color">{{ product.author }}</h3>
+            <h1 class="text-xl sm:text-2xl font-bold text-text-color mb-2 break-words">{{ product.title }}</h1>
+            <p class="text-lg sm:text-xl text-main-color font-semibold mb-2">{{ product.product.price }} €</p>
 
             {% with product.average_rating|floatformat:0 as avg_rating %}
                 <div x-data="{ rating: {{ product.average_rating }} }">
-                    <div class="flex items-center space-x-1 mt-3 max-md:justify-center">
-                        {% for star in "12345" %}
-                            <div class="star {% if star <= avg_rating %}active{% endif %}">
-                                <svg
-                                    width="30" height="30"
-                                    class="cursor-pointer transition-all duration-200 hover:scale-110"
-                                    @click="rating = {{ star }}; $dispatch('rate', { stars: {{ star }} })">
-                                    <use xlink:href="/static/svg/sprite.svg#star"></use>
-                                </svg>
-                            </div>
-                        {% endfor %}
+                    <div class="flex items-center justify-center lg:justify-start gap-1 mt-2">
+                    {% for star in "12345" %}
+                    <svg width="24" height="24"
+                        class="cursor-pointer transition-transform duration-200 hover:scale-110 text-yellow-500"
+                        @click="rating = {{ star }}; $dispatch('rate', { stars: {{ star }} })">
+                        <use xlink:href="/static/svg/sprite.svg#star"></use>
+                    </svg>
+                    {% endfor %}
                     </div>
                 </div>
             {% endwith %}
+
+            {% with share_text="Apskati šo lielisko dizainu! Es to atradu un domāju, ka arī Tev tas patiks!"|urlencode %}
+            <div class="flex flex-wrap gap-3 mt-6">
+                <a x-data="{ show: false }"
+                    @mouseenter="show = true" @mouseleave="show = false"
+                    href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}&quote={{ share_text }}"
+                    target="_blank"
+                    class="relative flex items-center justify-center bg-blue-600 text-white rounded p-2 hover:bg-blue-700 transition">
+                    <svg width="20" height="20" style="color: white;"><use xlink:href="/static/svg/sprite.svg#facebook"></use></svg>
+                    <div x-show="show"
+                        x-transition
+                        class="absolute bottom-full mb-1 text-xs bg-black text-white px-2 py-1 rounded shadow">
+                    Facebook
+                    </div>
+                </a>
+
+                <a x-data="{ show: false }"
+                    @mouseenter="show = true" @mouseleave="show = false"
+                    href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ share_text }}%20{{ request.build_absolute_uri }}"
+                    target="_blank"
+                    class="relative flex items-center justify-center bg-blue-400 text-white rounded p-2 hover:bg-blue-500 transition">
+                    <svg width="20" height="20" style="color: white;"><use xlink:href="/static/svg/sprite.svg#twitter"></use></svg>
+                    <div x-show="show"
+                        x-transition
+                        class="absolute bottom-full mb-1 text-xs bg-black text-white px-2 py-1 rounded shadow">
+                    X (Twitter)
+                    </div>
+                </a>
+
+                <a x-data="{ show: false }"
+                    @mouseenter="show = true" @mouseleave="show = false"
+                    href="https://wa.me/?text={{ share_text }}%20{{ request.build_absolute_uri }}"
+                    target="_blank"
+                    class="relative flex items-center justify-center bg-green-500 text-white rounded p-2 hover:bg-green-600 transition">
+                    <svg width="20" height="20" style="color: white;"><use xlink:href="/static/svg/sprite.svg#social-whatsapp"></use></svg>
+                    <div x-show="show"
+                        x-transition
+                        class="absolute bottom-full mb-1 text-xs bg-black text-white px-2 py-1 rounded shadow">
+                    WhatsApp
+                    </div>
+                </a>
+
+                <a x-data="{ show: false }"
+                    @mouseenter="show = true" @mouseleave="show = false"
+                    href="mailto:?subject={{ product.title|urlencode }}&body={{ share_text }}%0A{{ request.build_absolute_uri }}"
+                    class="relative flex items-center justify-center bg-gray-600 text-white rounded p-2 hover:bg-gray-700 transition">
+                    <svg width="20" height="20" style="color: white;"><use xlink:href="/static/svg/sprite.svg#email"></use></svg>
+                    <div x-show="show"
+                        x-transition
+                        class="absolute bottom-full mb-1 text-xs bg-black text-white px-2 py-1 rounded shadow">
+                    E-pasts
+                    </div>
+                </a>
+
+                <a x-data="{ show: false }"
+                    @mouseenter="show = true" @mouseleave="show = false"
+                    href="sms:?&body={{ share_text }}%20{{ request.build_absolute_uri }}"
+                    class="relative flex items-center justify-center bg-purple-600 text-white rounded p-2 hover:bg-purple-700 transition">
+                    <svg width="20" height="20" style="color: white;"><use xlink:href="/static/svg/sprite.svg#phone"></use></svg>
+                    <div x-show="show"
+                        x-transition
+                        class="absolute bottom-full mb-1 text-xs bg-black text-white px-2 py-1 rounded shadow">
+                    SMS
+                    </div>
+                </a>
+            </div>
+            {% endwith %}
+
+
+
 
             <div
                 hx-get="{% url 'product:rate-design' product.id %}"
@@ -115,18 +179,10 @@
                     </template>
                 </div>
 
-                <button @click="addToCart" class="bg-blue-500 text-white px-4 py-2 rounded">
-                    {% trans "Pievienot grozam" %}
+                <button @click="addToCart" class="bg-main-color text-white px-4 py-2 rounded w-full sm:w-auto">
+                {% trans "Pievienot grozam" %}
                 </button>
-
             </div>
-
-
-
-
-
-            </div>
-
         </div>
     </div>
 </div>

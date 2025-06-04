@@ -159,7 +159,7 @@ class FilteredCreativeCornerView(ListView):
         return context
 
 
-class ProductDetailView(DetailView):
+class ProductFastView(DetailView):
     model = Designs
     context_object_name = 'product'
 
@@ -260,3 +260,12 @@ class SaveDesignView(CustomLoginRequiredMixin, View):
             return JsonResponse({'success': True, 'designs_id': new_design.id})
         else:
             return JsonResponse({'success': False, 'error': 'Invalid request'})
+
+
+class ProductDetailView(CustomLoginRequiredMixin, View):
+    template_name = 'Product/product_detail.html'
+
+    def get(self, request, user, product_title, Designs_id):
+        design = get_object_or_404(Designs, id=Designs_id)
+        return render(request, self.template_name, {'product': design})
+

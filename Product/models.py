@@ -59,6 +59,11 @@ class Product(models.Model):
     def get_options_list(self):
         return [option.strip() for option in self.options.split(',')]
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Product, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = _("Produkts")
         verbose_name_plural = _("Produkti")
