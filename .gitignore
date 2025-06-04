@@ -24,7 +24,6 @@ ecomerce/staticfiles/
 
 .env
 
-ecomerce/static/src/output.css
 home/migrations/__pycache__/
 
 
@@ -200,11 +199,8 @@ cython_debug/
 .pypirc
 node_modules/
 static/CACHE/
-static/src/output.css
 staticfiles/
 compressed_static/CACHE/
-output.css
-static/src/output.css
 ecomerce/urls.py
 static/manifest.json
 webpack-stats.json

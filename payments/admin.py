@@ -25,8 +25,7 @@ class GiftCodeAdmin(admin.ModelAdmin):
         ('Status', {
             'fields': ('is_valid',),
         }),
-    )  # Ja vēlies, lai administrators nevarētu manuāli mainīt 'is_valid' statusu, bet tas būtu atkarīgs no loģikas.
-
+    )
 
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
@@ -47,8 +46,7 @@ class PurchaseAdmin(admin.ModelAdmin):
             'fields': ('gift_code',),
         }),
     )
-    readonly_fields = ('created_at', 'order_number', 'discount_amount')  # Ja vēlies, lai šie lauki būtu tikai lasāmi.
+    readonly_fields = ('created_at', 'order_number', 'discount_amount')
 
     def has_add_permission(self, request):
-        # Ja vēlies liegt jaunu pirkumu pievienošanu tieši no admina
         return False
