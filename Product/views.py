@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from Product.models import Product, Rating, Category
 from product_details.models import Color, ProductInventory
 from django.utils.translation import gettext as _
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse, Http404, HttpResponseBadRequest
 from django.db.models import Q, Avg
 from django.views.generic import ListView, DetailView
 from django.views import View
@@ -12,8 +12,8 @@ from design.models import TextList, ImageList, Designs
 from django.db.models import Sum
 import json
 from datetime import datetime
-from django.http import Http404
 from django.conf import settings
+from django.template.loader import render_to_string
 
 
 
@@ -63,26 +63,22 @@ class DesignView(CustomLoginRequiredMixin, DetailView):
         front_image_coords = product.front_image_coords
         back_image_coords = product.back_image_coords
 
-        adjusted_front_image_coords = {
+        context['adjusted_front_image_coords'] = {
             'left': '{:.2f}'.format(front_image_coords['left'] + 15),
             'top': '{:.2f}'.format(front_image_coords['top'] + 20),
             'width': '{:.2f}'.format(front_image_coords['width'] + 35),
             'height': '{:.2f}'.format(front_image_coords['height'] + 20)
         }
-        adjusted_back_image_coords = {
+        context['adjusted_back_image_coords'] = {
             'left': '{:.2f}'.format(back_image_coords['left'] + 15),
             'top': '{:.2f}'.format(back_image_coords['top'] + 20),
             'width': '{:.2f}'.format(back_image_coords['width'] + 35),
             'height': '{:.2f}'.format(back_image_coords['height'] + 20)
         }
 
-        available_colors = product.inventory.values('color__id', 'color__name', 'color__code').annotate(total_quantity=Sum('quantity')).filter(total_quantity__gt=0)
-        context['available_colors'] = available_colors
+        context['available_colors'] = product.get_available_colors()
+        context['available_sizes'] = product.get_available_sizes()
 
-        context['available_sizes'] = product.inventory.values('size__size').distinct()
-
-        context['adjusted_front_image_coords'] = adjusted_front_image_coords
-        context['adjusted_back_image_coords'] = adjusted_back_image_coords
         context['hugging_face_token'] = settings.HUGGING_FACE_TOKEN
 
         return context
@@ -93,13 +89,37 @@ class DesignView(CustomLoginRequiredMixin, DetailView):
             if color_id:
                 product = self.get_object()
                 sizes = ProductInventory.objects.filter(
-                    product=product, color_id=color_id
+                    product=product,
+                    color_id=color_id,
+                    quantity__gt=0
                 ).values('size__size', 'quantity').distinct()
 
                 return JsonResponse({'sizes': list(sizes)})
             else:
                 return JsonResponse({'error': 'color_id not provided'}, status=400)
         return super().get(request, *args, **kwargs)
+
+class LoadSizesView(View):
+    def get(self, request, slug):
+        color_id = request.GET.get("color_id")
+
+        try:
+            color_id = int(color_id)
+        except (TypeError, ValueError):
+            return HttpResponseBadRequest("<p class='text-red-500'>Nederīgs color_id.</p>")
+
+        product = get_object_or_404(Product, slug=slug)
+        if not product.is_public and not request.user.is_staff:
+            raise Http404("Produkts nav publisks")
+
+        sizes = ProductInventory.objects.filter(
+            product=product,
+            color_id=color_id,
+            quantity__gt=0
+        ).values("size__size", "quantity").distinct()
+
+        html = render_to_string("Product/layouts/_size_options.html", {"sizes": sizes})
+        return HttpResponse(html)
 
 
 class CreativeCornerView(CustomLoginRequiredMixin, ListView):
@@ -179,16 +199,19 @@ class ProductFastView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         product = self.object.product
-        inventory = product.inventory.filter(product=self.object.product, color=self.object.product_color)
+        selected_color = self.object.product_color
+        available_colors = product.get_available_colors()
 
-        context['inventory_json'] = json.dumps([
-            {
-                "id": item.id,
-                "size": item.size.name if item.size else "N/A",
-                "name": item.size.name if item.size else "N/A",
-                "quantity": item.quantity
-            } for item in inventory
-        ])
+        available_inventory_for_color = product.inventory.filter(
+            color=selected_color,
+            quantity__gt=0
+        ).select_related('size')
+
+        context.update({
+            'available_colors': available_colors,
+            'available_inventory_for_color': available_inventory_for_color,
+            'selected_color': selected_color,
+        })
 
         return context
 

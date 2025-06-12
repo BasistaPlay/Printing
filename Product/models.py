@@ -9,6 +9,7 @@ from itertools import cycle
 from django.utils.text import slugify
 from django.apps import apps
 from datetime import datetime
+from product_details.models import Color, Size, ProductInventory
 
 
 class Category(models.Model):
@@ -58,6 +59,12 @@ class Product(models.Model):
 
     def get_options_list(self):
         return [option.strip() for option in self.options.split(',')]
+
+    def get_available_colors(self):
+        return Color.objects.filter(productinventory__product=self).distinct()
+
+    def get_available_sizes(self):
+        return Size.objects.filter(productinventory__product=self, productinventory__quantity__gt=0).distinct()
 
     def save(self, *args, **kwargs):
         if not self.slug:

@@ -3,24 +3,34 @@
 <div class="p-4 sm:p-6 max-w-full mx-auto overflow-y-auto py-16">
     <div class="relative flex flex-col lg:flex-row bg-second-color rounded-xl w-full lg:space-x-8">
         <div x-data="{ currentImage: '{{ product.front_image.url }}' }" class="w-full max-w-full mx-auto">
-            <div class="w-full">
-                <img id="headphoneImage1"
-                :data-src="currentImage"
-                class="lazyload h-auto w-full object-contain rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 no-search max-md:max-h-56">
-            </div>
-            <div class="flex justify-center mt-2 gap-2 overflow-x-auto">
-                <img class="lazyload w-14 h-14 sm:w-16 sm:h-16 cursor-pointer rounded opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
-                :class="{ 'opacity-100': currentImage === '{{ product.front_image.url }}' }"
-                @click="currentImage = '{{ product.front_image.url }}'"
-                data-src="{{ product.front_image.url }}"
-                alt="Thumbnail 1">
-                <img class="lazyload w-14 h-14 sm:w-16 sm:h-16 cursor-pointer rounded opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
-                :class="{ 'opacity-100': currentImage === '{{ product.back_image.url }}' }"
-                @click="currentImage = '{{ product.back_image.url }}'"
-                data-src="{{ product.back_image.url }}"
-                alt="Thumbnail 2">
-            </div>
-        </div>
+    <!-- Galvenā bilde -->
+    <div class="w-full">
+        <img
+            id="headphoneImage1"
+            :src="currentImage"
+            class="h-auto w-full object-contain rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 no-search max-md:max-h-56">
+    </div>
+
+    <!-- Thumbnail bildītes -->
+    <div class="flex justify-center mt-2 gap-2 overflow-x-auto">
+        <!-- Thumbnail 1 -->
+        <img
+            @click="currentImage = '{{ product.front_image.url }}'"
+            :class="{ 'opacity-100 border-2 border-blue-500': currentImage === '{{ product.front_image.url }}' }"
+            class="w-14 h-14 sm:w-16 sm:h-16 cursor-pointer rounded opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
+            src="{{ product.front_image.url }}"
+            alt="Thumbnail 1">
+
+        <!-- Thumbnail 2 -->
+        <img
+            @click="currentImage = '{{ product.back_image.url }}'"
+            :class="{ 'opacity-100 border-2 border-blue-500': currentImage === '{{ product.back_image.url }}' }"
+            class="w-14 h-14 sm:w-16 sm:h-16 cursor-pointer rounded opacity-80 hover:opacity-100 transition-opacity duration-300 no-search"
+            src="{{ product.back_image.url }}"
+            alt="Thumbnail 2">
+    </div>
+</div>
+
 
         <div class="mt-4 lg:mt-0 text-center lg:text-left w-full max-w-full px-2">
             <h3 class="text-sm font-semibold text-text-color">{{ product.author }}</h3>
@@ -108,9 +118,6 @@
             </div>
             {% endwith %}
 
-
-
-
             <div
                 hx-get="{% url 'product:rate-design' product.id %}"
                 hx-trigger="rate from:body"
@@ -122,65 +129,26 @@
             <p class="text-base text-gray-600 leading-relaxed mb-6 max-md:text-sm text-text-color mt-6">
                 {{ product.description }}
             </p>
-            <div x-data="{
-                quantities: {},
-                maxQuantities: {},
-                availableSizes: [],
-                init() {
-                    let inventory = JSON.parse('{{ inventory_json|escapejs }}');
-
-                    for (let item of inventory) {
-                        this.availableSizes.push({
-                            id: item.id,
-                            size: item.size,
-                            name: item.name,
-                            quantity: item.quantity
-                        });
-                    }
-
-                    this.maxQuantities = {};
-                    this.quantities = {};
-                    this.availableSizes.forEach(size => {
-                        this.maxQuantities[size.id] = size.quantity;
-                        this.quantities[size.id] = 0;
-                    });
-                },
-                updateQuantity(sizeId, value) {
-                    let numValue = parseInt(value, 10);
-                    if (isNaN(numValue) || numValue < 0) {
-                        this.quantities[sizeId] = 0;
-                    } else if (numValue > this.maxQuantities[sizeId]) {
-                        this.quantities[sizeId] = this.maxQuantities[sizeId];
-                    } else {
-                        this.quantities[sizeId] = numValue;
-                    }
-                },
-                addToCart() {
-                    htmx.ajax('GET', '/cart/add/{{ product.id }}/', {
-                        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-                        values: { selected_items: JSON.stringify(this.quantities) }
-                    });
-                }
-            }">
-
-                <div class="mb-4">
-                    <label class="block font-semibold mb-2">Izmērs un daudzums:</label>
-                    <template x-for="size in availableSizes" :key="size.id">
-                        <div class="flex items-center gap-4 mb-2">
-                            <label class="w-24" x-text="size.name"></label>
-                            <input type="number"
-                                x-model="quantities[size.id]"
-                                @input="updateQuantity(size.id, $event.target.value)"
-                                min="0"
-                                :max="maxQuantities[size.id]"
-                                class="border p-2 w-16 text-center rounded bg-input-color">
-                            <span x-text="'/' + maxQuantities[size.id]"></span>
-                        </div>
-                    </template>
-                </div>
-
-                <button @click="addToCart" class="bg-main-color text-white px-4 py-2 rounded w-full sm:w-auto">
-                {% trans "Pievienot grozam" %}
+            <p class="block font-semibold mb-2">{% trans "Pieejamie izmēri izvēlētajai krāsai " %}({{ selected_color.name }}):</p>
+            <div class="flex flex-col gap-4 mb-2">
+                {% for item in available_inventory_for_color %}
+                    <div class="flex flex-row items-center">
+                        <label class="w-24">{{ item.size.name|default:"N/A" }}</label>
+                        <input
+                            class="border p-2 w-16 text-center rounded bg-input-color"
+                            type="number"
+                            id="quantity_{{ item.id }}"
+                            name="quantity_{{ item.id }}"
+                            value="1"
+                            min="1"
+                            max="{{ item.quantity }}">/
+                                <span>{{ item.quantity }}</span>
+                    </div>
+                {% empty %}
+                    <li>Nav pieejamu izmēru šai krāsai.</li>
+                {% endfor %}
+                <button @click="addToCart" class="bg-main-color text-white px-4 py-2 rounded w-full sm:w-auto mt-4">
+                    {% trans "Pievienot grozam" %}
                 </button>
             </div>
         </div>

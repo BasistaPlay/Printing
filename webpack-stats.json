@@ -1,20 +1,20 @@
 {
   "status": "done",
   "assets": {
-    "main.361b0b6fbd2c1da4d822.js": {
-      "name": "main.361b0b6fbd2c1da4d822.js",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.361b0b6fbd2c1da4d822.js",
-      "publicPath": "/static/dist/main.361b0b6fbd2c1da4d822.js"
+    "main.0e636177dc8ba3329423.js": {
+      "name": "main.0e636177dc8ba3329423.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.0e636177dc8ba3329423.js",
+      "publicPath": "/static/dist/main.0e636177dc8ba3329423.js"
     },
-    "main.361b0b6fbd2c1da4d822.js.LICENSE.txt": {
-      "name": "main.361b0b6fbd2c1da4d822.js.LICENSE.txt",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.361b0b6fbd2c1da4d822.js.LICENSE.txt",
-      "publicPath": "/static/dist/main.361b0b6fbd2c1da4d822.js.LICENSE.txt"
+    "main.0e636177dc8ba3329423.js.LICENSE.txt": {
+      "name": "main.0e636177dc8ba3329423.js.LICENSE.txt",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.0e636177dc8ba3329423.js.LICENSE.txt",
+      "publicPath": "/static/dist/main.0e636177dc8ba3329423.js.LICENSE.txt"
     }
   },
   "chunks": {
     "main": [
-      "main.361b0b6fbd2c1da4d822.js"
+      "main.0e636177dc8ba3329423.js"
     ]
   },
   "publicPath": "/static/dist/"

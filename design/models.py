@@ -16,14 +16,11 @@ class Designs(models.Model):
     average_rating = models.FloatField(default=0)
     created_at = models.DateTimeField(default=timezone.now)
 
-    def update_average_rating(self):
+    @property
+    def average_rating(self):
         Rating = apps.get_model('Product', 'Rating')
-        ratings = Rating.objects.filter(design=self)
-        if ratings.exists():
-            self.average_rating = ratings.aggregate(models.Avg('stars'))['stars__avg']
-        else:
-            self.average_rating = 0
-        self.save()
+        result = Rating.objects.filter(design=self).aggregate(avg=models.Avg('stars'))
+        return result['avg'] or 0
 
     class Meta:
         verbose_name = _("Dizaini")

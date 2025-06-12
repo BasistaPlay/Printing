@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 document.addEventListener('DOMContentLoaded', function() {
     const colorElements = document.querySelectorAll('#color-select');
     const colorContainer = document.querySelector('.color');
@@ -6,54 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
     colorElements.forEach(function(colorElement) {
         colorElement.addEventListener('click', function() {
             const selectedColor = colorElement.style.backgroundColor;
-            colorContainer.style.backgroundColor = selectedColor;
+            if (colorContainer) {
+                colorContainer.style.backgroundColor = selectedColor;
+            }
 
             colorElements.forEach(function(element) {
-              element.classList.remove('ring-2', 'ring-offset-2', 'ring-gray-800');
-          });
-              colorElement.classList.add('ring-2', 'ring-offset-2', 'ring-gray-800');
+                element.classList.remove('ring-2', 'ring-offset-2', 'ring-gray-800', 'active-color');
+            });
 
+            colorElement.classList.add('ring-2', 'ring-offset-2', 'ring-gray-800', 'active-color');
 
             const colorId = colorElement.getAttribute('data-color-id');
             const productSlug = document.getElementById('product-slug').value;
-
-            fetch(`/product/design/${productSlug}/?color_id=${colorId}`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => {
-                const contentType = response.headers.get('content-type');
-                if (!response.ok || !contentType || !contentType.includes('application/json')) {
-                    throw new Error('Invalid JSON response');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const sizesMap = new Map();
-                data.sizes.forEach(size => {
-                    sizesMap.set(size.size__size, size.quantity);
-                });
-
-                const sizeOptions = document.querySelectorAll('.size-option');
-                sizeOptions.forEach(option => {
-                    const sizeName = option.getAttribute('data-size');
-                    option.classList.remove('readonly');
-                    option.classList.remove('active');
-                    option.style.pointerEvents = 'auto';
-
-                    const quantity = sizesMap.get(sizeName);
-                    if (quantity === undefined || quantity === 0) {
-                        option.classList.add('readonly');
-                        option.style.pointerEvents = 'none';
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching sizes:', error);
-            });
         });
     });
+
 
     const sizeOptions = document.querySelectorAll('.size-option');
     sizeOptions.forEach(option => {
@@ -65,45 +33,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    const plus = document.querySelector(".plus"),
-      minus = document.querySelector(".minus"),
-      num = document.querySelector(".num");
+    const checkbox = document.getElementById("publish-checkbox");
+    const additionalInfo = document.getElementById("additional-info");
 
-    if (plus && minus && num) {
-        let a = 1;
-
-        function updateNumDisplay() {
-            num.innerText = a < 10 ? '0' + a : a;
-        }
-
-        plus.addEventListener('click', () => {
-            a++;
-            updateNumDisplay();
+    if (checkbox && additionalInfo) {
+        checkbox.addEventListener("change", function () {
+            additionalInfo.classList.toggle("hidden", !this.checked);
         });
-
-        minus.addEventListener('click', () => {
-            if (a > 1) {
-                a--;
-                updateNumDisplay();
-            }
-        });
-
-        updateNumDisplay();
     }
+
+    function bindQuantityControls() {
+        document.querySelectorAll('.qty-control').forEach(wrapper => {
+            const input = wrapper.querySelector('input[type="number"]');
+            const plus = wrapper.querySelector('.plus');
+            const minus = wrapper.querySelector('.minus');
+
+            let value = parseInt(input.value) || 0;
+
+            function updateDisplay() {
+                input.value = value;
+            }
+
+            if (plus) {
+                plus.addEventListener('click', () => {
+                    value++;
+                    updateDisplay();
+                });
+            }
+
+            if (minus) {
+                minus.addEventListener('click', () => {
+                    if (value > 0) {
+                        value--;
+                        updateDisplay();
+                    }
+                });
+            }
+
+            updateDisplay();
+        });
+    }
+
+    bindQuantityControls();
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-  const checkbox = document.getElementById("publish-checkbox");
-  const additionalInfo = document.getElementById("additional-info");
-
-  if (checkbox && additionalInfo) {
-    checkbox.addEventListener("change", function () {
-      if (this.checked) {
-        additionalInfo.classList.remove("hidden");
-      } else {
-        additionalInfo.classList.add("hidden");
-      }
-    });
-  }
-});
-

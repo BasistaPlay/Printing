@@ -1,10 +1,12 @@
 import $ from 'jquery';
+import html2canvas from 'html2canvas';
 
 document.addEventListener("DOMContentLoaded", function () {
   const buyNowButton = document.querySelector("#buy-now");
   if (buyNowButton) {
     buyNowButton.addEventListener("click", function (event) {
-      var activeColor = document.querySelector('.color-select.active-color')?.getAttribute('data-color-name');
+      var activeColor = document.querySelector('#color-select.active-color');
+      console.log("Active Color:", activeColor);
       var publishCheckbox = document.querySelector("#publish-checkbox")?.checked;
       var titleInput = document.querySelector("#title-input")?.value.trim();
       var errorHtml = '';

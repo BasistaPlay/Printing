@@ -13,6 +13,7 @@
 {% block body %}
 
 {% csrf_token %}
+<div id="error-messages"></div>
 <div class="flex flex-row gap-6 max-md:flex-col max-md:items-center order-1">
   <div id="original-product">
     <div class=" relative rounded-2xl overflow-hidden max-md:mt-28">
@@ -49,38 +50,24 @@
 
         <div class="flex flex-col space-y-3 mb-6">
           <p class="text-lg font-semibold text-text-color">{% trans 'Pielāgot krāsu' %}</p>
-          <div class="flex flex-wrap gap-3">
+          <div id="color-options" class="flex flex-wrap gap-3">
             {% for color in available_colors %}
               <div
                 id="color-select"
                 class="w-8 h-8 rounded-full border-2 border-text-color cursor-pointer transition duration-200"
-                data-color-id="{{ color.color__id }}"
-                data-color-name="{{ color.color__name }}"
-                style="background-color: {{ color.color__code }};"
+                style="background-color: {{ color.code }};"
+                hx-get="{% url 'product:load_sizes' product.slug %}?color_id={{ color.id }}"
+                hx-target="#size-options"
+                hx-swap="innerHTML"
+                title="{{ color.name }}"
               ></div>
             {% endfor %}
           </div>
         </div>
-
         <div class="flex flex-col space-y-3 mb-6">
-          <p class="text-lg font-semibold text-text-color">{% trans 'Ievadiet daudzumu' %}</p>
-          <div class="flex items-center justify-between bg-gray-100 rounded-full px-4 py-2 w-40">
-            <button class="minus text-xl text-gray-700 hover:text-red-500 transition">−</button>
-            <span class="num text-lg font-medium text-gray-900">01</span>
-            <button class="plus text-xl text-gray-700 hover:text-green-500 transition">+</button>
-          </div>
-        </div>
-
-        <div class="flex flex-col space-y-3 mb-6">
-          <p class="text-lg font-semibold text-text-color">{% trans 'Izvēlies izmēru' %}</p>
-          <div class="flex flex-wrap gap-3">
-            {% for size in available_sizes %}
-              <div
-                class="size-option cursor-not-allowed px-4 py-2 bg-gray-200 text-gray-600 rounded-full text-sm font-medium transition"
-                data-size="{{ size.size__size }}">
-                {{ size.size__size }}
-              </div>
-            {% endfor %}
+          <p class="text-lg font-semibold text-text-color">{% trans 'Ievadiet Izmēru un daudzumu' %}</p>
+          <div id="size-options" class="flex flex-wrap gap-3 mt-4 mb-6">
+            <p class="text-sm text-gray-500">{% trans 'Izvēlieties krāsu, lai redzētu izmērus' %}</p>
           </div>
         </div>
 

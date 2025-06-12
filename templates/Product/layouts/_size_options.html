@@ -1,0 +1,54 @@
+{% load static i18n %}
+<div class="flex flex-wrap gap-4">
+  {% for size in sizes %}
+  {% if size.quantity > 0 %}
+    <div
+      x-data="{ open: false, quantity: 1, max: {{ size.quantity }} }"
+      class="relative flex items-center space-x-2"
+    >
+      <!-- Izmēra poga -->
+      <div
+        @click="open = !open"
+        class="size-option cursor-pointer px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium transition hover:bg-gray-300"
+      >
+        {{ size.size__size }}
+      </div>
+
+      <!-- Daudzuma kontrole -->
+      <div
+        x-show="open"
+        x-transition:enter="transition transform ease-out duration-300"
+        x-transition:enter-start="translate-x-4 opacity-0"
+        x-transition:enter-end="translate-x-0 opacity-100"
+        x-transition:leave="transition transform ease-in duration-200"
+        x-transition:leave-start="translate-x-0 opacity-100"
+        x-transition:leave-end="translate-x-4 opacity-0"
+        class="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1 shadow"
+      >
+        <button
+          type="button"
+          class="text-lg text-gray-700 hover:text-red-500"
+          @click="quantity > 1 ? quantity-- : quantity = 1"
+        >−</button>
+
+        <input
+          type="hidden"
+          :name="'quantity_' + '{{ size.size__size }}'"
+          :value="quantity"
+        >
+        <span class="text-base font-medium text-gray-900" x-text="quantity"></span>
+
+        <button
+          type="button"
+          class="text-lg text-gray-700 hover:text-green-500"
+          @click="quantity < max ? quantity++ : quantity"
+        >+</button>
+
+        <!-- Pieejamais daudzums -->
+        <span class="text-xs text-gray-500 ml-2" x-text="'/ ' + max"></span>
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}
+
+</div>
