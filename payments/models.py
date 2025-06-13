@@ -74,7 +74,7 @@ class Purchase(models.Model):
 class PurchaseProduct(models.Model):
     purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name='purchase_products')
     product = models.ForeignKey('design.Designs', on_delete=models.CASCADE)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, null=True, blank=True, on_delete=models.SET_NULL)
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
