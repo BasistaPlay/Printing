@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
   if (buyNowButton) {
     buyNowButton.addEventListener("click", function (event) {
       var activeColor = document.querySelector('#color-select.active-color');
-      console.log("Active Color:", activeColor);
       var publishCheckbox = document.querySelector("#publish-checkbox")?.checked;
       var titleInput = document.querySelector("#title-input")?.value.trim();
       var errorHtml = '';
@@ -17,6 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (publishCheckbox && !titleInput) {
         errorHtml += '<p>' + `${gettext("Title is required")}` + '</p>';
+      }
+
+      var hasValidSize = false;
+      document.querySelectorAll("#size-options [x-data]").forEach(function (el) {
+        const quantitySpan = el.querySelector("span[x-text='quantity']");
+        const quantity = parseInt(quantitySpan?.innerText.trim() || "0", 10);
+        if (quantity > 0) {
+          hasValidSize = true;
+        }
+      });
+
+      if (!hasValidSize) {
+        errorHtml += '<p>' + `${gettext("Please select at least one size")}` + '</p>';
       }
 
       if (errorHtml) {
@@ -35,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
 
 function openBuyNowPopup() {
     let originalProduct = document.querySelector("#original-product");
@@ -244,9 +257,10 @@ $(document).on('click', '#buy-button', function () {
     });
 
     var images = [];
-    document.querySelectorAll('#save-img img').forEach(function(img) {
-        var imageData = img.src;
-        images.push(imageData);
+    document.querySelectorAll('.upload-img img, #generatedImages img').forEach(function(img) {
+        if (img.src.startsWith('data:image')) {
+            images.push(img.src);
+        }
     });
 
     var formData = new FormData();
@@ -256,6 +270,22 @@ $(document).on('click', '#buy-button', function () {
     formData.append('product_title', title);
     formData.append('images', JSON.stringify(images));
     formData.append('texts', JSON.stringify(texts));
+
+    var sizes = [];
+    document.querySelectorAll("#size-options [x-data]").forEach(function(el) {
+        const sizeLabel = el.querySelector(".size-option");
+        const quantitySpan = el.querySelector("span[x-text='quantity']");
+
+        if (sizeLabel && quantitySpan) {
+            const size = sizeLabel.innerText.trim();
+            const count = parseInt(quantitySpan.innerText.trim(), 10);
+
+            if (size && count > 0) {
+                sizes.push({ size: size, count: count });
+            }
+        }
+    });
+    formData.append('sizes', JSON.stringify(sizes));
 
     let clonedProduct = document.querySelector('.cloned-product');
     let front = clonedProduct ? clonedProduct.querySelector('#front') : null;
@@ -271,10 +301,11 @@ $(document).on('click', '#buy-button', function () {
             formData.append(side + '_image', base64URLBack);
 
             var csrfToken = document.querySelector("input[name='csrfmiddlewaretoken']").value;
+            let saveUrl = document.querySelector("#buy-button").dataset.saveUrl;
             formData.append('csrfmiddlewaretoken', csrfToken);
 
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/product/save_design/', true);
+            xhr.open('post', '/product/save_design/', true);
             xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             xhr.onload = function () {
                 if (xhr.status === 200) {

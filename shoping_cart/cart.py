@@ -24,84 +24,67 @@ class Cart(object):
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, designs, quantity=1, sizeCount=1, sizes=None, product_id=0):
+    def _build_key(self, design_id, size=None):
+        """Palīgfunkcija, lai izveidotu unikālu atslēgu pēc ID un izmēra."""
+        design_id = str(design_id)
+        return f"{design_id}_{size}" if size else design_id
+
+    def add(self, designs, quantity=1, sizes=None, product_id=0):
         """
-        Add a product to the cart or update its quantity.
+        Pievieno produktu grozam. Ja ir vairāki izmēri, katrs ir atsevišķs ieraksts.
         """
-        id = designs.id
-        newItem = True
+        for size in sizes or [None]:  # Ja nav izmēru, būs tikai viens ieraksts
+            key = self._build_key(designs.id, size)
 
-        if str(designs.id) not in self.cart.keys():
-            self.cart[designs.id] = {
-                'userid': self.request.user.id,
-                'product_id': id,
-                'quantity': int(quantity),
-                'sizeCount': sizeCount,
-                'price': str(designs.product.price),
-                'total_price': str(designs.product.price * int(quantity)),
-                'image': designs.front_image.url if designs.front_image else '',
-                'sizes': sizes ,
-                'design_id' : product_id ,
-            }
-        else:
-            for key, value in self.cart.items():
-                        if key == str(designs.id):
-                            value['quantity'] += int(quantity)
-                            value['sizeCount'] += sizeCount
-                            value['total_price'] = str(designs.product.price  * value['quantity'])  # Atjaunina kopējo cenu
-                            if sizes:
-                                for size in sizes:
-                                    if size['size'] in value['sizes']:
-                                        value['sizes'][size['size']] += size['count']
-                                    else:
-                                        value['sizes'][size['size']] = size['count']
-                            newItem = False
-                            self.save()
-                            break
-
-
-            if newItem:
-                self.cart[designs.id] = {
+            if key not in self.cart:
+                self.cart[key] = {
                     'userid': self.request.user.id,
-                    'product_id': id,
+                    'product_id': designs.id,
                     'quantity': int(quantity),
-                    'sizeCount': sizeCount,  # Use the sizeCount parameter here
                     'price': str(designs.product.price),
                     'total_price': str(designs.product.price * int(quantity)),
                     'image': designs.front_image.url if designs.front_image else '',
-                    'sizes': sizes,
-                    'design_id' : product_id ,
+                    'sizes': [size] if size else [],
+                    'design_id': product_id,
                 }
+            else:
+                item = self.cart[key]
+                item['quantity'] += int(quantity)
+                item['total_price'] = str(Decimal(item['price']) * item['quantity'])
 
         self.save()
 
     def save(self):
+        """Saglabā groza statusu sesijā."""
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
 
-
-    def save(self):
-        self.session[settings.CART_SESSION_ID] = self.cart
-        self.session.modified = True
-
-    def remove(self, designs):
-        design_id = str(designs.id)
-        if design_id in self.cart:
-            del self.cart[design_id]
+    def remove(self, design_id, size=None):
+        """
+        Izņem konkrētu produktu pēc design ID un izmēra (ja ir).
+        """
+        key = self._build_key(design_id, size)
+        if key in self.cart:
+            del self.cart[key]
             self.save()
 
-    def decrement(self, designs):
-        for key, value in self.cart.items():
-            if key == str(designs.id):
-                value['quantity'] = value['quantity'] - 1
-                value['total_price'] = str(Decimal(value['price']) * value['quantity'])
-                if value['quantity'] < 1:
-                    self.remove(designs)
+    def decrement(self, design_id, size=None):
+        """
+        Samazina daudzumu. Ja daudzums ir <1, produkts tiek izņemts.
+        """
+        key = self._build_key(design_id, size)
+        if key in self.cart:
+            self.cart[key]['quantity'] -= 1
+            if self.cart[key]['quantity'] < 1:
+                self.remove(design_id, size)
+            else:
+                self.cart[key]['total_price'] = str(
+                    Decimal(self.cart[key]['price']) * self.cart[key]['quantity']
+                )
                 self.save()
-                break
 
     def clear(self):
-        # empty cart
+        """Attīra visu grozu."""
         self.session[settings.CART_SESSION_ID] = {}
         self.session.modified = True
 
@@ -110,7 +93,7 @@ from decimal import Decimal
 
 def cart_total_amount(request):
     cart = request.session.get(settings.CART_SESSION_ID, {})
-    total_bill = Decimal('0.00')  # Initialize total_bill as Decimal for precise calculations
+    total_bill = Decimal('0.00')
 
     for key, value in cart.items():
         try:
@@ -118,6 +101,6 @@ def cart_total_amount(request):
             quantity = int(value.get('quantity', 0))
             total_bill += price * quantity
         except (ValueError, TypeError):
-            continue  # Handle invalid data gracefully, e.g., log or ignore
+            continue
 
     return {'total_bill': total_bill}

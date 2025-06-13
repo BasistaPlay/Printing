@@ -14,6 +14,7 @@ import json
 from datetime import datetime
 from django.conf import settings
 from django.template.loader import render_to_string
+from shoping_cart.cart import Cart
 
 
 
@@ -276,9 +277,31 @@ class SaveDesignView(CustomLoginRequiredMixin, View):
                     text_color=text_data['text_color']
                 )
 
-            images = json.loads(request.POST.get('images'))
+            raw_images = request.POST.get('images')
+            try:
+                images = json.loads(raw_images)
+            except json.JSONDecodeError:
+                images = []
+
             for image_data in images:
                 ImageList.objects.create(designs_images=new_design, image=image_data)
+
+
+            cart = Cart(request)
+            sizes = json.loads(request.POST.get('sizes', '[]'))
+            for size_data in sizes:
+                size_name = size_data.get('size')
+                quantity = size_data.get('count')
+
+                if size_name and quantity or quantity:
+                    print(size_name, quantity)
+                    cart.add(
+                        designs=new_design,
+                        quantity=quantity,
+                        sizes=[size_name],
+                        product_id=new_design.id
+                    )
+
 
             return JsonResponse({'success': True, 'designs_id': new_design.id})
         else:

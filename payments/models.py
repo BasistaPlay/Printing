@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 import uuid
+from product_details.models import Size
 
 class BankDetails(models.Model):
     bank_name = models.CharField(max_length=255)
@@ -73,6 +74,7 @@ class Purchase(models.Model):
 class PurchaseProduct(models.Model):
     purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE, related_name='purchase_products')
     product = models.ForeignKey('design.Designs', on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
 
     def __str__(self):

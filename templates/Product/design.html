@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
-{% load static i18n %}
+{% load static i18n custom_tags %}
 
 {% block title %}
     {% trans 'Dizaina rīks' %}
+{% endblock %}
+
+{% block og_head %}
+    <meta property="og:title" content="Veido savu {{ product.title }} ar EricPrint" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:image" content="{% display_icon %}" />
+    <meta property="og:description" content="Izveido personalizētu {{ product.title }} ar savu dizainu un pārdod to EricPrint platformā!" />
+    <meta property="og:site_name" content="EricPrint" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Veido savu {{ product.title }} ar EricPrint" />
+    <meta name="twitter:description" content="Izveido personalizētu {{ product.title }} un pelni no sava radošuma – krekli, krūzes, un vairāk!" />
+    <meta name="twitter:image" content="{% display_icon %}" />
 {% endblock %}
 
 {% block css %}
@@ -52,15 +66,17 @@
           <p class="text-lg font-semibold text-text-color">{% trans 'Pielāgot krāsu' %}</p>
           <div id="color-options" class="flex flex-wrap gap-3">
             {% for color in available_colors %}
-              <div
-                id="color-select"
-                class="w-8 h-8 rounded-full border-2 border-text-color cursor-pointer transition duration-200"
-                style="background-color: {{ color.code }};"
-                hx-get="{% url 'product:load_sizes' product.slug %}?color_id={{ color.id }}"
-                hx-target="#size-options"
-                hx-swap="innerHTML"
-                title="{{ color.name }}"
-              ></div>
+            <div
+              id="color-select"
+              class="color-select w-8 h-8 rounded-full border-2 border-text-color cursor-pointer transition duration-200"
+              style="background-color: {{ color.code }};"
+              data-color-id="{{ color.id }}"
+              data-color-name="{{ color.name }}"
+              hx-get="{% url 'product:load_sizes' product.slug %}?color_id={{ color.id }}"
+              hx-target="#size-options"
+              hx-swap="innerHTML"
+              title="{{ color.name }}"
+            ></div>
             {% endfor %}
           </div>
         </div>
@@ -91,7 +107,7 @@
         </div>
 
         <div class="text-center">
-          <button id="buy-now" class="px-6 py-2 rounded-full bg-[var(--main-color)] text-white font-semibold hover:opacity-90 transition">
+          <button id="buy-now" data-save-url="{% url 'product:design_save' %}" class="px-6 py-2 rounded-full bg-[var(--main-color)] text-white font-semibold hover:opacity-90 transition">
             {% trans 'Pirkt tagad' %}
           </button>
         </div>

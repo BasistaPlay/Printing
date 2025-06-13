@@ -1,10 +1,23 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load i18n %}
-{% load cart_tag %}
+{% load static cart_tag i18n custom_tags %}
+
 
 {% block title %}
     {% trans 'Grozs' %}
+{% endblock %}
+
+{% block og_head %}
+    <meta property="og:title" content="Tavs grozs – EricPrint" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="og:image" content="{% display_icon %}" />
+    <meta property="og:description" content="Apskati un noformē savus pasūtījumus EricPrint platformā – personalizēti dizaini uz T-krekliem, krūzēm un vairāk!" />
+    <meta property="og:site_name" content="EricPrint" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tavs grozs – EricPrint" />
+    <meta name="twitter:description" content="Apskati savus dizainus grozā un sagatavojies pasūtīt personalizētus produktus no EricPrint!" />
+    <meta name="twitter:image" content="{% display_icon %}" />
 {% endblock %}
 
 {% block body %}
@@ -35,15 +48,13 @@
                             <td class="p-4 text-lg text-text-color">{{ value.price }}€</td>
                             <td class="p-4">
                                 <ul class="text-text-color">
-                                    {% for size in value.sizes %}
-                                        <li class="text-sm">{{ size.size }}: <strong>{{ size.count }}</strong></li>
-                                    {% endfor %}
+                                    <li class="text-sm">{{ value.sizes|join:", " }}</li>
                                 </ul>
                             </td>
                             <td class="p-4 text-lg text-text-color font-bold">{{ value.quantity }}</td>
                             <td class="p-4 text-lg text-text-color font-bold">{{ value.total_price }}€</td>
                             <td class="p-4">
-                                <a href='{% url "shopping_cart:item_clear" value.product_id %}' class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
+                                <a href='{% url 'shopping_cart:item_clear' value.product_id %}?size={{ value.sizes.0 }}' class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all">
                                     {% trans 'Noņemt' %}
                                 </a>
                             </td>

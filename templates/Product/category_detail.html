@@ -1,9 +1,30 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load i18n %}
+{% load static custom_tags i18n %}
 
 {% block title %}
     {{ category.title }}
+{% endblock %}
+
+{% block og_head %}
+    <meta property="og:title" content="{{ category.title }} – EricPrint" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    {% if products %}
+        <meta property="og:image" content="{{ products.0.image.url }}" />
+    {% else %}
+        <meta property="og:image" content="{% display_icon %}" />
+    {% endif %}
+    <meta property="og:description" content="Apskati {{ category.title }} kolekciju EricPrint dizainu veikalā – veido vai iegādājies oriģinālus produktus!" />
+    <meta property="og:site_name" content="EricPrint" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ category.title }} – EricPrint" />
+    <meta name="twitter:description" content="Radoši un oriģināli produkti no {{ category.title }} kategorijas EricPrint vietnē." />
+    {% if products %}
+        <meta name="twitter:image" content="{{ products.0.image.url }}" />
+    {% else %}
+        <meta name="twitter:image" content="{% display_icon %}" />
+    {% endif %}
 {% endblock %}
 
 {% block body %}

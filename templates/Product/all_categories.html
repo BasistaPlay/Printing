@@ -1,8 +1,30 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load i18n %}
+{% load static custom_tags i18n custom_tags %}
 
 {% block title %}Kategorijas{% endblock %}
+
+{% block og_head %}
+    <meta property="og:title" content="Produktu Kategorijas – EricPrint" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    {% if categories and categories.0.image %}
+        <meta property="og:image" content="{{ categories.0.image.url }}" />
+    {% else %}
+        <meta property="og:image" content="{% display_icon %}" />
+    {% endif %}
+    <meta property="og:description" content="Pārlūko EricPrint produktu kategorijas – sākot no T-krekliem līdz krūzēm un daudz kam citam. Atrodi sev piemērotāko!" />
+    <meta property="og:site_name" content="EricPrint" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Produktu Kategorijas – EricPrint" />
+    <meta name="twitter:description" content="Atklāj radošas produktu kategorijas, kur vari izveidot vai iegādāties personalizētus dizainus EricPrint platformā." />
+    {% if categories and categories.0.image %}
+        <meta name="twitter:image" content="{{ categories.0.image.url }}" />
+    {% else %}
+        <meta name="twitter:image" content="{% display_icon %}" />
+    {% endif %}
+{% endblock %}
+
 
 {% block body %}
     <main class="py-16 px-5 max-w-[1200px] mx-auto mt-24">

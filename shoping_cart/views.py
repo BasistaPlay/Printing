@@ -49,10 +49,16 @@ def cart_add(request, id):
 
 @login_required(login_url="/login")
 def item_clear(request, id):
+    size = request.GET.get("size")
+
     cart = Cart(request)
-    product_list = Designs.objects.get(id=id)
-    cart.remove(product_list)
-    return redirect('shopping_cart:cart')
+
+    if size:  # Ja izmērs ir padots, dzēs specifisku ierakstu ar izmēru
+        cart.remove(id, size)
+    else:  # Ja izmērs nav padots, dzēs vienkārši pēc produkta ID
+        cart.remove(id)
+
+    return redirect("shopping_cart:cart")
 
 @login_required(login_url="/login")
 def item_increment(request, id):

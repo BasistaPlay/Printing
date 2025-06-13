@@ -1,21 +1,163 @@
 {
   "status": "done",
   "assets": {
-    "main.0e636177dc8ba3329423.js": {
-      "name": "main.0e636177dc8ba3329423.js",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.0e636177dc8ba3329423.js",
-      "publicPath": "/static/dist/main.0e636177dc8ba3329423.js"
+    "main.0bd7236d4674ceece1bd.js": {
+      "name": "main.0bd7236d4674ceece1bd.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.0bd7236d4674ceece1bd.js",
+      "publicPath": "/static/dist/main.0bd7236d4674ceece1bd.js"
     },
-    "main.0e636177dc8ba3329423.js.LICENSE.txt": {
-      "name": "main.0e636177dc8ba3329423.js.LICENSE.txt",
-      "path": "/home/edis/MyProjects/Printing/static/dist/main.0e636177dc8ba3329423.js.LICENSE.txt",
-      "publicPath": "/static/dist/main.0e636177dc8ba3329423.js.LICENSE.txt"
+    "main.0f28de8af8358550ee45.js": {
+      "name": "main.0f28de8af8358550ee45.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.0f28de8af8358550ee45.js",
+      "publicPath": "/static/dist/main.0f28de8af8358550ee45.js"
+    },
+    "main.101dd986e4e5d1e64779.js": {
+      "name": "main.101dd986e4e5d1e64779.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.101dd986e4e5d1e64779.js",
+      "publicPath": "/static/dist/main.101dd986e4e5d1e64779.js"
+    },
+    "main.1073667e4ba251f8e846.js": {
+      "name": "main.1073667e4ba251f8e846.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.1073667e4ba251f8e846.js",
+      "publicPath": "/static/dist/main.1073667e4ba251f8e846.js"
+    },
+    "main.27a367cb1fc6e1a41c83.js": {
+      "name": "main.27a367cb1fc6e1a41c83.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.27a367cb1fc6e1a41c83.js",
+      "publicPath": "/static/dist/main.27a367cb1fc6e1a41c83.js"
+    },
+    "main.2ae229d504d5a0bc3a0d.js": {
+      "name": "main.2ae229d504d5a0bc3a0d.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.2ae229d504d5a0bc3a0d.js",
+      "publicPath": "/static/dist/main.2ae229d504d5a0bc3a0d.js"
+    },
+    "main.333a11a1b7d2d220a606.js": {
+      "name": "main.333a11a1b7d2d220a606.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.333a11a1b7d2d220a606.js",
+      "publicPath": "/static/dist/main.333a11a1b7d2d220a606.js"
+    },
+    "main.37f69eeeb421793080fa.js": {
+      "name": "main.37f69eeeb421793080fa.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.37f69eeeb421793080fa.js",
+      "publicPath": "/static/dist/main.37f69eeeb421793080fa.js"
+    },
+    "main.457ee8e79a9eaafe586b.js": {
+      "name": "main.457ee8e79a9eaafe586b.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.457ee8e79a9eaafe586b.js",
+      "publicPath": "/static/dist/main.457ee8e79a9eaafe586b.js"
+    },
+    "main.54c6d1a2b23fe6943964.js": {
+      "name": "main.54c6d1a2b23fe6943964.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.54c6d1a2b23fe6943964.js",
+      "publicPath": "/static/dist/main.54c6d1a2b23fe6943964.js"
+    },
+    "main.55d0ef6bb33b67d3fd1e.js": {
+      "name": "main.55d0ef6bb33b67d3fd1e.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.55d0ef6bb33b67d3fd1e.js",
+      "publicPath": "/static/dist/main.55d0ef6bb33b67d3fd1e.js"
+    },
+    "main.749bdb7721d39dac6248.js": {
+      "name": "main.749bdb7721d39dac6248.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.749bdb7721d39dac6248.js",
+      "publicPath": "/static/dist/main.749bdb7721d39dac6248.js"
+    },
+    "main.7cbcc28a8182fbc4afde.js": {
+      "name": "main.7cbcc28a8182fbc4afde.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.7cbcc28a8182fbc4afde.js",
+      "publicPath": "/static/dist/main.7cbcc28a8182fbc4afde.js"
+    },
+    "main.8051776ca734c557a3da.js": {
+      "name": "main.8051776ca734c557a3da.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.8051776ca734c557a3da.js",
+      "publicPath": "/static/dist/main.8051776ca734c557a3da.js"
+    },
+    "main.86217ae487b5fd451708.js": {
+      "name": "main.86217ae487b5fd451708.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.86217ae487b5fd451708.js",
+      "publicPath": "/static/dist/main.86217ae487b5fd451708.js"
+    },
+    "main.8b99fb04490af2d44f29.js": {
+      "name": "main.8b99fb04490af2d44f29.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.8b99fb04490af2d44f29.js",
+      "publicPath": "/static/dist/main.8b99fb04490af2d44f29.js"
+    },
+    "main.8bb79c45288c453e2d61.js": {
+      "name": "main.8bb79c45288c453e2d61.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.8bb79c45288c453e2d61.js",
+      "publicPath": "/static/dist/main.8bb79c45288c453e2d61.js"
+    },
+    "main.95d0074896facf57e5b8.js": {
+      "name": "main.95d0074896facf57e5b8.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.95d0074896facf57e5b8.js",
+      "publicPath": "/static/dist/main.95d0074896facf57e5b8.js"
+    },
+    "main.99110ca6ea9969d7a2ac.js": {
+      "name": "main.99110ca6ea9969d7a2ac.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.99110ca6ea9969d7a2ac.js",
+      "publicPath": "/static/dist/main.99110ca6ea9969d7a2ac.js"
+    },
+    "main.a9e8cec32a868ef29bea.js": {
+      "name": "main.a9e8cec32a868ef29bea.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.a9e8cec32a868ef29bea.js",
+      "publicPath": "/static/dist/main.a9e8cec32a868ef29bea.js"
+    },
+    "main.c939e78d9502cd319c02.js": {
+      "name": "main.c939e78d9502cd319c02.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.c939e78d9502cd319c02.js",
+      "publicPath": "/static/dist/main.c939e78d9502cd319c02.js"
+    },
+    "main.cad189b630789a014617.js": {
+      "name": "main.cad189b630789a014617.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.cad189b630789a014617.js",
+      "publicPath": "/static/dist/main.cad189b630789a014617.js"
+    },
+    "main.e0768c721fad425b451b.js": {
+      "name": "main.e0768c721fad425b451b.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.e0768c721fad425b451b.js",
+      "publicPath": "/static/dist/main.e0768c721fad425b451b.js"
+    },
+    "main.ea48d6c6471a7c8e5071.js": {
+      "name": "main.ea48d6c6471a7c8e5071.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.ea48d6c6471a7c8e5071.js",
+      "publicPath": "/static/dist/main.ea48d6c6471a7c8e5071.js"
+    },
+    "main.f12510bb8028ec0747d4.js": {
+      "name": "main.f12510bb8028ec0747d4.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.f12510bb8028ec0747d4.js",
+      "publicPath": "/static/dist/main.f12510bb8028ec0747d4.js"
+    },
+    "main.f237eb0184b10f6258e2.js": {
+      "name": "main.f237eb0184b10f6258e2.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.f237eb0184b10f6258e2.js",
+      "publicPath": "/static/dist/main.f237eb0184b10f6258e2.js"
+    },
+    "main.f2a026af300c2f170c68.js": {
+      "name": "main.f2a026af300c2f170c68.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.f2a026af300c2f170c68.js",
+      "publicPath": "/static/dist/main.f2a026af300c2f170c68.js"
+    },
+    "main.f6f50233605e3706d161.js": {
+      "name": "main.f6f50233605e3706d161.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.f6f50233605e3706d161.js",
+      "publicPath": "/static/dist/main.f6f50233605e3706d161.js"
+    },
+    "main.f73ef3d09c1cabaf6efe.js": {
+      "name": "main.f73ef3d09c1cabaf6efe.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.f73ef3d09c1cabaf6efe.js",
+      "publicPath": "/static/dist/main.f73ef3d09c1cabaf6efe.js"
+    },
+    "main.f76f687ee65ade4db07c.js": {
+      "name": "main.f76f687ee65ade4db07c.js",
+      "path": "/home/edis/MyProjects/Printing/static/dist/main.f76f687ee65ade4db07c.js",
+      "publicPath": "/static/dist/main.f76f687ee65ade4db07c.js"
     }
   },
   "chunks": {
     "main": [
-      "main.0e636177dc8ba3329423.js"
+      "main.27a367cb1fc6e1a41c83.js"
     ]
   },
-  "publicPath": "/static/dist/"
+  "publicPath": "/static/dist/",
+  "error": "ModuleBuildError",
+  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/edis/MyProjects/Printing/static/js/Product/general_design.js: Unexpected token (100:0)\n\n   98 |     // Izsauc sākotnēji, ja sākotnējie izmēri jau ir redzami\n   99 |     bindQuantityControls();\n> 100 | });\n      | ^\n  101 |\n    at constructor (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:360:19)\n    at Parser.raise (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:6613:19)\n    at Parser.unexpected (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:6633:16)\n    at Parser.parseExprAtom (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:11358:16)\n    at Parser.parseExprSubscripts (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10992:23)\n    at Parser.parseUpdate (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10977:21)\n    at Parser.parseMaybeUnary (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10957:23)\n    at Parser.parseMaybeUnaryOrPrivate (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10810:61)\n    at Parser.parseExprOps (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10815:23)\n    at Parser.parseMaybeConditional (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10792:23)\n    at Parser.parseMaybeAssign (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10745:21)\n    at Parser.parseExpressionBase (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10698:23)\n    at /home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10694:39\n    at Parser.allowInAnd (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:12329:16)\n    at Parser.parseExpression (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:10694:17)\n    at Parser.parseStatementContent (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:12771:23)\n    at Parser.parseStatementLike (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:12644:17)\n    at Parser.parseModuleItem (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:12621:17)\n    at Parser.parseBlockOrModuleBlockBody (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:13192:36)\n    at Parser.parseBlockBody (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:13185:10)\n    at Parser.parseProgram (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:12514:10)\n    at Parser.parseTopLevel (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:12504:25)\n    at Parser.parse (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:14364:10)\n    at parse (/home/edis/MyProjects/Printing/node_modules/@babel/parser/lib/index.js:14398:38)\n    at parser (/home/edis/MyProjects/Printing/node_modules/@babel/core/lib/parser/index.js:41:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (/home/edis/MyProjects/Printing/node_modules/@babel/core/lib/transformation/normalize-file.js:64:37)\n    at normalizeFile.next (<anonymous>)\n    at run (/home/edis/MyProjects/Printing/node_modules/@babel/core/lib/transformation/index.js:22:50)\n    at run.next (<anonymous>)\n    at transform (/home/edis/MyProjects/Printing/node_modules/@babel/core/lib/transform.js:22:33)\n    at transform.next (<anonymous>)\n    at step (/home/edis/MyProjects/Printing/node_modules/gensync/index.js:261:32)\n    at /home/edis/MyProjects/Printing/node_modules/gensync/index.js:273:13\n    at async.call.result.err.err (/home/edis/MyProjects/Printing/node_modules/gensync/index.js:223:11)"
 }

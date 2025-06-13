@@ -4,7 +4,8 @@ from payments.models import Purchase, PurchaseProduct, BankDetails, GiftCode
 class PurchaseProductInline(admin.TabularInline):
     model = PurchaseProduct
     extra = 0
-    readonly_fields = ['product', 'quantity']
+    can_delete = False
+    readonly_fields = ['product', 'size', 'quantity']
 
 @admin.register(BankDetails)
 class BankDetailsAdmin(admin.ModelAdmin):

@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 {% load static i18n %}
 
+{% block og_head %}
+  <meta property="og:title" content="{{ product.title }} – EricPrint" />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+  <meta property="og:image" content="{{ product.front_image.url }}" />
+  <meta property="og:description" content="{{ product.description|truncatewords:25 }}" />
+  <meta property="og:site_name" content="EricPrint" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ product.title }} – EricPrint" />
+  <meta name="twitter:description" content="{{ product.description|truncatewords:25 }}" />
+  <meta name="twitter:image" content="{{ product.front_image.url }}" />
+{% endblock %}
+
 {% block body %}
 <div class="container mx-auto px-4 py-10 mt-48">
   <div class="grid lg:grid-cols-2 gap-10 bg-second-color rounded-2xl shadow-lg p-8">
